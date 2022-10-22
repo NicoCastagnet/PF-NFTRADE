@@ -13,7 +13,7 @@ export default function Register() {
           width={''}
         />
       </div> */}
-      <div></div>
+      <div>test</div>
       <div className="division flex flex-row-reverse text-center items-center justify-center h-screen">
         <div className="derecha flex flex-col-reverse">
           <Image
