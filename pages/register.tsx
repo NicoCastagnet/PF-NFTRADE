@@ -14,7 +14,7 @@ export default function Register() {
         />
       </div> */}
 
-      <div className="cambios">cambios</div>
+      <div className="cambios">cambio</div>
       <div className="division flex flex-row-reverse text-center items-center justify-center h-screen">
         <div className="derecha flex flex-col-reverse">
           <Image
