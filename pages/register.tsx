@@ -18,7 +18,7 @@ export default function Register() {
           <Image
             src={regImage}
             alt="reg_image"
-            className="reg_image rounded-[4.5rem]"
+            className="reg_image rounded-[4.5rem] "
           />
           {/* <button className='login-btn bg-white h-12 w-24 rounded-full fixed top-32 right-80 text-lg font-normal'>
             Log in
