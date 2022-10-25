@@ -13,14 +13,16 @@ import SvgTwitter from '../svg/svgTwitter'
 //
 //
 const SignIn: FC = () => {
-  const { data: session, status } = useSession()
+  const { status } = useSession()
   const router = useRouter()
   const { providers } = useInfoProviders()
 
   if (status === 'loading') {
     return <h1>Loading...</h1>
   }
-  if (status === 'authenticated') {router.push("/")}
+  if (status === 'authenticated') {
+    router.push('/')
+  }
 
   return (
     <div className="flex flex-col items-center justify-start w-full min-h-screen">

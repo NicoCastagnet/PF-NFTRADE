@@ -1,3 +1,5 @@
+import prisma from '@lib/db'
+import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import NextAuth, { NextAuthOptions } from 'next-auth'
 import FacebookProvider from 'next-auth/providers/facebook'
 import GoogleProvider from 'next-auth/providers/google'
@@ -11,9 +13,7 @@ interface cli {
 
 export const authOptions: NextAuthOptions = {
   // Adatpter Prisma
-  //
-  //
-  //
+  adapter: PrismaAdapter(prisma),
   // Configure authentication providers
   providers: [
     GoogleProvider({
@@ -34,20 +34,20 @@ export const authOptions: NextAuthOptions = {
     TwitterProvider({
       clientId: process.env.TWITTER_CLIENT_ID,
       clientSecret: process.env.TWITTER_CLIENT_SECRET,
-      version: "2.0"
+      version: '2.0',
     } as cli),
   ],
   session: {
     strategy: 'jwt',
   },
   callbacks: {
-    session: async ({token, session}) => {
+    session: async ({ session }) => {
       //
       //
       //
       return session
-    }
-  }
+    },
+  },
   // callbacks: {
   //   async jwt({ token, account }) {
   //     // Persist the OAuth access_token to the token right after signin

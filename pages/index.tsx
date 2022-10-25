@@ -3,7 +3,7 @@ import { signOut, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 
 const Home: NextPage = () => {
-  const { data: session, status } = useSession()
+  const { data: session } = useSession()
   const router = useRouter()
 
   return (
