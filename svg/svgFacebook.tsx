@@ -28,5 +28,4 @@ const SvgFacebook = (props: any) => (
   </svg>
 )
 
-
 export default SvgFacebook
