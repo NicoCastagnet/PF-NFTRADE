@@ -5,10 +5,10 @@ import type { FC } from 'react'
 import whiteLogo from '../Assets/logo@1,25x.png'
 import regImage from '../Assets/nft-cost.jpg'
 import useInfoProviders from '../hook/providers'
-import SvgFacebook from '../svg/svgFacebook'
-import SvgGoogle from '../svg/svgGoogle'
-import SvgLinkedIn from '../svg/svgLinkedIn'
-import SvgTwitter from '../svg/svgTwitter'
+import SvgFacebook from './Components/Icons/svgFacebook'
+import SvgGoogle from './Components/Icons/svgGoogle'
+import SvgLinkedIn from './Components/Icons/svgLinkedIn'
+import SvgTwitter from './Components/Icons/svgTwitter'
 
 //
 //
