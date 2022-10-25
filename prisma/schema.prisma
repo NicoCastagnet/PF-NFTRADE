@@ -11,18 +11,18 @@ datasource db {
 }
 
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.Text
-  session_state      String?
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -38,13 +38,19 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
+  id                 String       @id @default(cuid())
+  name               String?
+  email              String?      @unique
+  emailVerified      DateTime?
+  image              String?
+  accounts           Account[]
+  sessions           Session[]
+  nftsCreated        Nft[]        @relation(name: "UserNftsCreated")
+  nftsOwned          Nft[]        @relation(name: "UserNftsOwned")
+  collectionsCreated Collection[] @relation(name: "UserCollectionsCreated")
+  collectionsOwned   Collection[] @relation(name: "UserCollectionsOwned")
+  likes              Nft[]        @relation(name: "UserLikedNfts")
+  wishes             WishList[]
 }
 
 model VerificationToken {
@@ -53,4 +59,67 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Nft {
+  id          String   @id @default(cuid())
+  creatorId   String
+  ownerId     String
+  name        String
+  image       String
+  description String
+  price       Float
+  published   Boolean? @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  creator      User               @relation(name: "UserNftsCreated", fields: [creatorId], references: [id])
+  owner        User               @relation(name: "UserNftsOwned", fields: [ownerId], references: [id])
+  categories   CategoriesOnNfts[]
+  collection   Collection?        @relation(references: [id], fields: [collectionId])
+  collectionId String?
+  likedBy      User?              @relation(name: "UserLikedNfts", fields: [userId], references: [id])
+  userId       String?
+  wishedBy     WishList[]
+}
+
+model Category {
+  id   String @id @default(cuid())
+  name String
+
+  nfts CategoriesOnNfts[]
+}
+
+model CategoriesOnNfts {
+  nft        Nft      @relation(fields: [nftId], references: [id])
+  nftId      String
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId String
+
+  @@id([nftId, categoryId])
+}
+
+model Collection {
+  id          String   @id @default(cuid())
+  name        String
+  image       String?
+  description String?
+  disccount   Float
+  creatorId   String
+  ownerId     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  creator User  @relation(name: "UserCollectionsCreated", fields: [creatorId], references: [id])
+  owner   User  @relation(name: "UserCollectionsOwned", fields: [ownerId], references: [id])
+  nfts    Nft[]
+}
+
+model WishList {
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+  nft    Nft    @relation(fields: [nftId], references: [id])
+  nftId  String
+
+  @@id([userId, nftId])
 }
