@@ -9,7 +9,6 @@ import SvgFacebook from '../svg/svgFacebook'
 import SvgGoogle from '../svg/svgGoogle'
 import SvgLinkedIn from '../svg/svgLinkedIn'
 import SvgTwitter from '../svg/svgTwitter'
-
 //
 //
 const SignIn: FC = () => {
@@ -21,7 +20,6 @@ const SignIn: FC = () => {
     return <h1>Loading...</h1>
   }
   if (status === 'authenticated') {router.push("/")}
-
   return (
     <div className="flex flex-col items-center justify-start w-full min-h-screen">
       <div className="flex flex-row items-start pl-6 w-full">
@@ -30,6 +28,7 @@ const SignIn: FC = () => {
       <div className="flex flex-col sm:flex-row justify-center items-center w-full">
         <div className="flex flex-col items-center justify-center w-full max-w-md mt-4">
           <div className="flex flex-col items-center w-full">
+
             <h1 className="reg-title text-3xl font-normal">
               Create an account
             </h1>
@@ -94,6 +93,7 @@ const SignIn: FC = () => {
                 <SvgLinkedIn />
               </button>
             )}
+
           </div>
         </div>
         <div className="flex justify-center items-center collapse sm:visible">
@@ -111,11 +111,3 @@ const SignIn: FC = () => {
   )
 }
 
-export async function getServerSidePorps() {
-  const providers = await getProviders()
-  return {
-    props: { providers },
-  }
-}
-
-export default SignIn
