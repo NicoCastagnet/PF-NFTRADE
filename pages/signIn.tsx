@@ -1,13 +1,27 @@
-import type { NextPage } from 'next'
+import { getProviders, signIn, useSession } from 'next-auth/react'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
+import type { FC } from 'react'
 import whiteLogo from '../Assets/logo@1,25x.png'
 import regImage from '../Assets/nft-cost.jpg'
+import useInfoProviders from '../hook/providers'
 import SvgFacebook from '../svg/svgFacebook'
 import SvgGoogle from '../svg/svgGoogle'
 import SvgLinkedIn from '../svg/svgLinkedIn'
 import SvgTwitter from '../svg/svgTwitter'
 
-const signIn: NextPage = () => {
+//
+//
+const SignIn: FC = () => {
+  const { data: session, status } = useSession()
+  const router = useRouter()
+  const { providers } = useInfoProviders()
+
+  if (status === 'loading') {
+    return <h1>Loading...</h1>
+  }
+  if (status === 'authenticated') {router.push("/")}
+
   return (
     <div className="flex flex-col items-center justify-start w-full min-h-screen">
       <div className="flex flex-row items-start pl-6 w-full">
@@ -15,40 +29,71 @@ const signIn: NextPage = () => {
       </div>
       <div className="flex flex-col sm:flex-row justify-center items-center w-full">
         <div className="flex flex-col items-center justify-center w-full max-w-md mt-4">
-          <div className='flex flex-col items-center w-full'>
+          <div className="flex flex-col items-center w-full">
             <h1 className="reg-title text-3xl font-normal">
               Create an account
             </h1>
             <h3 className="reg-subtitle text-xl text-left text-gray-500">
               Let&aposs get started!
             </h3>
-            <form className='flex flex-col items-center w-full'>
-            <input
-              className="bg-transparent border-b-2 border-b-gray-500 p-2 m-2 text-xl font-light"
-              type="email"
-              placeholder={'Email'}
-            />
-            <input
-              className="bg-transparent border-b-2 border-b-gray-500 p-2 m-2 text-xl font-light"
-              type="password"
-              placeholder={'Password'}
-            />
-            <button
-              className="bg-zinc-800 text-white rounded-full py-2 px-8 mt-10 mb-5 text-lg w-3/5"
-              type="submit"
-            >
-              Create account
-            </button>
+            <form className="flex flex-col items-center w-full">
+              <input
+                className="bg-transparent border-b-2 border-b-gray-500 p-2 m-2 text-xl font-light"
+                type="email"
+                placeholder={'Email'}
+              />
+              <input
+                className="bg-transparent border-b-2 border-b-gray-500 p-2 m-2 text-xl font-light"
+                type="password"
+                placeholder={'Password'}
+              />
+              <button
+                className="bg-zinc-800 text-white rounded-full py-2 px-8 mt-10 mb-5 text-lg w-3/5"
+                type="submit"
+              >
+                Create account
+              </button>
             </form>
-
-
-
           </div>
           <div className="flex flex-row justify-evenly items-center w-3/5">
-            <SvgGoogle />
-            <SvgFacebook />
-            <SvgTwitter />
-            <SvgLinkedIn />
+            {providers?.google && (
+              <button
+                onClick={async () => {
+                  await signIn(providers.google.id)
+                }}
+              >
+                <SvgGoogle />
+              </button>
+            )}
+            {providers?.facebook && (
+              <button
+                onClick={async () => {
+                  await signIn(providers.facebook.id)
+                }}
+              >
+                <SvgFacebook />
+              </button>
+            )}
+
+            {providers?.twitter && (
+              <button
+                onClick={async () => {
+                  await signIn(providers.twitter.id)
+                }}
+              >
+                <SvgTwitter />
+              </button>
+            )}
+
+            {providers?.linkedin && (
+              <button
+                onClick={async () => {
+                  await signIn(providers.linkedin.id)
+                }}
+              >
+                <SvgLinkedIn />
+              </button>
+            )}
           </div>
         </div>
         <div className="flex justify-center items-center collapse sm:visible">
@@ -66,4 +111,11 @@ const signIn: NextPage = () => {
   )
 }
 
-export default signIn
+export async function getServerSidePorps() {
+  const providers = await getProviders()
+  return {
+    props: { providers },
+  }
+}
+
+export default SignIn
