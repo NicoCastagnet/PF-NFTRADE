@@ -6,12 +6,6 @@ const Home: NextPage = () => {
   const { data: session, status } = useSession()
   const router = useRouter()
 
-  // useEffect(() => {
-  //   if (!session) {
-  //     router.push('signIn')
-  //   }
-  // }, [signOut])
-
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-slate-50">
       <h1 className="text-3xl font-medium text-slate-800">Working</h1>
