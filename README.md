@@ -14,6 +14,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ```bash
 npm install
+npx prisma generate
 ```
 
 Add the environment variable `DATABASE_URL` in the `.env` file:
