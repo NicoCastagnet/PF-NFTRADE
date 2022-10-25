@@ -1,13 +1,27 @@
-import type { NextPage } from 'next'
+import { signIn, useSession } from 'next-auth/react'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
+import type { FC } from 'react'
 import whiteLogo from '../Assets/logo@1,25x.png'
 import regImage from '../Assets/nft-cost.jpg'
+import useInfoProviders from '../hook/providers'
 import SvgFacebook from '../svg/svgFacebook'
 import SvgGoogle from '../svg/svgGoogle'
 import SvgLinkedIn from '../svg/svgLinkedIn'
 import SvgTwitter from '../svg/svgTwitter'
 
-const signIn: NextPage = () => {
+//
+//
+const SignIn: FC = () => {
+  const { data: session, status } = useSession()
+  const router = useRouter()
+  const { providers } = useInfoProviders()
+
+  if (status === 'loading') {
+    return <h1>Loading...</h1>
+  }
+  if (status === 'authenticated') {router.push("/")}
+
   return (
     <div className="flex flex-col items-center justify-start w-full min-h-screen">
       <div className="flex flex-row items-start pl-6 w-full">
@@ -42,10 +56,44 @@ const signIn: NextPage = () => {
             </form>
           </div>
           <div className="flex flex-row justify-evenly items-center w-3/5">
-            <SvgGoogle />
-            <SvgFacebook />
-            <SvgTwitter />
-            <SvgLinkedIn />
+            {providers?.google && (
+              <button
+                onClick={async () => {
+                  await signIn(providers.google.id)
+                }}
+              >
+                <SvgGoogle />
+              </button>
+            )}
+            {providers?.facebook && (
+              <button
+                onClick={async () => {
+                  await signIn(providers.facebook.id)
+                }}
+              >
+                <SvgFacebook />
+              </button>
+            )}
+
+            {providers?.twitter && (
+              <button
+                onClick={async () => {
+                  await signIn(providers.twitter.id)
+                }}
+              >
+                <SvgTwitter />
+              </button>
+            )}
+
+            {providers?.linkedin && (
+              <button
+                onClick={async () => {
+                  await signIn(providers.linkedin.id)
+                }}
+              >
+                <SvgLinkedIn />
+              </button>
+            )}
           </div>
         </div>
         <div className="flex justify-center items-center collapse sm:visible">
@@ -63,4 +111,4 @@ const signIn: NextPage = () => {
   )
 }
 
-export default signIn
+export default SignIn
