@@ -31,3 +31,10 @@ npm run db:studio
 
 Open your browser and go to [http://localhost:5555](http://localhost:5555).
 You should be able to see the tables created in the database with your records.
+
+## Api
+
+Endpoints created:
+
+- [Get all nfts](docs/getAll.md) : `GET /api/nfts`
+- [Get nft defail](docs/getById.md) : `GET /api/nfts/:id`
