@@ -49,8 +49,9 @@ model User {
   nftsOwned          Nft[]        @relation(name: "UserNftsOwned")
   collectionsCreated Collection[] @relation(name: "UserCollectionsCreated")
   collectionsOwned   Collection[] @relation(name: "UserCollectionsOwned")
-  likes              Nft[]        @relation(name: "UserLikedNfts")
   wishes             WishList[]
+  likes              Nft[]        @relation(name: "UserLikedNfts")
+  views              Nft[]        @relation(name: "UserViewedNfts")
 }
 
 model VerificationToken {
@@ -73,30 +74,20 @@ model Nft {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  creator      User               @relation(name: "UserNftsCreated", fields: [creatorId], references: [id])
-  owner        User               @relation(name: "UserNftsOwned", fields: [ownerId], references: [id])
-  categories   CategoriesOnNfts[]
-  collection   Collection?        @relation(references: [id], fields: [collectionId])
+  creator      User        @relation(name: "UserNftsCreated", fields: [creatorId], references: [id])
+  owner        User        @relation(name: "UserNftsOwned", fields: [ownerId], references: [id])
+  categories   Category[]  @relation(name: "CategoryOnCollection")
+  collection   Collection? @relation(references: [id], fields: [collectionId])
   collectionId String?
-  likedBy      User?              @relation(name: "UserLikedNfts", fields: [userId], references: [id])
-  userId       String?
+  likedBy      User[]      @relation(name: "UserLikedNfts")
+  viewedBy     User[]      @relation(name: "UserViewedNfts")
   wishedBy     WishList[]
 }
 
 model Category {
   id   String @id @default(cuid())
   name String
-
-  nfts CategoriesOnNfts[]
-}
-
-model CategoriesOnNfts {
-  nft        Nft      @relation(fields: [nftId], references: [id])
-  nftId      String
-  category   Category @relation(fields: [categoryId], references: [id])
-  categoryId String
-
-  @@id([nftId, categoryId])
+  nfts Nft[]  @relation(name: "CategoryOnCollection")
 }
 
 model Collection {
