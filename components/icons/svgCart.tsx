@@ -1,4 +1,4 @@
-const svgCart = (props: any) => (
+const svgCart = ({ ...props }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={32}

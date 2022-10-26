@@ -1,9 +1,9 @@
+import whiteLogo from '@assets/White.png'
+import SvgBitCoin from '@components/icons/svgBitCoin'
+import SvgCart from '@components/icons/svgCart'
+import SvgSearch from '@components/icons/svgSearch'
+import SvgUser from '@components/icons/svgUser'
 import Image from 'next/image'
-import whiteLogo from '../../Assets/White.png'
-import SvgBitCoin from './Icons/svgBitCoin'
-import SvgCart from './Icons/svgCart'
-import SvgSearch from './Icons/svgSearch'
-import SvgUser from './Icons/svgUser'
 
 export default function NavBar() {
   return (

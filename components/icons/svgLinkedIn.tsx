@@ -1,4 +1,4 @@
-const SvgLinkedIn = (props: any) => (
+const SvgLinkedIn = ({ ...props }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 48 48"

@@ -1,14 +1,14 @@
+import whiteLogo from '@assets/logo@1,25x.png'
+import regImage from '@assets/nft-cost.jpg'
+import SvgFacebook from '@components/icons/svgFacebook'
+import SvgGoogle from '@components/icons/svgGoogle'
+import SvgLinkedIn from '@components/icons/svgLinkedIn'
+import SvgTwitter from '@components/icons/svgTwitter'
 import { signIn, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
-import whiteLogo from '../Assets/logo@1,25x.png'
-import regImage from '../Assets/nft-cost.jpg'
 import useInfoProviders from '../hook/providers'
-import SvgFacebook from './Components/Icons/svgFacebook'
-import SvgGoogle from './Components/Icons/svgGoogle'
-import SvgLinkedIn from './Components/Icons/svgLinkedIn'
-import SvgTwitter from './Components/Icons/svgTwitter'
 
 //
 //
