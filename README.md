@@ -39,3 +39,7 @@ Endpoints created:
 - [Get all nfts](docs/nfts/getAll.md) : `GET /api/nfts`
 - [Get nft defail](docs/nfts/getById.md) : `GET /api/nfts/:id`
 - [Get all categories](docs/categories/getAll.md) : `GET /api/categories`
+- [Get category detail](docs/categories/getById.md) : `GET /api/categories/:id`
+- [Get all collections](docs/collections/getAll.md) : `GET /api/collections`
+- [Get collection detail](docs/collections/getById.md) : `GET /api/collections/:id`
+- [Get home feed](docs/feed/home.md) : `GET /api/feed/home`

@@ -31,35 +31,15 @@ Content: Object
     {
       "id": "cl9qe7iuk001c56jraw2advp9",
       "name": "Rustic Soft Chips",
-      "description": "Description collection",
-      "disccount": 0.3,
       "image": "https://loremflickr.com/cache/resized/65535_51788078747_3b0972967b_c_640_480_nofilter.jpg",
+      "price": 11.23,
       "owner": {
         "name": "Tami Connelly"
       },
-      "creator": {
-        "name": "Creator name"
-      },
-      "createdAt": "2022-10-27T01:34:32.189Z",
-      "updatedAt": "2022-10-27T01:34:32.189Z",
-      "nfts": [
-        {
-          "id": "cl9qe7ium001z56jrhgwqpdg8",
-          "name": "Incredible Granite Chips",
-          "image": "https://loremflickr.com/640/480",
-          "price": 10.3,
-          "owner": {
-            "name": "Owner Name"
-          },
-          "creator": {
-            "name": "Creator name"
-          },
-          "_count": {
-            "likedBy": 3,
-            "viewedBy": 10
-          }
-        }
-      ]
+      "_count": {
+        "likedBy": 3,
+        "viewedBy": 12
+      }
     }
   ]
 }
