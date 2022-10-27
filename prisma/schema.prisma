@@ -42,6 +42,7 @@ model User {
   name               String?
   email              String?      @unique
   emailVerified      DateTime?
+  passwordHash       String?
   image              String?
   accounts           Account[]
   sessions           Session[]
@@ -85,9 +86,10 @@ model Nft {
 }
 
 model Category {
-  id   String @id @default(cuid())
-  name String
-  nfts Nft[]  @relation(name: "CategoryOnCollection")
+  id    String  @id @default(cuid())
+  name  String
+  image String?
+  nfts  Nft[]   @relation(name: "CategoryOnCollection")
 }
 
 model Collection {
