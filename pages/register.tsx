@@ -1,6 +1,6 @@
 // import whiteLogo from '../Assets/logo@1,25x.png';
+import regImage from '@assets/nft-cost.jpg'
 import Image from 'next/image'
-import regImage from '../Assets/nft-cost.jpg'
 
 export default function Register() {
   return (
