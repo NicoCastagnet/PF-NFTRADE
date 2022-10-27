@@ -1,4 +1,4 @@
-# Get all categories
+# Get all collections
 
 Returns all collections created in the database.
 
