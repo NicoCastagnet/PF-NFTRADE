@@ -5,11 +5,13 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import whiteLogo from '../Assets/logo@1,25x.png'
-import regImage from '../Assets/nft-cost.jpg'
+import Router, { useRouter } from 'next/router'
+import whiteLogo from '../assets/logo@1,25x.png'
+import regImage from '../assets/nft-cost.jpg'
 
-const Register: NextPage = () => {
+const SignIn: NextPage = () => {
   //////////////////////////////////////////////////
+  const router = useRouter()
   const formik = useFormik({
     initialValues: {
       username: '',
@@ -26,7 +28,16 @@ const Register: NextPage = () => {
     password: string
     cpassword: string
   }) {
-    console.log('register => ', values)
+    const options = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: values.username,
+        email: values.email,
+        password: values.password,
+      })
+    }
+    await fetch('http://localhost:3000/api/auth/signup', options)
   }
 
   ////////////////////////////////////////////////////////////////
@@ -108,4 +119,4 @@ const Register: NextPage = () => {
   )
 }
 
-export default Register
+export default SignIn

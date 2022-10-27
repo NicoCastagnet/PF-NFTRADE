@@ -1,11 +1,12 @@
 import prisma from '@lib/db'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
+import { compare } from 'bcryptjs'
 import NextAuth, { NextAuthOptions } from 'next-auth'
+import CredentialProviders from 'next-auth/providers/credentials'
 import FacebookProvider from 'next-auth/providers/facebook'
 import GoogleProvider from 'next-auth/providers/google'
 import LinkedInProvider from 'next-auth/providers/linkedin'
 import TwitterProvider from 'next-auth/providers/twitter'
-import { compare } from 'bcryptjs'
 
 interface cli {
   clientId: string
@@ -18,33 +19,34 @@ export const authOptions: NextAuthOptions = {
   // Configure authentication providers
   providers: [
     // credentials Provider
-    // CredentialsProvider({
-    //   name: 'Credentials',
-    //   authorize: async(credentials, req) => {
-    //     // check user existance
-    //     const result = await prisma.user.findUnique({
-    //       where: {
-    //         email: credentials.email
-    //       }
-    //     })
-    //     if (!result) {
-    //       throw new Error('No user Found with Email Please Sign Up...!')
-    //     }
+    CredentialProviders({
+      name: 'Credentials',
+      authorize: async (credentials, req) => {
+        console.log("🚀 ~ file: [...nextauth].ts ~ line 25 ~ authorize: ~ credentials", credentials)
+        // check user existance
+        const result = await prisma.user.findUnique({
+          where: {
+            email: credentials.email,
+          },
+        })
+        if (!result) {
+          throw new Error('No user Found with Email Please Sign Up...!')
+        }
 
-    //     // compare()
-    //     const checkPassword = await compare(
-    //       credentials.password,
-    //       result.password,
-    //     )
+        // compare()
+        const checkPassword = await compare(
+          credentials.password,
+          result.passwordHash,
+        )
 
-    //     // incorrect password
-    //     if (!checkPassword || result.email !== credentials.email) {
-    //       throw new Error("Username or Password doesn't match")
-    //     }
+        // incorrect password
+        if (!checkPassword || result.email !== credentials.email) {
+          throw new Error("Username or Password doesn't match")
+        }
 
-    //     return result
-    //   },
-    // }),
+        return result
+      },
+    }),
     // Google Provider
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
