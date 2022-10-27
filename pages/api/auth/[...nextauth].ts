@@ -84,7 +84,13 @@ export const authOptions: NextAuthOptions = {
 }
 export default NextAuth(authOptions)
 
-const signInUser = async ({ user, password }: { user: any; password: string }) => {
+const signInUser = async ({
+  user,
+  password,
+}: {
+  user: any
+  password: string
+}) => {
   if (!user.password) {
     throw new Error('inserting password, please')
   }

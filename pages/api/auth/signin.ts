@@ -15,8 +15,7 @@ export default async function handle(
     const {
       username,
       email,
-      // password,
-    }:
+    }: // password,
     { username: string; email: string; password: string } = req.body
     console.log('aca arrancamos =>')
     // check duplicate users

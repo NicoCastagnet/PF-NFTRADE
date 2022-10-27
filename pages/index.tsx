@@ -8,13 +8,13 @@ const Home: NextPage = () => {
   const router = useRouter()
 
   const getUserInfo = () => {
-    if(status === 'loading') return
+    if (status === 'loading') return
     fetch(`/api/users?id=${session?.user?.id}`)
   }
 
   useEffect(() => {
     getUserInfo()
-  },[status])
+  }, [status])
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-slate-50">
