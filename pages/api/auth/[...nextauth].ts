@@ -1,8 +1,11 @@
+import prisma from '@lib/db'
+import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import NextAuth, { NextAuthOptions } from 'next-auth'
 import FacebookProvider from 'next-auth/providers/facebook'
 import GoogleProvider from 'next-auth/providers/google'
 import LinkedInProvider from 'next-auth/providers/linkedin'
 import TwitterProvider from 'next-auth/providers/twitter'
+import { compare } from 'bcryptjs'
 
 interface cli {
   clientId: string
@@ -11,11 +14,38 @@ interface cli {
 
 export const authOptions: NextAuthOptions = {
   // Adatpter Prisma
-  //
-  //
-  //
+  adapter: PrismaAdapter(prisma),
   // Configure authentication providers
   providers: [
+    // credentials Provider
+    // CredentialsProvider({
+    //   name: 'Credentials',
+    //   authorize: async(credentials, req) => {
+    //     // check user existance
+    //     const result = await prisma.user.findUnique({
+    //       where: {
+    //         email: credentials.email
+    //       }
+    //     })
+    //     if (!result) {
+    //       throw new Error('No user Found with Email Please Sign Up...!')
+    //     }
+
+    //     // compare()
+    //     const checkPassword = await compare(
+    //       credentials.password,
+    //       result.password,
+    //     )
+
+    //     // incorrect password
+    //     if (!checkPassword || result.email !== credentials.email) {
+    //       throw new Error("Username or Password doesn't match")
+    //     }
+
+    //     return result
+    //   },
+    // }),
+    // Google Provider
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
@@ -34,33 +64,33 @@ export const authOptions: NextAuthOptions = {
     TwitterProvider({
       clientId: process.env.TWITTER_CLIENT_ID,
       clientSecret: process.env.TWITTER_CLIENT_SECRET,
-      version: "2.0"
+      version: '2.0',
     } as cli),
   ],
+  secret: process.env.NEXTAUTH_SECRET,
   session: {
     strategy: 'jwt',
   },
   callbacks: {
-    session: async ({token, session}) => {
-      //
-      //
+    session: async ({ token, session }) => {
+      if (session?.user && token?.sub) {
+        session.user.id = token.sub
+        console.log(session)
+      }
       //
       return session
-    }
-  }
-  // callbacks: {
-  //   async jwt({ token, account }) {
-  //     // Persist the OAuth access_token to the token right after signin
-  //     if (account) {
-  //       token.accessToken = account.access_token
-  //     }
-  //     return token
-  //   },
-  //   async session({ session, token, user }) {
-  //     // Send properties to the client, like an access_token from a provider.
-  //     session.accessToken = token.accessToken
-  //     return session
-  //   },
-  // },
+    },
+  },
 }
 export default NextAuth(authOptions)
+
+const signInUser = async ({ user, password }: { user: any; password: string }) => {
+  if (!user.password) {
+    throw new Error('inserting password, please')
+  }
+  const isMatch = await compare(password, user)
+  if (isMatch) {
+    throw new Error('password invalid')
+  }
+  return user
+}

@@ -1,10 +1,20 @@
 import type { NextPage } from 'next'
 import { signOut, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
 const Home: NextPage = () => {
   const { data: session, status } = useSession()
   const router = useRouter()
+
+  const getUserInfo = () => {
+    if(status === 'loading') return
+    fetch(`/api/users?id=${session?.user?.id}`)
+  }
+
+  useEffect(() => {
+    getUserInfo()
+  },[status])
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-slate-50">
