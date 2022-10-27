@@ -8,13 +8,16 @@ export default async function postCategory(
 ) {
   if (req.method === 'POST') {
     const { name, image } = req.body
-    if (!name || !image) {
-      res.status(400).send('Faltans datos')
+    if (!name) {
+      res.status(400).send("Falta la propiedad 'name' ")
     } else {
+      const img: string = image
       const category = await prisma.category.create({
         data: {
           name,
-          image,
+          image: img
+            ? img
+            : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCB9tB3P7DWxNB466mjV8mRanhrj2snehAvbDqSXunYg&s',
         },
       })
       const msg = {

@@ -8,13 +8,16 @@ export default async function postCollection(
 ) {
   if (req.method === 'POST') {
     const { name, image, description, disccount, creatorId } = req.body
-    if (!name || !image || !description || !disccount || !creatorId) {
+    if (!name || !disccount || !creatorId) {
       res.status(400).send('Faltans datos')
     } else {
+      const img: string = image
       const collection = await prisma.collection.create({
         data: {
           name,
-          image,
+          image: img
+            ? img
+            : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCB9tB3P7DWxNB466mjV8mRanhrj2snehAvbDqSXunYg&s',
           description,
           disccount,
           creatorId,
