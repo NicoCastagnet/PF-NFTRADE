@@ -36,5 +36,6 @@ You should be able to see the tables created in the database with your records.
 
 Endpoints created:
 
-- [Get all nfts](docs/getAll.md) : `GET /api/nfts`
-- [Get nft defail](docs/getById.md) : `GET /api/nfts/:id`
+- [Get all nfts](docs/nfts/getAll.md) : `GET /api/nfts`
+- [Get nft defail](docs/nfts/getById.md) : `GET /api/nfts/:id`
+- [Get all categories](docs/categories/getAll.md) : `GET /api/categories`
