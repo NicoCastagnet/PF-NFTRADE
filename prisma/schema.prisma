@@ -77,7 +77,7 @@ model Nft {
 
   creator      User        @relation(name: "UserNftsCreated", fields: [creatorId], references: [id])
   owner        User        @relation(name: "UserNftsOwned", fields: [ownerId], references: [id])
-  categories   Category[]  @relation(name: "CategoryOnCollection")
+  categories   Category[]  @relation(name: "CategoriesOnNft")
   collection   Collection? @relation(references: [id], fields: [collectionId])
   collectionId String?
   likedBy      User[]      @relation(name: "UserLikedNfts")
@@ -89,7 +89,7 @@ model Category {
   id    String  @id @default(cuid())
   name  String
   image String?
-  nfts  Nft[]   @relation(name: "CategoryOnCollection")
+  nfts  Nft[]   @relation(name: "CategoriesOnNft")
 }
 
 model Collection {
