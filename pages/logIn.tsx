@@ -6,8 +6,8 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import whiteLogo from '../Assets/logo@1,25x.png'
-import regImage from '../Assets/nft-cost.jpg'
+import whiteLogo from '../assets/logo@1,25x.png'
+import regImage from '../assets/nft-cost.jpg'
 import useInfoProviders from '../hook/providers'
 import SvgFacebook from '@components/icons/svgFacebook'
 import SvgGoogle from '@components/icons/svgGoogle'
@@ -137,7 +137,7 @@ const LogIn: NextPage = () => {
           </div>
           <p className="text-center text-gray-400">
             {"don't have an account yet?"}
-            <Link href={'/register'}>
+            <Link href={'/signIn'}>
               <a className="text-blue-700"> Sign Up</a>
             </Link>
           </p>

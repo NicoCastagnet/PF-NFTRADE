@@ -1,6 +1,6 @@
 import prisma from '@lib/db'
 import type { NextApiRequest, NextApiResponse } from 'next'
-// import { hash } from 'bcryptjs'
+import { hash } from 'bcryptjs'
 //
 //
 export default async function handle(
@@ -15,27 +15,28 @@ export default async function handle(
     const {
       username,
       email,
-    }: // password,
+      password,
+    }: 
     { username: string; email: string; password: string } = req.body
-    console.log('aca arrancamos =>')
+    console.log('aca arrancamos =>'+ email)
     // check duplicate users
-    const checkExist = await prisma?.user.findUnique({
+    const checkExist = await prisma.user.findUnique({
       where: {
-        email,
-      },
+        email
+      }
     })
     if (checkExist) {
       return res.status(422).json({ msg: 'User already exists...!' })
     }
     console.log('aca en hash =>')
-    // hash password
-    // const passwordHash = await hash(password, 10)
+    // // hash password
+    const passwordhash = await hash(password, 5)
     const pri = await prisma?.user.create({
       data: {
         name: username,
         email,
-        // passwordHash
-        // passwordHash: await hash(password, 12), function(err, data)  {
+        passwordHash: passwordhash,
+        // : await hash(password, 12), function(err, data)  {
         //   if(err) return res.status(404).json({err})
         //   res.status(200).json({status: true, user: data})
         // }
