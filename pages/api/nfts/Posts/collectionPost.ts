@@ -7,7 +7,7 @@ export default async function postCollection(
   res: NextApiResponse,
 ) {
   if (req.method === 'POST') {
-    const { name, image, description, disccount, creatorId, ownerId } = req.body
+    const { name, image, description, disccount, creatorId } = req.body
     if (!name || !image || !description || !disccount || !creatorId) {
       res.status(400).send('Faltans datos')
     } else {
@@ -18,7 +18,7 @@ export default async function postCollection(
           description,
           disccount,
           creatorId,
-          ownerId: ownerId,
+          ownerId: creatorId,
         },
       })
       const msg = {

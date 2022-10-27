@@ -7,17 +7,18 @@ export default async function postCategory(
   res: NextApiResponse,
 ) {
   if (req.method === 'POST') {
-    const { name } = req.body
-    if (!name) {
+    const { name, image } = req.body
+    if (!name || !image) {
       res.status(400).send('Faltans datos')
     } else {
       const category = await prisma.category.create({
         data: {
           name,
+          image,
         },
       })
       const msg = {
-        text: 'categoría creada correctamente!',
+        text: 'categoría creada correctamente! ',
         data: category,
       }
       res.status(201).json(msg)

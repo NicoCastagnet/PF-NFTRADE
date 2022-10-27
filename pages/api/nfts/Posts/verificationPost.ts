@@ -19,7 +19,7 @@ export default async function postToken(
         },
       })
       const msg = {
-        text: 'Token creado correctamente!',
+        text: 'Token creado correctamente! ',
         data: tokenCreated,
       }
       res.status(201).json(msg)

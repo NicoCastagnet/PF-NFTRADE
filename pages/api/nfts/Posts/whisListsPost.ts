@@ -18,7 +18,7 @@ export default async function postWishlist(
         },
       })
       const msg = {
-        text: 'Lista de deseos creada correctamente!',
+        text: 'Lista de deseos creada correctamente! ',
         data: list,
       }
       res.status(201).json(msg)
