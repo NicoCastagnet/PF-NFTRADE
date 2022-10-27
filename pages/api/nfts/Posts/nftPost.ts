@@ -23,7 +23,7 @@ export default async function postNft(
         },
       })
       const msg = {
-        text: 'Nft creado correctamente! ',
+        text: 'Nft creado correctamente!',
         data: nfts,
       }
       res.status(201).json(msg)

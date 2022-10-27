@@ -25,7 +25,7 @@ export default async function postCollection(
         },
       })
       const msg = {
-        text: 'la colección fue creada correctamente!',
+        text: 'la colección fue creada correctamente! ',
         data: collection,
       }
       res.status(201).json(msg)

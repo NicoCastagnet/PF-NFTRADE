@@ -21,7 +21,7 @@ export default async function postCategory(
         },
       })
       const msg = {
-        text: 'categoría creada correctamente! ',
+        text: 'categoría creada correctamente!',
         data: category,
       }
       res.status(201).json(msg)
