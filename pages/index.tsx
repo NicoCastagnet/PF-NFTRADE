@@ -1,4 +1,4 @@
-import grid from '@assets/grid2.png'
+import NFT from '@assets/chain.png'
 import Footer from '@components/footer'
 import NavBar from '@components/navbar'
 import type { NextPage } from 'next'
@@ -8,192 +8,59 @@ const HomePage: NextPage = () => {
   return (
     <>
       <NavBar />
-      <div className="flex flex-col items-center justify-center">
-        <h2 className="text-[0.8rem]">
-          BUY, SELL & DISCOVER RARE DIGITAL ITEMS
-        </h2>
-        <h1 className="text-2xl font-bold m-4">
-          The 1st and the best NFT marketplace
-        </h1>
-        <div className="home__carousel flex flex-row justify-around bg-slate-800 h-auto w-full p-10">
-          <Image src={grid} alt="white_logo" />
-          <Image src={grid} alt="white_logo" />
-          <div className="flex flex-col">
-            <div>SOME COLLECTION</div>
-            <div>SOME COLLECTION PRICE</div>
-            <div>SOME COLLECTION OWNER</div>
-            <div>SOME COLLECTION INFO</div>
-          </div>
-        </div>
-        <div className="home__top text-left">
-          <p className="text-2xl font-bold mt-5">Top sellers this month</p>
-          <div className="home__top-boxes flex">
-            <div className="top-3 flex items-center bg-slate-800 h-44 w-96 rounded-xl p-10 m-5 text-white">
-              <ul>
-                <li className="flex items-center m-2">
-                  <Image
-                    src={grid}
-                    alt="white_logo"
-                    height={35}
-                    width={35}
-                    className="rounded-full m-15"
-                  />
-                  01. User NRO 1
-                </li>
-                <li className="flex items-center m-2">
-                  <Image
-                    src={grid}
-                    alt="white_logo"
-                    height={35}
-                    width={35}
-                    className="rounded-full"
-                  />
-                  02. User NRO 2
-                </li>
-                <li className="flex items-center m-2">
-                  <Image
-                    src={grid}
-                    alt="white_logo"
-                    height={35}
-                    width={35}
-                    className="rounded-full"
-                  />
-                  03. User NRO 3
-                </li>
-              </ul>
+      <section className="home__header bg-slate-900 text-white p-8 flex justify-between">
+        <div className="right">
+          <h1 className="home__title font-bold text-7xl w-[39.5rem]">
+            Explore our digital{' '}
+            <span className="home__title-span font-extrabold text-sky-600">
+              NFT
+            </span>{' '}
+            market place.
+          </h1>
+          <p className="w-[39.5rem] mb-10 mt-10">
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Inventore
+            vero minus ipsa dicta dignissimos obcaecati aspernatur ab quidem!
+          </p>
+          <button
+            type="button"
+            className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-9 py-2.5 text-center mr-3 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          >
+            Explore now
+          </button>
+          <button className="relative inline-flex items-center justify-center p-0.5 mb-2 ml-3 overflow-hidden text-sm font-medium text-gray-900 rounded-full group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
+            <span className="relative px-9 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-full group-hover:bg-opacity-0">
+              Create NFT
+            </span>
+          </button>
+          <div className="statistics flex text-center justify-between w-80">
+            <div className="users flex flex-col font-bold text-2xl">
+              40K
+              <span className="mt-1 font-normal text-sm">Users</span>
             </div>
-            <div className="top-9 flex items-center bg-slate-800 h-44 w-[54rem] rounded-xl p-10 m-5 text-white">
-              <ul className="flex flex-wrap">
-                <li className="flex items-center m-2">
-                  <Image
-                    src={grid}
-                    alt="white_logo"
-                    height={35}
-                    width={35}
-                    className="rounded-full m-15"
-                  />
-                  04. User NRO 4
-                </li>
-                <li className="flex items-center m-2">
-                  <Image
-                    src={grid}
-                    alt="white_logo"
-                    height={35}
-                    width={35}
-                    className="rounded-full"
-                  />
-                  05. User NRO 5
-                </li>
-                <li className="flex items-center m-2">
-                  <Image
-                    src={grid}
-                    alt="white_logo"
-                    height={35}
-                    width={35}
-                    className="rounded-full"
-                  />
-                  06. User NRO 6
-                </li>
-                <li className="flex items-center m-2">
-                  <Image
-                    src={grid}
-                    alt="white_logo"
-                    height={35}
-                    width={35}
-                    className="rounded-full m-15"
-                  />
-                  07. User NRO 7
-                </li>
-                <li className="flex items-center m-2">
-                  <Image
-                    src={grid}
-                    alt="white_logo"
-                    height={35}
-                    width={35}
-                    className="rounded-full"
-                  />
-                  08. User NRO 8
-                </li>
-                <li className="flex items-center m-2">
-                  <Image
-                    src={grid}
-                    alt="white_logo"
-                    height={35}
-                    width={35}
-                    className="rounded-full"
-                  />
-                  09. User NRO 9
-                </li>
-                <li className="flex items-center m-2">
-                  <Image
-                    src={grid}
-                    alt="white_logo"
-                    height={35}
-                    width={35}
-                    className="rounded-full m-15"
-                  />
-                  10. User NRO 10
-                </li>
-                <li className="flex items-center m-2">
-                  <Image
-                    src={grid}
-                    alt="white_logo"
-                    height={35}
-                    width={35}
-                    className="rounded-full"
-                  />
-                  11. User NRO 11
-                </li>
-              </ul>
+            <div className="NFTS flex flex-col font-bold text-2xl">
+              150
+              <span className="mt-1 font-normal text-sm">Nfts</span>
+            </div>
+            <div className="collections flex flex-col font-bold text-2xl">
+              50
+              <span className="mt-1 font-normal text-sm">Collections</span>
             </div>
           </div>
         </div>
-        <div className="home__top text-left">
-          <p className="text-2xl font-bold mt-5">Popular collections</p>
-          <div className="home__top-boxes flex">
-            <div className="top-3 flex items-center bg-slate-800 h-auto w-auto rounded-xl p-10 m-5 text-white">
-              <ul>
-                <li className="flex flex-col items-center">
-                  <Image src={grid} alt="white_logo" height={150} width={150} />
-                  Collection name
-                </li>
-              </ul>
-            </div>
-            <div className="top-3 flex items-center bg-slate-800 h-auto w-auto rounded-xl p-10 m-5 text-white">
-              <ul>
-                <li className="flex flex-col items-center">
-                  <Image src={grid} alt="white_logo" height={150} width={150} />
-                  Collection name
-                </li>
-              </ul>
-            </div>
-            <div className="top-3 flex items-center bg-slate-800 h-auto w-auto rounded-xl p-10 m-5 text-white">
-              <ul>
-                <li className="flex flex-col items-center">
-                  <Image src={grid} alt="white_logo" height={150} width={150} />
-                  Collection name
-                </li>
-              </ul>
-            </div>
-            <div className="top-3 flex items-center bg-slate-800 h-auto w-auto rounded-xl p-10 m-5 text-white">
-              <ul>
-                <li className="flex flex-col items-center">
-                  <Image src={grid} alt="white_logo" height={150} width={150} />
-                  Collection name
-                </li>
-              </ul>
-            </div>
-            <div className="top-3 flex items-center bg-slate-800 h-auto w-auto rounded-xl p-10 m-5 text-white">
-              <ul>
-                <li className="flex flex-col items-center">
-                  <Image src={grid} alt="white_logo" height={150} width={150} />
-                  Collection name
-                </li>
-              </ul>
-            </div>
-          </div>
+        <div className="left">
+          <Image src={NFT} alt="nft_img" height={450} width={450} />
         </div>
-      </div>
+      </section>
+      <section className="home__utils flex flex-col text-center items-center">
+        <p className="text-3xl font-bold m-10">Create, buy & sell your NFTs</p>
+        <div className="home__utils-container flex items-center justify-evenly bg-slate-900 h-96 w-5/6 rounded-lg mb-5">
+          <div className="box1 bg-slate-500 h-60 w-80 rounded-lg">
+            <div className="icon bg-blue-700 h-[3rem] w-[3rem] rounded-full"></div>
+          </div>
+          <div className="box2 bg-slate-500 h-60 w-80 rounded-lg"></div>
+          <div className="box3 bg-slate-500 h-60 w-80 rounded-lg"></div>
+        </div>
+      </section>
       <Footer />
     </>
   )
