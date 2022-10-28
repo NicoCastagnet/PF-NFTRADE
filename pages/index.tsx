@@ -8,17 +8,24 @@ import SvgHeart from '@components/icons/svgHeart'
 import SvgList from '@components/icons/svgList'
 import NavBar from '@components/navbar'
 import fetcher from '@lib/fetcher'
-import type { NextPage } from 'next'
+import type { GetServerSideProps, NextPage } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import useSWR from 'swr'
 import type { NftsResponse } from 'types/api-responses'
 import SvgMail from '../components/icons/svgMail'
 
-const HomePage: NextPage = () => {
-  const { data: nfts, error } = useSWR<NftsResponse>('/api/nfts', fetcher)
+const URL = 'http://localhost:3000/api/nfts?limit=3&order=likes_desc'
 
-  if (error) return <div>failed to load</div>
+interface HomeProps {
+  fallbackData: NftsResponse
+}
+
+const HomePage: NextPage<HomeProps> = ({ fallbackData }) => {
+  const { data: nfts } = useSWR<NftsResponse>(URL, fetcher, {
+    fallbackData,
+  })
+
   if (!nfts) return <div>loading...</div>
 
   return (
@@ -168,7 +175,7 @@ const HomePage: NextPage = () => {
           </p>
         </div>
         <div className="home__top-container flex items-center justify-evenly w-auto rounded-lg mb-16 bg-gray-800">
-          {nfts.slice(0, 3).map((e) => {
+          {nfts.map((e) => {
             return (
               <div
                 key={e.id}
@@ -274,6 +281,13 @@ const HomePage: NextPage = () => {
       <Footer />
     </div>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const data = await fetcher(URL)
+  return {
+    props: { fallbackData: data },
+  }
 }
 
 export default HomePage
