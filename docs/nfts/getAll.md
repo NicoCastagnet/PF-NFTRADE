@@ -2,10 +2,25 @@
 
 Returns all nfts created in the database.
 
-URL: `/api/nfts/`
-Method: `GET`
-Auth required: NO
-Permissions required: None
+- URL: `/api/nfts/`
+- Method: `GET`
+- Auth required: NO
+- Permissions required: None
+
+# Queries
+
+- limit: `number > 1` limit the number of records returned.
+- order: `order=field_[asc|desc]` returns the ordered records.
+
+Simple Usage:
+
+- GET 5 items: `/api/nfts?limit=5`
+- GET 5 items and sort by likes desc: `/api/nfts?limit=5&order=likes_desc`
+- GET 10 items and sort by name asc: `/api/nfts?limit=10&order=name_asc`
+
+Combine ordering(NOT TESTED, in progress):
+
+- GET 5 items and sort by likes desc and name asc: `/api/nfts?limit=5&order=likes_desc,name_asc`
 
 ## Success Response
 
