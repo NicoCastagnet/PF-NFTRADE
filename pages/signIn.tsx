@@ -35,7 +35,7 @@ const SignIn: NextPage = () => {
         username: values.username,
         email: values.email,
         password: values.password,
-      })
+      }),
     }
     await fetch('http://localhost:3000/api/auth/signup', options)
   }

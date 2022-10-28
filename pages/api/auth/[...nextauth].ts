@@ -22,7 +22,10 @@ export const authOptions: NextAuthOptions = {
     CredentialProviders({
       name: 'Credentials',
       authorize: async (credentials, req) => {
-        console.log("🚀 ~ file: [...nextauth].ts ~ line 25 ~ authorize: ~ credentials", credentials)
+        console.log(
+          '🚀 ~ file: [...nextauth].ts ~ line 25 ~ authorize: ~ credentials',
+          credentials,
+        )
         // check user existance
         const result = await prisma.user.findUnique({
           where: {

@@ -16,14 +16,13 @@ export default async function handle(
       username,
       email,
       password,
-    }: 
-    { username: string; email: string; password: string } = req.body
-    console.log('aca arrancamos =>'+ email)
+    }: { username: string; email: string; password: string } = req.body
+    console.log('aca arrancamos =>' + email)
     // check duplicate users
     const checkExist = await prisma.user.findUnique({
       where: {
-        email
-      }
+        email,
+      },
     })
     if (checkExist) {
       return res.status(422).json({ msg: 'User already exists...!' })
