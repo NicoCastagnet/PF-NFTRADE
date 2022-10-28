@@ -6,7 +6,7 @@ import Image from 'next/image'
 
 export default function NavBar() {
   return (
-    <nav className="navbar__nav bg-slate-900 w-full flex flex-col lg:flex-row text-center items-center p-2 pl-16 pr-16 justify-between drop-shadow-lg">
+    <nav className="navbar__nav bg-slate-900 w-full flex flex-col lg:flex-row text-center items-center p-2 pl-16 pr-16 justify-between drop-shadow-lg fixed top-0 z-10">
       <div className="navbar__izq flex lg:flex-row items-center flex-col">
         <Image src={whiteLogo} alt="white_logo" height={80} width={150} />
         <div className="navbar__searchbar">
