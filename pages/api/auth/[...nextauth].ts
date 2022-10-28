@@ -2,7 +2,9 @@ import prisma from '@lib/db'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { compare } from 'bcryptjs'
 import NextAuth, { NextAuthOptions } from 'next-auth'
-import CredentialProviders from 'next-auth/providers/credentials'
+import CredentialProviders, {
+  CredentialInput,
+} from 'next-auth/providers/credentials'
 import FacebookProvider from 'next-auth/providers/facebook'
 import GoogleProvider from 'next-auth/providers/google'
 import LinkedInProvider from 'next-auth/providers/linkedin'
@@ -21,11 +23,8 @@ export const authOptions: NextAuthOptions = {
     // credentials Provider
     CredentialProviders({
       name: 'Credentials',
-      authorize: async (credentials, req) => {
-        console.log(
-          '🚀 ~ file: [...nextauth].ts ~ line 25 ~ authorize: ~ credentials',
-          credentials,
-        )
+      authorize: async (credentials) => {
+
         // check user existance
         const result = await prisma.user.findUnique({
           where: {
@@ -37,10 +36,7 @@ export const authOptions: NextAuthOptions = {
         }
 
         // compare()
-        const checkPassword = await compare(
-          credentials.password,
-          result.passwordHash,
-        )
+        const checkPassword = compare(credentials.password, result.passwordHash)
 
         // incorrect password
         if (!checkPassword || result.email !== credentials.email) {
@@ -49,6 +45,7 @@ export const authOptions: NextAuthOptions = {
 
         return result
       },
+      credentials: undefined
     }),
     // Google Provider
     GoogleProvider({
@@ -89,19 +86,19 @@ export const authOptions: NextAuthOptions = {
 }
 export default NextAuth(authOptions)
 
-const signInUser = async ({
-  user,
-  password,
-}: {
-  user: any
-  password: string
-}) => {
-  if (!user.password) {
-    throw new Error('inserting password, please')
-  }
-  const isMatch = await compare(password, user)
-  if (isMatch) {
-    throw new Error('password invalid')
-  }
-  return user
-}
+// const signInUser = async ({
+//   user,
+//   password,
+// }: {
+//   user: any
+//   password: string
+// }) => {
+//   if (!user.password) {
+//     throw new Error('inserting password, please')
+//   }
+//   const isMatch = await compare(password, user)
+//   if (isMatch) {
+//     throw new Error('password invalid')
+//   }
+//   return user
+// }

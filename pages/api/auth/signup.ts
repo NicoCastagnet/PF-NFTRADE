@@ -42,6 +42,7 @@ export default async function handle(
       },
     })
     console.log(`despues de hash => ${pri}`)
+    return res.status(200).json({msg: 'ok'})
   } else {
     res.status(500).json({ msg: 'HTTP method not supported' })
   }
