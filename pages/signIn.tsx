@@ -1,16 +1,27 @@
 // import whiteLogo from '../Assets/logo@1,25x.png';
 import { useFormik } from 'formik'
-import { registerValidate } from 'hook/validate'
+import {
+  handleBlurEmail,
+  handleBlurPassword,
+  handleBlurUserName,
+  registerValidate,
+} from 'hook/validate'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import Router, { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
+import { useState } from 'react'
+import { Toaster } from 'react-hot-toast'
+import { HiAtSymbol, HiFingerPrint, HiOutlineUser } from 'react-icons/hi'
 import whiteLogo from '../assets/logo@1,25x.png'
 import regImage from '../assets/nft-cost.jpg'
-
+import styles from '../styles/form.module.css'
+//
+//
 const SignIn: NextPage = () => {
   //////////////////////////////////////////////////
+  const [show, setShow] = useState({ password: false, cpassword: false })
   const router = useRouter()
   const formik = useFormik({
     initialValues: {
@@ -28,6 +39,7 @@ const SignIn: NextPage = () => {
     password: string
     cpassword: string
   }) {
+    console.log('submit => ')
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -35,11 +47,14 @@ const SignIn: NextPage = () => {
         username: values.username,
         email: values.email,
         password: values.password,
-      })
+      }),
     }
-    await fetch('http://localhost:3000/api/auth/signup', options)
+    await fetch('api/auth/signup', options)
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.msg === 'ok') router.push('/logIn')
+      })
   }
-
   ////////////////////////////////////////////////////////////////
   return (
     <>
@@ -54,49 +69,115 @@ const SignIn: NextPage = () => {
         <div className="flex flex-col sm:flex-row justify-center items-center w-full">
           <div className="flex flex-col items-center justify-center w-full max-w-md mt-4">
             <div className="flex flex-col items-center w-full">
-              <h1 className="reg-title text-3xl font-normal">Register</h1>
-              <h3 className="reg-subtitle text-xl text-left text-gray-500">
+              <h1 className="reg-title text-4xl font-semibold">
+                Join our world
+              </h1>
+              <h3 className="reg-subtitle text-lg text-left text-gray-500">
                 {"Let's get started!"}
               </h3>
               <form
-                className="flex flex-col items-center gap-5 w-full"
+                className="flex flex-col items-center py-4 gap-5 w-full"
                 onSubmit={formik.handleSubmit}
               >
-                <input
-                  className="bg-transparent border-b-2 border-b-gray-500 p-2 m-2 text-xl font-light"
-                  type="text"
-                  placeholder={'UserName'}
-                  {...formik.getFieldProps('username')}
-                />
-                <input
-                  className="bg-transparent border-b-2 border-b-gray-500 p-2 m-2 text-xl font-light"
-                  type="email"
-                  placeholder={'Email'}
-                  {...formik.getFieldProps('email')}
-                />
-                <input
-                  className="bg-transparent border-b-2 border-b-gray-500 p-2 m-2 text-xl font-light"
-                  type="text"
-                  placeholder={'Password'}
-                  {...formik.getFieldProps('password')}
-                />
-                <input
-                  className="bg-transparent border-b-2 border-b-gray-500 p-2 m-2 text-xl font-light"
-                  type={'text'}
-                  placeholder={'Confirm Password'}
-                  {...formik.getFieldProps('cpassword')}
-                />
-                <button
-                  className="bg-zinc-800 text-white rounded-full py-2 px-8 mt-10 mb-5 text-lg w-3/5"
-                  type="submit"
-                  // onClick={signInUser}
+                <div
+                  className={`flex border rounded-xl relative w-4/5 px-4 py-1 justify-between text-lg ${
+                    formik.errors.username && formik.touched.username
+                      ? 'border-rose-600'
+                      : ''
+                  }`}
                 >
-                  LogIn
+                  <input
+                    className={`bg-transparent focus:outline-none ${styles.input_text}`}
+                    type="text"
+                    placeholder={'UserName'}
+                    {...formik.getFieldProps('username')}
+                    onBlur={handleBlurUserName}
+                  />
+                  <span className="icon flex items-center px-4">
+                    <HiOutlineUser size={28} />
+                  </span>
+                </div>
+                <div
+                  className={`flex border rounded-xl relative w-4/5 px-4 py-1 justify-between text-lg ${
+                    formik.errors.email && formik.touched.email
+                      ? 'border-rose-600'
+                      : ''
+                  }`}
+                >
+                  <input
+                    className={`bg-transparent focus:outline-none ${styles.input_text}`}
+                    type="email"
+                    placeholder={'Email'}
+                    {...formik.getFieldProps('email')}
+                    onBlur={handleBlurEmail}
+                  />
+                  <span className="icon flex items-center px-4">
+                    <HiAtSymbol size={28} />
+                  </span>
+                </div>
+
+                <div
+                  className={`flex border rounded-xl relative w-4/5 px-4 py-1 justify-between text-lg ${
+                    formik.errors.password && formik.touched.password
+                      ? 'border-rose-600'
+                      : ''
+                  }`}
+                >
+                  <input
+                    className={`bg-transparent focus:outline-none ${styles.input_text}`}
+                    type={`${show.password ? 'text' : 'password'}`}
+                    placeholder={'Password'}
+                    {...formik.getFieldProps('password')}
+                    onBlur={handleBlurPassword}
+                  />
+                  <span
+                    className="icon flex items-center px-4"
+                    onClick={() =>
+                      setShow({ ...show, password: !show.password })
+                    }
+                  >
+                    <HiFingerPrint size={28} />
+                  </span>
+                </div>
+
+                <div
+                  className={`flex border rounded-xl relative w-4/5 px-4 py-1 justify-between text-lg ${
+                    formik.errors.cpassword && formik.touched.cpassword
+                      ? 'border-rose-600'
+                      : ''
+                  }`}
+                >
+                  <input
+                    className={`bg-transparent focus:outline-none ${styles.input_text}`}
+                    type={'text'}
+                    placeholder={'Confirm Password'}
+                    {...formik.getFieldProps('cpassword')}
+                    onBlur={handleBlurPassword}
+                   
+                  />
+                  <span
+                    className="icon flex items-center px-4"
+                    onClick={() =>
+                      setShow({ ...show, password: !show.password })
+                    }
+                  >
+          
+                      <HiFingerPrint size={28}  />
+                    
+
+                  </span>
+                </div>
+                <button
+                  className="bg-zinc-800 text-white rounded-full py-2 px-8 mt-5 text-lg w-3/5 hover:scale-105 transition-transform"
+                  onClick={() => console.log('submit<> => ')}
+                  type="submit"
+                >
+                  SignIn
                 </button>
               </form>
             </div>
 
-            <p className="text-center text-gray-400">
+            <p className="text-center text-sm text-gray-400">
               {"don't have an account yet?"}
               <Link href={'/logIn'}>
                 <a className="text-blue-700"> LogIn</a>
@@ -115,6 +196,7 @@ const SignIn: NextPage = () => {
           </div>
         </div>
       </div>
+      <Toaster position="top-center" reverseOrder={false} />
     </>
   )
 }
