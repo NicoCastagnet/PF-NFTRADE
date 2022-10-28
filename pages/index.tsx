@@ -4,42 +4,27 @@ import NFT2 from '@assets/NFT_5.png'
 import Footer from '@components/footer'
 import SvgBag from '@components/icons/svgBag'
 import SvgCollection from '@components/icons/svgCollection'
+import SvgHeart from '@components/icons/svgHeart'
 import SvgList from '@components/icons/svgList'
 import NavBar from '@components/navbar'
-// import fetcher from '@lib/fetcher'
+import fetcher from '@lib/fetcher'
 import type { NextPage } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
+import useSWR from 'swr'
+import type { NftsResponse } from 'types/api-responses'
 import SvgMail from '../components/icons/svgMail'
 
 const HomePage: NextPage = () => {
-  const [nft, setNft] = useState([])
+  const { data: nfts, error } = useSWR<NftsResponse>('/api/nfts', fetcher)
 
-  // const getNFTS = async () => {
-  //   const { data, error } = useSWR('/api/user', fetcher)
-
-  //   if (error) return <div>failed to load</div>
-  //   if (!data) return <div>loading...</div>
-
-  //   const sorted = data.sort((a, b) => a._count.likedBy - b._count.likedBy)
-  //   setNft(sorted.slice(0, 3))
-  // }
-
-  // const getNFTS = async () => {
-  //   const { data } = await axios('/api/nfts')
-  //   const sorted = data.sort((a, b) => a._count.likedBy - b._count.likedBy)
-  //   setNft(sorted.slice(0, 3))
-  // }
-
-  // useEffect(() => {
-  //   getNFTS()
-  // }, [])
+  if (error) return <div>failed to load</div>
+  if (!nfts) return <div>loading...</div>
 
   return (
-    <>
+    <div className="home__container flex flex-col items-center justify-center content-center w-full">
       <NavBar />
-      <section className="home__header bg-slate-900 text-white p-16 flex justify-between">
+      <section className="home__header bg-slate-900 text-white py-16 px-64 w-full flex justify-between mt-24">
         <div className="right">
           <h1 className="home__title font-bold text-7xl w-[44rem] tracking-wider">
             Explore our digital{' '}
@@ -85,7 +70,7 @@ const HomePage: NextPage = () => {
         </div>
       </section>
       <section className="home__utils flex flex-col items-center">
-        <p className="text-5xl font-bold m-16 tracking-wide">
+        <p className="text-5xl font-bold py-16 px-64 tracking-wide">
           Create, buy & sell your NFTs
         </p>
         <div className="home__utils-container flex items-center justify-evenly bg-slate-900 h-96 w-auto rounded-lg mb-16">
@@ -148,11 +133,11 @@ const HomePage: NextPage = () => {
           </div>
         </div>
       </section>
-      <section className="home__about flex items-center w-11/12 m-16">
+      <section className="home__about flex items-center justify-center content-center w-[80%]">
         <div className="home__about-right">
-          <Image src={NFT2} alt="nft2_img" height={850} width={890} />
+          <Image src={NFT2} alt="nft2_img" height={650} width={710} />
         </div>
-        <div className="home__about-left ml-16">
+        <div className="home__about-left ml-16 w-[60%]">
           <p className="left-title text-5xl font-bold tracking-wide">
             Why choosing us?
           </p>
@@ -182,29 +167,40 @@ const HomePage: NextPage = () => {
             Lorem ipsum dolor sit amet consectetur, adipisicing elit.
           </p>
         </div>
-        <div className="home__top-container flex items-center justify-evenly w-auto rounded-lg mb-16">
-          {nft.map((e) => {
+        <div className="home__top-container flex items-center justify-evenly w-auto rounded-lg mb-16 bg-gray-800">
+          {nfts.slice(0, 3).map((e) => {
             return (
               <div
-                key={'asdas'}
-                className="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700"
+                key={e.id}
+                className="max-w-sm m-16 rounded-lg border shadow-md bg-gray-800 border-gray-700"
               >
                 <a href="#">
                   <Image
                     className="rounded-t-lg"
-                    src={'asdas'}
+                    src={e.image}
                     alt="ds"
-                    width={500}
-                    height={300}
+                    width={1000}
+                    height={1000}
+                    layout="intrinsic"
                   />
                 </a>
                 <div className="p-5">
-                  <a href="#">
-                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                      Noteworthy technology acquisitions 2021
-                    </h5>
-                  </a>
-                  <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                  <div className="title flex flex-row items-center justify-between">
+                    <a href="#">
+                      <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                        {e.name}
+                      </h5>
+                    </a>
+                    <div className="likes flex text-white font-semibold items-center justify-center text-center gap-3 bg-gray-500 rounded-full w-16 h-8">
+                      {e._count.likedBy}{' '}
+                      <SvgHeart
+                        height={20}
+                        width={20}
+                        className="hover:fill-red-600 transition-all"
+                      />
+                    </div>
+                  </div>
+                  <p className="my-3 font-normal text-gray-700 dark:text-gray-400">
                     Here are the biggest enterprise technology acquisitions of
                     2021 so far, in reverse chronological order.
                   </p>
@@ -276,7 +272,7 @@ const HomePage: NextPage = () => {
         </div>
       </section>
       <Footer />
-    </>
+    </div>
   )
 }
 

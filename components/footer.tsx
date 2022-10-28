@@ -8,7 +8,7 @@ import SvgTwitter from './icons/svgTwitter'
 
 export default function Footer() {
   return (
-    <footer className="p-4 bg-white sm:p-6 dark:bg-gray-900">
+    <footer className="p-4 bg-white sm:p-6 dark:bg-gray-900 w-full">
       <div className="md:flex md:justify-between">
         <div className="mb-6 md:mb-0 text-white">
           <a href="https://flowbite.com/" className="flex items-center">
@@ -80,7 +80,7 @@ export default function Footer() {
         <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
           © 2022{' '}
           <a href="#" className="hover:underline">
-            Flowbite™
+            NFTRADE™
           </a>
           . All Rights Reserved.
         </span>
