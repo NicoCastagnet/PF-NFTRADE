@@ -1,6 +1,6 @@
 import prisma from '@lib/db'
-import type { NextApiRequest, NextApiResponse } from 'next'
 import { hash } from 'bcryptjs'
+import type { NextApiRequest, NextApiResponse } from 'next'
 //
 //
 export default async function handle(
@@ -29,7 +29,7 @@ export default async function handle(
     if (checkExist) {
       return res.status(422).json({ msg: 'User already exists...!' })
     }
-    
+
     // // hash password
     const passwordhash = await hash(password, 5)
     await prisma?.user.create({
@@ -39,7 +39,9 @@ export default async function handle(
         passwordHash: passwordhash,
       },
     })
+
     return res.status(200).json({msg: 'ok'})
+
   } else {
     res.status(500).json({ msg: 'HTTP method not supported' })
   }

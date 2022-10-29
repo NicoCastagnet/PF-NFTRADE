@@ -1,12 +1,60 @@
-.input_text + *{
-  color: #CBD5E1;
+.input_text + * {
+  color: #cbd5e1;
 }
 
-.input_text:focus + *{
+.input_text:focus + * {
   color: #6366f1;
 }
+
 
 .input_text ~ span:hover *{
+
   color: #6366f1;
   cursor: pointer;
+}
+
+.nft_title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.bell:hover,
+.bell:focus {
+  animation: bellshake 0.5s both;
+  backface-visibility: hidden;
+  transform-origin: top;
+  animation-iteration-count: infinite;
+}
+
+@keyframes bellshake {
+  0% {
+    transform: rotate(0);
+  }
+  15% {
+    transform: rotate(5deg);
+  }
+  30% {
+    transform: rotate(-5deg);
+  }
+  45% {
+    transform: rotate(4deg);
+  }
+  60% {
+    transform: rotate(-4deg);
+  }
+  75% {
+    transform: rotate(2deg);
+  }
+  85% {
+    transform: rotate(-2deg);
+  }
+  92% {
+    transform: rotate(1deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
 }

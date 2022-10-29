@@ -80,7 +80,6 @@ export const registerValidate = ({
   return errs
 }
 
-
 export const handleBlurUserName = ({
   target: { value },
 }: {
@@ -129,6 +128,7 @@ export const handleBlurPassword = ({
     })
   }
 }
+
 // export const handleBlurCPassword = ({
 //   target: { value },
 // }: {
@@ -145,5 +145,4 @@ export const handleBlurPassword = ({
 // }
 // export const handleSubmit = (e) => {
 // }
-
 

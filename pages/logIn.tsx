@@ -68,6 +68,7 @@ const LogIn: NextPage = () => {
           <title>LogIn</title>
         </Head>
 
+
         <div className="flex flex-row items-start pl-6 w-full">
           <Image src={whiteLogo} alt="white_logo" height={80} width={150} />
         </div>
@@ -189,6 +190,7 @@ const LogIn: NextPage = () => {
               className="reg_image rounded-[2rem]"
             />
           </div>
+
         </div>
       </div>
       <Toaster position="top-center" reverseOrder={false} />
