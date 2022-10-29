@@ -6,7 +6,7 @@
   color: #6366f1;
 }
 
-.input_text:not([type=email]) ~ span:hover *{
+.input_text ~ span:hover *{
   color: #6366f1;
   cursor: pointer;
 }

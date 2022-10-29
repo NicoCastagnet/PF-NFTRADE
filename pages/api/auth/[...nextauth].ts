@@ -22,8 +22,9 @@ export const authOptions: NextAuthOptions = {
   providers: [
     // credentials Provider
     CredentialProviders({
+      id: 'credentials',
       name: 'Credentials',
-      authorize: async (credentials) => {
+      authorize: async (credentials, res) => {
 
         // check user existance
         const result = await prisma.user.findUnique({
@@ -34,15 +35,17 @@ export const authOptions: NextAuthOptions = {
         if (!result) {
           throw new Error('No user Found with Email Please Sign Up...!')
         }
-
         // compare()
-        const checkPassword = compare(credentials.password, result.passwordHash)
+        const checkPassword = await compare(credentials.password, result.passwordHash)
+
+        if(!checkPassword) {
+          throw new Error("la contrasena no coinside")
+        }
 
         // incorrect password
         if (!checkPassword || result.email !== credentials.email) {
           throw new Error("Username or Password doesn't match")
         }
-
         return result
       },
       credentials: undefined
@@ -73,11 +76,14 @@ export const authOptions: NextAuthOptions = {
   session: {
     strategy: 'jwt',
   },
+  pages: {
+    signIn: "/SignIn",
+    // signOut: 
+  },
   callbacks: {
     session: async ({ token, session }) => {
       if (session?.user && token?.sub) {
         session.user.id = token.sub
-        console.log(session)
       }
       //
       return session

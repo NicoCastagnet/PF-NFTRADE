@@ -86,7 +86,6 @@ export const handleBlurUserName = ({
 }: {
   target: { value: string }
 }) => {
-  console.log(value)
   if (!value) {
     toast.error('username is required', { duration: 1500 })
   } else if (value.includes(' ')) {
@@ -112,7 +111,6 @@ export const handleBlurPassword = ({
 }: {
   target: { value: string; name: string }
 }) => {
-  console.log('target => ', name)
   // validation password
   if (name === 'password' && !value) {
     toast.error('Password is required', { duration: 1500 })
@@ -131,22 +129,21 @@ export const handleBlurPassword = ({
     })
   }
 }
-export const handleBlurCPassword = ({
-  target: { value },
-}: {
-  target: { value: string }
-}) => {
-  // validate confirm password
-  if (!value) {
-    toast.error('need to confirm password', { duration: 1500 })
-  } else if (cpassword !== password) {
-    toast.error('Password Not Match...!')
-  } else if (cpassword.includes(' ')) {
-    errs.cpassword = 'Invalid Confirm Password'
-  }
-}
-export const handleSubmit = (e) => {
-  console.log('Submit => ')
-}
+// export const handleBlurCPassword = ({
+//   target: { value },
+// }: {
+//   target: { value: string }
+// }) => {
+//   // validate confirm password
+//   if (!value) {
+//     toast.error('need to confirm password', { duration: 1500 })
+//   } else if (cpassword !== password) {
+//     toast.error('Password Not Match...!')
+//   } else if (cpassword.includes(' ')) {
+//     errs.cpassword = 'Invalid Confirm Password'
+//   }
+// }
+// export const handleSubmit = (e) => {
+// }
 
 
