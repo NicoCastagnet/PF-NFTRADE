@@ -155,3 +155,13 @@ export type CollectionDetailResponse = Prisma.CollectionGetPayload<{
     }
   }
 }>
+
+// Search Response
+export type SearchResponse = Prisma.NftGetPayload<{
+  select: {
+    id: true
+    name: true
+    image: true
+    price: true
+  }
+}>[]

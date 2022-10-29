@@ -1,15 +1,17 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import whiteLogo from '@assets/White.png'
 import SvgBell from '@components/icons/svgBell'
 import SvgCart from '@components/icons/svgCart'
 import SvgChevronDown from '@components/icons/svgChevronDown'
 import SvgCoin from '@components/icons/svgCoin'
 import SvgUser from '@components/icons/svgUser'
+import Search from '@components/search'
 import { signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useRef } from 'react'
-import { FaSearch } from 'react-icons/fa'
 import styles from '../../styles/form.module.css'
 
 export default function NavBar() {
@@ -38,17 +40,7 @@ export default function NavBar() {
             className="cursor-pointer"
           />
         </Link>
-        <div className="navbar__searchbar">
-          <input
-            className="lg:w-96 h-11 rounded-md lg:ml-10 p-3 lg:pl-11 text-white hover:bg-slate-700 ease duration-150 focus: outline-none focus:bg-slate-700"
-            type="text"
-            placeholder="Search articles, colections & accounts"
-          />
-          <FaSearch
-            size={20}
-            className="absolute left-[16.5rem] top-[2.4rem] fill-slate-500"
-          />
-        </div>
+        <Search />
       </div>
       <div className="navbar__buttons flex flex-row flex-wrap justify-center items-center text-white">
         <button className="m-3">Explore</button>

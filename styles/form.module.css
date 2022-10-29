@@ -6,9 +6,7 @@
   color: #6366f1;
 }
 
-
-.input_text ~ span:hover *{
-
+.input_text ~ span:hover * {
   color: #6366f1;
   cursor: pointer;
 }
@@ -61,7 +59,7 @@
 
 .menu::before {
   position: absolute;
-  content: "";
+  content: '';
   top: 1.3rem;
   right: 5rem;
   border-bottom: 1rem solid rgb(55, 65, 81, 70);
