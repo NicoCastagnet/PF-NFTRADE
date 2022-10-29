@@ -4,7 +4,7 @@ import SvgBitCoin from '@components/icons/svgBitCoin'
 import SvgDislike from '@components/icons/svgDislike'
 import SvgLike from '@components/icons/svgLike'
 import SvgViews from '@components/icons/svgViews'
-import NavBar from '@components/navbar'
+import NavBar from '@components/navbar/navbar'
 import type { NextPage } from 'next'
 import { useState } from 'react'
 
@@ -27,6 +27,12 @@ interface Sells {
   date: string
 }
 
+interface Comment {
+  id: number
+  from_account: Account
+  content: string
+}
+
 interface NFT {
   id: number
   name: string
@@ -39,6 +45,7 @@ interface NFT {
   sells: Sells[]
   likes: Likes
   views: number
+  comments: Comment[]
 }
 
 const ProductDetails: NextPage = () => {
@@ -108,6 +115,18 @@ const ProductDetails: NextPage = () => {
       dislikedBy: [user5],
     },
     views: 124,
+    comments: [
+      {
+        id: 1,
+        from_account: user3,
+        content: 'I like how it looks',
+      },
+      {
+        id: 1,
+        from_account: user4,
+        content: '💤💤',
+      },
+    ],
   }
 
   const [liked, setLiked] = useState({
@@ -124,12 +143,17 @@ const ProductDetails: NextPage = () => {
           dislikes: liked.dislikes - 1,
           state: 'liked',
         })
-      }
-      if (liked.state === 'undef') {
+      } else if (liked.state === 'undef') {
         setLiked({
           likes: liked.likes + 1,
           dislikes: liked.dislikes,
           state: 'liked',
+        })
+      } else {
+        setLiked({
+          likes: liked.likes - 1,
+          dislikes: liked.dislikes,
+          state: 'undef',
         })
       }
     }
@@ -140,22 +164,26 @@ const ProductDetails: NextPage = () => {
           dislikes: liked.dislikes + 1,
           state: 'disliked',
         })
-      }
-      if (liked.state === 'undef') {
+      } else if (liked.state === 'undef') {
         setLiked({
           likes: liked.likes,
           dislikes: liked.dislikes + 1,
           state: 'disliked',
         })
+      } else {
+        setLiked({
+          likes: liked.likes,
+          dislikes: liked.dislikes - 1,
+          state: 'undef',
+        })
       }
     }
   }
 
-
   return (
     <div>
       <NavBar />
-      <div className="flex flex-col justify-center items-center mb-10">
+      <div className="flex flex-col justify-center items-center mb-10 mt-[260px] lg:mt-[120px]">
         <div className="flex flex-col items-center lg:items-start pb-4 lg:p-4 rounded-[15px] border-[1px] w-11/12 lg:w-10/12 border-gray-400">
           <div className="w-full lg:flex">
             <div className="flex flex-col items-center mt-4">
@@ -307,6 +335,34 @@ const ProductDetails: NextPage = () => {
                 )}
               </div>
             </div>
+          </div>
+        </div>
+        <div className="w-11/12 lg:w-10/12 mt-2 lg:mt-10 border-[1px] border-gray-400 rounded-[15px] p-4">
+          <h3 className="text-[1.4rem]">Comments:</h3>
+          <div className="h-[400px] lg:h-[600px] overflow-auto">
+            {nft.comments.length > 0 ? (
+              nft.comments.map((c) => (
+                <div
+                  key={c.id}
+                  className="border-[1px] border-gray-300 rounded-[15px] mt-2"
+                >
+                  <div className="flex bg-slate-100 rounded-[15px] rounded-bl-[0] rounded-br-[0]">
+                    <p className="text-[1rem] mr-2 ml-2">From: </p>
+                    <p className="text-[1rem] font-[500] hover:text-slate-600 cursor-pointer">
+                      {c.from_account.user_name}
+                    </p>
+                  </div>
+                  <hr />
+                  <div className="p-2">
+                    <p className="text-[1rem] lg:text-[1.2rem] ml-2">
+                      {c.content}
+                    </p>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <span> There are no comments yet </span>
+            )}
           </div>
         </div>
       </div>
