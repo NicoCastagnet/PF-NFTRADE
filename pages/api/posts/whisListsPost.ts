@@ -2,29 +2,24 @@
 import prisma from '@lib/db'
 import type { NextApiRequest, NextApiResponse } from 'next'
 /* this endpoint is for testing purposes */
-export default async function postNft(
+export default async function postWishlist(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
   if (req.method === 'POST') {
-    const { creatorId, name, image, description, price } = req.body
-    if (!creatorId || !name || !image || !price) {
+    const { userId, nftId } = req.body
+    if (!userId || !nftId) {
       res.status(400).send('Faltans datos')
     } else {
-      const nfts = await prisma.nft.create({
+      const list = await prisma.wishList.create({
         data: {
-          creatorId,
-          ownerId: creatorId,
-          name,
-          image,
-          description,
-          price,
-          published: true,
+          userId,
+          nftId,
         },
       })
       const msg = {
-        text: 'Nft creado correctamente!',
-        data: nfts,
+        text: 'Lista de deseos creada correctamente!',
+        data: list,
       }
       res.status(201).json(msg)
     }
