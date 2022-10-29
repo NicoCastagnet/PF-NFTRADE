@@ -23,9 +23,13 @@ export default async function handle(
         email,
       },
     })
+    if (!checkExist) {
+      return res.status(401).json({ msg: 'esta cuenta no existe!' })
+    }
     if (checkExist) {
       return res.status(422).json({ msg: 'User already exists...!' })
     }
+
     // // hash password
     const passwordhash = await hash(password, 5)
     await prisma?.user.create({
@@ -35,7 +39,9 @@ export default async function handle(
         passwordHash: passwordhash,
       },
     })
-    return res.status(200).json({ msg: 'ok' })
+
+    return res.status(200).json({msg: 'ok'})
+
   } else {
     res.status(500).json({ msg: 'HTTP method not supported' })
   }

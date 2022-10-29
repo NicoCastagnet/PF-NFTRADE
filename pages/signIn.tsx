@@ -7,12 +7,13 @@ import {
   registerValidate,
 } from 'hook/validate'
 import type { NextPage } from 'next'
+import { useSession } from 'next-auth/react'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
-import { Toaster } from 'react-hot-toast'
+import { useEffect, useState } from 'react'
+import { toast, Toaster } from 'react-hot-toast'
 import { HiAtSymbol, HiFingerPrint, HiOutlineUser } from 'react-icons/hi'
 import whiteLogo from '../assets/logo@1,25x.png'
 import regImage from '../assets/nft-cost.jpg'
@@ -21,8 +22,15 @@ import styles from '../styles/form.module.css'
 //
 const SignIn: NextPage = () => {
   //////////////////////////////////////////////////
+  const { data: session, status } = useSession()
   const [show, setShow] = useState({ password: false, cpassword: false })
+
   const router = useRouter()
+  ////////////////////////////////////////////////
+  useEffect(() => {
+    if (session) router.push('/')
+  }, [status])
+  /////////////////////////////////////
   const formik = useFormik({
     initialValues: {
       username: '',
@@ -39,27 +47,31 @@ const SignIn: NextPage = () => {
     password: string
     cpassword: string
   }) {
-    console.log('submit => ')
-    const options = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        username: values.username,
-        email: values.email,
-        password: values.password,
-      }),
+    try {
+      const options = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: values.username,
+          email: values.email,
+          password: values.password,
+        }),
+      }
+      await fetch('api/auth/signup', options)
+        .then((res) => res.json())
+        .then((res) => {
+          if (res.msg === 'ok') router.push('/logIn')
+        })
+    } catch (error) {
+      toast.error('an error occurred while registering', { duration: 3000 })
+      router.push("/signIn")
     }
-    await fetch('api/auth/signup', options)
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.msg === 'ok') router.push('/logIn')
-      })
   }
   ////////////////////////////////////////////////////////////////
   return (
     <>
       <Head>
-        <title>Register</title>
+        <title>SignIn</title>
       </Head>
 
       <div className="flex flex-col items-center justify-start w-full min-h-screen">
@@ -149,7 +161,7 @@ const SignIn: NextPage = () => {
                 >
                   <input
                     className={`bg-transparent focus:outline-none ${styles.input_text}`}
-                    type={'text'}
+                    type={`${show.cpassword ? 'text' : 'password'}`}
                     placeholder={'Confirm Password'}
                     {...formik.getFieldProps('cpassword')}
                     onBlur={handleBlurPassword}
@@ -165,7 +177,6 @@ const SignIn: NextPage = () => {
                 </div>
                 <button
                   className="bg-zinc-800 text-white rounded-full py-2 px-8 mt-5 text-lg w-3/5 hover:scale-105 transition-transform"
-                  onClick={() => console.log('submit<> => ')}
                   type="submit"
                 >
                   SignIn

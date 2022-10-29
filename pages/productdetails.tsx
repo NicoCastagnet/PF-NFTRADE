@@ -151,7 +151,6 @@ const ProductDetails: NextPage = () => {
     }
   }
 
-  console.log(liked)
 
   return (
     <div>
