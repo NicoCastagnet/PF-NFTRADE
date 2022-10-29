@@ -213,7 +213,6 @@ const HomePage: NextPage<HomeProps> = ({ fallbackData }) => {
                         />
                       </div>
                     </div>
-
                   </div>
                   <p className="my-3 font-normal text-gray-700 dark:text-gray-400">
                     Here are the biggest enterprise technology acquisitions of
@@ -238,7 +237,6 @@ const HomePage: NextPage<HomeProps> = ({ fallbackData }) => {
                       ></path>
                     </svg> */}
                   </a>
-
                 </div>
               )
             })}
