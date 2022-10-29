@@ -7,14 +7,15 @@ export default async function updateUser(
 ) {
   if (req.method === 'PUT') {
     const { id } = req.query
-    const { name, image } = req.body
-    const user = await prisma.account.update({
+    const { name, image, email } = req.body
+    const user = await prisma.user.update({
       where: {
         id: id?.toString(),
       },
       data: {
         name: name,
         image: image,
+        email: email,
       },
     })
     const msg = {

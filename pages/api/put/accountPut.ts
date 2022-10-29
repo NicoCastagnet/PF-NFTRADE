@@ -7,17 +7,35 @@ export default async function updateAcc(
 ) {
   if (req.method === 'PUT') {
     const { id } = req.query
-    const { name, image, description, disccount, ownerId } = req.body
+    const {
+      userId,
+      type,
+      provider,
+      providerAccountId,
+      refresh_token,
+      access_token,
+      expires_at,
+      token_type,
+      scope,
+      id_token,
+      session_state,
+    } = req.body
     const acc = await prisma.account.update({
       where: {
         id: id?.toString(),
       },
       data: {
-        name,
-        image,
-        description,
-        disccount,
-        ownerId,
+        userId,
+        type,
+        provider,
+        providerAccountId,
+        refresh_token,
+        access_token,
+        expires_at,
+        token_type,
+        scope,
+        id_token,
+        session_state,
       },
     })
     const msg = {

@@ -7,11 +7,11 @@ export default async function updateCollection(
 ) {
   if (req.method === 'PUT') {
     const { id } = req.query
-    const { name, image, description: any, disccount, ownerId } = req.body
+    const { name, image, description, disccount, ownerId } = req.body
     if (!name) {
       res.status(400).send("Falta el la propiedad 'name'")
     } else {
-      const cat = await prisma.category.update({
+      const cat = await prisma.collection.update({
         where: {
           id: id?.toLocaleString(),
         },
