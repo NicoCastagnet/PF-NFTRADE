@@ -40,14 +40,14 @@ const LogIn: NextPage = () => {
 
   async function onSubmit(values: { email: string; password: string }) {
     try {
-      const lucas = await signIn('credentials', {
+      const log = await signIn('credentials', {
         redirect: false,
         email: values.email,
         password: values.password,
         callbackUrl: '/',
       })
-      const yo = await JSON.stringify(lucas, null)
-      if (!yo.includes('true')) {
+      const estado = await JSON.stringify(log, null)
+      if (!estado.includes('true')) {
         toast.error('Login failed')
       }
     } catch (error) {

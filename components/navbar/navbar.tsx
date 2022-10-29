@@ -10,7 +10,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useRef } from 'react'
 import { FaSearch } from 'react-icons/fa'
-import styles from '../styles/form.module.css'
+import styles from '../../styles/form.module.css'
 
 export default function NavBar() {
   const menu = useRef(null)
@@ -99,47 +99,38 @@ export default function NavBar() {
           <div
             id="dropdownInformation"
             ref={menu}
-            className="hidden z-10 w-44 rounded divide-y shadow bg-gray-700 divide-gray-600 absolute top-[5.5rem] right-[5rem]"
+            className={`relative ${styles.menu}`}
           >
-            <div className="py-3 px-4 text-sm text-white">
-              <div>
-                {session?.user.name || session?.user.email.split('@')[0]}
-              </div>
-              <div className="font-medium truncate">{session?.user.email}</div>
-            </div>
-            <ul
-              className="py-1 text-sm text-gray-200"
-              aria-labelledby="dropdownInformationButton"
-            >
-              <li>
-                <a
-                  href="#"
-                  className="block py-2 px-4 hover:bg-gray-600 hover:text-white"
-                >
-                  Dashboard
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="block py-2 px-4 hover:bg-gray-600 hover:text-white"
-                >
-                  Settings
-                </a>
-              </li>
-            </ul>
             <div
-              className="py-1"
-              onClick={async () => {
-                await signOut()
-              }}
+              className={` z-10 w-44 shadow bg-gray-700 divide-gray-600 absolute top-9 right-5 rounded-xl `}
             >
-              <a
-                href="#"
-                className="block py-2 px-4 text-sm hover:bg-gray-600 text-gray-200 hover:text-white"
+              <div className="py-3 px-4 text-sm text-white hover:bg-gray-600 hover:rounded-t-xl">
+                {/* <div>
+                {session?.user.name || session?.user.email.split('@')[0]}
+              </div> */}
+                <div className="font-medium truncate">
+                  {session?.user.email}
+                </div>
+              </div>
+              <ul
+                className="py-1 text-sm text-gray-200 border-y-white border-y-2"
+                aria-labelledby="dropdownInformationButton"
               >
-                Sign out
-              </a>
+                <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white">
+                  <a href="#">Dashboard</a>
+                </li>
+                <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white">
+                  <a href="#">Settings</a>
+                </li>
+              </ul>
+              <div
+                className="block py-3 px-4 text-sm hover:bg-gray-600 hover:rounded-b-xl text-gray-200 hover:text-white"
+                onClick={async () => {
+                  await signOut()
+                }}
+              >
+                <a href="#">Sign out</a>
+              </div>
             </div>
           </div>
         ) : (
