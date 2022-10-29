@@ -15,7 +15,7 @@
     "lint": "next lint",
     "format": "prettier --loglevel silent --write .",
     "typecheck": "tsc -b",
-    "validate": "npm run typecheck && npm run lint && npm run format",
+    "validate": " npm run lint && npm run format",
     "db:studio": "prisma studio"
   },
   "dependencies": {
