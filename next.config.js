@@ -7,6 +7,7 @@ const nextConfig = {
       'loremflickr.com',
       'tdhdjernzsaepxgzandc.supabase.co',
       'media.licdn.com',
+      'lh3.googleusercontent.com',
     ],
   },
   async headers() {

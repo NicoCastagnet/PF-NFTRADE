@@ -7,7 +7,7 @@ import SvgBag from '@components/icons/svgBag'
 import SvgCollection from '@components/icons/svgCollection'
 import SvgHeart from '@components/icons/svgHeart'
 import SvgList from '@components/icons/svgList'
-import NavBar from '@components/navbar'
+import NavBar from '@components/navbar/navbar'
 import fetcher from '@lib/fetcher'
 import type { GetServerSideProps, NextPage } from 'next'
 import Image from 'next/image'
@@ -213,7 +213,6 @@ const HomePage: NextPage<HomeProps> = ({ fallbackData }) => {
                         />
                       </div>
                     </div>
-
                   </div>
                   <p className="my-3 font-normal text-gray-700 dark:text-gray-400">
                     Here are the biggest enterprise technology acquisitions of
@@ -238,7 +237,6 @@ const HomePage: NextPage<HomeProps> = ({ fallbackData }) => {
                       ></path>
                     </svg> */}
                   </a>
-
                 </div>
               )
             })}
