@@ -3,7 +3,11 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['loremflickr.com', 'tdhdjernzsaepxgzandc.supabase.co'],
+    domains: [
+      'loremflickr.com',
+      'tdhdjernzsaepxgzandc.supabase.co',
+      'media.licdn.com',
+    ],
   },
   async headers() {
     return [

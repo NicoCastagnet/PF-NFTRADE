@@ -153,7 +153,6 @@ const SignIn: NextPage = () => {
                     placeholder={'Confirm Password'}
                     {...formik.getFieldProps('cpassword')}
                     onBlur={handleBlurPassword}
-                   
                   />
                   <span
                     className="icon flex items-center px-4"
@@ -161,10 +160,7 @@ const SignIn: NextPage = () => {
                       setShow({ ...show, password: !show.password })
                     }
                   >
-          
-                      <HiFingerPrint size={28}  />
-                    
-
+                    <HiFingerPrint size={28} />
                   </span>
                 </div>
                 <button

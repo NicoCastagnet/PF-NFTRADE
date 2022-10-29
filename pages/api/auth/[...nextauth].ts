@@ -2,9 +2,7 @@ import prisma from '@lib/db'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { compare } from 'bcryptjs'
 import NextAuth, { NextAuthOptions } from 'next-auth'
-import CredentialProviders, {
-  CredentialInput,
-} from 'next-auth/providers/credentials'
+import CredentialProviders from 'next-auth/providers/credentials'
 import FacebookProvider from 'next-auth/providers/facebook'
 import GoogleProvider from 'next-auth/providers/google'
 import LinkedInProvider from 'next-auth/providers/linkedin'
@@ -24,7 +22,6 @@ export const authOptions: NextAuthOptions = {
     CredentialProviders({
       name: 'Credentials',
       authorize: async (credentials) => {
-
         // check user existance
         const result = await prisma.user.findUnique({
           where: {
@@ -45,7 +42,7 @@ export const authOptions: NextAuthOptions = {
 
         return result
       },
-      credentials: undefined
+      credentials: undefined,
     }),
     // Google Provider
     GoogleProvider({
@@ -77,7 +74,6 @@ export const authOptions: NextAuthOptions = {
     session: async ({ token, session }) => {
       if (session?.user && token?.sub) {
         session.user.id = token.sub
-        console.log(session)
       }
       //
       return session
@@ -85,20 +81,3 @@ export const authOptions: NextAuthOptions = {
   },
 }
 export default NextAuth(authOptions)
-
-// const signInUser = async ({
-//   user,
-//   password,
-// }: {
-//   user: any
-//   password: string
-// }) => {
-//   if (!user.password) {
-//     throw new Error('inserting password, please')
-//   }
-//   const isMatch = await compare(password, user)
-//   if (isMatch) {
-//     throw new Error('password invalid')
-//   }
-//   return user
-// }

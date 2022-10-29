@@ -73,47 +73,44 @@ const LogIn: NextPage = () => {
               className="flex flex-col items-center py-4 gap-8 w-full"
               onSubmit={formik.handleSubmit}
             >
-             <div
-                  className={`flex border rounded-xl relative w-4/5 px-4 py-1 justify-between text-lg ${
-                    formik.errors.email && formik.touched.email
-                      ? 'border-rose-600'
-                      : ''
-                  }`}
+              <div
+                className={`flex border rounded-xl relative w-4/5 px-4 py-1 justify-between text-lg ${
+                  formik.errors.email && formik.touched.email
+                    ? 'border-rose-600'
+                    : ''
+                }`}
+              >
+                <input
+                  className={`bg-transparent focus:outline-none ${styles.input_text}`}
+                  type="email"
+                  placeholder={'Email'}
+                  {...formik.getFieldProps('email')}
+                />
+                <span className="icon flex items-center px-4">
+                  <HiAtSymbol size={28} />
+                </span>
+              </div>
+              <div
+                className={`flex border rounded-xl relative w-4/5 px-4 py-1 justify-between text-lg ${
+                  formik.errors.password && formik.touched.password
+                    ? 'border-rose-600'
+                    : ''
+                }`}
+              >
+                <input
+                  className={`bg-transparent focus:outline-none ${styles.input_text}`}
+                  type={`${show ? 'text' : 'password'}`}
+                  placeholder={'Password'}
+                  {...formik.getFieldProps('password')}
+                />
+                <span
+                  className="icon flex items-center px-4"
+                  onClick={() => setShow(!show)}
                 >
-                  <input
-                    className={`bg-transparent focus:outline-none ${styles.input_text}`}
-                    type="email"
-                    placeholder={'Email'}
-                    {...formik.getFieldProps('email')}
-                  />
-                  <span className="icon flex items-center px-4">
-                    <HiAtSymbol size={28} />
-                  </span>
-                </div>
-                <div
-                  className={`flex border rounded-xl relative w-4/5 px-4 py-1 justify-between text-lg ${
-                    formik.errors.password && formik.touched.password
-                      ? 'border-rose-600'
-                      : ''
-                  }`}
-                >
-                  <input
-                    className={`bg-transparent focus:outline-none ${styles.input_text}`}
-                    type={`${show ? 'text' : 'password'}`}
-                    placeholder={'Password'}
-                    {...formik.getFieldProps('password')}
-                  />
-                  <span
-                    className="icon flex items-center px-4"
-                    onClick={() =>
-                      setShow(!show)
-                    }
-                  >
-                    <HiFingerPrint size={28} />
-                  </span>
-                </div>
+                  <HiFingerPrint size={28} />
+                </span>
+              </div>
               <button
-
                 className="bg-zinc-800 text-white rounded-full py-2 px-8 mt-2 text-lg w-3/5 hover:scale-105 transition-transform"
                 type="submit"
               >
@@ -124,7 +121,7 @@ const LogIn: NextPage = () => {
           <div className="flex flex-row justify-evenly items-center w-3/5">
             {providers?.google && (
               <button
-              className='hover:scale-125 transition-transform'
+                className="hover:scale-125 transition-transform"
                 onClick={async () => {
                   await signIn(providers.google.id)
                 }}
@@ -134,7 +131,7 @@ const LogIn: NextPage = () => {
             )}
             {providers?.facebook && (
               <button
-              className='hover:scale-125 transition-transform'
+                className="hover:scale-125 transition-transform"
                 onClick={async () => {
                   await signIn(providers.facebook.id)
                 }}
@@ -145,7 +142,7 @@ const LogIn: NextPage = () => {
 
             {providers?.twitter && (
               <button
-                className='hover:scale-125 transition-transform'
+                className="hover:scale-125 transition-transform"
                 onClick={async () => {
                   await signIn(providers.twitter.id)
                 }}
@@ -156,7 +153,7 @@ const LogIn: NextPage = () => {
 
             {providers?.linkedin && (
               <button
-              className='hover:scale-125 transition-transform'
+                className="hover:scale-125 transition-transform"
                 onClick={async () => {
                   await signIn(providers.linkedin.id)
                 }}
@@ -167,7 +164,7 @@ const LogIn: NextPage = () => {
           </div>
           <p className="text-center text-sm mt-3 text-gray-400">
             {"don't have an account yet?"}
-               
+
             <Link href={'/signIn'}>
               <a className="text-blue-700"> Sign Up</a>
             </Link>
