@@ -68,7 +68,6 @@ const LogIn: NextPage = () => {
           <title>LogIn</title>
         </Head>
 
-
         <div className="flex flex-row items-start pl-6 w-full">
           <Image src={whiteLogo} alt="white_logo" height={80} width={150} />
         </div>
@@ -133,7 +132,11 @@ const LogIn: NextPage = () => {
                 <button
                   className="hover:scale-125 transition-transform"
                   onClick={async () => {
-                    await signIn(providers.google.id)
+                    if (session) {
+                      router.push('/')
+                    } else {
+                      await signIn(providers.google.id)
+                    }
                   }}
                 >
                   <SvgGoogle />
@@ -143,7 +146,11 @@ const LogIn: NextPage = () => {
                 <button
                   className="hover:scale-125 transition-transform"
                   onClick={async () => {
-                    await signIn(providers.facebook.id)
+                    if (session) {
+                      router.push('/')
+                    } else {
+                      await signIn(providers.facebook.id)
+                    }
                   }}
                 >
                   <SvgFacebook />
@@ -154,7 +161,11 @@ const LogIn: NextPage = () => {
                 <button
                   className="hover:scale-125 transition-transform"
                   onClick={async () => {
-                    await signIn(providers.twitter.id)
+                    if (session) {
+                      router.push('/')
+                    } else {
+                      await signIn(providers.twitter.id)
+                    }
                   }}
                 >
                   <SvgTwitter />
@@ -165,7 +176,11 @@ const LogIn: NextPage = () => {
                 <button
                   className="hover:scale-125 transition-transform"
                   onClick={async () => {
-                    await signIn(providers.linkedin.id)
+                    if (session) {
+                      router.push('/')
+                    } else {
+                      await signIn(providers.linkedin.id)
+                    }
                   }}
                 >
                   <SvgLinkedIn />
@@ -190,7 +205,6 @@ const LogIn: NextPage = () => {
               className="reg_image rounded-[2rem]"
             />
           </div>
-
         </div>
       </div>
       <Toaster position="top-center" reverseOrder={false} />

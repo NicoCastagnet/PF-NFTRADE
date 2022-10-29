@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Footer from '@components/footer'
 import SvgBitCoin from '@components/icons/svgBitCoin'
-import NavBar from '@components/navbar'
+import NavBar from '@components/navbar/navbar'
 import type { NextPage } from 'next'
 interface Account {
   id: number
