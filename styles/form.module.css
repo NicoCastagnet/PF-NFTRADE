@@ -86,12 +86,12 @@
 }
 
 .notify > section {
-right: -10rem;
-width: 100%;
-width: 25rem;
-top: 4.5rem;
-visibility: hidden;
-transition: all 0.2s ease;
+  right: -10rem;
+  width: 100%;
+  width: 25rem;
+  top: 4.5rem;
+  visibility: hidden;
+  transition: all 0.2s ease;
 }
 
 .notify:hover > section {

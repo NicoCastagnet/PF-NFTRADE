@@ -1,9 +1,9 @@
 import { signOut, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import styles from '../../styles/form.module.css'
-import { useRef } from 'react';
+import { useRef } from 'react'
 
-const User = ({menu}) => {
+const User = ({ menu }) => {
   const router = useRouter()
   const { data: session } = useSession()
 

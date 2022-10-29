@@ -4,7 +4,7 @@ import SvgBitCoin from '@components/icons/svgBitCoin'
 import SvgDislike from '@components/icons/svgDislike'
 import SvgLike from '@components/icons/svgLike'
 import SvgViews from '@components/icons/svgViews'
-import NavBar from '@components/navbar'
+import NavBar from '@components/navbar/navbar'
 import type { NextPage } from 'next'
 import { useState } from 'react'
 
@@ -150,7 +150,6 @@ const ProductDetails: NextPage = () => {
       }
     }
   }
-
 
   return (
     <div>
