@@ -19,6 +19,7 @@
     "db:studio": "prisma studio"
   },
   "dependencies": {
+    "@algolia/autocomplete-core": "^1.7.2",
     "@next-auth/prisma-adapter": "^1.0.5",
     "@prisma/client": "^4.5.0",
     "axios": "^1.1.3",
