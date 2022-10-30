@@ -1,9 +1,11 @@
-import BlurImage from '@components/blurImage'
 import Footer from '@components/footer'
 import NavBar from '@components/navbar/navbar'
+import BlurImage from '@components/ui/blurImage'
+import Modal from '@components/ui/modal'
 import supabase from '@lib/supa'
 import { Formik } from 'formik'
 import type { NextPage } from 'next'
+import { useRouter } from 'next/router'
 import { ChangeEvent, useState } from 'react'
 import * as Yup from 'yup'
 import imagePlaceholder from '/assets/image-placeholder.png'
@@ -31,9 +33,12 @@ const CreateProduct: NextPage = () => {
     description: '',
     image: '',
   }
+  const router = useRouter()
   const [uploading, setUploading] = useState(false)
   const [preview, setPreview] = useState<string>('')
   const [uploadError, setUploadError] = useState(false)
+  const [openModal, setOpenModal] = useState(false)
+  const [createdId, setCreatedId] = useState<string | null>(null)
 
   const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     setUploading(true)
@@ -64,21 +69,58 @@ const CreateProduct: NextPage = () => {
   return (
     <div>
       <NavBar />
+      <Modal
+        title={`Info`}
+        isOpen={openModal}
+        handleClose={() => setOpenModal(false)}
+      >
+        <>
+          <div className="mt-2">
+            <p className="text-sm text-gray-500">
+              Your nft has been successfully submitted.
+            </p>
+          </div>
+
+          <div className="mt-4 flex gap-4">
+            <button
+              type="button"
+              className="inline-flex justify-center rounded-md border border-transparent bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:ring-offset-2"
+              onClick={() => setOpenModal(false)}
+            >
+              Create other
+            </button>
+            <button
+              type="button"
+              className="inline-flex justify-center rounded-md border border-transparent bg-gray-100 px-4 py-2 text-sm font-medium text-slate-800 hover:bg-gray-50 focus:outline-none"
+              onClick={() => router.push(`/nfts/${createdId}`)}
+            >
+              Go to detail
+            </button>
+          </div>
+        </>
+      </Modal>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={async (values, { resetForm, setSubmitting }) => {
+        onSubmit={(values, { resetForm, setSubmitting }) => {
           if (!preview) return setSubmitting(false)
           const creatorId = 'cl9qe7h78000856jrc9lc9vh6'
           const form = { ...values, creatorId, image: preview }
-          const data = await fetch('/api/posts/nftPost', {
+          fetch('/api/posts/nftPost', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify(form),
+          }).then(async (res) => {
+            if (!res.ok) {
+              setCreatedId(null)
+              console.log('Fail to create nft')
+            }
+            const { data } = await res.json()
+            setOpenModal(true)
+            setCreatedId(data.id)
           })
-          console.log(data)
           setSubmitting(false)
           setPreview('')
           resetForm()
@@ -129,7 +171,7 @@ const CreateProduct: NextPage = () => {
                       )}
                     </div>
                     <span className="self-start text-red-400">
-                      {errors.image && errors.image}
+                      {errors.image && touched.image && errors.image}
                     </span>
                     <span className="self-start text-red-400">
                       {uploadError && 'Fail to load file. Try again.'}
