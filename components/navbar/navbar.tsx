@@ -12,6 +12,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 import styles from '../../styles/form.module.css'
+import Notificaciones from './notificaciones'
 import UserMenuNavBar from './user'
 
 export default function NavBar() {
@@ -48,17 +49,8 @@ export default function NavBar() {
           {session && <SvgCoin className="m-3" width={'25'} height={'25'} />}
           <SvgCart className="m-3" width={'25'} height={'25'} />
 
-          {session && (
-            <button>
-              <span className="h-4 w-4 bg-red-500 rounded-full inline-flex absolute top-[1.80rem] border-[3px] border-gray-900 z-10"></span>
-              <span className="animate-ping h-4 w-4 bg-red-500 rounded-full inline-flex absolute top-[1.80rem] z-10"></span>
-              <SvgBell
-                className={`m-3 ${styles.bell}`}
-                width={'25'}
-                height={'25'}
-              />
-            </button>
-          )}
+
+          {session && <Notificaciones/>}
 
           <button
             id="dropdownInformationButton"
