@@ -32,7 +32,7 @@ const HomePage: NextPage<HomeProps> = ({ fallbackData }) => {
   if (!nfts) return <div>loading...</div>
 
   return (
-    <div className="home__container flex flex-col items-center justify-center content-center w-full">
+    <div className="home__container flex flex-col items-center justify-center content-center w-full min">
       <NavBar />
       <section className="home__header bg-slate-900 text-white py-16 px-64 w-full flex justify-between mt-24">
         <div className="right">
