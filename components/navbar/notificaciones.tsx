@@ -11,15 +11,10 @@ const Notificaciones = () => {
         <SvgBell className={`m-3 ${styles.bell}`} width={'25'} height={'25'} />
       </button>
       {/* ///////////////////////////////////////////////// */}
-      <section className="absolute">
+      <section className="absolute top-16 -right-40 w-full before:absolute before:-top-4 before:right-40 before:border-b-[1rem] before:border-b-white before:dark:border-b-gray-800">
         <div
-          id="dropdownNotification"
-          className={`z-20 w-full bg-white divide-y divide-gray-100 shadow dark:bg-gray-800 dark:divide-gray-700 rounded-lg`}
-          aria-labelledby="dropdownNotificationButton"
-          data-popper-reference-hidden=""
-          data-popper-escaped=""
+          className={`z-20 w-full bg-white divide-y divide-gray-100 shadow dark:bg-gray-800 dark:divide-gray-700 rounded-lg before:border-b-8 before:border-b-white`}
           data-popper-placement="bottom"
-          // style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(0px, 10px);"
         >
           {/* ----------------------------------------------------------------------------- */}
           <div className="block py-2 px-4 font-medium text-center text-gray-700 bg-gray-50 dark:bg-gray-800 dark:text-white rounded-t-xl">
