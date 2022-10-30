@@ -24,7 +24,6 @@ export const authOptions: NextAuthOptions = {
       name: 'Credentials',
 
       authorize: async (credentials, res) => {
-
         // check user existance
         const result = await prisma.user.findUnique({
           where: {
@@ -35,10 +34,13 @@ export const authOptions: NextAuthOptions = {
           throw new Error('No user Found with Email Please Sign Up...!')
         }
         // compare()
-        const checkPassword = await compare(credentials.password, result.passwordHash)
+        const checkPassword = await compare(
+          credentials.password,
+          result.passwordHash,
+        )
 
-        if(!checkPassword) {
-          throw new Error("la contrasena no coinside")
+        if (!checkPassword) {
+          throw new Error('la contrasena no coinside')
         }
 
         // incorrect password
@@ -76,8 +78,8 @@ export const authOptions: NextAuthOptions = {
     strategy: 'jwt',
   },
   pages: {
-    signIn: "/SignIn",
-    // signOut: 
+    signIn: '/SignIn',
+    // signOut:
   },
   callbacks: {
     session: async ({ token, session }) => {

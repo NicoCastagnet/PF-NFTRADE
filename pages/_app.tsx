@@ -1,4 +1,5 @@
 import type { AppProps } from 'next/app'
+import { useEffect, useState } from 'react'
 import '../styles/globals.css'
 
 import type { Session } from 'next-auth'
@@ -9,8 +10,23 @@ export default function App({
   pageProps: { session, ...pageProps },
 }: AppProps<{ session: Session }>) {
   return (
-    <SessionProvider session={session}>
-      <Component {...pageProps} />
-    </SessionProvider>
+    <>
+      <SessionProvider session={session}>
+        <Hydrated>
+          <Component {...pageProps} />
+        </Hydrated>
+      </SessionProvider>
+    </>
   )
+}
+
+const Hydrated = ({ children }: { children?: any }) => {
+  const [hydration, setHydration] = useState(false)
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setHydration(true)
+    }
+  }, [])
+  return hydration ? children : ''
 }

@@ -7,6 +7,7 @@ import {
 } from '@algolia/autocomplete-core'
 import SearchIcon from '@components/icons/svgSearch'
 import { useMemo, useRef, useState } from 'react'
+import styles from '../../styles/form.module.css'
 import AutocompleteItem from './item'
 
 export default function Search() {
@@ -65,7 +66,7 @@ export default function Search() {
         </div>
         {autocompleteState.isOpen && (
           <div
-            className="absolute mt-16 lg:ml-5 top-0 left-0 border border-slate-600 bg-slate-700 overflow-hidden rounded-lg shadow-lg z-[999] w-full max-h-[28rem]"
+            className={`absolute mt-16 lg:ml-5 top-0 left-0 border border-slate-600 bg-slate-700 overflow-auto rounded-lg shadow-lg z-[999] w-full max-h-[28rem] ${styles.scrollbar}`}
             ref={panelRef}
             {...autocomplete.getPanelProps({})}
           >
