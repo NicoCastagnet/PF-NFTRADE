@@ -1,7 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import whiteLogo from '@assets/White.png'
-import SvgBell from '@components/icons/svgBell'
 import SvgCart from '@components/icons/svgCart'
 import SvgChevronDown from '@components/icons/svgChevronDown'
 import SvgCoin from '@components/icons/svgCoin'
@@ -11,7 +8,6 @@ import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
-import styles from '../../styles/form.module.css'
 import Notificaciones from './notificaciones'
 import UserMenuNavBar from './user'
 
@@ -49,8 +45,7 @@ export default function NavBar() {
           {session && <SvgCoin className="m-3" width={'25'} height={'25'} />}
           <SvgCart className="m-3" width={'25'} height={'25'} />
 
-
-          {session && <Notificaciones/>}
+          {session && <Notificaciones />}
 
           <button
             id="dropdownInformationButton"

@@ -2,7 +2,6 @@ import NFT from '@assets/chain.png'
 import Newsletter from '@assets/newsletter.png'
 import NFT2 from '@assets/NFT_5.png'
 import Footer from '@components/footer'
-import SvgArrow from '@components/icons/svgArrow'
 import SvgBag from '@components/icons/svgBag'
 import SvgCollection from '@components/icons/svgCollection'
 import SvgHeart from '@components/icons/svgHeart'
@@ -223,7 +222,7 @@ const HomePage: NextPage<HomeProps> = ({ fallbackData }) => {
                     className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                   >
                     Read more
-                    {/* <svg
+                    <svg
                       aria-hidden="true"
                       className="ml-2 -mr-1 w-4 h-4"
                       fill="currentColor"
@@ -235,7 +234,7 @@ const HomePage: NextPage<HomeProps> = ({ fallbackData }) => {
                         d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
                         clip-rule="evenodd"
                       ></path>
-                    </svg> */}
+                    </svg>
                   </a>
                 </div>
               )

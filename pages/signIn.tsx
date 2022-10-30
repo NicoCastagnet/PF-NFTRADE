@@ -64,7 +64,7 @@ const SignIn: NextPage = () => {
         })
     } catch (error) {
       toast.error('an error occurred while registering', { duration: 3000 })
-      router.push("/signIn")
+      router.push('/signIn')
     }
   }
   ////////////////////////////////////////////////////////////////
