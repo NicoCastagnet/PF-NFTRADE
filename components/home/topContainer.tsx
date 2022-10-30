@@ -6,7 +6,15 @@ const TopContainer = ({ nfts }: { nfts: any }) => {
   if (!nfts) return <div>loading...</div>
 
   return (
-    <>
+    <section className="home__top flex flex-col items-center">
+      <div className="home__top-titles flex flex-col text-center m-16">
+        <p className="text-5xl font-bold tracking-wide">
+          Most liked <span className="font-extrabold text-blue-600">NFTs</span>
+        </p>
+        <p className="m-5 text-lg text-gray-500">
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+        </p>
+      </div>
       <div className="home__top-container flex items-center justify-evenly w-auto rounded-lg mb-16 bg-gray-800">
         {nfts &&
           nfts.map((e: any) => {
@@ -71,7 +79,7 @@ const TopContainer = ({ nfts }: { nfts: any }) => {
             )
           })}
       </div>
-    </>
+    </section>
   )
 }
 
