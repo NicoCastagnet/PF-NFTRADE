@@ -5,22 +5,15 @@ import NewLetter from '@components/home/newLetter'
 import TopContainer from '@components/home/topContainer'
 import UtilsContainer from '@components/home/utilsContainer'
 import NavBar from '@components/navbar/navbar'
-import fetcher from '@lib/fetcher'
+import { getAllNfts } from '@lib/api'
 import type { GetServerSideProps, NextPage } from 'next'
-import useSWR from 'swr'
 import type { NftsResponse } from 'types/api-responses'
 
-const URL = 'http://localhost:3000/api/nfts?limit=3&order=likes_desc'
-
 interface HomeProps {
-  fallbackData: NftsResponse
+  nfts: NftsResponse
 }
 
-const HomePage: NextPage<HomeProps> = ({ fallbackData }) => {
-  const { data: nfts } = useSWR<NftsResponse>(URL, fetcher, {
-    fallbackData,
-  })
-
+const HomePage: NextPage<HomeProps> = ({ nfts }) => {
   return (
     <div className="home__container flex flex-col items-center justify-center content-center w-full min">
       <NavBar />
@@ -53,9 +46,9 @@ const HomePage: NextPage<HomeProps> = ({ fallbackData }) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const data = await fetcher(URL)
+  const nfts = await getAllNfts({ limit: 3, order: 'likes_desc' })
   return {
-    props: { fallbackData: data || {} },
+    props: { nfts },
   }
 }
 

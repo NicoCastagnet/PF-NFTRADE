@@ -1,4 +1,4 @@
-import fetcher from '@lib/fetcher'
+import getNftById from '@lib/api/nfts/getById'
 import type { GetServerSideProps, NextPage } from 'next'
 import type { NftDetailResponse } from 'types/api-responses'
 
@@ -16,7 +16,13 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const data = await fetcher(`http://localhost:3000/api/nfts/${params?.id}`)
+  const data = await getNftById({ id: params?.id as string })
+  if (!data) {
+    return {
+      notFound: true,
+    }
+  }
+
   return {
     props: {
       nft: data,

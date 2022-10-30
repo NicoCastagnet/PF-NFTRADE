@@ -1,10 +1,9 @@
 import SvgHeart from '@components/icons/svgHeart'
 import Image from 'next/image'
+import type { NftsResponse } from 'types/api-responses'
 import styles from '../../styles/form.module.css'
 
-const TopContainer = ({ nfts }: { nfts: any }) => {
-  if (!nfts) return <div>loading...</div>
-
+const TopContainer = ({ nfts }: { nfts: NftsResponse }) => {
   return (
     <section className="home__top flex flex-col items-center">
       <div className="home__top-titles flex flex-col text-center m-16">
@@ -17,7 +16,7 @@ const TopContainer = ({ nfts }: { nfts: any }) => {
       </div>
       <div className="home__top-container flex items-center justify-evenly w-auto rounded-lg mb-16 bg-gray-800">
         {nfts &&
-          nfts.map((e: any) => {
+          nfts.map((e) => {
             return (
               <div
                 key={e.id}
