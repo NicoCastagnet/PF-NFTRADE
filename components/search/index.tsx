@@ -55,11 +55,12 @@ export default function Search() {
     <form className="navbar__searchbar " ref={formRef} {...formProps}>
       <div className={`${autocompleteState.isOpen ? '' : 'hidden'} bg-transparent opacity-90 absolute w-full h-screen top-0 left-0 z-20`}
       onClick={async () => {
-        await formRef.current.reset()
         setAutocompleteState({
-        collections: [],
-        isOpen: false,
-      })}}
+          collections: [],
+          isOpen: false,
+        })
+        await formRef.current.reset()
+      }}
       ></div>
       <div className="flex relative w-full">
         <div className="relative">
