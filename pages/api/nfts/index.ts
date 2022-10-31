@@ -9,13 +9,16 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<NftsResponse>,
 ) {
-  const { limit, order } = req.query
+  const { limit, order, page } = req.query
   const take = limit && !isNaN(+limit) && +limit > 1 ? +limit : undefined
   const orderBy = getOrderBy(order as string)
+  const skip =
+    page && limit ? Math.max(+page - 1, 1) * Math.max(+limit, 1) : undefined
 
   const nfts = await prisma.nft.findMany({
     orderBy,
     take,
+    skip,
     select: {
       id: true,
       name: true,

@@ -27,6 +27,26 @@ export type NftsResponse = Prisma.NftGetPayload<{
   }
 }>[]
 
+export type NftResponse = Prisma.NftGetPayload<{
+  select: {
+    id: true
+    name: true
+    image: true
+    owner: {
+      select: { name: true }
+    }
+    _count: {
+      select: { likedBy: true; viewedBy: true }
+    }
+    categories: {
+      select: {
+        id: true
+        name: true
+      }
+    }
+  }
+}>
+
 // GET: /api/nfts/:id
 export type NftDetailResponse = Prisma.NftGetPayload<{
   select: {
