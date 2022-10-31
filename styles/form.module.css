@@ -66,13 +66,9 @@
   border-right: 1.5rem solid transparent;
 }
 @media screen and (max-width: 1280px) {
-
-
   .menuLogIn::before {
-  right: 1.7rem;
-}
-
-
+    right: 1.7rem;
+  }
 }
 
 .menuLogOut::before {
