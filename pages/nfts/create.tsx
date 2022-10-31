@@ -5,6 +5,7 @@ import Modal from '@components/ui/modal'
 import supabase from '@lib/supa'
 import { Formik } from 'formik'
 import type { NextPage } from 'next'
+import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { ChangeEvent, useState } from 'react'
 import * as Yup from 'yup'
@@ -17,14 +18,29 @@ interface NftFormValues {
   description?: string
 }
 
-export const validationSchema = Yup.object().shape({
-  name: Yup.string()
-    .min(20, 'The name must have at least 20 characters')
-    .required('is required.'),
-  price: Yup.number().min(1, 'The lowest price is 1').required('is required.'),
-  image: Yup.mixed().required('Image is required.'),
-  description: Yup.string(),
-})
+export const validationSchema = Yup.object().shape(
+  {
+    name: Yup.string()
+      .min(10, 'The name must have at least 10 characters')
+      .required('is required.'),
+    price: Yup.number()
+      .min(1, 'The lowest price is 1')
+      .max(9999)
+      .required('is required.'),
+    image: Yup.mixed().required('Image is required.'),
+    description: Yup.string()
+      .nullable()
+      .notRequired()
+      .when('description', {
+        is: (value?: string) => value?.length,
+        then: (rule) =>
+          rule
+            .min(10, 'must be at least 10 characters')
+            .max(140, 'must be at most 140 characters'),
+      }),
+  },
+  [['description', 'description']],
+)
 
 const CreateProduct: NextPage = () => {
   const initialValues: NftFormValues = {
@@ -34,11 +50,16 @@ const CreateProduct: NextPage = () => {
     image: '',
   }
   const router = useRouter()
+  const { data: session, status } = useSession()
   const [uploading, setUploading] = useState(false)
   const [preview, setPreview] = useState<string>('')
   const [uploadError, setUploadError] = useState(false)
   const [openModal, setOpenModal] = useState(false)
   const [createdId, setCreatedId] = useState<string | null>(null)
+
+  if (!session && status !== 'loading') {
+    router.push('/logIn')
+  }
 
   const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     setUploading(true)
@@ -104,7 +125,7 @@ const CreateProduct: NextPage = () => {
         validationSchema={validationSchema}
         onSubmit={(values, { resetForm, setSubmitting }) => {
           if (!preview) return setSubmitting(false)
-          const creatorId = 'cl9qe7h78000856jrc9lc9vh6'
+          const creatorId = session?.user.id
           const form = { ...values, creatorId, image: preview }
           fetch('/api/posts/nftPost', {
             method: 'POST',
@@ -222,9 +243,14 @@ const CreateProduct: NextPage = () => {
                     <div className="w-[80%]">
                       <label
                         htmlFor="message"
-                        className="block mb-2 text-sm font-medium text-gray-900 "
+                        className="flex items-center gap-2 mb-2 text-sm font-medium text-gray-900 "
                       >
                         <span className="text-[1.2rem]">Description</span>
+                        <span className="self-start text-red-400">
+                          {errors.description &&
+                            touched.description &&
+                            errors.description}
+                        </span>
                       </label>
                       <textarea
                         id="message"
