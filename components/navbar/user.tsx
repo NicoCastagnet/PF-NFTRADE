@@ -50,7 +50,7 @@ const UserMenuNavBar = ({ menu }: { menu: boolean }) => {
         </div>
       ) : (
         <div
-          className={`relative ${menu ? '' : 'hidden'} ${styles.menuLogOut}`}
+          className={`relative ${menu ? '' : 'hidden'} before:absolute before:z-20 ${styles.menuLogOut}`}
         >
           <div
             className={` z-[999] w-44 shadow bg-gray-700 absolute top-9 right-[-2rem] rounded-xl `}

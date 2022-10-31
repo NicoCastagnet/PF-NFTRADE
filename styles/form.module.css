@@ -66,8 +66,6 @@
   border-right: 1.5rem solid transparent;
 }
 @media screen and (max-width: 1280px) {
-
-
   .menuLogIn::before {
   right: 1.7rem;
 }
@@ -78,11 +76,15 @@
 .menuLogOut::before {
   content: '';
   top: 1.5rem;
-  right: 0;
+  right: 1.3rem;
   border-bottom: 1rem solid rgb(55, 65, 81, 70);
   border-left: 1.5rem solid transparent;
   border-right: 1.5rem solid transparent;
 }
+
+
+
+
 
 .dropdownNotification {
   position: absolute;
