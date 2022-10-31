@@ -1,36 +1,65 @@
 import Search from '@components/search'
 import { getAllNfts } from '@lib/api'
+import fetcher from '@lib/fetcher'
 import type { GetServerSideProps, NextPage } from 'next'
-import type { NftsResponse } from 'types/api-responses'
+import useSWRInfinite from 'swr/infinite'
+import type { NftResponse, NftsResponse } from 'types/api-responses'
 
 interface DemoProps {
-  nfts: NftsResponse
+  fallbackData: NftsResponse
 }
 
-const DemoFetch: NextPage<DemoProps> = ({ nfts }) => {
-  // if no data: loading  feedback
-  if (!nfts.length)
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <h1 className="text-2xl font-bold">No items for show</h1>
-      </div>
-    )
+const LIMIT = 5
 
+const getKey = (pageIndex: number, previousPageData: NftsResponse) => {
+  if (previousPageData && !previousPageData.length) return null
+  return `/api/nfts?page=${pageIndex}&limit=${LIMIT}`
+}
+
+const DemoFetch: NextPage<DemoProps> = ({ fallbackData }) => {
+  const { data, size, setSize, error } = useSWRInfinite(getKey, fetcher, {
+    fallbackData,
+  })
+  const isLoadingInitialData = !data && !error
+  const isLoadingMore =
+    isLoadingInitialData ||
+    (size > 0 && data && typeof data[size - 1] === 'undefined')
+  const isEmpty = data?.[0]?.length === 0
+  const isReachingEnd =
+    isEmpty || (data && data[data.length - 1]?.length < LIMIT)
+
+  if (!data) return <div>Loading...</div>
+
+  // if no data: loading  feedback
+  let totalNfts = 0
+  for (let i = 0; i < data.length; i++) {
+    totalNfts += data[i].length
+  }
   // if data
   return (
     <div className="flex flex-col items-center gap-4 py-8">
       <Search />
-      {nfts.map((nft) => (
-        <div className="text-xl" key={nft.id}>
-          {nft.name}
-        </div>
-      ))}
+      <p>total nfts listed: {totalNfts}</p>
+      {data.map((nfts) => {
+        return nfts.map((nft: NftResponse) => <h1 key={nft.id}>{nft.name}</h1>)
+      })}
+      <button
+        className="bg-slate-900 text-white px-6 py-3 rounded-lg disabled:bg-slate-500 disabled:cursor-not-allowed"
+        disabled={isLoadingMore || isReachingEnd}
+        onClick={() => setSize(size + 1)}
+      >
+        {isLoadingMore
+          ? 'loading...'
+          : isReachingEnd
+          ? 'no more issues'
+          : 'load more'}
+      </button>
     </div>
   )
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const data = await getAllNfts()
+  const data = await getAllNfts({ page: 1, limit: LIMIT })
   return {
     props: {
       nfts: data,

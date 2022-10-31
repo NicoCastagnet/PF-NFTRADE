@@ -25,10 +25,10 @@ const UserMenuNavBar = ({ menu }: { menu: boolean }) => {
               className="py-1 text-sm text-gray-200 border-y-white border-y-2"
               aria-labelledby="dropdownInformationButton"
             >
-              <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white min-[1130px]:hidden">
+              <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white min-[1145px]:hidden">
                 <Link href="#">Explore</Link>
               </li>
-              <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white min-[1130px]:hidden">
+              <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white min-[1145px]:hidden">
                 <Link href="/marketplace">Marketplace</Link>
               </li>
               <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white">
@@ -50,7 +50,7 @@ const UserMenuNavBar = ({ menu }: { menu: boolean }) => {
         </div>
       ) : (
         <div
-          className={`relative ${menu ? '' : 'hidden'} ${styles.menuLogOut}`}
+          className={`relative ${menu ? '' : 'hidden'} before:absolute before:z-20 ${styles.menuLogOut}`}
         >
           <div
             className={` z-[999] w-44 shadow bg-gray-700 absolute top-9 right-[-2rem] rounded-xl `}
@@ -60,10 +60,10 @@ const UserMenuNavBar = ({ menu }: { menu: boolean }) => {
               className=" text-sm text-gray-200 border-t-2 border-gray-600"
               aria-labelledby="dropdownInformationButton"
             >
-              <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white min-[1130px]:hidden">
+              <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white min-[1145px]:hidden">
                 <Link href="#">Explore</Link>
               </li>
-              <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white min-[1130px]:hidden">
+              <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white min-[1145px]:hidden">
                 <Link href="/marketplace">Marketplace</Link>
               </li>
               <li
