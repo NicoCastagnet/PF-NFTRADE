@@ -5,6 +5,7 @@ import Modal from '@components/ui/modal'
 import supabase from '@lib/supa'
 import { Formik } from 'formik'
 import type { NextPage } from 'next'
+import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { ChangeEvent, useState } from 'react'
 import * as Yup from 'yup'
@@ -49,11 +50,16 @@ const CreateProduct: NextPage = () => {
     image: '',
   }
   const router = useRouter()
+  const { data: session, status } = useSession()
   const [uploading, setUploading] = useState(false)
   const [preview, setPreview] = useState<string>('')
   const [uploadError, setUploadError] = useState(false)
   const [openModal, setOpenModal] = useState(false)
   const [createdId, setCreatedId] = useState<string | null>(null)
+
+  if (!session && status !== 'loading') {
+    router.push('/logIn')
+  }
 
   const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     setUploading(true)
@@ -119,7 +125,7 @@ const CreateProduct: NextPage = () => {
         validationSchema={validationSchema}
         onSubmit={(values, { resetForm, setSubmitting }) => {
           if (!preview) return setSubmitting(false)
-          const creatorId = 'cl9qe7h78000856jrc9lc9vh6'
+          const creatorId = session?.user.id
           const form = { ...values, creatorId, image: preview }
           fetch('/api/posts/nftPost', {
             method: 'POST',
