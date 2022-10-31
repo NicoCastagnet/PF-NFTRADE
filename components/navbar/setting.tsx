@@ -3,9 +3,7 @@ import React from 'react'
 const Setting = () => {
   return (
     <div>
-      <ul>
-        settings
-      </ul>
+      <ul>settings</ul>
     </div>
   )
 }
