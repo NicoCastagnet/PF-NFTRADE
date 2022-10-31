@@ -17,7 +17,6 @@ export default function Search() {
     collections: [],
     isOpen: false,
   })
-  const [val, setVal] =useState('')
 
   const autocomplete = useMemo(
     () =>
@@ -71,7 +70,7 @@ export default function Search() {
             ref={inputRef}
             className="lg:w-96 h-11 rounded-md lg:ml-10 p-3 lg:pl-11 text-white hover:bg-slate-700 ease duration-150 focus: outline-none focus:bg-slate-700"
             {...inputProps}
-            value={val}
+
             
           />
         </div>
