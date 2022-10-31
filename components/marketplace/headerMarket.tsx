@@ -69,7 +69,7 @@ const HeaderMarket = () => {
           </div>
 
           <div
-            className={`absolute before:absolute top-[5.5rem] right-64 z-10 w-44 px-4 rounded shadow bg-gray-700 ${
+            className={`absolute before:absolute top-[5.5rem] right-64 z-10 w-44  rounded shadow bg-gray-700 ${
               orderMenu ? '' : 'hidden'
             } ${styles.orderByMenu}`}
           >
