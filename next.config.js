@@ -8,7 +8,7 @@ const nextConfig = {
       'tdhdjernzsaepxgzandc.supabase.co',
       'media.licdn.com',
       'lh3.googleusercontent.com',
-      'pbs.twimg.com'
+      'pbs.twimg.com',
     ],
   },
   async headers() {

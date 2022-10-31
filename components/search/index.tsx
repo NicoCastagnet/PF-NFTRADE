@@ -53,14 +53,17 @@ export default function Search() {
 
   return (
     <form className="navbar__searchbar " ref={formRef} {...formProps}>
-      <div className={`${autocompleteState.isOpen ? '' : 'hidden'} bg-transparent opacity-90 absolute w-full h-screen top-0 left-0 z-20`}
-      onClick={async () => {
-        setAutocompleteState({
-          collections: [],
-          isOpen: false,
-        })
-        await formRef.current.reset()
-      }}
+      <div
+        className={`${
+          autocompleteState.isOpen ? '' : 'hidden'
+        } bg-transparent opacity-90 absolute w-full h-screen top-0 left-0 z-20`}
+        onClick={async () => {
+          setAutocompleteState({
+            collections: [],
+            isOpen: false,
+          })
+          await formRef.current.reset()
+        }}
       ></div>
       <div className="flex relative w-full">
         <div className="relative">
@@ -71,8 +74,6 @@ export default function Search() {
             ref={inputRef}
             className="lg:w-96 h-11 rounded-md lg:ml-10 p-3 lg:pl-11 text-white hover:bg-slate-700 ease duration-150 focus: outline-none focus:bg-slate-700"
             {...inputProps}
-
-            
           />
         </div>
         {autocompleteState.isOpen && (
