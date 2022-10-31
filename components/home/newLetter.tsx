@@ -36,7 +36,7 @@ const NewLetter = () => {
             />
             <button
               type="submit"
-              className="text-white absolute right-[12rem] bottom-2.5 bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-200 font-medium rounded-lg text-sm px-4 py-2"
+              className="text-white absolute right-[19rem] bottom-2.5 bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-200 font-medium rounded-lg text-sm px-4 py-2"
             >
               Subscribe
             </button>

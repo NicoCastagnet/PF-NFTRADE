@@ -1,6 +1,7 @@
 import whiteLogo from '@assets/White.png'
 import SvgFacebook from '@components/icons/svgFacebook'
 import Image from 'next/image'
+import Link from 'next/link'
 import SvgGitHub from './icons/svgGitHub'
 import SvgInstagram from './icons/svgInstagram'
 import SvgLinkedIn from './icons/svgLinkedIn'
@@ -21,21 +22,13 @@ export default function Footer() {
               Resources
             </h2>
             <ul className="text-gray-600 dark:text-gray-400">
-              <li className="mb-4">
-                <a
-                  href="https://localhost:3000/about"
-                  className="hover:underline"
-                >
+              <li className="mb-4 hover:underline">
+                <Link href="/about" className="hover:underline">
                   About us
-                </a>
+                </Link>
               </li>
-              <li>
-                <a
-                  href="https://localhost:3000/marketplace"
-                  className="hover:underline"
-                >
-                  Marketplace
-                </a>
+              <li className="hover:underline">
+                <Link href="/marketplace">Marketplace</Link>
               </li>
             </ul>
           </div>
