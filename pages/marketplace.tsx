@@ -157,7 +157,7 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
           {nfts &&
             nfts.map((e) => {
               return (
-                <Link href={'/api/nfts'} key={e.id}>
+                <Link href={`/nfts/${e.id}`} key={e.id}>
                   <div
                     key={e.id}
                     className="market_list-card max-w-sm m-10 rounded-lg border shadow-md bg-gray-800 border-gray-700 cursor-pointer"
