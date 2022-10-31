@@ -44,7 +44,7 @@ export default function NavBar() {
       <div className="navbar__buttons flex flex-row flex-wrap justify-center items-center text-white">
 
         {/* ----------------------------------------------------------- */}
-        <div className='flex flex-row justify-center items-center max-[1130px]:hidden'>
+        <div className='flex flex-row justify-center items-center max-[1145px]:hidden'>
 
         <Link href={'#'}>
           <button className="m-3">Explore</button>
