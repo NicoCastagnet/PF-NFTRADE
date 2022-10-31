@@ -34,61 +34,59 @@ export default function NavBar() {
         />
       </Link>
 
-
-      <div className='flex flex-row justify-between items-center w-full max-[820px]:gap-2 max-[820px]:flex-col-reverse'>
-
-      <div className="navbar__izq flex lg:flex-row items-center flex-col ml-6">
-        <Search />
-      </div>
-
-      <div className="navbar__buttons flex flex-row flex-wrap justify-center items-center text-white">
-
-        {/* ----------------------------------------------------------- */}
-        <div className='flex flex-row justify-center items-center max-[1145px]:hidden'>
-
-        <Link href={'#'}>
-          <button className="m-3">Explore</button>
-        </Link>
-        <Link href="/marketplace">
-          <button className="m-3">Marketplace</button>
-        </Link>
-
+      <div className="flex flex-row justify-between items-center w-full max-[820px]:gap-2 max-[820px]:flex-col-reverse">
+        <div className="navbar__izq flex lg:flex-row items-center flex-col ml-6">
+          <Search />
         </div>
-        {/* ----------------------------------------------------------- */}
 
-        {session && <SvgCoin className="m-3" width={'25'} height={'25'} />}
-        <SvgCart className="m-3" width={'25'} height={'25'} />
+        <div className="navbar__buttons flex flex-row flex-wrap justify-center items-center text-white">
+          {/* ----------------------------------------------------------- */}
+          <div className="flex flex-row justify-center items-center max-[1145px]:hidden">
+            <Link href={'#'}>
+              <button className="m-3">Explore</button>
+            </Link>
+            <Link href="/marketplace">
+              <button className="m-3">Marketplace</button>
+            </Link>
+          </div>
+          {/* ----------------------------------------------------------- */}
 
-        {session && <Notificaciones />}
+          {session && <SvgCoin className="m-3" width={'25'} height={'25'} />}
+          <SvgCart className="m-3" width={'25'} height={'25'} />
 
-        <button
-          id="dropdownInformationButton"
-          data-dropdown-toggle="dropdownInformation"
-          className="relative m-3"
-          type="button"
-          onClick={() => setMen((state) => !state)}
+          {session && <Notificaciones />}
+
+          <button
+            id="dropdownInformationButton"
+            data-dropdown-toggle="dropdownInformation"
+            className="relative m-3"
+            type="button"
+            onClick={() => setMen((state) => !state)}
           >
-          {session && session.user.image ? (
-            <div className="flex items-center max-xl:gap-2 hover:text-blue-600">
-              <Image
-                src={session.user.image}
-                alt="user_image"
-                height={35}
-                width={35}
-                className="rounded-full"
+            {session && session.user.image ? (
+              <div className="flex items-center max-xl:gap-2 hover:text-blue-600">
+                <Image
+                  src={session.user.image}
+                  alt="user_image"
+                  height={35}
+                  width={35}
+                  className="rounded-full"
                 />
-              <p className="m-2 max-xl:hidden font-medium">
-                {session.user.name}
-              </p>
-              <SvgChevronDown width={'15'} height={'15'} />
-            </div>
-          ) : (
-            <SvgUser width={'25'} height={'25'} />
+                <p className="m-2 max-xl:hidden font-medium">
+                  {session.user.name}
+                </p>
+                <SvgChevronDown width={'15'} height={'15'} />
+              </div>
+            ) : (
+              <div className="flex items-center gap-2 hover:text-blue-600">
+                <SvgUser width={'25'} height={'25'} />
+                <SvgChevronDown width={'15'} height={'15'} />
+              </div>
             )}
-        </button>
-        {menu && <UserMenuNavBar menu={menu} />}
+          </button>
+          {menu && <UserMenuNavBar menu={menu} />}
+        </div>
       </div>
-            </div>
     </nav>
   )
 }
