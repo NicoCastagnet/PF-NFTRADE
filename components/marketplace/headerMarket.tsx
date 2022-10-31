@@ -4,6 +4,7 @@ import SvgGrid2 from '@components/icons/svgGrid2'
 import SvgGrid3 from '@components/icons/svgGrid3'
 import SvgList2 from '@components/icons/svgList2'
 import SvgReload from '@components/icons/svgReload'
+import styles from '../../styles/form.module.css'
 
 import { useState } from 'react'
 
@@ -68,13 +69,17 @@ const HeaderMarket = () => {
           </div>
 
           <div
-            className={
-              orderMenu
-                ? 'absolute top-[5.5rem] right-64 z-10 w-44 rounded shadow bg-gray-700'
-                : 'hidden'
-            }
+            className={`absolute before:absolute top-[5.5rem] right-64 z-10 w-44 px-4 rounded shadow bg-gray-700 ${
+              orderMenu ? '' : 'hidden'
+            } ${styles.orderByMenu}`}
           >
-            <ul className="py-1 text-sm text-gray-200">
+            <div
+              onClick={openOrderMenu}
+              className={` w-full h-screen -z-10 fixed top-0 left-0  ${
+                orderMenu ? '' : 'hidden'
+              }`}
+            ></div>
+            <ul className="py-2 text-lg text-gray-200">
               <li>
                 <a
                   href="#"
@@ -111,7 +116,11 @@ const HeaderMarket = () => {
           </div>
         </div>
       </section>
-      <section className={sideBar ? 'market__sidebar' : 'hidden'}>
+      <section className={`${sideBar ? '' : 'hidden'}`}>
+        <div
+          onClick={openSideBar}
+          className={` z-20 h-screen w-full fixed ${sideBar ? '' : 'hidden'}`}
+        ></div>
         <div
           id="drawer-navigation"
           className="fixed z-40 h-screen p-4 overflow-y-auto w-80 bg-gray-800 drop-shadow-2xl"
