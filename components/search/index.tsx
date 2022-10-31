@@ -17,6 +17,7 @@ export default function Search() {
     collections: [],
     isOpen: false,
   })
+  const [val, setVal] =useState('')
 
   const autocomplete = useMemo(
     () =>
@@ -52,7 +53,15 @@ export default function Search() {
   })
 
   return (
-    <form className="navbar__searchbar" ref={formRef} {...formProps}>
+    <form className="navbar__searchbar " ref={formRef} {...formProps}>
+      <div className={`${autocompleteState.isOpen ? '' : 'hidden'} bg-transparent opacity-90 absolute w-full h-screen top-0 left-0 z-20`}
+      onClick={async () => {
+        await formRef.current.reset()
+        setAutocompleteState({
+        collections: [],
+        isOpen: false,
+      })}}
+      ></div>
       <div className="flex relative w-full">
         <div className="relative">
           <span className="absolute inset-y-0 lg:left-14 left-[88%] flex items-center text-slate-400">
@@ -62,6 +71,8 @@ export default function Search() {
             ref={inputRef}
             className="lg:w-96 h-11 rounded-md lg:ml-10 p-3 lg:pl-11 text-white hover:bg-slate-700 ease duration-150 focus: outline-none focus:bg-slate-700"
             {...inputProps}
+            value={val}
+            
           />
         </div>
         {autocompleteState.isOpen && (
