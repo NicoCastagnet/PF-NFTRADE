@@ -4,11 +4,10 @@ import SvgGrid2 from '@components/icons/svgGrid2'
 import SvgGrid3 from '@components/icons/svgGrid3'
 import SvgList2 from '@components/icons/svgList2'
 import SvgReload from '@components/icons/svgReload'
+import { useState } from 'react'
 import styles from '../../styles/form.module.css'
 
-import { useState } from 'react'
-
-const HeaderMarket = () => {
+const HeaderMarket = ({ setOrder }) => {
   const [sideBar, setSideBar] = useState(false)
   const [orderMenu, setOrderMenu] = useState(false)
 
@@ -33,12 +32,13 @@ const HeaderMarket = () => {
           </button>
           <button
             type="button"
-            className="flex items-center py-3 px-3 ml-4 text-sm font-medium rounded-full border focus:z-10 focus:ring-2 bg-gray-700 border-gray-600 text-white hover:text-white hover:bg-gray-600 focus:ring-blue-500 focus:text-white"
+            className="group flex items-center py-3 px-3 ml-4 text-sm font-medium rounded-full border focus:z-10 focus:ring-2 bg-gray-700 border-gray-600 text-white hover:text-white hover:bg-gray-600 focus:ring-blue-500 focus:text-white"
+            onClick={() => setOrder('all')}
           >
             <SvgReload
               width="25"
               height="25"
-              className="mr-2 hover:animate-spin"
+              className="group-hover:animate-spin r-btn mr-2 hover:animate-spin"
             />
             Reload content
           </button>
@@ -96,21 +96,17 @@ const HeaderMarket = () => {
                   Newest
                 </a>
               </li>
-              <li>
-                <a
-                  href="#"
-                  className="block py-2 px-4 hover:bg-gray-600 hover:text-white"
-                >
-                  Ascending
-                </a>
+              <li
+                className="block py-2 px-4 hover:bg-gray-600 hover:text-white cursor-pointer"
+                onClick={() => setOrder('AZ')}
+              >
+                A-Z
               </li>
-              <li>
-                <a
-                  href="#"
-                  className="block py-2 px-4 hover:bg-gray-600 hover:text-white"
-                >
-                  Descending
-                </a>
+              <li
+                className="block py-2 px-4 hover:bg-gray-600 hover:text-white cursor-pointer"
+                onClick={() => setOrder('ZA')}
+              >
+                Z-A
               </li>
             </ul>
           </div>
