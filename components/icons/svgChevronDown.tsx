@@ -1,16 +1,17 @@
 const svgChevronDown = ({ ...props }) => (
   <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="16"
-    height="16"
+    data-accordion-icon=""
+    className="w-6 h-6 shrink-0"
     fill="currentColor"
-    viewBox="0 0 16 16"
+    viewBox="0 0 20 20"
+    xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
     <path
-      fill-rule="evenodd"
-      d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
-    />
+      fillRule="evenodd"
+      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+      clipRule="evenodd"
+    ></path>
   </svg>
 )
 

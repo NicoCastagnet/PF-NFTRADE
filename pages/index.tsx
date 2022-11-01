@@ -1,5 +1,6 @@
 import Footer from '@components/footer'
 import AboutHome from '@components/home/aboutHome'
+import FaqHome from '@components/home/faqHome'
 import HeaderContainer from '@components/home/headerContainer'
 import NewLetter from '@components/home/newLetter'
 import TopContainer from '@components/home/topContainer'
@@ -16,30 +17,22 @@ interface HomeProps {
 const HomePage: NextPage<HomeProps> = ({ nfts }) => {
   return (
     <div className="home__container flex flex-col items-center justify-center content-center w-full min">
+
+      {/* ---------------------- */}
       <NavBar />
       {/* ---------------------- */}
-      <section className="bg-slate-900  w-full flex justify-center items-center">
-        <HeaderContainer />
-      </section>
-
+      <HeaderContainer />
       {/* ---------------------- */}
-
       <UtilsContainer />
-
       {/* ---------------------- */}
-
       <AboutHome />
-
       {/* ---------------------- */}
-
       <TopContainer nfts={nfts} />
-
       {/* ---------------------- */}
-
       <NewLetter />
-
       {/* ---------------------- */}
-
+      <FaqHome />
+      {/* ---------------------- */}
       <Footer />
     </div>
   )

@@ -25,6 +25,7 @@ interface HomeProps {
 }
 
 interface Size {
+
   margin: string
   width: string
   height: string
@@ -33,6 +34,7 @@ interface Size {
   ownerAndPrice: string
   tagsH: string
   positionR: string
+
 }
 
 const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
@@ -52,6 +54,11 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
       setOrdered(orderByName(nfts, order))
     }
   }, [order])
+  const bigger: Size = {
+    width: 'w-[350px]',
+    height: 'h-[550px]',
+  }
+
 
   const [nftSize, setNftSize] = useState<Size>({
     margin: 'm-10',
@@ -68,6 +75,7 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
 
   if (!nfts) return <div>loading...</div>
 
+
   function likeHandler(e: NftResponse) {
     console.log(e)
     // este seria el codigo para setear los likes, una vez terminado habria que hacer un put al nft likeado
@@ -77,6 +85,7 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
     //   e.likedBy.push(userAccount)
     // }
   }
+
 
   return (
     <div>
@@ -88,9 +97,11 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
             ordered.map((e) => {
               return (
                 <div key={e.id} className="relative">
+
                   <div
                     className={`likes flex text-white font-semibold items-center justify-center text-center gap-3 bg-gray-500 rounded-full w-16 h-8 absolute bottom-[31%] ${nftSize.positionR}`}
                   >
+
                     {e._count.likedBy}
                     <SvgHeart
                       onClick={() => {
@@ -99,11 +110,14 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
                       height={20}
                       width={20}
                       className="hover:fill-red-600 transition-all hover:cursor-pointer"
+
                     />
                   </div>
                   <Link href={`/nfts/${e.id}`} key={e.id}>
                     <div
+
                       className={`market_list-card ${nftSize.width} ${nftSize.height} ${nftSize.margin} rounded-lg border shadow-md bg-gray-800 border-gray-700 cursor-pointer`}
+
                     >
                       <Image
                         className="rounded-t-lg object-cover"
@@ -113,17 +127,20 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
                         height={1000}
                         layout="intrinsic"
                       />
+
                       <div className="p-[5%]">
                         <div className="title flex flex-row w-[74%]">
                           <a href="#">
                             <h5
                               className={`${nftSize.title} font-bold flex flex-wrap ${nftSize.titleH} tracking-tight text-gray-900 dark:text-white ${styles.nft_title}`}
+
                             >
                               {e.name}
                             </h5>
                           </a>
                         </div>
                       </div>
+
                       <div className="flex items-center ">
                         <div
                           className={`text-white ml-[5%] flex flex-wrap w-[71%] ${nftSize.tagsH}`}
@@ -141,6 +158,7 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
                             <RiVipCrownFill className="fill-yellow-500 mr-2" />
                             <h5
                               className={`${nftSize.ownerAndPrice} font-semibold tracking-tigh text-white ${styles.nft_title}  `}
+
                             >
                               {e.owner.name}
                             </h5>
@@ -152,7 +170,9 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
                               height={20}
                             />
                             <h5
+
                               className={`${nftSize.ownerAndPrice} font-semibold tracking-tigh text-white`}
+
                             >
                               {e.price}
                             </h5>
