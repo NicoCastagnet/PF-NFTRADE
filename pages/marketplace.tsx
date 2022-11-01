@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import Footer from '@components/footer'
 import SvgHeart from '@components/icons/svgHeart'
 import HeaderMarket from '@components/marketplace/headerMarket'
@@ -6,11 +9,14 @@ import fetcher from '@lib/fetcher'
 import type { GetServerSideProps, NextPage } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 import { RiVipCrownFill } from 'react-icons/ri'
 import useSWR from 'swr'
 import type { NftResponse, NftsResponse } from 'types/api-responses'
 import SvgCoin from '../components/icons/svgCoin'
 import styles from '../styles/form.module.css'
+import { orderByName } from './api/filters/orderByName'
+import refreshData from './api/filters/refreshData'
 
 const URL = 'http://localhost:3000/api/nfts'
 
@@ -27,6 +33,20 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
   const { data: nfts } = useSWR<NftsResponse>(URL, fetcher, {
     fallbackData,
   })
+
+  const [order, setOrder] = useState('all')
+  const [ordered, setOrdered] = useState([])
+
+  useEffect(() => {
+    if (order === 'all') {
+      refreshData(URL).then((data) => setOrdered(data))
+    } else if (order === 'AZ') {
+      setOrdered(orderByName(nfts, order))
+    } else if (order === 'ZA') {
+      setOrdered(orderByName(nfts, order))
+    }
+  }, [order])
+
   if (!nfts) return <div>loading...</div>
 
   const bigger: Size = {
@@ -49,11 +69,11 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
   return (
     <div>
       <NavBar />
-      <HeaderMarket />
+      <HeaderMarket setOrder={setOrder} />
       <section className="market_list relative top-48">
         <div className="market_list-container flex flex-wrap justify-center w-auto rounded-lg mb-48">
           {nfts &&
-            nfts.map((e) => {
+            ordered.map((e) => {
               return (
                 <div key={e.id} className="relative">
                   <div className="likes flex text-white font-semibold items-center justify-center text-center gap-3 bg-gray-500 rounded-full w-16 h-8 absolute bottom-[24%] right-[12%]">
@@ -72,7 +92,7 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
                       className={`market_list-card ${nftSize.width} ${nftSize.height} m-10 rounded-lg border shadow-md bg-gray-800 border-gray-700 cursor-pointer`}
                     >
                       <Image
-                        className="rounded-t-lg"
+                        className="rounded-t-lg object-cover"
                         src={e.image}
                         alt="ds"
                         width={1000}

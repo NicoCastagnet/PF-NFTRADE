@@ -1,13 +1,13 @@
+import Footer from '@components/footer'
+import SvgCoin from '@components/icons/svgCoin'
+import SvgHeart from '@components/icons/svgHeart'
+import SvgViews from '@components/icons/svgViews'
+import NavBar from '@components/navbar/navbar'
 import getNftById from '@lib/api/nfts/getById'
 import type { GetServerSideProps, NextPage } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import type { NftDetailResponse } from 'types/api-responses'
-import SvgHeart from '@components/icons/svgHeart'
-import SvgCoin from '@components/icons/svgCoin'
-import SvgViews from '@components/icons/svgViews'
-import NavBar from '@components/navbar/navbar'
-import Footer from '@components/footer'
 
 interface NftDetailProps {
   nft: NftDetailResponse
@@ -19,7 +19,7 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
     <div className="flex flex-col items-center justify-center w-full min-h-screen">
       <NavBar />
 
-      <div className="bg-zinc-800 rounded-2xl flex flex-row py-12 px-10 my-[10rem]">
+      <div className="bg-zinc-800 rounded-2xl flex flex-row py-12 px-10 my-[12.1rem]">
         {/* ---------------------------------------------------------------- */}
         <div className="flex justify-center items-center">
           <Image
@@ -36,17 +36,16 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
 
         <div className="flex flex-col items-center justify-center px-8 text-white">
           <div className="flex flex-row text-2xl font-medium">
-            <h2>NFTRADE | </h2>
-            <h1>&nbsp;{nft.name.toLocaleUpperCase()}</h1>
+            <h1>{nft.name.toLocaleUpperCase()}</h1>
           </div>
 
           <div className="flex flex-row justify-start text-sm w-full font-medium">
-            <span># {nft.id}</span>
+            <span>#{nft.id.toUpperCase().slice(0, 4)}</span>
           </div>
 
           <div className="flex flex-row justify-between w-full my-6 text-base">
             <div>
-              <span>Owner.{nft.owner.name} </span>
+              <span>Owner: {nft.owner.name} </span>
             </div>
             <div className="flex flex-row justify-center items-center gap-2">
               <SvgViews height={18} width={18} fill={'#FFF'} />
