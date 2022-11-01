@@ -42,8 +42,24 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
     }
   }, [order])
 
-  if (!nfts) return <div>loading...</div>
+  const bigger: Size = {
+    width: 'w-[350px]',
+    height: 'h-[550px]',
+  }
 
+  const [nftSize, setNftSize] = useState(bigger)
+
+  function likeHandler(e: NftResponse) {
+    console.log(e)
+    // este seria el codigo para setear los likes, una vez terminado habria que hacer un put al nft likeado
+    // if (e.likedBy.includes(userAccount)) {
+    //   e.likedBy.filter(acc => acc !== userAccount)
+    // }else{
+    //   e.likedBy.push(userAccount)
+    // }
+  }
+
+  if (!nfts) return <div>loading...</div>
   return (
     <div>
       <NavBar />

@@ -1,5 +1,6 @@
 import Footer from '@components/footer'
 import AboutHome from '@components/home/aboutHome'
+import FaqHome from '@components/home/faqHome'
 import HeaderContainer from '@components/home/headerContainer'
 import NewLetter from '@components/home/newLetter'
 import TopContainer from '@components/home/topContainer'
@@ -37,6 +38,10 @@ const HomePage: NextPage<HomeProps> = ({ nfts }) => {
       {/* ---------------------- */}
 
       <NewLetter />
+
+      {/* ---------------------- */}
+
+      <FaqHome />
 
       {/* ---------------------- */}
 
