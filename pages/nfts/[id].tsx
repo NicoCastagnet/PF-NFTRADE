@@ -1,35 +1,43 @@
-import getNftById from '@lib/api/nfts/getById'
-import type { GetServerSideProps, NextPage } from 'next'
-import Image from 'next/image'
-import Link from 'next/link'
-import type { NftDetailResponse } from 'types/api-responses'
-import SvgHeart from '@components/icons/svgHeart'
+/* eslint-disable @next/next/no-img-element */
+import Footer from '@components/footer'
 import SvgCoin from '@components/icons/svgCoin'
+import SvgHeart from '@components/icons/svgHeart'
 import SvgViews from '@components/icons/svgViews'
 import NavBar from '@components/navbar/navbar'
-import Footer from '@components/footer'
+import getNftById from '@lib/api/nfts/getById'
+import type { GetServerSideProps, NextPage } from 'next'
+import Link from 'next/link'
+import type { NftDetailResponse } from 'types/api-responses'
 
 interface NftDetailProps {
   nft: NftDetailResponse
 }
 
+const comment1 = {
+  id: 1,
+  content: 'Hola como estas',
+  from_account: { user_name: 'Matias' },
+}
+
+const comment2 = {
+  id: 2,
+  content: 'Zzz',
+  from_account: { user_name: 'Pablo' },
+}
+
+const comments = [comment1, comment2]
+
 const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
   console.log('es esto => ', nft)
+  console.log(nft.description)
   return (
     <div className="flex flex-col items-center justify-center w-full min-h-screen">
       <NavBar />
 
-      <div className="bg-zinc-800 rounded-2xl flex flex-row py-12 px-10 my-[10rem]">
+      <div className="bg-zinc-800 rounded-2xl flex flex-row py-12 mt-[10rem] mb-[5rem] h-[620px] w-[1200px] justify-around ">
         {/* ---------------------------------------------------------------- */}
-        <div className="flex justify-center items-center">
-          <Image
-            src={nft.image}
-            quality={50}
-            height={500}
-            width={450}
-            alt={nft.name}
-            className="rounded-2xl"
-          />
+        <div className="flex justify-center items-center w-[500px]">
+          <img src={nft.image} alt={nft.name} className="rounded-2xl" />
         </div>
 
         {/* -------------------------------------------------------------- */}
@@ -82,6 +90,45 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
         </div>
 
         {/* ------------------------------------------------------------------- */}
+      </div>
+      <div className="mt-6 border-[1px] w-[1200px] min-h-[300px] border-gray-400 p-3 lg:mt-0 overflow-auto rounded-[15px] mb-8">
+        <h3 className="text-[1.8rem] font-[500]">Description:</h3>
+        {nft.description ? (
+          <p className="text-[1.2rem]">{nft.description}</p>
+        ) : (
+          <p className="text-[1.2rem] lg:text-[1.4rem]">
+            The creator did not provide a description
+          </p>
+        )}
+      </div>
+
+      <div className="w-[1200px] border-[1px] border-gray-400 rounded-[15px] p-4 mb-8">
+        <h3 className="text-[1.4rem]">Comments:</h3>
+        <div className="h-[400px] overflow-auto">
+          {comments.length > 0 ? (
+            comments.map((c) => (
+              <div
+                key={c.id}
+                className="border-[1px] border-gray-300 rounded-[15px] mt-2"
+              >
+                <div className="flex bg-slate-100 rounded-[15px] rounded-bl-[0] rounded-br-[0]">
+                  <p className="text-[1rem] mr-2 ml-2">From: </p>
+                  <p className="text-[1rem] font-[500] hover:text-slate-600 cursor-pointer">
+                    {c.from_account.user_name}
+                  </p>
+                </div>
+                <hr />
+                <div className="p-2">
+                  <p className="text-[1rem] lg:text-[1.2rem] ml-2">
+                    {c.content}
+                  </p>
+                </div>
+              </div>
+            ))
+          ) : (
+            <span> There are no comments yet </span>
+          )}
+        </div>
       </div>
 
       <Footer />
