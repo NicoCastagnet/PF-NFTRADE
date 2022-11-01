@@ -46,15 +46,12 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
       setOrdered(orderByName(nfts, order))
     }
   }, [order])
-
-  if (!nfts) return <div>loading...</div>
-
   const bigger: Size = {
     width: 'w-[350px]',
     height: 'h-[550px]',
   }
 
-  // const [nftSize, setNftSize] = useState(bigger)
+  const [nftSize, setNftSize] = useState(bigger)
 
   function likeHandler(e: NftResponse) {
     console.log(e)
@@ -66,6 +63,7 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
     // }
   }
 
+  if (!nfts) return <div>loading...</div>
   return (
     <div>
       <NavBar />
@@ -85,6 +83,7 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
                       height={20}
                       width={20}
                       className="hover:fill-red-600 transition-all hover:cursor-pointer"
+
                     />
                   </div>
                   <Link href={`/nfts/${e.id}`} key={e.id}>
