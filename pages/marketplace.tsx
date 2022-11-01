@@ -6,6 +6,7 @@ import fetcher from '@lib/fetcher'
 import type { GetServerSideProps, NextPage } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useState } from 'react'
 import { RiVipCrownFill } from 'react-icons/ri'
 import useSWR from 'swr'
 import type { NftResponse, NftsResponse } from 'types/api-responses'
@@ -27,14 +28,13 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
   const { data: nfts } = useSWR<NftsResponse>(URL, fetcher, {
     fallbackData,
   })
-  if (!nfts) return <div>loading...</div>
 
   const bigger: Size = {
     width: 'w-[350px]',
     height: 'h-[550px]',
   }
-
-  // const [nftSize, setNftSize] = useState(bigger)
+  const [nftSize, setNftSize] = useState(bigger)
+  if (!nfts) return <div>loading...</div>
 
   function likeHandler(e: NftResponse) {
     console.log(e)
