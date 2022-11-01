@@ -3,7 +3,9 @@ import styles from '../../styles/form.module.css'
 
 const Notificaciones = () => {
   return (
-    <section className={`flex justify-center items-center relative ${styles.notify}`}>
+    <section
+      className={`flex justify-center items-center relative ${styles.notify}`}
+    >
       {/* ///////////////////////////////////////////////// */}
       <button className="relative">
         <span className="h-4 w-4 bg-red-500 rounded-full inline-flex absolute top-[0.35rem] border-[3px] border-gray-900 z-10"></span>

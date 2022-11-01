@@ -32,7 +32,6 @@ export default function NavBar() {
         <Search />
 
         <div className="max-sm:hidden flex flex-row justify-between items-center w-full max-[820px]:gap-2 max-[820px]:flex-col-reverse">
-  
           <div className="navbar__buttons flex flex-row justify-end items-center text-white">
             {/* ------------- RUTAS NAVBAR ------------------ */}
             <div className="flex flex-row justify-center items-center max-[1145px]:hidden ease duration-150">
