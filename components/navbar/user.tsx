@@ -37,6 +37,9 @@ const UserMenuNavBar = ({ menu }: { menu: boolean }) => {
               <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white">
                 <Link href="#">Settings</Link>
               </li>
+              <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white">
+                <Link href="/nfts/create">Create NFT</Link>
+              </li>
             </ul>
             <div
               className="block py-3 px-4 text-sm hover:bg-gray-600 hover:rounded-b-xl text-gray-200 hover:text-white"
