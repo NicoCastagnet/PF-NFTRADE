@@ -8,6 +8,7 @@ import { useState } from 'react'
 import styles from '../../styles/form.module.css'
 
 import type { NextPage } from 'next'
+import FilterLateral from './filterLateral'
 interface Size {
   margin: string
   width: string
@@ -214,55 +215,13 @@ const HeaderMarket: NextPage<Props> = ({ setNftSize, setOrder, setFilter }) => {
           </div>
         </div>
       </section>
-      <section className={`${sideBar ? '' : 'hidden'}`}>
-        <div
-          onClick={openSideBar}
-          className={` z-20 h-screen w-full fixed ${sideBar ? '' : 'hidden'}`}
-        ></div>
-        <div
-          id="drawer-navigation"
-          className="fixed z-40 h-screen p-4 overflow-y-auto w-80 bg-gray-800 drop-shadow-2xl"
-        >
-          <h5 className="text-base font-semibold uppercase text-gray-400">
-            Filters menu
-          </h5>
-          <button
-            type="button"
-            className="text-gray-400 bg-transparent rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center hover:bg-gray-600 hover:text-white"
-            onClick={openSideBar}
-          >
-            <SvgCross className="w-5 h-5" />
-          </button>
-          <input type="number" id="priceSearch" />
-          <button
-            type="button"
-            className="text-gray-200 bg-transparent rounded-lg text-sm p-1.5 absolute right-2.5 inline-flex items-center hover:bg-gray-600 hover:text-white"
-            onClick={searchPriceAbove}
-          >
-            Price Above
-          </button>
-          <button
-            type="button"
-            className="text-gray-200 bg-transparent rounded-lg mt-10 text-sm p-1.5 absolute right-2.5 inline-flex items-center hover:bg-gray-600 hover:text-white"
-            onClick={searchPriceBelow}
-          >
-            Price Below
-          </button>
-          <h6 className="text-base font-semibold uppercase text-gray-400">
-            Buscar precio entre
-          </h6>
-          <input type="number" id="priceSearch1" />
-          <h6 className="text-base font-semibold uppercase text-gray-400">y</h6>
-          <input type="number" id="priceSearch2" />
-          <button
-            type="button"
-            className="text-gray-200 bg-transparent rounded-lg mt-10 text-sm p-1.5 absolute right-2.5 inline-flex items-center hover:bg-gray-600 hover:text-white"
-            onClick={searchPriceBetween}
-          >
-            Price Between
-          </button>
-        </div>
-      </section>
+      <FilterLateral  
+      sideBar={sideBar}
+      openSideBar={openSideBar}
+      searchPriceBelow={searchPriceBelow}
+      searchPriceAbove={searchPriceAbove}
+      searchPriceBetween={searchPriceBetween}
+      />
     </>
   )
 }

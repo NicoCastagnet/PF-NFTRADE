@@ -14,13 +14,13 @@ import { useEffect, useState } from 'react'
 import { RiVipCrownFill } from 'react-icons/ri'
 import useSWR from 'swr'
 import type { NftsResponse } from 'types/api-responses'
-import SvgCoin from '../components/icons/svgCoin'
+import SvgCoin from '@components/icons/svgCoin'
 import styles from '../styles/form.module.css'
-import { filterByPriceAbobeBelow } from './api/filters/filterByPriceAbobeBelow'
-import { filterByPriceBetween } from './api/filters/filterByPriceBetwin'
-import { orderByName } from './api/filters/orderByName'
-import { orderByPrice } from './api/filters/orderByPrice'
-import refreshData from './api/filters/refreshData'
+import { filterByPriceAbobeBelow } from '@components/marketplace/filters/filterByPriceAbobeBelow'
+import { filterByPriceBetween } from '@components/marketplace/filters/filterByPriceBetwin'
+import { orderByName } from '@components/marketplace/filters/orderByName'
+import { orderByPrice } from '@components/marketplace/filters/orderByPrice'
+import refreshData from '@components/marketplace/filters/refreshData'
 
 const URL = 'http://localhost:3000/api/nfts'
 
@@ -131,8 +131,9 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
                         className="rounded-t-lg object-cover hover:scale-110 transition duration-300 ease-in-out"
                         src={e.image}
                         alt="ds"
-                        width={1000}
-                        height={1000}
+                        width={400}
+                        height={400}
+                        quality={20}
                         layout="intrinsic"
                       />
 
