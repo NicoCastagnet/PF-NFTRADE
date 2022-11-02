@@ -78,7 +78,17 @@ const DashBoard: NextPage = () => {
           </nav>
         </div>
         <div className="dashboard__home-content p-16">
-          <h1>this is a test</h1>
+          <h1 className="text-xl m-2">Main stats</h1>
+          <div className="main-boxes flex justify-center items-center text-center">
+            <div className="left flex flex-col border rounded-xl w-full p-5 m-2">
+              <span className="text-xl font-bold text-blue-600">$0,00</span>
+              <p>Total billing</p>
+            </div>
+            <div className="right flex flex-col border rounded-xl w-full p-5 m-2">
+              <span className="text-xl font-bold text-blue-600">0</span>
+              <p>Total sales</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
