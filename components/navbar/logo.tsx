@@ -12,8 +12,8 @@ const Logo = () => {
             src={whiteLogo}
             alt="white_logo"
             quality={50}
-            height={60}
-            width={120}
+            height={75}
+            width={130}
             className="cursor-pointer w-full h-full"
           />
         </Link>
