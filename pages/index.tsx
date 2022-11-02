@@ -27,9 +27,9 @@ const HomePage: NextPage<HomeProps> = ({ nfts }) => {
       <UtilsContainer />
       <AboutHome />
       <TopContainer nfts={nfts} />
-      {/* <NewsLetter /> */}
-      {/* <FaqHome /> */}
-      {/* <Footer /> */}
+      <NewsLetter />
+      <FaqHome />
+      <Footer />
     </div>
   )
 }
