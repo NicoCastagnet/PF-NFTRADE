@@ -102,20 +102,20 @@ const TopContainer = ({ nfts }: { nfts: NftsResponse }) => {
           </div>
         </div>
         <button
-          className="absolute left-3 xl:hidden p-4 bg-slate-600 rounded-full hover:rounded-full hover:bg-slate-400 ease duration-150 z-30"
+          className="absolute left-3 xl:hidden p-4 bg-slate-600 rounded-full hover:rounded-full hover:bg-slate-400 ease duration-150"
           onClick={previous}
         >
           {'<'}
         </button>
 
         <button
-          className="absolute right-3 xl:hidden p-4 bg-slate-600 rounded-full hover:rounded-full hover:bg-slate-400 ease duration-150 z-30"
+          className="absolute right-3 xl:hidden p-4 bg-slate-600 rounded-full hover:rounded-full hover:bg-slate-400 ease duration-150"
           onClick={next}
         >
           {'>'}
         </button>
       </div>
-      <div className="home__top-container max-xl:hidden xl:p-16 lg:p-5 relative flex flex-row items-center justify-center gap-4 w-auto rounded-lg mb-16 bg-gray-800">
+      <div className="home__top-container max-xl:hidden xl:py-16 xl:px-8 lg:p-5 relative flex flex-row items-center justify-center gap-4 w-auto rounded-lg mb-16 bg-gray-800">
         {nfts &&
           nfts.map((e) => {
             return (

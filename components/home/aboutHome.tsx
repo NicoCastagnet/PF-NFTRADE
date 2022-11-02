@@ -4,7 +4,8 @@ import Link from 'next/link'
 
 const AboutHome = () => {
   return (
-    <section className="home__about flex items-center justify-center content-center my-14 max-lg:mt-0 max-lg:mb-0 max-w-6xl">
+    <section className="home__about flex items-center justify-center ">
+      <div className='flex flex-row justify-center items-center content-center my-14 max-lg:mt-0 max-lg:mb-0 max-w-7xl'>
       <div className="home__about-right ease duration-500 max-lg:hidden">
         <Image src={NFT2} alt="nft2_img" height={650} width={710} />
       </div>
@@ -26,6 +27,7 @@ const AboutHome = () => {
             Read more
           </button>
         </Link>
+      </div>
       </div>
     </section>
   )
