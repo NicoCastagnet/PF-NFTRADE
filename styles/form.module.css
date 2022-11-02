@@ -114,6 +114,7 @@
 }
 
 .orderByMenu::before {
+  position: absolute;
 
     position: absolute;
     content: '';

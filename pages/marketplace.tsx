@@ -73,9 +73,6 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
 
   console.log(nftSize)
 
-  if (!nfts) return <div>loading...</div>
-
-
   function likeHandler(e: NftResponse) {
     console.log(e)
     // este seria el codigo para setear los likes, una vez terminado habria que hacer un put al nft likeado
@@ -86,7 +83,7 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
     // }
   }
 
-
+  if (!nfts) return <div>loading...</div>
   return (
     <div>
       <NavBar />
@@ -110,7 +107,6 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
                       height={20}
                       width={20}
                       className="hover:fill-red-600 transition-all hover:cursor-pointer"
-
                     />
                   </div>
                   <Link href={`/nfts/${e.id}`} key={e.id}>
@@ -140,7 +136,6 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
                           </a>
                         </div>
                       </div>
-
                       <div className="flex items-center ">
                         <div
                           className={`text-white ml-[5%] flex flex-wrap w-[71%] ${nftSize.tagsH}`}

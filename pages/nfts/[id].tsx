@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import Footer from '@components/footer'
 import SvgCoin from '@components/icons/svgCoin'
 import SvgHeart from '@components/icons/svgHeart'
@@ -33,7 +32,6 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
   return (
     <div className="flex flex-col items-center justify-center w-full min-h-screen">
       <NavBar />
-
       <div className="bg-zinc-800 rounded-2xl flex flex-row py-12 mt-[10rem] mb-[5rem] h-[620px] w-[1200px] justify-around ">
         {/* ---------------------------------------------------------------- */}
         <div className="flex justify-center items-center w-[500px]">
