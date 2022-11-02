@@ -21,7 +21,7 @@ const UtilsContainer = () => {
       <p className="text-5xl max-md:text-4xl max-sm:text-2xl font-bold max-sm:pb-7 tracking-wide ease duration-500">
         Create, buy & sell your NFTs
       </p>
-      <div className="relative mt-14 h-96 flex justify-center items-center w-full max-w-7xl bg-slate-900 max-lg:max-w-2xl rounded-2xl ease duration-500">
+      <div className="relative mt-14 max-md:m-0 h-96 flex justify-center items-center w-full max-w-7xl bg-slate-900 max-lg:max-w-2xl rounded-2xl ease duration-500">
         <div className="lg:hidden flex flex-row justify-center items-center gap-8 ease duration-500">
           {selected === 0 && <Buy />}
           {selected === 1 && <Create />}
