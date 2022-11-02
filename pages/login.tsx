@@ -67,8 +67,8 @@ const LogIn: NextPage = () => {
           <title>NFTrade | Log in</title>
         </Head>
 
-        <div className="flex flex-row items-start pl-6 w-full">
-          <Image src={whiteLogo} alt="white_logo" height={80} width={150} />
+        <div className="flex flex-row items-start pl-6 mt-4 w-full">
+          <Image src={whiteLogo} alt="white_logo" height={70} width={200} />
         </div>
         <div className="flex flex-col sm:flex-row justify-center items-center w-full">
           <div className="flex flex-col items-center justify-center w-full max-w-md mt-4">
@@ -89,12 +89,12 @@ const LogIn: NextPage = () => {
                   }`}
                 >
                   <input
-                    className={`bg-transparent focus:outline-none ${styles.input_text}`}
+                    className={`bg-transparent focus:outline-none w-full ${styles.input_text}`}
                     type="email"
                     placeholder={'Email'}
                     {...formik.getFieldProps('email')}
                   />
-                  <span className="icon flex items-center px-4">
+                  <span className="icon flex items-center pl-2">
                     <HiAtSymbol size={28} />
                   </span>
                 </div>
@@ -106,13 +106,13 @@ const LogIn: NextPage = () => {
                   }`}
                 >
                   <input
-                    className={`bg-transparent focus:outline-none ${styles.input_text}`}
+                    className={`bg-transparent focus:outline-none w-full ${styles.input_text}`}
                     type={`${show ? 'text' : 'password'}`}
                     placeholder={'Password'}
                     {...formik.getFieldProps('password')}
                   />
                   <span
-                    className="icon flex items-center px-4"
+                    className="icon flex items-center pl-2"
                     onClick={() => setShow(!show)}
                   >
                     <HiFingerPrint size={28} />
@@ -174,7 +174,7 @@ const LogIn: NextPage = () => {
               {"don't have an account yet?"}
 
               <Link href={'/register'}>
-                <a className="text-blue-700"> Sign Up</a>
+                <a className="text-blue-700"> Register</a>
               </Link>
             </p>
           </div>

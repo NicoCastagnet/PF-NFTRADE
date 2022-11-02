@@ -53,7 +53,7 @@ export default function Search() {
 
   return (
     <form
-      className="flex justify-center items-center w-full "
+      className="flex justify-center items-center w-full max-w-md "
       ref={formRef}
       {...formProps}
     >
@@ -70,7 +70,7 @@ export default function Search() {
         }}
       ></div>
       <div className="flex relative w-full">
-        <div className="relative">
+        <div className="relative w-full">
           <span className="absolute inset-y-0 lg:left-[2%] left-[87%] flex items-center text-slate-400">
             <SearchIcon className="w-6 h-6" />
           </span>
@@ -82,7 +82,7 @@ export default function Search() {
         </div>
         {autocompleteState.isOpen && (
           <div
-            className={`absolute mt-16 lg:ml-5 top-0 left-0 border border-slate-600 bg-slate-700 overflow-auto rounded-lg shadow-lg z-[999] w-full max-h-[28rem] ${styles.scrollbar}`}
+            className={`absolute mt-16  top-0 left-0 border border-slate-600 bg-slate-700 overflow-auto rounded-lg shadow-lg z-[999] w-full max-h-[28rem] ${styles.scrollbar}`}
             ref={panelRef}
             {...autocomplete.getPanelProps({})}
           >

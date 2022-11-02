@@ -4,15 +4,15 @@ import Link from 'next/link'
 
 const AboutHome = () => {
   return (
-    <section className="home__about flex items-center justify-center content-center m-14 w-[80%]">
-      <div className="home__about-right">
+    <section className="home__about flex items-center justify-center content-center my-14 max-w-6xl">
+      <div className="home__about-right ease duration-500 max-lg:hidden">
         <Image src={NFT2} alt="nft2_img" height={650} width={710} />
       </div>
-      <div className="home__about-left ml-16 w-[60%]">
-        <p className="left-title text-5xl font-bold tracking-wide">
+      <div className="home__about-left p-8 w-full max-w-2xl">
+        <p className="left-title text-5xl font-bold tracking-wide max-md:text-3xl">
           Why choosing us?
         </p>
-        <p className="mt-10 mb-10">
+        <p className="mt-10 mb-10 max-md:text-sm">
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora
           molestiae doloribus voluptatibus. Laudantium, reiciendis! Architecto
           illo commodi natus maxime fugiat cupiditate, et ducimus similique
