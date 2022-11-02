@@ -1,10 +1,17 @@
-import prisma from '@lib/db'
+interface nft {
+  id: string
+  name: string
+  price: number
+  verified: boolean
+  db: boolean
+}
 
-export default async function filterByPriceBetween(
+export function filterByPriceBetween(
+  array: nft[],
   value1: number,
   value2: number,
-) {
-  let nfts = await prisma.nft.findMany()
+): nft[] {
+  let array2 = [...array]
 
   if (value1 > value2) {
     const temp = value1
@@ -12,9 +19,8 @@ export default async function filterByPriceBetween(
     value2 = temp
   }
 
-  nfts = nfts.filter(
+  array2 = array2.filter(
     (element) => element.price >= value1 && element.price <= value2,
   )
-
-  return nfts
+  return array2
 }

@@ -22,14 +22,48 @@ interface Size {
 interface Props {
   setNftSize: React.Dispatch<React.SetStateAction<Size>>
   setOrder: React.Dispatch<React.SetStateAction<string>>
+  setFilter: React.Dispatch<React.SetStateAction<(string | number)[]>>
 }
 
-const HeaderMarket: NextPage<Props> = ({ setNftSize, setOrder }) => {
+const HeaderMarket: NextPage<Props> = ({ setNftSize, setOrder, setFilter }) => {
   const [sideBar, setSideBar] = useState(false)
   const [orderMenu, setOrderMenu] = useState(false)
-
+  const [cont, setCont] = useState(0)
   const openSideBar = () => {
     setSideBar(!sideBar)
+  }
+
+  const searchPriceAbove = () => {
+    const value = document.getElementById('priceSearch').value
+    if (value === '') {
+      alert('digite un valor minimo para el filtrado')
+    } else {
+      setOrder('filter1')
+      setFilter(['above', value, 100])
+    }
+  }
+
+  const searchPriceBelow = () => {
+    const value = document.getElementById('priceSearch').value
+    if (value === '') {
+      alert('digite un valor maximo para el filtrado')
+    } else {
+      setOrder('filter2')
+      setFilter(['below', value, 100])
+    }
+  }
+  const searchPriceBetween = () => {
+    const value1 = document.getElementById('priceSearch1').value
+    const value2 = document.getElementById('priceSearch2').value
+    if (value1 === '') {
+      alert('digite un valor minimo para la busqueda')
+    } else if (value2 === '') {
+      alert('digite un valor maximo para la busqueda')
+    } else {
+      setCont(cont + 1)
+      setOrder(cont.toString())
+      setFilter(['between', value1, value2])
+    }
   }
 
   const openOrderMenu = () => {
@@ -72,7 +106,10 @@ const HeaderMarket: NextPage<Props> = ({ setNftSize, setOrder }) => {
           <button
             type="button"
             className="group flex items-center py-3 px-3 ml-4 text-sm font-medium rounded-full border focus:z-10 focus:ring-2 bg-gray-700 border-gray-600 text-white hover:text-white hover:bg-gray-600 focus:ring-blue-500 focus:text-white"
-            onClick={() => setOrder('all')}
+            onClick={() => {
+              setFilter(['none', -1, -1])
+              setOrder('all')
+            }}
           >
             <SvgReload
               width="25"
@@ -139,13 +176,37 @@ const HeaderMarket: NextPage<Props> = ({ setNftSize, setOrder }) => {
               </li>
               <li
                 className="block py-2 px-4 hover:bg-gray-600 hover:text-white cursor-pointer"
-                onClick={() => setOrder('AZ')}
+                onClick={() => {
+                  setFilter(['none', -1, -1])
+                  setOrder('min')
+                }}
+              >
+                Min Price
+              </li>
+              <li
+                className="block py-2 px-4 hover:bg-gray-600 hover:text-white cursor-pointer"
+                onClick={() => {
+                  setFilter(['none', -1, -1])
+                  setOrder('max')
+                }}
+              >
+                Max Price
+              </li>
+              <li
+                className="block py-2 px-4 hover:bg-gray-600 hover:text-white cursor-pointer"
+                onClick={() => {
+                  setFilter(['none', -1, -1])
+                  setOrder('AZ')
+                }}
               >
                 A-Z
               </li>
               <li
                 className="block py-2 px-4 hover:bg-gray-600 hover:text-white cursor-pointer"
-                onClick={() => setOrder('ZA')}
+                onClick={() => {
+                  setFilter(['none', -1, -1])
+                  setOrder('ZA')
+                }}
               >
                 Z-A
               </li>
@@ -171,6 +232,34 @@ const HeaderMarket: NextPage<Props> = ({ setNftSize, setOrder }) => {
             onClick={openSideBar}
           >
             <SvgCross className="w-5 h-5" />
+          </button>
+          <input type="number" id="priceSearch" />
+          <button
+            type="button"
+            className="text-gray-200 bg-transparent rounded-lg text-sm p-1.5 absolute right-2.5 inline-flex items-center hover:bg-gray-600 hover:text-white"
+            onClick={searchPriceAbove}
+          >
+            Price Above
+          </button>
+          <button
+            type="button"
+            className="text-gray-200 bg-transparent rounded-lg mt-10 text-sm p-1.5 absolute right-2.5 inline-flex items-center hover:bg-gray-600 hover:text-white"
+            onClick={searchPriceBelow}
+          >
+            Price Below
+          </button>
+          <h6 className="text-base font-semibold uppercase text-gray-400">
+            Buscar precio entre
+          </h6>
+          <input type="number" id="priceSearch1" />
+          <h6 className="text-base font-semibold uppercase text-gray-400">y</h6>
+          <input type="number" id="priceSearch2" />
+          <button
+            type="button"
+            className="text-gray-200 bg-transparent rounded-lg mt-10 text-sm p-1.5 absolute right-2.5 inline-flex items-center hover:bg-gray-600 hover:text-white"
+            onClick={searchPriceBetween}
+          >
+            Price Between
           </button>
         </div>
       </section>

@@ -1,15 +1,23 @@
-import prisma from '@lib/db'
+interface nft {
+  id: string
+  name: string
+  price: number
+  verified: boolean
+  db: boolean
+}
 
-export default async function filterByPriceAbobeBelow(
+export function filterByPriceAbobeBelow(
+  array: nft[],
   value: number,
   filterBy: string,
-) {
-  let nfts = await prisma.nft.findMany()
-  if (filterBy == 'abobe') {
-    nfts = nfts.filter((element) => element.price >= value)
-  } else {
-    nfts = nfts.filter((element) => element.price <= value)
+): nft[] {
+  let array2 = [...array]
+  if (filterBy === 'above') {
+    array2 = array2.filter((element) => element.price >= value)
+  }
+  if (filterBy === 'below') {
+    array2 = array2.filter((element) => element.price <= value)
   }
 
-  return nfts
+  return array2
 }
