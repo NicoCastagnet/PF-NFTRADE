@@ -16,6 +16,14 @@ export default async function handler(
         description: true,
         price: true,
         published: true,
+        comments: {
+          select: {
+            id: true,
+            content: true,
+            isPublished: true,
+            user: { select: { name: true } },
+          },
+        },
         likedBy: { select: { id: true } },
         owner: {
           select: { name: true },
@@ -34,7 +42,7 @@ export default async function handler(
     return res.status(404).json({
       success: false,
       status: 404,
-      message: `Couldn't found nft with id ${id}`,
+      message: `Couldn't find nft with id ${id}`,
       apiMessage,
     })
   }

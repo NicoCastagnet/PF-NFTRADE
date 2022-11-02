@@ -10,7 +10,7 @@ import { Fragment, useState } from 'react'
 const UtilsContainer = () => {
   const [open, setOpen] = useState(0)
 
-  const handleOpen = (val) => {
+  const handleOpen = (val: number) => {
     setOpen(open === val ? 0 : val)
   }
 
@@ -19,7 +19,7 @@ const UtilsContainer = () => {
     unmount: { scale: 0.9 },
   }
 
-  function Icon({ id, open }) {
+  function Icon({ id, open }: { id: number; open: number }) {
     return (
       <SvgChevronDown
         className={`${
@@ -30,7 +30,7 @@ const UtilsContainer = () => {
   }
 
   return (
-    <section className="home__faq flex flex-col items-center">
+    <section className="home__faq flex flex-col items-center m-14">
       <div className="home__top-titles flex flex-col text-center m-16">
         <p className="text-5xl font-bold tracking-wide">
           Frequently <span className="font-extrabold text-blue-600">asked</span>{' '}

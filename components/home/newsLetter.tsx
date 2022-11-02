@@ -2,13 +2,13 @@ import Newsletter from '@assets/newsletter.png'
 import SvgMail from '@components/icons/svgMail'
 import Image from 'next/image'
 
-const NewLetter = () => {
+const NewsLetter = () => {
   return (
-    <section className="home__newsletter flex flex-row-reverse items-center w-11/12 m-16">
-      <div className="home__about-right bg-blue-500 rounded-full">
+    <section className="home__newsletter flex flex-row-reverse items-center w-11/12 m-14">
+      <div className="home__newsletter-right bg-blue-500 rounded-full">
         <Image src={Newsletter} alt="nft2_img" height={850} width={890} />
       </div>
-      <div className="home__about-left">
+      <div className="home__newsletter-left">
         <p className="left-title text-5xl font-bold tracking-wide w-4/5">
           Subscribe to receive all the{' '}
           <span className="font-extrabold text-blue-600 uppercase">news</span>{' '}
@@ -47,4 +47,4 @@ const NewLetter = () => {
   )
 }
 
-export default NewLetter
+export default NewsLetter

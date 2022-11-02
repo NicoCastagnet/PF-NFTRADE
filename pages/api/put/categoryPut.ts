@@ -9,7 +9,7 @@ export default async function updateCategory(
     const { id } = req.query
     const { name, image } = req.body
     if (!name) {
-      res.status(400).send("Falta el la propiedad 'name'")
+      res.status(400).send("Missing 'name' property.")
     } else {
       const cat = await prisma.category.update({
         where: {
@@ -21,7 +21,7 @@ export default async function updateCategory(
         },
       })
       const msg = {
-        text: 'Category actualizada correctamente!',
+        text: 'The category was successfully updated.',
         data: cat,
       }
       res.status(205).json(msg)

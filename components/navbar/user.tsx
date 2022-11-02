@@ -74,7 +74,7 @@ const UserMenuNavBar = ({ menu }: { menu: boolean }) => {
               <li
                 className="block py-3 px-4 hover:bg-gray-600 hover:text-white cursor-pointer"
                 onClick={() => {
-                  router.push('/logIn')
+                  router.push('/login')
                 }}
               >
                 LogIn
@@ -82,7 +82,7 @@ const UserMenuNavBar = ({ menu }: { menu: boolean }) => {
               <li
                 className="block py-3 pb-4 px-4 hover:bg-gray-600 hover:text-white hover:rounded-b-xl cursor-pointer"
                 onClick={() => {
-                  router.push('/signIn')
+                  router.push('/register')
                 }}
               >
                 Register

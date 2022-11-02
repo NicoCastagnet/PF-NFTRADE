@@ -9,7 +9,7 @@ export default async function postCollection(
   if (req.method === 'POST') {
     const { name, image, description, disccount, creatorId } = req.body
     if (!name || !disccount || !creatorId) {
-      res.status(400).send('Faltans datos')
+      res.status(400).send('Missing data.')
     } else {
       const img: string = image
       const collection = await prisma.collection.create({
@@ -25,7 +25,7 @@ export default async function postCollection(
         },
       })
       const msg = {
-        text: 'la colección fue creada correctamente! ',
+        text: 'The collection was successfully deleted.',
         data: collection,
       }
       res.status(201).json(msg)

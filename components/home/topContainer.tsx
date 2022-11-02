@@ -5,7 +5,7 @@ import styles from '../../styles/form.module.css'
 
 const TopContainer = ({ nfts }: { nfts: NftsResponse }) => {
   return (
-    <section className="home__top flex flex-col items-center">
+    <section className="home__top flex flex-col items-center m-14">
       <div className="home__top-titles flex flex-col text-center m-16">
         <p className="text-5xl font-bold tracking-wide">
           Most liked <span className="font-extrabold text-blue-600">NFTs</span>

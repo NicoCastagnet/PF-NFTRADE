@@ -1,5 +1,6 @@
 import Logo from '@assets/White.png'
 import type { NextPage } from 'next'
+import Head from 'next/head'
 import Image from 'next/image'
 import SvgBox from '../components/icons/svgBox'
 import SvgChartPie from '../components/icons/svgChartPie'
@@ -10,6 +11,9 @@ import SvgSettings from '../components/icons/svgSettings'
 const DashBoard: NextPage = () => {
   return (
     <section className="flex">
+      <Head>
+        <title>NFTrade | Dashboard</title>
+      </Head>
       <div className="left z-40 h-screen w-64 p-4 overflow-y-auto bg-gray-800">
         <Image src={Logo} alt="Logo" height={90} width={160} />
         <div className="overflow-y-auto">

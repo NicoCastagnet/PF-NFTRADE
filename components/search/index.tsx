@@ -52,7 +52,11 @@ export default function Search() {
   })
 
   return (
-    <form className="navbar__searchbar " ref={formRef} {...formProps}>
+    <form
+      className="flex justify-center items-center w-full "
+      ref={formRef}
+      {...formProps}
+    >
       <div
         className={`${
           autocompleteState.isOpen ? '' : 'hidden'
@@ -67,12 +71,12 @@ export default function Search() {
       ></div>
       <div className="flex relative w-full">
         <div className="relative">
-          <span className="absolute inset-y-0 lg:left-14 left-[88%] flex items-center text-slate-400">
-            <SearchIcon className="w-5 h-5" />
+          <span className="absolute inset-y-0 lg:left-[2%] left-[87%] flex items-center text-slate-400">
+            <SearchIcon className="w-6 h-6" />
           </span>
           <input
             ref={inputRef}
-            className="lg:w-96 h-11 rounded-md lg:ml-10 p-3 lg:pl-11 text-white hover:bg-slate-700 ease duration-150 focus: outline-none focus:bg-slate-700"
+            className=" h-10  max-sm:h-8 w-full rounded-md px-3 lg:pl-10 text-white hover:bg-slate-700 ease duration-150 focus:outline-none focus:bg-slate-700"
             {...inputProps}
           />
         </div>

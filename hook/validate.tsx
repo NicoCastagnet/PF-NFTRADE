@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import { toast } from 'react-hot-toast'
 
 export const login_valid = (values: { email: string; password: string }) => {
@@ -63,7 +62,7 @@ export const registerValidate = ({
   } else if (
     !/((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,64})/g.test(password)
   ) {
-    errs.password = 'password requires a capital letter, number and symbol'
+    errs.password = 'Password requires a capital letter, a number and a symbol'
   } else if (password.includes(' ')) {
     errs.password = 'The password does not include blank spaces'
   }
@@ -72,9 +71,9 @@ export const registerValidate = ({
   if (!cpassword) {
     errs.cpassword = 'Required'
   } else if (cpassword !== password) {
-    errs.cpassword = 'Password Not Match...!'
+    errs.cpassword = 'Password does not match.'
   } else if (cpassword.includes(' ')) {
-    errs.cpassword = 'Invalid Confirm Password'
+    errs.cpassword = 'Password confirmation failed.'
   }
 
   return errs
@@ -86,9 +85,9 @@ export const handleBlurUserName = ({
   target: { value: string }
 }) => {
   if (!value) {
-    toast.error('username is required', { duration: 1500 })
+    toast.error('Username is required.', { duration: 1500 })
   } else if (value.includes(' ')) {
-    toast.error('Your username must not contain blank spaces', {
+    toast.error('Your username must not contain blank spaces.', {
       duration: 1500,
     })
   }
@@ -100,9 +99,9 @@ export const handleBlurEmail = ({
 }) => {
   // validation email
   if (!value) {
-    toast.error('Email required', { duration: 1500 })
+    toast.error('Email is required.', { duration: 1500 })
   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
-    toast.error('Invalid email address', { duration: 1500 })
+    toast.error('Invalid email address.', { duration: 1500 })
   }
 }
 export const handleBlurPassword = ({
@@ -112,18 +111,21 @@ export const handleBlurPassword = ({
 }) => {
   // validation password
   if (name === 'password' && !value) {
-    toast.error('Password is required', { duration: 1500 })
+    toast.error('Password is required.', { duration: 1500 })
   } else if (name === 'cpassword' && !value) {
-    toast.error('need to confirm password', { duration: 1500 })
+    toast.error('You must confirm the password.', { duration: 1500 })
   } else if (
     name === 'password' &&
     !/((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,64})/g.test(value)
   ) {
-    toast.error('Password requires a capital letter, number and symbol', {
-      duration: 1500,
-    })
+    toast.error(
+      'Password requires at least one capital letter, one number and a symbol.',
+      {
+        duration: 1500,
+      },
+    )
   } else if (value.includes(' ')) {
-    toast.error('the password does not include blank spaces', {
+    toast.error('The password must not include blank spaces.', {
       duration: 1500,
     })
   }
