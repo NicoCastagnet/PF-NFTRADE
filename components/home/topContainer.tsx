@@ -24,7 +24,7 @@ const TopContainer = ({ nfts }: { nfts: NftsResponse }) => {
               >
                 <a href="#">
                   <Image
-                    className="rounded-t-lg"
+                    className="rounded-t-lg object-cover"
                     src={e.image}
                     alt="ds"
                     width={1000}

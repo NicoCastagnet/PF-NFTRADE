@@ -16,6 +16,7 @@ export default function NavBar() {
   const [menu, setMen] = useState(false)
 
   const { data: session } = useSession()
+  console.log(session?.user)
 
   return (
     <nav className="navbar__nav h-20 bg-slate-900 w-full flex flex-row  text-center items-center  justify-center drop-shadow-lg fixed top-0 z-10 px-4">

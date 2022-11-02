@@ -8,15 +8,15 @@ export default async function deleteCategory(
   if (req.method === 'DELETE') {
     const { id } = req.query
     if (!id) {
-      res.status(400).send('Falta un id')
+      res.status(400).send('Id was not provided.')
     } else {
-      const cat = await prisma.category.delete({
+      await prisma.category.delete({
         where: {
           id: id.toString(),
         },
       })
       const msg = {
-        text: 'Category eliminada correctamente!',
+        text: 'The category was deleted successfully.',
       }
       res.status(205).json(msg)
     }

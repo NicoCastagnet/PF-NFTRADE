@@ -1,7 +1,7 @@
-import Link from 'next/link'
-import Image from 'next/image'
 import Logonftrade from '@assets/logo_NFTRADE.png'
 import whiteLogo from '@assets/White.png'
+import Image from 'next/image'
+import Link from 'next/link'
 
 const Logo = () => {
   return (
@@ -18,7 +18,7 @@ const Logo = () => {
           />
         </Link>
       </div>
-      <div className="sm:hidden  flex justify-center items-center  h-full">
+      <div className="sm:hidden flex justify-center items-center  h-full">
         <Link href={'/'}>
           <Image
             src={Logonftrade}

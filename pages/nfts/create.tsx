@@ -21,7 +21,7 @@ interface NftFormValues {
 export const validationSchema = Yup.object().shape(
   {
     name: Yup.string()
-      .min(10, 'The name must have at least 10 characters')
+      .min(10, 'The name must have at least 10 characters.')
       .required('is required.'),
     price: Yup.number()
       .min(1, 'The lowest price is 1')
@@ -58,7 +58,7 @@ const CreateProduct: NextPage = () => {
   const [createdId, setCreatedId] = useState<string | null>(null)
 
   if (!session && status !== 'loading') {
-    router.push('/logIn')
+    router.push('/login')
   }
 
   const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -98,7 +98,7 @@ const CreateProduct: NextPage = () => {
         <>
           <div className="mt-2">
             <p className="text-sm text-gray-500">
-              Your nft has been successfully submitted.
+              Your nft has been successfully created.
             </p>
           </div>
 
@@ -136,7 +136,7 @@ const CreateProduct: NextPage = () => {
           }).then(async (res) => {
             if (!res.ok) {
               setCreatedId(null)
-              console.log('Fail to create nft')
+              console.log('Failed while creating the nft.')
             }
             const { data } = await res.json()
             setOpenModal(true)
