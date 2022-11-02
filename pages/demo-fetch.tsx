@@ -1,6 +1,7 @@
 import Search from '@components/search'
 import { getAllNfts } from '@lib/api'
 import fetcher from '@lib/fetcher'
+import { useCart } from 'context/cart'
 import type { GetServerSideProps, NextPage } from 'next'
 import useSWRInfinite from 'swr/infinite'
 import type { NftResponse, NftsResponse } from 'types/api-responses'
@@ -20,6 +21,8 @@ const DemoFetch: NextPage<DemoProps> = ({ fallbackData }) => {
   const { data, size, setSize, error } = useSWRInfinite(getKey, fetcher, {
     fallbackData,
   })
+  const { cart, addItem, clearCart, removeItem } = useCart()
+
   const isLoadingInitialData = !data && !error
   const isLoadingMore =
     isLoadingInitialData ||
@@ -35,13 +38,46 @@ const DemoFetch: NextPage<DemoProps> = ({ fallbackData }) => {
   for (let i = 0; i < data.length; i++) {
     totalNfts += data[i].length
   }
+
   // if data
   return (
     <div className="flex flex-col items-center gap-4 py-8">
       <Search />
+      <div className="border rounded-sm p-6 w-96 flex flex-col items-center">
+        <h1 className="font-bold text-xl">Cart</h1>
+        <ul>
+          {cart.map((item) => (
+            <li key={item.id} className="flex items-center gap-4">
+              <span>{item.name}</span>{' '}
+              <button
+                className="text-red-500"
+                onClick={() => removeItem(item.id)}
+              >
+                X
+              </button>
+            </li>
+          ))}
+        </ul>
+        <button
+          onClick={() => clearCart()}
+          className="bg-red-300 py-2 px-4 mt-6"
+        >
+          Clear
+        </button>
+      </div>
       <p>total nfts listed: {totalNfts}</p>
       {data.map((nfts) => {
-        return nfts.map((nft: NftResponse) => <h1 key={nft.id}>{nft.name}</h1>)
+        return nfts.map((nft: NftResponse) => (
+          <>
+            <h1 key={nft.id}>{nft.name}</h1>
+            <button
+              className="bg-slate-700 text-white py-2 px-4 rounded-sm"
+              onClick={() => addItem(nft)}
+            >
+              Add to cart
+            </button>
+          </>
+        ))
       })}
       <button
         className="bg-slate-900 text-white px-6 py-3 rounded-lg disabled:bg-slate-500 disabled:cursor-not-allowed"
