@@ -94,7 +94,7 @@ const HeaderMarket: NextPage<Props> = ({ setNftSize, setOrder, setFilter }) => {
 
   return (
     <>
-      <section className="market__header bg-slate-900 text-white py-1 px-20 w-full flex justify-between top-[5.5rem] fixed z-[5] items-center">
+      <section className="market__header bg-slate-900 text-white py-1 px-20 w-full flex justify-between top-[5rem] fixed z-[5] items-center">
         <div className="left flex">
           <button
             type="button"
