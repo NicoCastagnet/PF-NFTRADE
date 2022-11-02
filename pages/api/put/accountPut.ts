@@ -39,7 +39,7 @@ export default async function updateAcc(
       },
     })
     const msg = {
-      text: 'Acc actualizado correctamente!',
+      text: 'The account was successfully updated.',
       data: acc,
     }
     res.status(205).json(msg)

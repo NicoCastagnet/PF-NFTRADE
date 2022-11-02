@@ -52,7 +52,11 @@ export default function Search() {
   })
 
   return (
-    <form className="flex justify-center items-center w-full " ref={formRef} {...formProps}>
+    <form
+      className="flex justify-center items-center w-full "
+      ref={formRef}
+      {...formProps}
+    >
       <div
         className={`${
           autocompleteState.isOpen ? '' : 'hidden'

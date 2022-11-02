@@ -6,12 +6,11 @@ import {
   AccordionHeader,
 } from '@material-tailwind/react'
 import { Fragment, useState } from 'react'
-import SvgQuestionMark from '../icons/svgQuestionMark'
 
 const UtilsContainer = () => {
   const [open, setOpen] = useState(0)
 
-  const handleOpen = (val) => {
+  const handleOpen = (val: number) => {
     setOpen(open === val ? 0 : val)
   }
 
@@ -20,7 +19,7 @@ const UtilsContainer = () => {
     unmount: { scale: 0.9 },
   }
 
-  function Icon({ id, open }) {
+  function Icon({ id, open }: { id: number; open: number }) {
     return (
       <SvgChevronDown
         className={`${

@@ -42,7 +42,7 @@ export default async function handler(
     return res.status(404).json({
       success: false,
       status: 404,
-      message: `Couldn't found nft with id ${id}`,
+      message: `Couldn't find nft with id ${id}`,
       apiMessage,
     })
   }

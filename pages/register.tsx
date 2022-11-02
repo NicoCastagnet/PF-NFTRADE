@@ -60,18 +60,18 @@ const SignIn: NextPage = () => {
       await fetch('api/auth/signup', options)
         .then((res) => res.json())
         .then((res) => {
-          if (res.msg === 'ok') router.push('/logIn')
+          if (res.msg === 'ok') router.push('/login')
         })
     } catch (error) {
-      toast.error('an error occurred while registering', { duration: 3000 })
-      router.push('/signIn')
+      toast.error('An error occurred while registering.', { duration: 3000 })
+      router.push('/register')
     }
   }
   ////////////////////////////////////////////////////////////////
   return (
     <>
       <Head>
-        <title>SignIn</title>
+        <title>NFTrade | Register</title>
       </Head>
 
       <div className="flex flex-col items-center justify-start w-full min-h-screen">
@@ -186,7 +186,7 @@ const SignIn: NextPage = () => {
 
             <p className="text-center text-sm text-gray-400">
               {"don't have an account yet?"}
-              <Link href={'/logIn'}>
+              <Link href={'/login'}>
                 <a className="text-blue-700"> LogIn</a>
               </Link>
             </p>

@@ -1,5 +1,4 @@
 interface nft {
-  //properties de los nft
   id: string
   name: string
   price: number

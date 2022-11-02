@@ -8,6 +8,7 @@ import UtilsContainer from '@components/home/utilsContainer'
 import NavBar from '@components/navbar/navbar'
 import { getAllNfts } from '@lib/api'
 import type { GetServerSideProps, NextPage } from 'next'
+import Head from 'next/head'
 import type { NftsResponse } from 'types/api-responses'
 
 interface HomeProps {
@@ -17,22 +18,16 @@ interface HomeProps {
 const HomePage: NextPage<HomeProps> = ({ nfts }) => {
   return (
     <div className="home__container flex flex-col items-center justify-center content-center w-full min">
-
-      {/* ---------------------- */}
+      <Head>
+        <title>NFTrade | Home</title>
+      </Head>
       <NavBar />
-      {/* ---------------------- */}
       <HeaderContainer />
-      {/* ---------------------- */}
       <UtilsContainer />
-      {/* ---------------------- */}
       <AboutHome />
-      {/* ---------------------- */}
       <TopContainer nfts={nfts} />
-      {/* ---------------------- */}
       <NewLetter />
-      {/* ---------------------- */}
       <FaqHome />
-      {/* ---------------------- */}
       <Footer />
     </div>
   )

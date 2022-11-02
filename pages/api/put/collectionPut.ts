@@ -9,7 +9,7 @@ export default async function updateCollection(
     const { id } = req.query
     const { name, image, description, disccount, ownerId } = req.body
     if (!name) {
-      res.status(400).send("Falta el la propiedad 'name'")
+      res.status(400).send("Missing 'name' property.")
     } else {
       const cat = await prisma.collection.update({
         where: {
@@ -24,7 +24,7 @@ export default async function updateCollection(
         },
       })
       const msg = {
-        text: 'Category actualizada correctamente!',
+        text: 'The collection was successfully updated.',
         data: cat,
       }
       res.status(205).json(msg)

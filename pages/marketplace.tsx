@@ -7,12 +7,13 @@ import HeaderMarket from '@components/marketplace/headerMarket'
 import NavBar from '@components/navbar/navbar'
 import fetcher from '@lib/fetcher'
 import type { GetServerSideProps, NextPage } from 'next'
+import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { RiVipCrownFill } from 'react-icons/ri'
 import useSWR from 'swr'
-import type { NftResponse, NftsResponse } from 'types/api-responses'
+import type { NftsResponse } from 'types/api-responses'
 import SvgCoin from '../components/icons/svgCoin'
 import styles from '../styles/form.module.css'
 import { orderByName } from './api/filters/orderByName'
@@ -25,7 +26,6 @@ interface HomeProps {
 }
 
 interface Size {
-
   margin: string
   width: string
   height: string
@@ -34,7 +34,6 @@ interface Size {
   ownerAndPrice: string
   tagsH: string
   positionR: string
-
 }
 
 const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
@@ -54,11 +53,6 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
       setOrdered(orderByName(nfts, order))
     }
   }, [order])
-  const bigger: Size = {
-    width: 'w-[350px]',
-    height: 'h-[550px]',
-  }
-
 
   const [nftSize, setNftSize] = useState<Size>({
     margin: 'm-10',
@@ -71,21 +65,21 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
     positionR: 'right-[13%]',
   })
 
-  console.log(nftSize)
-
-  function likeHandler(e: NftResponse) {
-    console.log(e)
-    // este seria el codigo para setear los likes, una vez terminado habria que hacer un put al nft likeado
-    // if (e.likedBy.includes(userAccount)) {
-    //   e.likedBy.filter(acc => acc !== userAccount)
-    // }else{
-    //   e.likedBy.push(userAccount)
-    // }
-  }
+  // function likeHandler(e: NftResponse) {
+  //   // este seria el codigo para setear los likes, una vez terminado habria que hacer un put al nft likeado
+  //   // if (e.likedBy.includes(userAccount)) {
+  //   //   e.likedBy.filter(acc => acc !== userAccount)
+  //   // }else{
+  //   //   e.likedBy.push(userAccount)
+  //   // }
+  // }
 
   if (!nfts) return <div>loading...</div>
   return (
     <div>
+      <Head>
+        <title>NFTrade | Marketplace</title>
+      </Head>
       <NavBar />
       <HeaderMarket setOrder={setOrder} setNftSize={setNftSize} />
       <section className="market_list relative top-48">
@@ -94,11 +88,9 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
             ordered.map((e) => {
               return (
                 <div key={e.id} className="relative">
-
                   <div
                     className={`likes flex text-white font-semibold items-center justify-center text-center gap-3 bg-gray-500 rounded-full w-16 h-8 absolute bottom-[31%] ${nftSize.positionR}`}
                   >
-
                     {e._count.likedBy}
                     <SvgHeart
                       onClick={() => {
@@ -111,9 +103,7 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
                   </div>
                   <Link href={`/nfts/${e.id}`} key={e.id}>
                     <div
-
                       className={`market_list-card ${nftSize.width} ${nftSize.height} ${nftSize.margin} rounded-lg border shadow-md bg-gray-800 border-gray-700 cursor-pointer`}
-
                     >
                       <Image
                         className="rounded-t-lg object-cover"
@@ -129,7 +119,6 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
                           <a href="#">
                             <h5
                               className={`${nftSize.title} font-bold flex flex-wrap ${nftSize.titleH} tracking-tight text-gray-900 dark:text-white ${styles.nft_title}`}
-
                             >
                               {e.name}
                             </h5>
@@ -153,7 +142,6 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
                             <RiVipCrownFill className="fill-yellow-500 mr-2" />
                             <h5
                               className={`${nftSize.ownerAndPrice} font-semibold tracking-tigh text-white ${styles.nft_title}  `}
-
                             >
                               {e.owner.name}
                             </h5>
@@ -165,9 +153,7 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
                               height={20}
                             />
                             <h5
-
                               className={`${nftSize.ownerAndPrice} font-semibold tracking-tigh text-white`}
-
                             >
                               {e.price}
                             </h5>

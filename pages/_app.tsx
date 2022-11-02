@@ -20,7 +20,7 @@ export default function App({
   )
 }
 
-const Hydrated = ({ children }: { children?: any }) => {
+const Hydrated = ({ children }: { children: any }) => {
   const [hydration, setHydration] = useState(false)
 
   useEffect(() => {

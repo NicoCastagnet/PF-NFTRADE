@@ -5,6 +5,7 @@ import SvgViews from '@components/icons/svgViews'
 import NavBar from '@components/navbar/navbar'
 import getNftById from '@lib/api/nfts/getById'
 import type { GetServerSideProps, NextPage } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 import type { NftDetailResponse } from 'types/api-responses'
 
@@ -27,19 +28,20 @@ const comment2 = {
 const comments = [comment1, comment2]
 
 const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
-  console.log('es esto => ', nft)
-  console.log(nft.description)
   return (
     <div className="flex flex-col items-center justify-center w-full min-h-screen">
       <NavBar />
       <div className="bg-zinc-800 rounded-2xl flex flex-row py-12 mt-[10rem] mb-[5rem] h-[620px] w-[1200px] justify-around ">
-        {/* ---------------------------------------------------------------- */}
         <div className="flex justify-center items-center w-[500px]">
-          <img src={nft.image} alt={nft.name} className="rounded-2xl" />
+          <Image
+            src={nft.image}
+            alt={`img-${nft.name}`}
+            className="rounded-2xl object-cover"
+            quality={50}
+            width={1000}
+            height={1000}
+          />
         </div>
-
-        {/* -------------------------------------------------------------- */}
-
         <div className="flex flex-col items-center justify-center px-8 text-white">
           <div className="flex flex-row text-2xl font-medium">
             <h1>{nft.name.toLocaleUpperCase()}</h1>
@@ -85,8 +87,6 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
             </Link>
           </div>
         </div>
-
-        {/* ------------------------------------------------------------------- */}
       </div>
       <div className="mt-6 border-[1px] w-[1200px] min-h-[300px] border-gray-400 p-3 lg:mt-0 overflow-auto rounded-[15px] mb-8">
         <h3 className="text-[1.8rem] font-[500]">Description:</h3>
