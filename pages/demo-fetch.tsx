@@ -1,8 +1,10 @@
+import CartSideBar from '@components/cart'
 import Search from '@components/search'
 import { getAllNfts } from '@lib/api'
 import fetcher from '@lib/fetcher'
 import { useCart } from 'context/cart'
 import type { GetServerSideProps, NextPage } from 'next'
+import { useState } from 'react'
 import useSWRInfinite from 'swr/infinite'
 import type { NftResponse, NftsResponse } from 'types/api-responses'
 
@@ -21,6 +23,7 @@ const DemoFetch: NextPage<DemoProps> = ({ fallbackData }) => {
   const { data, size, setSize, error } = useSWRInfinite(getKey, fetcher, {
     fallbackData,
   })
+  const [open, setOpen] = useState(false)
   const { cart, addItem, clearCart, removeItem } = useCart()
 
   const isLoadingInitialData = !data && !error
@@ -42,9 +45,16 @@ const DemoFetch: NextPage<DemoProps> = ({ fallbackData }) => {
   // if data
   return (
     <div className="flex flex-col items-center gap-4 py-8">
+      <CartSideBar isOpen={open} handleClose={setOpen} />
       <Search />
       <div className="border rounded-sm p-6 w-96 flex flex-col items-center">
         <h1 className="font-bold text-xl">Cart</h1>
+        <button
+          className="text-slate-700 underline"
+          onClick={() => setOpen(true)}
+        >
+          Open Panel
+        </button>
         <ul>
           {cart.map((item) => (
             <li key={item.id} className="flex items-center gap-4">
