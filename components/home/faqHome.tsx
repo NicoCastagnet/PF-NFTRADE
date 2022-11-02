@@ -6,6 +6,7 @@ import {
   AccordionHeader,
 } from '@material-tailwind/react'
 import { Fragment, useState } from 'react'
+import SvgQuestionMark from '../icons/svgQuestionMark'
 
 const UtilsContainer = () => {
   const [open, setOpen] = useState(0)

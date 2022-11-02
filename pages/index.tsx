@@ -17,34 +17,22 @@ interface HomeProps {
 const HomePage: NextPage<HomeProps> = ({ nfts }) => {
   return (
     <div className="home__container flex flex-col items-center justify-center content-center w-full min">
+
+      {/* ---------------------- */}
       <NavBar />
       {/* ---------------------- */}
-      <section className="bg-slate-900  w-full flex justify-center items-center">
-        <HeaderContainer />
-      </section>
-
+      <HeaderContainer />
       {/* ---------------------- */}
-
       <UtilsContainer />
-
       {/* ---------------------- */}
-
       <AboutHome />
-
       {/* ---------------------- */}
-
       <TopContainer nfts={nfts} />
-
       {/* ---------------------- */}
-
       <NewLetter />
-
       {/* ---------------------- */}
-
       <FaqHome />
-
       {/* ---------------------- */}
-
       <Footer />
     </div>
   )
