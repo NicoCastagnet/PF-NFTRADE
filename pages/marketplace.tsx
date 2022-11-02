@@ -106,7 +106,7 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
                       className={`market_list-card ${nftSize.width} ${nftSize.height} ${nftSize.margin} rounded-lg border shadow-md bg-gray-800 border-gray-700 cursor-pointer`}
                     >
                       <Image
-                        className="rounded-t-lg object-cover"
+                        className="rounded-t-lg object-cover hover:scale-110 transition duration-300 ease-in-out"
                         src={e.image}
                         alt="ds"
                         width={1000}
