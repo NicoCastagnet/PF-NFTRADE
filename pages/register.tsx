@@ -75,10 +75,10 @@ const SignIn: NextPage = () => {
       </Head>
 
       <div className="flex flex-col items-center justify-start w-full min-h-screen">
-        <div className="flex flex-row items-start pl-6 w-full">
-          <Image src={whiteLogo} alt="white_logo" height={80} width={150} />
+        <div className="flex flex-row items-start pl-6 mt-4 w-full">
+          <Image src={whiteLogo} alt="white_logo" height={70} width={200} />
         </div>
-        <div className="flex flex-col sm:flex-row justify-center items-center w-full">
+        <div className="flex flex-col sm:flex-row justify-center items-center m-16 w-full">
           <div className="flex flex-col items-center justify-center w-full max-w-md mt-4">
             <div className="flex flex-col items-center w-full">
               <h1 className="reg-title text-4xl font-semibold">
@@ -92,20 +92,20 @@ const SignIn: NextPage = () => {
                 onSubmit={formik.handleSubmit}
               >
                 <div
-                  className={`flex border rounded-xl relative w-4/5 px-4 py-1 justify-between text-lg ${
+                  className={`flex border rounded-xl  w-4/5 px-4 py-1 justify-between text-lg ${
                     formik.errors.username && formik.touched.username
                       ? 'border-rose-600'
                       : ''
                   }`}
                 >
                   <input
-                    className={`bg-transparent focus:outline-none ${styles.input_text}`}
+                    className={`bg-transparent focus:outline-none w-full ${styles.input_text}`}
                     type="text"
                     placeholder={'UserName'}
                     {...formik.getFieldProps('username')}
                     onBlur={handleBlurUserName}
                   />
-                  <span className="icon flex items-center px-4">
+                  <span className="icon flex items-center pl-2">
                     <HiOutlineUser size={28} />
                   </span>
                 </div>
@@ -117,13 +117,13 @@ const SignIn: NextPage = () => {
                   }`}
                 >
                   <input
-                    className={`bg-transparent focus:outline-none ${styles.input_text}`}
+                    className={`bg-transparent focus:outline-none w-full ${styles.input_text}`}
                     type="email"
                     placeholder={'Email'}
                     {...formik.getFieldProps('email')}
                     onBlur={handleBlurEmail}
                   />
-                  <span className="icon flex items-center px-4">
+                  <span className="icon flex items-center pl-2">
                     <HiAtSymbol size={28} />
                   </span>
                 </div>
@@ -136,14 +136,14 @@ const SignIn: NextPage = () => {
                   }`}
                 >
                   <input
-                    className={`bg-transparent focus:outline-none ${styles.input_text}`}
+                    className={`bg-transparent focus:outline-none w-full ${styles.input_text}`}
                     type={`${show.password ? 'text' : 'password'}`}
                     placeholder={'Password'}
                     {...formik.getFieldProps('password')}
                     onBlur={handleBlurPassword}
                   />
                   <span
-                    className="icon flex items-center px-4"
+                    className="icon flex items-center pl-2"
                     onClick={() =>
                       setShow({ ...show, password: !show.password })
                     }
@@ -160,14 +160,14 @@ const SignIn: NextPage = () => {
                   }`}
                 >
                   <input
-                    className={`bg-transparent focus:outline-none ${styles.input_text}`}
+                    className={`bg-transparent focus:outline-none w-full ${styles.input_text}`}
                     type={`${show.cpassword ? 'text' : 'password'}`}
                     placeholder={'Confirm Password'}
                     {...formik.getFieldProps('cpassword')}
                     onBlur={handleBlurPassword}
                   />
                   <span
-                    className="icon flex items-center px-4"
+                    className="icon flex items-center pl-2"
                     onClick={() =>
                       setShow({ ...show, password: !show.password })
                     }

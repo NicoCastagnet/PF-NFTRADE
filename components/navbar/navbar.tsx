@@ -26,15 +26,15 @@ export default function NavBar() {
         onClick={() => setMen((state) => !state)}
       ></div>
 
-      <div className="flex flex-row justify-between items-center w-full max-sm:gap-4">
+      <div className="flex flex-row justify-between items-center w-full max-md:gap-4">
         <Logo />
 
         <Search />
 
-        <div className="max-sm:hidden flex flex-row justify-end items-center w-full max-[820px]:gap-2 max-[820px]:flex-col-reverse">
+        <div className="max-md:hidden flex flex-row justify-end items-center w-full">
           <div className="navbar__buttons flex flex-row justify-end items-center text-white">
             {/* ------------- RUTAS NAVBAR ------------------ */}
-            <div className="flex flex-row justify-center items-center max-md:hidden ease duration-150">
+            <div className="flex flex-row justify-center items-center max-xl:hidden ease duration-150">
               <Link href={'#'}>
                 <button className="m-3">Explore</button>
               </Link>
@@ -80,7 +80,7 @@ export default function NavBar() {
             {menu && <UserMenuNavBar menu={menu} />}
           </div>
         </div>
-        <div className="sm:hidden flex justify-center items-center">
+        <div className="md:hidden flex justify-center items-center ">
           <IoMenu size={52} color={'#00000099'} />
         </div>
       </div>
