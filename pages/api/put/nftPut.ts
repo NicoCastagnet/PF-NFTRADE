@@ -23,7 +23,7 @@ export default async function updateNft(
         },
       })
       const msg = {
-        text: 'Nft actualizad correctamente!',
+        text: 'The NFT was successfully updated.',
         data: nfts,
       }
       res.status(205).json(msg)

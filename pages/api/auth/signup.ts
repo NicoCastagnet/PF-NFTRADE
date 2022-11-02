@@ -24,10 +24,10 @@ export default async function handle(
       },
     })
     if (!checkExist) {
-      return res.status(401).json({ msg: 'esta cuenta no existe!' })
+      return res.status(401).json({ msg: 'That account does not exists.' })
     }
     if (checkExist) {
-      return res.status(422).json({ msg: 'User already exists...!' })
+      return res.status(422).json({ msg: 'The user was created before.' })
     }
 
     // // hash password

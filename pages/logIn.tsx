@@ -17,8 +17,7 @@ import whiteLogo from '../assets/logo@1,25x.png'
 import regImage from '../assets/nft-cost.jpg'
 import useInfoProviders from '../hook/providers'
 import styles from '../styles/form.module.css'
-//
-//
+
 const LogIn: NextPage = () => {
   const [show, setShow] = useState(false)
   const router = useRouter()
@@ -48,11 +47,11 @@ const LogIn: NextPage = () => {
       })
       const yo = await JSON.stringify(lucas, null)
       if (!yo.includes('true')) {
-        toast.error('Login failed')
+        toast.error('Something went wrong. Try again!')
       }
     } catch (error) {
-      toast.error('an error occurred while logging in', { duration: 5000 })
-      router.push('/logIn')
+      toast.error('An error occurred while logging in', { duration: 5000 })
+      router.push('/login')
     }
   }
 
@@ -65,7 +64,7 @@ const LogIn: NextPage = () => {
     <>
       <div className="flex flex-col items-center justify-start w-full min-h-screen">
         <Head>
-          <title>LogIn</title>
+          <title>NFTrade | Log in</title>
         </Head>
 
         <div className="flex flex-row items-start pl-6 w-full">
@@ -174,7 +173,7 @@ const LogIn: NextPage = () => {
             <p className="text-center text-sm mt-3 text-gray-400">
               {"don't have an account yet?"}
 
-              <Link href={'/signIn'}>
+              <Link href={'/register'}>
                 <a className="text-blue-700"> Sign Up</a>
               </Link>
             </p>

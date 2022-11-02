@@ -34,7 +34,7 @@ export default async function handler(
     return res.status(404).json({
       success: false,
       status: 404,
-      message: `Couldn't found category with id ${id}`,
+      message: `Couldn't find a category with id ${id}`,
       apiMessage,
     })
   }

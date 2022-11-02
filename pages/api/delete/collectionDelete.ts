@@ -8,15 +8,15 @@ export default async function deleteCollection(
   if (req.method === 'DELETE') {
     const { id } = req.query
     if (!id) {
-      res.status(400).send('Falta un id')
+      res.status(400).send('Id was not provided.')
     } else {
-      const cat = await prisma.collection.delete({
+      await prisma.collection.delete({
         where: {
           id: id.toString(),
         },
       })
       const msg = {
-        text: 'Collection eliminada correctamente!',
+        text: 'The collection was deleted successfully.',
       }
       res.status(205).json(msg)
     }

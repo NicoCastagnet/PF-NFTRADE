@@ -9,7 +9,7 @@ export default async function postCategory(
   if (req.method === 'POST') {
     const { name, image } = req.body
     if (!name) {
-      res.status(400).send("Falta la propiedad 'name' ")
+      res.status(400).send("Missing 'name' property.")
     } else {
       const img: string = image
       const category = await prisma.category.create({
@@ -21,7 +21,7 @@ export default async function postCategory(
         },
       })
       const msg = {
-        text: 'categoría creada correctamente!',
+        text: 'The category was successfully created.',
         data: category,
       }
       res.status(201).json(msg)
