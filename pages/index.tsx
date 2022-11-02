@@ -1,10 +1,10 @@
 import Footer from '@components/footer'
 import AboutHome from '@components/home/aboutHome'
+import UtilsContainer from '@components/home/contentUtils/utilsContainer'
 import FaqHome from '@components/home/faqHome'
 import HeaderContainer from '@components/home/headerContainer'
-import NewLetter from '@components/home/newLetter'
+import NewsLetter from '@components/home/newsLetter'
 import TopContainer from '@components/home/topContainer'
-import UtilsContainer from '@components/home/contentUtils/utilsContainer'
 // import Carrucel from '@components/home/contentUtils/carrucel'
 import NavBar from '@components/navbar/navbar'
 import { getAllNfts } from '@lib/api'
@@ -27,7 +27,7 @@ const HomePage: NextPage<HomeProps> = ({ nfts }) => {
       <UtilsContainer />
       <AboutHome />
       <TopContainer nfts={nfts} />
-      <NewLetter />
+      <NewsLetter />
       <FaqHome />
       <Footer />
     </div>

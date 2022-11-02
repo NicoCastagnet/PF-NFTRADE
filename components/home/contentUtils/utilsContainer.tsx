@@ -17,11 +17,11 @@ const UtilsContainer = () => {
   }
 
   return (
-    <section className="home__utils flex flex-col items-center w-full">
-      <p className="text-5xl max-md:text-4xl max-sm:text-2xl font-bold max-sm:pb-7 py-14 tracking-wide ease duration-500">
+    <section className="home__utils flex flex-col items-center w-full m-14">
+      <p className="text-5xl max-md:text-4xl max-sm:text-2xl font-bold max-sm:pb-7 tracking-wide ease duration-500">
         Create, buy & sell your NFTs
       </p>
-      <div className=" relative h-96 flex justify-center items-center w-full max-w-7xl bg-slate-900 max-lg:max-w-2xl  rounded-2xl ease duration-500">
+      <div className="relative mt-14 h-96 flex justify-center items-center w-full max-w-7xl bg-slate-900 max-lg:max-w-2xl rounded-2xl ease duration-500">
         <div className="lg:hidden flex flex-row justify-center items-center gap-8 ease duration-500">
           {selected === 0 && <Buy />}
           {selected === 1 && <Create />}
