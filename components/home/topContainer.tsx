@@ -77,7 +77,7 @@ const TopContainer = ({ nfts }: { nfts: NftsResponse }) => {
               </div>
             </div>
             <p className="my-3 px-5 font-normal text-gray-700 dark:text-gray-400">
-              {selected.description
+              {selected?.description
                 ? selected.description
                 : 'No description was provided.'}
             </p>
