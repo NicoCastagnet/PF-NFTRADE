@@ -8,9 +8,9 @@ const Buy = () => {
         <SvgBag fill="#fff" height="19" width="19" />
       </div>
       <div className="content">
-        <p className="text-white font-semibold mt-3">Buy your NFTs</p>
+        <p className="text-white font-semibold mt-3">Buy your NFT&apos;s</p>
         <p className="text-slate-400 mt-3 mb-3">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          Explore our marketplace to get the best NFT&apos;s from it.
         </p>
         <Link href="/marketplace">
           <button

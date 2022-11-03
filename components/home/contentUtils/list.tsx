@@ -9,7 +9,7 @@ const List = () => {
       <div className="content">
         <p className="text-white font-semibold mt-3">List them for sell</p>
         <p className="text-slate-400 mt-3 mb-3">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          List all your NFT&apos;s at our marketplace and start getting money.
         </p>
         <button
           type="button"

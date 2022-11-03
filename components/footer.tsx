@@ -1,22 +1,37 @@
 import whiteLogo from '@assets/White.png'
-import SvgFacebook from '@components/icons/svgFacebook'
 import Image from 'next/image'
 import Link from 'next/link'
-import SvgGitHub from './icons/svgGitHub'
-import SvgInstagram from './icons/svgInstagram'
-import SvgLinkedIn from './icons/svgLinkedIn'
-import SvgTwitter from './icons/svgTwitter'
 
 export default function Footer() {
   return (
     <footer className="p-4 bg-white sm:p-6 dark:bg-gray-900 w-full">
       <div className="md:flex md:justify-between">
         <div className="mb-6 md:mb-0 text-white">
-          <a href="https://flowbite.com/" className="flex items-center">
-            <Image src={whiteLogo} alt="white_logo" height={80} width={150} />
-          </a>
+          <Link href="/">
+            <Image
+              src={whiteLogo}
+              alt="white_logo"
+              height={80}
+              width={150}
+              className="flex items-center cursor-pointer"
+            />
+          </Link>
+          <p className="w-[17rem] text-gray-400">
+            NFTrade is a project made by students from{' '}
+            <span className="underline text-blue-500 cursor-pointer">
+              <a
+                href="https://www.soyhenry.com"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Henry Bootcamp
+              </a>
+            </span>
+            . Based on a NFT&apos;s marketplace using Next.JS, TypeScript,
+            Tailwind & PostreSQL with Prisma
+          </p>
         </div>
-        <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
+        <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-2">
           <div>
             <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
               Resources
@@ -27,25 +42,11 @@ export default function Footer() {
                   About us
                 </Link>
               </li>
-              <li className="hover:underline">
+              <li className="mb-4 hover:underline">
                 <Link href="/marketplace">Marketplace</Link>
               </li>
-            </ul>
-          </div>
-          <div>
-            <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
-              Follow us
-            </h2>
-            <ul className="text-gray-600 dark:text-gray-400">
-              <li className="mb-4">
-                <a href="#" className="hover:underline ">
-                  Github
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:underline">
-                  Linkedin
-                </a>
+              <li className="hover:underline">
+                <Link href="/team">Meet the team</Link>
               </li>
             </ul>
           </div>
@@ -77,56 +78,6 @@ export default function Footer() {
           </a>
           . All Rights Reserved.
         </span>
-        <div className="flex mt-4 space-x-6 sm:justify-center sm:mt-0">
-          <a
-            href="#"
-            className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
-          >
-            <SvgFacebook
-              className="h-5 w-5"
-              color0="currentColor"
-              color1="currentColor"
-              color2="rgb(17 24 39)"
-            />
-            <span className="sr-only">Facebook page</span>
-          </a>
-          <a
-            href="#"
-            className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
-          >
-            <SvgInstagram className="w-5 h-5" />
-            <span className="sr-only">Instagram page</span>
-          </a>
-          <a
-            href="#"
-            className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
-          >
-            <SvgTwitter
-              className="h-5 w-5"
-              color="currentColor"
-              color1="rgb(17 24 39)"
-            />
-            <span className="sr-only">Twitter page</span>
-          </a>
-          <a
-            href="#"
-            className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
-          >
-            <SvgGitHub className="w-5 h-5" />
-            <span className="sr-only">GitHub account</span>
-          </a>
-          <a
-            href="#"
-            className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
-          >
-            <SvgLinkedIn
-              className="h-5 w-5"
-              color="currentColor"
-              color1="rgb(17 24 39)"
-            />
-            <span className="sr-only">Linkedin account</span>
-          </a>
-        </div>
       </div>
     </footer>
   )
