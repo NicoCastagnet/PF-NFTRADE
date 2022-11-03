@@ -1,3 +1,4 @@
+import CartSide from '@components/cart'
 import SvgCart from '@components/icons/svgCart'
 import SvgChevronDown from '@components/icons/svgChevronDown'
 import SvgCoin from '@components/icons/svgCoin'
@@ -8,14 +9,15 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 import { IoMenu } from 'react-icons/io5'
+import { useOpenMenu } from '../../hook/openCartMenu'
 import Logo from './logo'
 import Notificaciones from './notificaciones'
 import UserMenuNavBar from './user'
 
 export default function NavBar() {
   const [menu, setMen] = useState(false)
-
   const { data: session } = useSession()
+  const { open, setOpen } = useOpenMenu()
 
   return (
     <nav className="navbar__nav h-20 bg-slate-900 w-full flex flex-row  text-center items-center  justify-center drop-shadow-lg fixed top-0 z-10 px-4">
@@ -26,15 +28,17 @@ export default function NavBar() {
         onClick={() => setMen((state) => !state)}
       ></div>
 
-      <div className="flex flex-row justify-between items-center w-full max-sm:gap-4">
+      <div className="flex flex-row justify-between items-center w-full max-md:gap-4">
         <Logo />
 
         <Search />
 
-        <div className="max-sm:hidden flex flex-row justify-end items-center w-full max-[820px]:gap-2 max-[820px]:flex-col-reverse">
+        <CartSide isOpen={open} handleClose={setOpen} />
+
+        <div className="max-md:hidden flex flex-row justify-end items-center w-full">
           <div className="navbar__buttons flex flex-row justify-end items-center text-white">
             {/* ------------- RUTAS NAVBAR ------------------ */}
-            <div className="flex flex-row justify-center items-center max-md:hidden ease duration-150">
+            <div className="flex flex-row justify-center items-center max-xl:hidden ease duration-150">
               <Link href={'#'}>
                 <button className="m-3">Explore</button>
               </Link>
@@ -43,12 +47,14 @@ export default function NavBar() {
               </Link>
             </div>
             {/* ----------------------------------------------- */}
-
             {session && <SvgCoin className="m-3" width={'25'} height={'25'} />}
-            <SvgCart className="m-3" width={'25'} height={'25'} />
-
+            <SvgCart
+              className="m-3 cursor-pointer"
+              width={'25'}
+              height={'25'}
+              onClick={() => setOpen(!open)}
+            />
             {session && <Notificaciones />}
-
             <button
               id="dropdownInformationButton"
               data-dropdown-toggle="dropdownInformation"
@@ -80,7 +86,7 @@ export default function NavBar() {
             {menu && <UserMenuNavBar menu={menu} />}
           </div>
         </div>
-        <div className="sm:hidden flex justify-center items-center">
+        <div className="md:hidden flex justify-center items-center ">
           <IoMenu size={52} color={'#00000099'} />
         </div>
       </div>

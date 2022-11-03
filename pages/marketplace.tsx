@@ -14,10 +14,13 @@ import { useEffect, useState } from 'react'
 import { RiVipCrownFill } from 'react-icons/ri'
 import useSWR from 'swr'
 import type { NftsResponse } from 'types/api-responses'
-import SvgCoin from '../components/icons/svgCoin'
+import SvgCoin from '@components/icons/svgCoin'
 import styles from '../styles/form.module.css'
-import { orderByName } from './api/filters/orderByName'
-import refreshData from './api/filters/refreshData'
+import { filterByPriceAbobeBelow } from '@components/marketplace/filters/filterByPriceAbobeBelow'
+import { filterByPriceBetween } from '@components/marketplace/filters/filterByPriceBetwin'
+import { orderByName } from '@components/marketplace/filters/orderByName'
+import { orderByPrice } from '@components/marketplace/filters/orderByPrice'
+import refreshData from '@components/marketplace/filters/refreshData'
 
 const URL = 'http://localhost:3000/api/nfts'
 
@@ -43,15 +46,30 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
 
   const [order, setOrder] = useState('all')
   const [ordered, setOrdered] = useState([])
+  const [filter, setFilter] = useState(['none', -1, -1])
 
   useEffect(() => {
     if (order === 'all') {
       refreshData(URL).then((data) => setOrdered(data))
     } else if (order === 'AZ') {
-      setOrdered(orderByName(nfts, order))
+      setOrdered(orderByName(ordered, order))
     } else if (order === 'ZA') {
-      setOrdered(orderByName(nfts, order))
+      setOrdered(orderByName(ordered, order))
+    } else if (order === 'min') {
+      setOrdered(orderByPrice(ordered, order))
+    } else if (order === 'max') {
+      setOrdered(orderByPrice(ordered, order))
     }
+
+    if (filter[0] === 'above') {
+      setOrdered(filterByPriceAbobeBelow(nfts, filter[1], filter[0]))
+    } else if (filter[0] === 'below') {
+      setOrdered(filterByPriceAbobeBelow(nfts, filter[1], filter[0]))
+    } else if (filter[0] === 'between') {
+      setOrdered(filterByPriceBetween(nfts, filter[1], filter[2]))
+    }
+
+    console.log(filter, order)
   }, [order])
 
   const [nftSize, setNftSize] = useState<Size>({
@@ -81,7 +99,11 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
         <title>NFTrade | Marketplace</title>
       </Head>
       <NavBar />
-      <HeaderMarket setOrder={setOrder} setNftSize={setNftSize} />
+      <HeaderMarket
+        setOrder={setOrder}
+        setNftSize={setNftSize}
+        setFilter={setFilter}
+      />
       <section className="market_list relative top-48">
         <div className="market_list-container flex flex-wrap justify-center w-auto rounded-lg mb-48">
           {nfts &&
@@ -106,11 +128,12 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
                       className={`market_list-card ${nftSize.width} ${nftSize.height} ${nftSize.margin} rounded-lg border shadow-md bg-gray-800 border-gray-700 cursor-pointer`}
                     >
                       <Image
-                        className="rounded-t-lg object-cover"
+                        className="rounded-t-lg object-cover hover:scale-110 transition duration-300 ease-in-out"
                         src={e.image}
                         alt="ds"
-                        width={1000}
-                        height={1000}
+                        width={400}
+                        height={400}
+                        quality={20}
                         layout="intrinsic"
                       />
 

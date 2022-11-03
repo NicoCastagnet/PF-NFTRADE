@@ -25,10 +25,10 @@ const UserMenuNavBar = ({ menu }: { menu: boolean }) => {
               className="py-1 text-sm text-gray-200 border-y-white border-y-2"
               aria-labelledby="dropdownInformationButton"
             >
-              <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white min-[1145px]:hidden">
+              <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white xl:hidden">
                 <Link href="#">Explore</Link>
               </li>
-              <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white min-[1145px]:hidden">
+              <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white xl:hidden">
                 <Link href="/marketplace">Marketplace</Link>
               </li>
               <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white">

@@ -5,7 +5,6 @@ import FaqHome from '@components/home/faqHome'
 import HeaderContainer from '@components/home/headerContainer'
 import NewsLetter from '@components/home/newsLetter'
 import TopContainer from '@components/home/topContainer'
-// import Carrucel from '@components/home/contentUtils/carrucel'
 import NavBar from '@components/navbar/navbar'
 import { getAllNfts } from '@lib/api'
 import type { GetServerSideProps, NextPage } from 'next'
@@ -20,6 +19,7 @@ const HomePage: NextPage<HomeProps> = ({ nfts }) => {
   return (
     <div className="home__container flex flex-col items-center justify-center content-center w-full min">
       <Head>
+        {/* prueba test */}
         <title>NFTrade | Home</title>
       </Head>
       <NavBar />
