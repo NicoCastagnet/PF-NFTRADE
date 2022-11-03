@@ -1,5 +1,4 @@
 import SvgChevron from '@components/icons/svgChevronDown'
-import SvgCross from '@components/icons/svgCross'
 import SvgGrid2 from '@components/icons/svgGrid2'
 import SvgGrid3 from '@components/icons/svgGrid3'
 import SvgList2 from '@components/icons/svgList2'
@@ -215,12 +214,12 @@ const HeaderMarket: NextPage<Props> = ({ setNftSize, setOrder, setFilter }) => {
           </div>
         </div>
       </section>
-      <FilterLateral  
-      sideBar={sideBar}
-      openSideBar={openSideBar}
-      searchPriceBelow={searchPriceBelow}
-      searchPriceAbove={searchPriceAbove}
-      searchPriceBetween={searchPriceBetween}
+      <FilterLateral
+        sideBar={sideBar}
+        openSideBar={openSideBar}
+        searchPriceBelow={searchPriceBelow}
+        searchPriceAbove={searchPriceAbove}
+        searchPriceBetween={searchPriceBetween}
       />
     </>
   )
