@@ -34,7 +34,7 @@ const TopContainer = ({ nfts }: { nfts: NftsResponse }) => {
     selectNewImage(selectedIndex, nfts)
   }
   return (
-    <section className="home__top flex flex-col items-center w-full m-14 max-md:m-0 max-md:mt-0">
+    <section className="home__top flex flex-col items-center w-full m-14 max-md:m-0 max-md:mt-0 max-xl:px-12 max-sm:px-0 ease duration-500">
       <div className="home__top-titles flex flex-col text-center m-16 max-lg:mx-0 max-lg:mb-0">
         <p className="text-5xl font-bold tracking-wide max-md:text-3xl ease duration-500">
           Most liked <span className="font-extrabold text-blue-600">NFTs</span>
@@ -44,15 +44,12 @@ const TopContainer = ({ nfts }: { nfts: NftsResponse }) => {
           marketplace!
         </p>
       </div>
-      <div className=" xl:hidden relative mt-14 max-lg:mt-2 h-[43rem] flex justify-center items-center w-full max-w-7xl bg-slate-900 max-md:bg-transparent max-lg:max-w-2xl rounded-2xl ease duration-500">
+      <div className=" xl:hidden relative mt-14 max-lg:mt-2 h-[43rem] flex justify-center items-center w-full max-w-7xl  bg-slate-900 max-md:bg-transparent max-lg:max-w-2xl rounded-2xl ease duration-500">
         <div className="xl:hidden flex flex-row justify-center items-center gap-8 ease duration-500">
-          <div
-            key={selected?.id}
-            className="init-card max-w-sm m-18 shadow-md bg-gray-800 border-gray-700"
-          >
+          <div className="init-card max-w-sm m-18 shadow-md bg-gray-800 border-gray-700 rounded-xl">
             <a href="#">
               <Image
-                className="object-cover"
+                className="object-cover rounded-t-xlrounded-t-xl group-hover:scale-110 transition-all"
                 src={selected?.image}
                 alt="ds"
                 width={1000}
@@ -105,17 +102,23 @@ const TopContainer = ({ nfts }: { nfts: NftsResponse }) => {
             </a>
           </div>
         </div>
-        <button className="absolute -left-0 lg:hidden" onClick={previous}>
+        <button
+          className="absolute max-xl:left-8 max-sm:-left-0 xl:hidden"
+          onClick={previous}
+        >
           <SvgChevronDown
-            className="rotate-90 fill-gray-800"
+            className="rotate-90 fill-gray-800 max-xl:scale-150 max-sm:scale-100"
             heigth="40"
             width="40"
           />
         </button>
 
-        <button className="absolute -right-0 lg:hidden" onClick={next}>
+        <button
+          className="absolute max-xl:right-8 max-sm:-right-0  xl:hidden"
+          onClick={next}
+        >
           <SvgChevronDown
-            className="-rotate-90 fill-gray-800"
+            className="-rotate-90 fill-gray-800 max-xl:scale-150 max-sm:scale-100"
             heigth="40"
             width="40"
           />
@@ -127,10 +130,10 @@ const TopContainer = ({ nfts }: { nfts: NftsResponse }) => {
             return (
               <div
                 key={e.id}
-                className="init-card max-w-sm  rounded-lg border shadow-md bg-gray-800 border-gray-700 group"
+                className="init-card max-w-sm  rounded-xl border shadow-md bg-gray-800 border-gray-700 group"
               >
                 <Image
-                  className="rounded-t-lg object-cover group-hover:scale-110 transition-all"
+                  className="rounded-t-xl object-cover group-hover:scale-110 transition-all"
                   src={e.image}
                   alt="ds"
                   width={1000}
