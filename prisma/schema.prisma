@@ -122,4 +122,5 @@ model Comment {
   userId      String
   isPublished Boolean @default(true)
   content     String
+  createdAt    DateTime    @default(now())
 }

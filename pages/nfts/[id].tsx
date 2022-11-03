@@ -10,6 +10,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { toast, Toaster } from 'react-hot-toast'
 import type { NftDetailResponse } from 'types/api-responses'
+import { useOpenMenu } from '../../hook/openCartMenu'
 
 interface NftDetailProps {
   nft: NftDetailResponse
