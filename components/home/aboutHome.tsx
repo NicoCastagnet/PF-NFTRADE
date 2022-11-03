@@ -14,10 +14,12 @@ const AboutHome = () => {
             Why choosing us?
           </p>
           <p className="mt-10 max-md:mt-5 mb-10 max-md:text-sm ease duration-500">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora
-            molestiae doloribus voluptatibus. Laudantium, reiciendis! Architecto
-            illo commodi natus maxime fugiat cupiditate, et ducimus similique
-            earum exercitationem, sit dolorem asperiores expedita!
+            NFTrade is the best marketplace in the NFT Universe. We cover the
+            most eye-catching drops, exciting events, and high-profile releases
+            that keep the wheels of the Non-Fungible Token industry turning!
+            With love and respect for all NFT Collectors and the Community of
+            crypto art connoisseurs! Support us We are working hard to empower
+            creators and publishers on a daily basis.
           </p>
           <Link href="/about">
             <button

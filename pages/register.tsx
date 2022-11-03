@@ -85,7 +85,7 @@ const SignIn: NextPage = () => {
                 Join our world
               </h1>
               <h3 className="reg-subtitle text-lg text-left text-gray-500">
-                {"Let's get started!"}
+                Tell us about you...
               </h3>
               <form
                 className="flex flex-col items-center py-4 gap-5 w-full"
@@ -101,7 +101,7 @@ const SignIn: NextPage = () => {
                   <input
                     className={`bg-transparent focus:outline-none w-full ${styles.input_text}`}
                     type="text"
-                    placeholder={'UserName'}
+                    placeholder={'Username'}
                     {...formik.getFieldProps('username')}
                     onBlur={handleBlurUserName}
                   />
@@ -176,18 +176,18 @@ const SignIn: NextPage = () => {
                   </span>
                 </div>
                 <button
-                  className="bg-zinc-800 text-white rounded-full py-2 px-8 mt-5 text-lg w-3/5 hover:scale-105 transition-transform"
+                  className="bg-zinc-800 text-white rounded-full py-2 px-8 mt-5 text-lg w-3/5 hover:scale-105 transition-transform font-bold uppercase"
                   type="submit"
                 >
-                  SignIn
+                  Register
                 </button>
               </form>
             </div>
 
             <p className="text-center text-sm text-gray-400">
-              {"don't have an account yet?"}
+              {'already have an account?'}
               <Link href={'/login'}>
-                <a className="text-blue-700"> LogIn</a>
+                <a className="text-blue-700"> sign in</a>
               </Link>
             </p>
           </div>

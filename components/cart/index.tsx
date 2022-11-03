@@ -27,7 +27,7 @@ const CartSideBar: React.FC<CartSideBarProps> = ({ isOpen, handleClose }) => {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+          <div className="fixed inset-0 bg-slate-700 bg-opacity-75 transition-opacity" />
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-hidden">
@@ -55,7 +55,7 @@ const CartSideBar: React.FC<CartSideBarProps> = ({ isOpen, handleClose }) => {
                     <div className="absolute top-0 left-14 -ml-8 flex pt-4 pr-2 sm:-ml-10 sm:pr-4 bg-gray-800 z-50 w-full py-5">
                       <button
                         type="button"
-                        className="rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
+                        className="rounded-md text-gray-300 hover:text-white focus:outline-none"
                         onClick={() => handleClose(false)}
                       >
                         <span className="sr-only">Close panel</span>

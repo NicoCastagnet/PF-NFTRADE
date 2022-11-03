@@ -19,7 +19,6 @@ const HomePage: NextPage<HomeProps> = ({ nfts }) => {
   return (
     <div className="home__container flex flex-col items-center justify-center content-center w-full min">
       <Head>
-        {/* prueba test */}
         <title>NFTrade | Home</title>
       </Head>
       <NavBar />

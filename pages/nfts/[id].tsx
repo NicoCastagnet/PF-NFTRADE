@@ -8,6 +8,7 @@ import { useCart } from 'context/cart'
 import type { GetServerSideProps, NextPage } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
+import { toast, Toaster } from 'react-hot-toast'
 import type { NftDetailResponse } from 'types/api-responses'
 import { useOpenMenu } from '../../hook/openCartMenu'
 
@@ -30,8 +31,7 @@ const comment2 = {
 const comments = [comment1, comment2]
 
 const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
-  const { addItem } = useCart()
-  const { open, setOpen } = useOpenMenu()
+  const { cart, addItem } = useCart()
 
   return (
     <div className="flex flex-col items-center justify-center w-full min-h-screen">
@@ -90,7 +90,11 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                 className="text-2xl bg-gray-600 py-3 px-20 rounded-xl"
                 onClick={() => {
                   addItem(nft)
-                  setOpen((open) => !open)
+                  cart.find((e) => e.name === nft.name)
+                    ? toast.error(
+                        'You have already added this NFT to the cart!',
+                      )
+                    : toast.success('NFT added to the cart!')
                 }}
               >
                 ADD TO CART
@@ -140,6 +144,7 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
       </div>
 
       <Footer />
+      <Toaster position="top-center" reverseOrder={false} />
     </div>
   )
 }

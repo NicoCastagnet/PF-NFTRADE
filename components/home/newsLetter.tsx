@@ -17,10 +17,9 @@ const NewsLetter = () => {
             daily!
           </p>
           <p className="mt-10 mb-10 w-4/5 max-md:text-sm max-md:my-4">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora
-            molestiae doloribus voluptatibus. Laudantium, reiciendis! Architecto
-            illo commodi natus maxime fugiat cupiditate, et ducimus similique
-            earum exercitationem, sit dolorem asperiores expedita!
+            Find out about all the news, promotions, discounts, events and much
+            more subscribing to our news letter. It is easy, just leave us your
+            email and we will take care of the rest!
           </p>
           <form className=" max-md:w-full">
             <div className="relative  max-md:w-full">
@@ -30,13 +29,13 @@ const NewsLetter = () => {
               <input
                 type="search"
                 id="default-search"
-                className="block p-4 pl-10 w-4/5 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-200  max-md:w-full"
+                className="block p-4 pl-10 pr-28 w-4/5 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-200 max-md:w-full max-md:pr-[5.5rem]"
                 placeholder="Enter your e-mail"
                 required
               />
               <button
                 type="submit"
-                className="text-white absolute right-[21%] bottom-2.5 bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-200 font-medium rounded-lg text-sm px-4 py-2 max-md:right-[1%]"
+                className="text-white absolute right-[21%] bottom-2.5 bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-200 font-medium rounded-lg text-sm px-4 py-2 max-md:right-[3%]"
               >
                 Subscribe
               </button>
