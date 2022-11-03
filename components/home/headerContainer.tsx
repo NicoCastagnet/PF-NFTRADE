@@ -22,8 +22,10 @@ const HeaderContainer = () => {
           </h1>
           {/* ------------------------------------------------------ */}
           <p className="max-w-[39.5rem] max-sm:text-sm my-10">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Inventore
-            vero minus ipsa dicta dignissimos obcaecati aspernatur ab quidem!
+            Come to know our marketplace. Find the best NFT&apos;s from the
+            market at excellent prices! At{' '}
+            <span className="text-blue-600 font-bold">NFTrade</span> we provide
+            you security and confidence all time.
           </p>
           {/* ------------------------------------------------------ */}
           <div className="flex flex-row justify-start items-center gap-4 pl-3">

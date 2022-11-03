@@ -3,11 +3,12 @@ import SvgGrid2 from '@components/icons/svgGrid2'
 import SvgGrid3 from '@components/icons/svgGrid3'
 import SvgList2 from '@components/icons/svgList2'
 import SvgReload from '@components/icons/svgReload'
-import { useState } from 'react'
-import styles from '../../styles/form.module.css'
-
 import type { NextPage } from 'next'
+import { useState } from 'react'
+import { useOpenFilterMenu } from '../../hook/openFilterMenu'
+import styles from '../../styles/form.module.css'
 import FilterLateral from './filterLateral'
+
 interface Size {
   margin: string
   width: string
@@ -26,6 +27,7 @@ interface Props {
 }
 
 const HeaderMarket: NextPage<Props> = ({ setNftSize, setOrder, setFilter }) => {
+  const { openFilter, setOpenFilter } = useOpenFilterMenu()
   const [sideBar, setSideBar] = useState(false)
   const [orderMenu, setOrderMenu] = useState(false)
   const [cont, setCont] = useState(0)
@@ -96,10 +98,11 @@ const HeaderMarket: NextPage<Props> = ({ setNftSize, setOrder, setFilter }) => {
     <>
       <section className="market__header bg-slate-900 text-white py-1 px-20 w-full flex justify-between top-[5rem] fixed z-[5] items-center">
         <div className="left flex">
+          <FilterLateral isOpen={openFilter} handleClose={setOpenFilter} />
           <button
             type="button"
             className="py-3 px-3 text-sm font-medium rounded-full border focus:z-10 focus:ring-2 bg-gray-700 border-gray-600 text-white hover:text-white hover:bg-gray-600 focus:ring-blue-500 focus:text-white"
-            onClick={openSideBar}
+            onClick={() => setOpenFilter(!openFilter)}
           >
             <SvgList2 width="25" height="25" />
           </button>
@@ -214,13 +217,6 @@ const HeaderMarket: NextPage<Props> = ({ setNftSize, setOrder, setFilter }) => {
           </div>
         </div>
       </section>
-      <FilterLateral
-        sideBar={sideBar}
-        openSideBar={openSideBar}
-        searchPriceBelow={searchPriceBelow}
-        searchPriceAbove={searchPriceAbove}
-        searchPriceBetween={searchPriceBetween}
-      />
     </>
   )
 }

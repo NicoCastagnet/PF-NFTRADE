@@ -9,7 +9,7 @@ const Create = () => {
       <div className="content">
         <p className="text-white font-semibold mt-3">Create your collections</p>
         <p className="text-slate-400 mt-3 mb-3">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          Create an account to make collections and start selling them!
         </p>
         <button
           type="button"

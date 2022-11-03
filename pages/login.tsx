@@ -73,9 +73,9 @@ const LogIn: NextPage = () => {
         <div className="flex flex-col sm:flex-row justify-center items-center w-full">
           <div className="flex flex-col items-center justify-center w-full max-w-md mt-4">
             <div className="flex flex-col items-center w-full">
-              <h1 className=" text-4xl font-semibold">Log In</h1>
+              <h1 className=" text-4xl font-semibold">Welcome back</h1>
               <h3 className="reg-subtitle text-xl text-left text-gray-500">
-                {"Let's get started!"}
+                Please, enter your credentials to continue
               </h3>
               <form
                 className="flex flex-col items-center py-4 gap-8 w-full"
@@ -119,10 +119,10 @@ const LogIn: NextPage = () => {
                   </span>
                 </div>
                 <button
-                  className="bg-zinc-800 text-white rounded-full py-2 px-8 mt-2 text-lg w-3/5 hover:scale-105 transition-transform"
+                  className="bg-zinc-800 text-white rounded-full py-2 px-8 mt-2 text-lg w-3/5 hover:scale-105 transition-transform font-bold uppercase"
                   type="submit"
                 >
-                  LogIn
+                  Sign in
                 </button>
               </form>
             </div>
@@ -174,7 +174,7 @@ const LogIn: NextPage = () => {
               {"don't have an account yet?"}
 
               <Link href={'/register'}>
-                <a className="text-blue-700"> Register</a>
+                <a className="text-blue-700"> register</a>
               </Link>
             </p>
           </div>

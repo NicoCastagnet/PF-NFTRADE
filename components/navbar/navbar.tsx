@@ -40,16 +40,26 @@ export default function NavBar() {
             {/* ------------- RUTAS NAVBAR ------------------ */}
             <div className="flex flex-row justify-center items-center max-xl:hidden ease duration-150">
               <Link href={'#'}>
-                <button className="m-3">Explore</button>
+                <button className="m-3 hover:text-blue-500 transition-all font-semibold">
+                  Explore
+                </button>
               </Link>
               <Link href="/marketplace">
-                <button className="m-3">Marketplace</button>
+                <button className="m-3 hover:text-blue-500 transition-all font-semibold">
+                  Marketplace
+                </button>
               </Link>
             </div>
             {/* ----------------------------------------------- */}
-            {session && <SvgCoin className="m-3" width={'25'} height={'25'} />}
+            {session && (
+              <SvgCoin
+                className="m-3 hover:text-blue-500 transition-all"
+                width={'25'}
+                height={'25'}
+              />
+            )}
             <SvgCart
-              className="m-3 cursor-pointer"
+              className="m-3 cursor-pointer hover:text-blue-500 transition-all"
               width={'25'}
               height={'25'}
               onClick={() => setOpen(!open)}
@@ -87,7 +97,7 @@ export default function NavBar() {
           </div>
         </div>
         <div className="md:hidden flex justify-center items-center ">
-          <IoMenu size={52} color={'#00000099'} />
+          <IoMenu size={45} className="text-slate-600" />
         </div>
       </div>
     </nav>
