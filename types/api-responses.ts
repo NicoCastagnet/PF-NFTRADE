@@ -13,6 +13,12 @@ export type NftsResponse = Prisma.NftGetPayload<{
     name: true
     image: true
     price: true
+    likedBy: {
+      select: {
+        id: true
+      }
+    }
+    published: true
     owner: {
       select: { name: true }
     }
@@ -34,6 +40,12 @@ export type NftResponse = Prisma.NftGetPayload<{
     name: true
     image: true
     price: true
+    likedBy: {
+      select: {
+        id: true
+      }
+    }
+    published: true
     owner: {
       select: { name: true }
     }
@@ -57,6 +69,11 @@ export type NftDetailResponse = Prisma.NftGetPayload<{
     image: true
     description: true
     price: true
+    likedBy: {
+      select: {
+        id: true
+      }
+    }
     published: true
     owner: { select: { name: true } }
     creator: { select: { name: true } }

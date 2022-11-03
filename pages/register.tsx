@@ -23,13 +23,14 @@ import styles from '../styles/form.module.css'
 const SignIn: NextPage = () => {
   //////////////////////////////////////////////////
   const { data: session, status } = useSession()
+
   const [show, setShow] = useState({ password: false, cpassword: false })
 
   const router = useRouter()
   ////////////////////////////////////////////////
   useEffect(() => {
     if (session) router.push('/')
-  }, [status])
+  }, [router, session, status])
   /////////////////////////////////////
   const formik = useFormik({
     initialValues: {

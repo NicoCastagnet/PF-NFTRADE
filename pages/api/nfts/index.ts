@@ -24,6 +24,12 @@ export default async function handler(
       name: true,
       image: true,
       price: true,
+      likedBy: {
+        select: {
+          id: true,
+        },
+      },
+      published: true,
       owner: {
         select: { name: true },
       },

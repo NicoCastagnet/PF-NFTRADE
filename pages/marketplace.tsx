@@ -7,6 +7,7 @@ import HeaderMarket from '@components/marketplace/headerMarket'
 import NavBar from '@components/navbar/navbar'
 import fetcher from '@lib/fetcher'
 import type { GetServerSideProps, NextPage } from 'next'
+import { useSession } from 'next-auth/react'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -41,6 +42,9 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
     fallbackData,
   })
 
+  const { data: session } = useSession()
+  const user = session?.user
+
   const [order, setOrder] = useState('all')
   const [ordered, setOrdered] = useState([])
 
@@ -52,27 +56,50 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
     } else if (order === 'ZA') {
       setOrdered(orderByName(nfts, order))
     }
-  }, [order])
+  }, [nfts, order])
 
   const [nftSize, setNftSize] = useState<Size>({
-    margin: 'm-10',
-    width: 'w-[350px]',
-    height: 'h-[565px]',
-    title: 'text-2xl',
-    titleH: 'min-h-[64px]',
-    ownerAndPrice: 'text-xl',
+    margin: 'm-4',
+    width: 'w-[280px]',
+    height: 'h-[475px]',
+    title: 'text-[1.4rem]',
+    titleH: 'max-h-[64px]',
+    ownerAndPrice: 'text-[1.1rem]',
     tagsH: 'min-h-[48px]',
-    positionR: 'right-[13%]',
+    positionR: 'right-[9%]',
   })
 
-  // function likeHandler(e: NftResponse) {
-  //   // este seria el codigo para setear los likes, una vez terminado habria que hacer un put al nft likeado
-  //   // if (e.likedBy.includes(userAccount)) {
-  //   //   e.likedBy.filter(acc => acc !== userAccount)
-  //   // }else{
-  //   //   e.likedBy.push(userAccount)
-  //   // }
-  // }
+  const [reload, setReload] = useState(false)
+
+  function refreshStates() {
+    if (reload === false) {
+      setReload(true)
+    } else {
+      setReload(false)
+    }
+  }
+
+  async function likeHandler(nft: NftResponse, likes: string[]) {
+    // este seria el codigo para setear los likes, una vez terminado habria que hacer un put al nft likeado
+    if (likes.includes(user?.id)) {
+      likes = likes.filter((id) => id !== user?.id)
+      nft.likedBy.pop()
+    } else {
+      likes = likes.push(user?.id)
+      nft.likedBy.push({ id: user?.id })
+    }
+    fetch('/api/put/nftLike', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userId: user?.id,
+        nftId: nft.id,
+      }),
+    })
+    refreshStates()
+  }
 
   if (!nfts) return <div>loading...</div>
   return (
@@ -86,20 +113,29 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
         <div className="market_list-container flex flex-wrap justify-center w-auto rounded-lg mb-48">
           {nfts &&
             ordered.map((e) => {
+              const likes = e.likedBy.map((acc) => acc.id)
+              const likesNum = likes.length
+
               return (
                 <div key={e.id} className="relative">
                   <div
                     className={`likes flex text-white font-semibold items-center justify-center text-center gap-3 bg-gray-500 rounded-full w-16 h-8 absolute bottom-[31%] ${nftSize.positionR}`}
                   >
-                    {e._count.likedBy}
-                    <SvgHeart
-                      onClick={() => {
-                        likeHandler(e)
-                      }}
-                      height={20}
-                      width={20}
-                      className="hover:fill-red-600 transition-all hover:cursor-pointer"
-                    />
+                    {likesNum}
+                    {user ? (
+                      <SvgHeart
+                        onClick={() => {
+                          likeHandler(e, likes)
+                        }}
+                        height={20}
+                        width={20}
+                        className={`${
+                          likes.includes(user?.id) && 'fill-green-600'
+                        } hover:fill-red-600 transition-all hover:cursor-pointer `}
+                      />
+                    ) : (
+                      <SvgHeart height={20} width={20} />
+                    )}
                   </div>
                   <Link href={`/nfts/${e.id}`} key={e.id}>
                     <div
