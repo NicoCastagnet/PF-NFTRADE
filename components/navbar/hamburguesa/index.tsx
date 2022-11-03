@@ -17,9 +17,8 @@ const Hamburguesa = () => {
       >
         <span
           className={` bg-white h-1 rounded-full ease duration-100 ${
-            hamburguer &&
-            'rotate-45 origin-bottom-left translate-x-[0px]  w-[1.7rem]'
-          }  w-[2.2rem]`}
+            hamburguer ?
+            'rotate-45 origin-bottom-left translate-x-[0px]  w-[1.7rem]':  'w-[2.2rem]'}`}
         ></span>
         <span
           className={` bg-white h-1 w-[2.2rem] rounded-full ease duration-100 ${
@@ -27,15 +26,12 @@ const Hamburguesa = () => {
           }`}
         ></span>
         <span
-          className={` bg-white h-1  rounded-full ease duration-100 ${
-            hamburguer &&
-            '-rotate-45 origin-top-left translate-x-[0px] w-[1.7rem]'
-          } w-[2.2rem]`}
+          className={` bg-white h-1  rounded-full ease duration-100 ${hamburguer ? '-rotate-45 origin-top-left translate-x-[0px] w-[1.7rem]':  'w-[2.2rem]'}`}
         ></span>
         <div
           className={`${
-            hamburguer && 'translate-x-[-0rem] opacity-100'
-          } translate-x-[50rem] opacity-0 fixed top-[5rem] left-0 w-full h-screen ease duration-75 bg-slate-800`}
+            hamburguer ? ' opacity-100' : ' translate-x-96 opacity-0'
+          } fixed top-[5rem] left-0 w-full h-screen ease duration-75 bg-slate-800`}
         >
           <ul className="text-slate-400 text-2xl font-bold w-full flex flex-col items-start px-4">
             {session && (
