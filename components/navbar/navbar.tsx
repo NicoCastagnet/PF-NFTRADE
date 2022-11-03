@@ -35,7 +35,6 @@ export default function NavBar() {
 
         <CartSide isOpen={open} handleClose={setOpen} />
 
-
         <div className="max-md:hidden flex flex-row justify-end items-center w-full">
           <div className="navbar__buttons flex flex-row justify-end items-center text-white">
             {/* ------------- RUTAS NAVBAR ------------------ */}
@@ -98,8 +97,7 @@ export default function NavBar() {
           </div>
         </div>
         <div className="md:hidden flex justify-center items-center ">
-        <Hamburguesa/>
-
+          <Hamburguesa />
         </div>
       </div>
     </nav>
