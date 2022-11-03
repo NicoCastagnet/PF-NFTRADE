@@ -1,4 +1,4 @@
-const svgLogOut = ({ ...props }) => (
+const SvgLogOut = ({ ...props }) => (
   <svg
     aria-hidden="true"
     fill="currentColor"
@@ -14,4 +14,4 @@ const svgLogOut = ({ ...props }) => (
   </svg>
 )
 
-export default svgLogOut
+export default SvgLogOut
