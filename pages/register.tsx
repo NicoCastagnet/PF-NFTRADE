@@ -1,93 +1,212 @@
 // import whiteLogo from '../Assets/logo@1,25x.png';
+import { useFormik } from 'formik'
+import {
+  handleBlurEmail,
+  handleBlurPassword,
+  handleBlurUserName,
+  registerValidate,
+} from 'hook/validate'
+import type { NextPage } from 'next'
+import { useSession } from 'next-auth/react'
+import Head from 'next/head'
 import Image from 'next/image'
-import regImage from '../Assets/nft-cost.jpg'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
+import { toast, Toaster } from 'react-hot-toast'
+import { HiAtSymbol, HiFingerPrint, HiOutlineUser } from 'react-icons/hi'
+import whiteLogo from '../assets/logo@1,25x.png'
+import regImage from '../assets/nft-cost.jpg'
+import styles from '../styles/form.module.css'
+//
+//
+const SignIn: NextPage = () => {
+  //////////////////////////////////////////////////
+  const { data: session, status } = useSession()
 
-export default function Register() {
+  const [show, setShow] = useState({ password: false, cpassword: false })
+
+  const router = useRouter()
+  ////////////////////////////////////////////////
+  useEffect(() => {
+    if (session) router.push('/')
+  }, [router, session, status])
+  /////////////////////////////////////
+  const formik = useFormik({
+    initialValues: {
+      username: '',
+      email: '',
+      password: '',
+      cpassword: '',
+    },
+    validate: registerValidate,
+    onSubmit,
+  })
+  async function onSubmit(values: {
+    username: string
+    email: string
+    password: string
+    cpassword: string
+  }) {
+    try {
+      const options = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: values.username,
+          email: values.email,
+          password: values.password,
+        }),
+      }
+      await fetch('api/auth/signup', options)
+        .then((res) => res.json())
+        .then((res) => {
+          if (res.msg === 'ok') router.push('/login')
+        })
+    } catch (error) {
+      toast.error('An error occurred while registering.', { duration: 3000 })
+      router.push('/register')
+    }
+  }
+  ////////////////////////////////////////////////////////////////
   return (
-    <div>
-      {/* <div className='w-56 h-24'>
-        <Image
-          src={whiteLogo}
-          alt='white_logo'
-          height={''}
-          width={''}
-        />
-      </div> */}
-      <div className="division flex flex-row-reverse text-center items-center justify-center h-screen">
-        <div className="derecha flex flex-col-reverse">
-          <Image
-            src={regImage}
-            alt="reg_image"
-            className="reg_image rounded-[4.5rem]"
-          />
-          {/* <button className='login-btn bg-white h-12 w-24 rounded-full fixed top-32 right-80 text-lg font-normal'>
-            Log in
-          </button> */}
+    <>
+      <Head>
+        <title>NFTrade | Register</title>
+      </Head>
+
+      <div className="flex flex-col items-center justify-start w-full min-h-screen">
+        <div className="flex flex-row items-start pl-6 mt-4 w-full">
+          <Image src={whiteLogo} alt="white_logo" height={70} width={200} />
         </div>
-        <div className="izquierda flex flex-col">
-          <h1 className="reg-title text-5xl font-normal">Create an account</h1>
-          <h3 className="reg-subtitle text-xl text-left text-gray-500">
-            Let&aposs get started!
-          </h3>
-          <form className="reg-form flex flex-col mt-12 mb-12">
-            <input
-              className="reg-form-name border-r-0 border-l-0 border-t-0 border-2 border-b-gray-500 p-2 m-2 text-xl font-light"
-              type="text"
-              placeholder={'Name'}
-            />
-            <input
-              className="reg-form-email border-r-0 border-l-0 border-t-0 border-2 border-b-gray-500 p-2 m-2 text-xl font-light"
-              type="email"
-              placeholder={'Email'}
-            />
-            <input
-              className="reg-form-pwd border-r-0 border-l-0 border-t-0 border-2 border-b-gray-500 p-2 m-2 text-xl font-light"
-              type="password"
-              placeholder={'Password'}
-            />
-            <button
-              className="reg-btn bg-zinc-800 text-white rounded-full h-12 w-auto mt-10 mb-5 ml-5 mr-5 text-lg"
-              type="submit"
-            >
-              Create account
-            </button>
-            <div className="register__buttons">
-              <button className="register__facebook bg-slate-200 m-2 h-12 w-12 rounded-xl">
-                <svg
-                  className="bi bi-facebook w-12 h-12 fill-zinc-800"
-                  viewBox="0 0 16 16"
+        <div className="flex flex-col sm:flex-row justify-center items-center m-16 w-full">
+          <div className="flex flex-col items-center justify-center w-full max-w-md mt-4">
+            <div className="flex flex-col items-center w-full">
+              <h1 className="reg-title text-4xl font-semibold">
+                Join our world
+              </h1>
+              <h3 className="reg-subtitle text-lg text-left text-gray-500">
+                Tell us about you...
+              </h3>
+              <form
+                className="flex flex-col items-center py-4 gap-5 w-full"
+                onSubmit={formik.handleSubmit}
+              >
+                <div
+                  className={`flex border rounded-xl  w-4/5 px-4 py-1 justify-between text-lg ${
+                    formik.errors.username && formik.touched.username
+                      ? 'border-rose-600'
+                      : ''
+                  }`}
                 >
-                  <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
-                </svg>
-              </button>
-              <button className="register__google bg-slate-200 m-2 h-12 w-12 rounded-xl">
-                <svg
-                  className="bi bi-google w-12 h-12 fill-zinc-800"
-                  viewBox="0 0 16 16"
+                  <input
+                    className={`bg-transparent focus:outline-none w-full ${styles.input_text}`}
+                    type="text"
+                    placeholder={'Username'}
+                    {...formik.getFieldProps('username')}
+                    onBlur={handleBlurUserName}
+                  />
+                  <span className="icon flex items-center pl-2">
+                    <HiOutlineUser size={28} />
+                  </span>
+                </div>
+                <div
+                  className={`flex border rounded-xl relative w-4/5 px-4 py-1 justify-between text-lg ${
+                    formik.errors.email && formik.touched.email
+                      ? 'border-rose-600'
+                      : ''
+                  }`}
                 >
-                  <path d="M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.689 7.689 0 0 1 5.352 2.082l-2.284 2.284A4.347 4.347 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.792 4.792 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.702 3.702 0 0 0 1.599-2.431H8v-3.08h7.545z" />
-                </svg>
-              </button>
-              <button className="register__github bg-slate-200 m-2 h-12 w-12 rounded-xl">
-                <svg
-                  className="bi bi-github w-12 h-12 fill-zinc-800"
-                  viewBox="0 0 16 16"
+                  <input
+                    className={`bg-transparent focus:outline-none w-full ${styles.input_text}`}
+                    type="email"
+                    placeholder={'Email'}
+                    {...formik.getFieldProps('email')}
+                    onBlur={handleBlurEmail}
+                  />
+                  <span className="icon flex items-center pl-2">
+                    <HiAtSymbol size={28} />
+                  </span>
+                </div>
+
+                <div
+                  className={`flex border rounded-xl relative w-4/5 px-4 py-1 justify-between text-lg ${
+                    formik.errors.password && formik.touched.password
+                      ? 'border-rose-600'
+                      : ''
+                  }`}
                 >
-                  <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
-                </svg>
-              </button>
-              <button className="register__twitter bg-slate-200 m-2 h-12 w-12 rounded-xl">
-                <svg
-                  className="bi bi-twitter w-12 h-12 fill-zinc-800"
-                  viewBox="0 0 16 16"
+                  <input
+                    className={`bg-transparent focus:outline-none w-full ${styles.input_text}`}
+                    type={`${show.password ? 'text' : 'password'}`}
+                    placeholder={'Password'}
+                    {...formik.getFieldProps('password')}
+                    onBlur={handleBlurPassword}
+                  />
+                  <span
+                    className="icon flex items-center pl-2"
+                    onClick={() =>
+                      setShow({ ...show, password: !show.password })
+                    }
+                  >
+                    <HiFingerPrint size={28} />
+                  </span>
+                </div>
+
+                <div
+                  className={`flex border rounded-xl relative w-4/5 px-4 py-1 justify-between text-lg ${
+                    formik.errors.cpassword && formik.touched.cpassword
+                      ? 'border-rose-600'
+                      : ''
+                  }`}
                 >
-                  <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z" />
-                </svg>
-              </button>
+                  <input
+                    className={`bg-transparent focus:outline-none w-full ${styles.input_text}`}
+                    type={`${show.cpassword ? 'text' : 'password'}`}
+                    placeholder={'Confirm Password'}
+                    {...formik.getFieldProps('cpassword')}
+                    onBlur={handleBlurPassword}
+                  />
+                  <span
+                    className="icon flex items-center pl-2"
+                    onClick={() =>
+                      setShow({ ...show, password: !show.password })
+                    }
+                  >
+                    <HiFingerPrint size={28} />
+                  </span>
+                </div>
+                <button
+                  className="bg-zinc-800 text-white rounded-full py-2 px-8 mt-5 text-lg w-3/5 hover:scale-105 transition-transform font-bold uppercase"
+                  type="submit"
+                >
+                  Register
+                </button>
+              </form>
             </div>
-          </form>
+
+            <p className="text-center text-sm text-gray-400">
+              {'already have an account?'}
+              <Link href={'/login'}>
+                <a className="text-blue-700"> sign in</a>
+              </Link>
+            </p>
+          </div>
+          <div className="flex justify-center items-center collapse sm:visible">
+            <Image
+              src={regImage}
+              alt="signIn_image"
+              height={700}
+              width={500}
+              quality={30}
+              className="reg_image rounded-[2rem]"
+            />
+          </div>
         </div>
       </div>
-    </div>
+      <Toaster position="top-center" reverseOrder={false} />
+    </>
   )
 }
+
+export default SignIn

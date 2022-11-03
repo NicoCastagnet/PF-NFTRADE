@@ -1,0 +1,126 @@
+.input_text + * {
+  color: #cbd5e1;
+}
+
+.input_text:focus + * {
+  color: #6366f1;
+}
+
+.input_text ~ span:hover * {
+  color: #6366f1;
+  cursor: pointer;
+}
+
+.nft_title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bell:hover,
+.bell:focus {
+  animation: bellshake 0.5s both;
+  backface-visibility: hidden;
+  transform-origin: top;
+  animation-iteration-count: infinite;
+}
+
+@keyframes bellshake {
+  0% {
+    transform: rotate(0);
+  }
+  15% {
+    transform: rotate(5deg);
+  }
+  30% {
+    transform: rotate(-5deg);
+  }
+  45% {
+    transform: rotate(4deg);
+  }
+  60% {
+    transform: rotate(-4deg);
+  }
+  75% {
+    transform: rotate(2deg);
+  }
+  85% {
+    transform: rotate(-2deg);
+  }
+  92% {
+    transform: rotate(1deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
+}
+
+.menuLogIn::before {
+  content: '';
+  top: 1.3rem;
+  right: 5rem;
+  border-bottom: 1rem solid rgb(55, 65, 81, 70);
+  border-left: 1.5rem solid transparent;
+  border-right: 1.5rem solid transparent;
+}
+
+@media screen and (max-width: 1280px) {
+  .menuLogIn::before {
+    right: 1.7rem;
+  }
+}
+
+.menuLogOut::before {
+  content: '';
+  top: 1.5rem;
+  right: 1.3rem;
+  border-bottom: 1rem solid rgb(55, 65, 81, 70);
+  border-left: 1.5rem solid transparent;
+  border-right: 1.5rem solid transparent;
+}
+
+.dropdownNotification {
+  position: absolute;
+  inset: 0px auto auto 0px;
+  margin: 0px;
+  transform: translate(0px, 10px);
+}
+
+.notify > section::before {
+  content: '';
+  border-left: 1.5rem solid transparent;
+  border-right: 1.5rem solid transparent;
+  z-index: 9999;
+}
+
+.notify > section {
+  width: 25rem;
+  visibility: hidden;
+  transition: all 0.2s ease;
+}
+
+.notify:hover > section {
+  visibility: visible;
+}
+
+.scrollbar::-webkit-scrollbar {
+  width: 8px;
+  background: #ffffff12;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  background: #ffffff66;
+  height: 30%;
+  border-radius: 1rem;
+}
+
+.orderByMenu::before {
+  position: absolute;
+
+  position: absolute;
+  content: '';
+  top: -1rem;
+  right: 4rem;
+  border-bottom: 1rem solid rgb(55, 65, 81, 70);
+  border-left: 1.5rem solid transparent;
+  border-right: 1.5rem solid transparent;
+}
