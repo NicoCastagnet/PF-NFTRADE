@@ -17,8 +17,10 @@ const Hamburguesa = () => {
       >
         <span
           className={` bg-white h-1 rounded-full ease duration-100 ${
-            hamburguer ?
-            'rotate-45 origin-bottom-left translate-x-[0px]  w-[1.7rem]':  'w-[2.2rem]'}`}
+            hamburguer
+              ? 'rotate-45 origin-bottom-left translate-x-[0px]  w-[1.7rem]'
+              : 'w-[2.2rem]'
+          }`}
         ></span>
         <span
           className={` bg-white h-1 w-[2.2rem] rounded-full ease duration-100 ${
@@ -26,7 +28,11 @@ const Hamburguesa = () => {
           }`}
         ></span>
         <span
-          className={` bg-white h-1  rounded-full ease duration-100 ${hamburguer ? '-rotate-45 origin-top-left translate-x-[0px] w-[1.7rem]':  'w-[2.2rem]'}`}
+          className={` bg-white h-1  rounded-full ease duration-100 ${
+            hamburguer
+              ? '-rotate-45 origin-top-left translate-x-[0px] w-[1.7rem]'
+              : 'w-[2.2rem]'
+          }`}
         ></span>
         <div
           className={`${
