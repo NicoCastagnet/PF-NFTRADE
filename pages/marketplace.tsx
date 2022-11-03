@@ -74,6 +74,7 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
     }
 
     console.log(filter, order)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [order])
 
   const [nftSize, setNftSize] = useState<Size>({
@@ -98,7 +99,6 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
   }
 
   async function likeHandler(nft: NftResponse, likes: string[]) {
-    // este seria el codigo para setear los likes, una vez terminado habria que hacer un put al nft likeado
     if (likes.includes(user?.id)) {
       likes = likes.filter((id) => id !== user?.id)
       nft.likedBy.pop()

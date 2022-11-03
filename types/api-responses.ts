@@ -74,6 +74,8 @@ export type NftDetailResponse = Prisma.NftGetPayload<{
         id: true
       }
     }
+    categories: { select: { id: true; name: true } }
+    comments: true
     published: true
     owner: { select: { name: true } }
     creator: { select: { name: true } }

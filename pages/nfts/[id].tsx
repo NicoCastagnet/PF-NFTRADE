@@ -6,8 +6,10 @@ import NavBar from '@components/navbar/navbar'
 import getNftById from '@lib/api/nfts/getById'
 import { useCart } from 'context/cart'
 import type { GetServerSideProps, NextPage } from 'next'
+import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 import type { NftDetailResponse } from 'types/api-responses'
 import { useOpenMenu } from '../../hook/openCartMenu'
 
@@ -32,6 +34,78 @@ const comments = [comment1, comment2]
 const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
   const { addItem } = useCart()
   const { open, setOpen } = useOpenMenu()
+  const { data: session } = useSession()
+  const user = session?.user
+
+  useEffect(() => {
+    async function putViews() {
+      await fetch('/api/put/nftViews', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId: user?.id,
+          nftId: nft.id,
+        }),
+      })
+    }
+    putViews()
+  }, [nft.id, user?.id])
+
+  const categories = nft.categories.map((c) => c.name)
+  console.log(categories)
+
+  const [reload, setReload] = useState(false)
+  function refreshStates() {
+    if (reload === false) {
+      setReload(true)
+    } else {
+      setReload(false)
+    }
+  }
+
+  let likes = nft.likedBy.map((acc) => acc.id)
+  const likesNum = likes.length
+
+  async function likeHandler() {
+    if (user) {
+      if (likes.includes(user?.id)) {
+        likes = likes.filter((id) => id !== user?.id)
+        nft.likedBy.pop()
+      } else {
+        likes.push(user?.id)
+        nft.likedBy.push({ id: user?.id })
+      }
+    }
+    fetch('/api/put/nftLike', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userId: user?.id,
+        nftId: nft.id,
+      }),
+    })
+    refreshStates()
+  }
+
+  const [comment, setComment] = useState('')
+
+  async function submitComment() {
+    fetch('/api/put/commentPut', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userId: user?.id,
+        nftId: nft.id,
+        content: comment,
+      }),
+    })
+  }
 
   return (
     <div className="flex flex-col items-center justify-center w-full min-h-screen">
@@ -55,7 +129,11 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
           <div className="flex flex-row justify-start text-sm w-full font-medium">
             <span>#{nft.id.toUpperCase().slice(0, 4)}</span>
           </div>
-
+          <div className="flex justify-between w-full">
+            {categories.map((c) => (
+              <span key={c}>#{c}</span>
+            ))}
+          </div>
           <div className="flex flex-row justify-between w-full my-6 text-base">
             <div>
               <span>Owner: {nft.owner.name} </span>
@@ -77,10 +155,21 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
             </div>
             <div className="flex flex-col justify-end">
               <div className="flex flex-row justify-center items-center gap-2">
-                <span className="">
-                  <SvgHeart />
-                </span>
-                <span>{nft._count.likedBy}</span>
+                <span>{likesNum}</span>
+                {user ? (
+                  <SvgHeart
+                    onClick={() => {
+                      likeHandler()
+                    }}
+                    height={20}
+                    width={20}
+                    className={`${
+                      likes.includes(user?.id) && 'fill-green-600'
+                    } hover:fill-red-600 transition-all hover:cursor-pointer `}
+                  />
+                ) : (
+                  <SvgHeart height={20} width={20} />
+                )}
               </div>
             </div>
           </div>
@@ -110,33 +199,58 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
         )}
       </div>
 
-      <div className="w-[1200px] border-[1px] border-gray-400 rounded-[15px] p-4 mb-8">
-        <h3 className="text-[1.4rem]">Comments:</h3>
-        <div className="h-[400px] overflow-auto">
-          {comments.length > 0 ? (
-            comments.map((c) => (
-              <div
-                key={c.id}
-                className="border-[1px] border-gray-300 rounded-[15px] mt-2"
-              >
-                <div className="flex bg-slate-100 rounded-[15px] rounded-bl-[0] rounded-br-[0]">
-                  <p className="text-[1rem] mr-2 ml-2">From: </p>
-                  <p className="text-[1rem] font-[500] hover:text-slate-600 cursor-pointer">
-                    {c.from_account.user_name}
-                  </p>
+      <div className="mb-8">
+        <div className="w-[1200px] border-[1px] border-gray-400 rounded-[15px] p-4 mb-4">
+          <h3 className="text-[1.4rem]">Comments:</h3>
+          <div className="h-[400px] overflow-auto">
+            {comments.length > 0 ? (
+              comments.map((c) => (
+                <div
+                  key={c.id}
+                  className="border-[1px] border-gray-300 rounded-[15px] mt-2"
+                >
+                  <div className="flex bg-slate-100 rounded-[15px] rounded-bl-[0] rounded-br-[0]">
+                    <p className="text-[1rem] mr-2 ml-2">From: </p>
+                    <p className="text-[1rem] font-[500] hover:text-slate-600 cursor-pointer">
+                      {c.from_account.user_name}
+                    </p>
+                  </div>
+                  <hr />
+                  <div className="p-2">
+                    <p className="text-[1rem] lg:text-[1.2rem] ml-2">
+                      {c.content}
+                    </p>
+                  </div>
                 </div>
-                <hr />
-                <div className="p-2">
-                  <p className="text-[1rem] lg:text-[1.2rem] ml-2">
-                    {c.content}
-                  </p>
-                </div>
-              </div>
-            ))
-          ) : (
-            <span> There are no comments yet </span>
-          )}
+              ))
+            ) : (
+              <span> There are no comments yet </span>
+            )}
+          </div>
         </div>
+
+        <label
+          htmlFor="message"
+          className="block mb-2 text-sm font-medium text-gray-900"
+        >
+          Write a comment
+        </label>
+        <textarea
+          id="message"
+          rows={4}
+          className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
+          placeholder="Your message..."
+          maxLength={400}
+          name="comment"
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
+        ></textarea>
+        <button
+          onClick={submitComment}
+          className="border-[1px] border-gray-300 rounded-[10px] mt-2 p-2 bg-orange-400 hover:bg-orange-500 transition-all"
+        >
+          Comment
+        </button>
       </div>
 
       <Footer />
