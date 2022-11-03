@@ -115,12 +115,12 @@ model WishList {
 }
 
 model Comment {
-  id          String  @id @default(cuid())
-  nft         Nft     @relation(fields: [nftId], references: [id])
+  id          String   @id @default(cuid())
+  nft         Nft      @relation(fields: [nftId], references: [id])
   nftId       String
-  user        User    @relation(fields: [userId], references: [id])
+  user        User     @relation(fields: [userId], references: [id])
   userId      String
-  isPublished Boolean @default(true)
+  isPublished Boolean  @default(true)
   content     String
-  createdAt    DateTime    @default(now())
+  createdAt   DateTime @default(now())
 }

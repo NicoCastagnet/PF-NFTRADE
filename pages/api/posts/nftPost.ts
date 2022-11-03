@@ -8,7 +8,8 @@ export default async function postNft(
 ) {
   try {
     if (req.method === 'POST') {
-      const { creatorId, name, image, description, price } = req.body
+      const { creatorId, name, image, description, price, categories } =
+        req.body
       if (!creatorId || !name || !image || !price) {
         res.status(400).send('Missing data')
       } else {
@@ -20,6 +21,7 @@ export default async function postNft(
             image,
             description,
             price,
+            categories,
             published: true,
           },
         })

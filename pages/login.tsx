@@ -26,7 +26,7 @@ const LogIn: NextPage = () => {
   ////////////////////////////////////////////////
   useEffect(() => {
     if (session) router.push('/')
-  }, [status])
+  }, [router, session, status])
   /////////////////////////////////////
   const formik = useFormik({
     initialValues: {

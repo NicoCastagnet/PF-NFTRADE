@@ -12,6 +12,7 @@ const FilterSideBar: React.FC<FilterSideBarProps> = ({
   handleClose,
 }) => {
   return (
+
     <Transition.Root show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={handleClose}>
         <Transition.Child
