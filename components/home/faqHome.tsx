@@ -30,26 +30,26 @@ const UtilsContainer = () => {
   }
 
   return (
-    <section className="home__faq flex flex-col items-center m-14">
-      <div className="home__top-titles flex flex-col text-center m-16">
-        <p className="text-5xl font-bold tracking-wide">
+    <section className="home__faq flex flex-col items-center m-14 max-md:m-8">
+      <div className="home__top-titles flex flex-col text-center m-16 max-md:mx-8 max-md:my-0">
+        <p className="text-5xl font-bold tracking-wide max-md:text-2xl">
           Frequently <span className="font-extrabold text-blue-600">asked</span>{' '}
           questions
         </p>
-        <p className="m-5 text-lg text-gray-500">
+        <p className="m-5 text-lg text-gray-500 max-md:text-sm">
           Everything you need to know about the product and billing.
         </p>
       </div>
-      <div className="mb-16">
+      <div className="mb-16 max-md:m-8 max-md:my-0 max-sm:mx-2">
         <Fragment>
           <Accordion
-            className="w-[50rem]"
+            className=" w-full max-w-[50rem]"
             open={open === 1}
             animate={customAnimation}
             icon={<Icon id={1} open={open} />}
           >
             <AccordionHeader onClick={() => handleOpen(1)}>
-              <div className="flex items-center text-1xl">
+              <div className="flex items-center text-1xl max-sm:text-base">
                 <SvgQuestionMark className="fill-gray-700 w-6 h-6 mr-2 shrink-0" />
                 What is NFTrade?
               </div>
@@ -70,13 +70,13 @@ const UtilsContainer = () => {
             </AccordionBody>
           </Accordion>
           <Accordion
-            className="w-[50rem]"
+            className="w-full max-w-[50rem]"
             open={open === 2}
             animate={customAnimation}
             icon={<Icon id={2} open={open} />}
           >
             <AccordionHeader onClick={() => handleOpen(2)}>
-              <div className="flex items-center text-1xl">
+              <div className="flex items-center text-1xl max-sm:text-base">
                 <SvgQuestionMark className="fill-gray-700 w-6 h-6 mr-2 shrink-0" />
                 What is an NFT?
               </div>
@@ -91,13 +91,13 @@ const UtilsContainer = () => {
             </AccordionBody>
           </Accordion>
           <Accordion
-            className="w-[50rem]"
+            className="w-full max-w-[50rem]"
             open={open === 3}
             animate={customAnimation}
             icon={<Icon id={3} open={open} />}
           >
             <AccordionHeader onClick={() => handleOpen(3)}>
-              <div className="flex items-center text-1xl">
+              <div className="flex items-center text-1xl max-sm:text-base">
                 <SvgQuestionMark className="fill-gray-700 w-6 h-6 mr-2 shrink-0" />
                 How can i buy an NFT?
               </div>

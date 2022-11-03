@@ -2,6 +2,7 @@ import type { AppProps } from 'next/app'
 import { useEffect, useState } from 'react'
 import '../styles/globals.css'
 
+import { CartProvider } from '@context/cart'
 import type { Session } from 'next-auth'
 import { SessionProvider } from 'next-auth/react'
 
@@ -12,15 +13,17 @@ export default function App({
   return (
     <>
       <SessionProvider session={session}>
-        <Hydrated>
-          <Component {...pageProps} />
-        </Hydrated>
+        <CartProvider>
+          <Hydrated>
+            <Component {...pageProps} />
+          </Hydrated>
+        </CartProvider>
       </SessionProvider>
     </>
   )
 }
 
-const Hydrated = ({ children }: { children: any }) => {
+const Hydrated = ({ children }: { children: React.ReactElement }) => {
   const [hydration, setHydration] = useState(false)
 
   useEffect(() => {
@@ -28,5 +31,5 @@ const Hydrated = ({ children }: { children: any }) => {
       setHydration(true)
     }
   }, [])
-  return hydration ? children : ''
+  return hydration ? children : <></>
 }

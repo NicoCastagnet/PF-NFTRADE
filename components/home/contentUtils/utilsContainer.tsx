@@ -1,6 +1,7 @@
 import Buy from '@components/home/contentUtils/buy'
 import Create from '@components/home/contentUtils/create'
 import List from '@components/home/contentUtils/list'
+import SvgChevronDown from '@components/icons/svgChevronDown'
 import { useState } from 'react'
 
 const UtilsContainer = () => {
@@ -34,18 +35,20 @@ const UtilsContainer = () => {
           <List />
         </div>
 
-        <button
-          className="absolute left-3 lg:hidden p-4 bg-slate-600 rounded-full hover:bg-slate-400 ease duration-150 "
-          onClick={previous}
-        >
-          {'<'}
+        <button className="absolute -left-0 lg:hidden" onClick={previous}>
+          <SvgChevronDown
+            className="rotate-90 fill-white"
+            heigth="40"
+            width="40"
+          />
         </button>
 
-        <button
-          className="absolute right-3 lg:hidden p-4 bg-slate-600 rounded-full hover:bg-slate-400 ease duration-150 "
-          onClick={next}
-        >
-          {'>'}
+        <button className="absolute -right-0 lg:hidden" onClick={next}>
+          <SvgChevronDown
+            className="-rotate-90 fill-white"
+            heigth="40"
+            width="40"
+          />
         </button>
       </div>
     </section>
