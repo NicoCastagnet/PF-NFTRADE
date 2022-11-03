@@ -8,6 +8,7 @@ export default async function postView(
   try {
     if (req.method === 'PUT') {
       const { userId, nftId } = req.body
+      if (!userId) return
 
       const user = await prisma.user.findUnique({
         where: {

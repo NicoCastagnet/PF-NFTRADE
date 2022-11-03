@@ -36,9 +36,7 @@ const comment2 = {
 const comments = [comment1, comment2]
 
 const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
-
-  const { addItem } = useCart()
-  const { open, setOpen } = useOpenMenu()
+  const { cart, addItem } = useCart()
   const { data: session } = useSession()
   const user = session?.user
 
@@ -55,7 +53,7 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
         }),
       })
     }
-    putViews()
+    if (user) putViews()
   }, [nft.id, user?.id])
 
   const categories = nft.categories.map((c) => c.name)
@@ -111,9 +109,6 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
       }),
     })
   }
-
-  const { cart, addItem } = useCart()
-
 
   return (
     <div className="flex flex-col items-center justify-center w-full min-h-screen">
