@@ -28,16 +28,12 @@ export default async function getAllNfts({
       name: true,
       image: true,
       price: true,
+      published: true,
       owner: {
         select: { name: true },
       },
       _count: { select: { likedBy: true, viewedBy: true } },
-      categories: {
-        select: {
-          id: true,
-          name: true,
-        },
-      },
+      categories: true,
     },
   })
   return nfts

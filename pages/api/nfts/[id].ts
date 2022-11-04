@@ -22,6 +22,7 @@ export default async function handler(
             content: true,
             isPublished: true,
             user: { select: { name: true } },
+            createdAt: true,
           },
         },
         likedBy: { select: { id: true } },

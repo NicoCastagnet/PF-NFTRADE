@@ -16,6 +16,14 @@ const getNftById = async ({
         description: true,
         price: true,
         published: true,
+        comments: {
+          select: {
+            id: true,
+            user: true,
+            content: true,
+            isPublished: true,
+          },
+        },
         likedBy: { select: { id: true } },
         owner: {
           select: { name: true },
@@ -26,10 +34,12 @@ const getNftById = async ({
         _count: {
           select: { likedBy: true, viewedBy: true },
         },
+        categories: true,
       },
     })
     return nft
-  } catch {
+  } catch (e) {
+    console.log(e)
     return null
   }
 }

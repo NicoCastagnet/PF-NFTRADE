@@ -16,6 +16,7 @@ interface NftFormValues {
   price: number | string
   image: string
   description?: string
+  categories: string[]
 }
 
 export const validationSchema = Yup.object().shape(
@@ -48,6 +49,7 @@ const CreateProduct: NextPage = () => {
     price: '',
     description: '',
     image: '',
+    categories: [],
   }
   const router = useRouter()
   const { data: session, status } = useSession()
@@ -240,6 +242,21 @@ const CreateProduct: NextPage = () => {
                         onChange={handleChange}
                       />
                     </div>
+                    <div className="mb-8 w-[80%]">
+                      <select
+                        name="categories"
+                        value={values.categories}
+                        onChange={(e) => {
+                          values.categories.push(e.target.value)
+                          console.log(values)
+                        }}
+                        onBlur={handleBlur}
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                      >
+                        <option value="Music">Music</option>
+                        <option value="Art">Art</option>
+                      </select>
+                    </div>
                     <div className="w-[80%]">
                       <label
                         htmlFor="message"
@@ -255,7 +272,7 @@ const CreateProduct: NextPage = () => {
                       <textarea
                         id="message"
                         rows={10}
-                        className=" resize-none lg:h-[333px] text-[1rem] mb-4 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                        className=" resize-none lg:h-[284px] text-[1rem] mb-4 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                         placeholder="Description here..."
                         name="description"
                         value={values.description}

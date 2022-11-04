@@ -8,8 +8,16 @@ export default async function postNft(
 ) {
   try {
     if (req.method === 'POST') {
-      const { creatorId, name, image, description, price } = req.body
-      if (!creatorId || !name || !image || !price) {
+      const { creatorId, name, image, description, price, categories } =
+        req.body
+      if (
+        !creatorId ||
+        !name ||
+        !image ||
+        !price ||
+        !description ||
+        categories.length < 1
+      ) {
         res.status(400).send('Missing data')
       } else {
         const nfts = await prisma.nft.create({
@@ -21,6 +29,9 @@ export default async function postNft(
             description,
             price,
             published: true,
+            categories: {
+              connect: categories,
+            },
           },
         })
         const msg = {
@@ -31,6 +42,6 @@ export default async function postNft(
       }
     }
   } catch (error: any) {
-    console.log(error.message)
+    res.send(error.message)
   }
 }
