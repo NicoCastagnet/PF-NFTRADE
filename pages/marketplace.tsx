@@ -105,11 +105,11 @@ const Marketplace: NextPage<HomeProps> = () => {
                   <div
                     className={` ${
                       carSize === 'bigger'
-                        ? 'h-[35rem] w-[22rem]'
+                        ? 'h-[35rem] w-[22rem] overflow-hidden'
                         : carSize === 'small'
-                        ? 'h-[28rem] w-[18rem]'
+                        ? 'h-[28rem] w-[18rem] overflow-hidden'
                         : ''
-                    }  relative flex flex-col bg-gray-800 rounded-xl overflow-auto p-[1px] border-slate-900 ease duration-300`}
+                    }  relative flex flex-col bg-gray-800 rounded-xl overflow-auto p-[1px] border-slate-900 cursor-pointer group`}
                   >
                     <div className="rounded-xl border-spacing-2 h-[20rem]">
                       <Image
@@ -118,7 +118,7 @@ const Marketplace: NextPage<HomeProps> = () => {
                         width={400}
                         quality={20}
                         alt={`image-${el.name}`}
-                        className="rounded-t-xl object-cover hover:scale-110 transition duration-300 ease-in-out overflow-auto"
+                        className="rounded-t-xl object-cover group-hover:scale-110 transition duration-300 ease-in-out overflow-auto"
                       />
                     </div>
                     <div className="flex flex-col p-4 h-full w-full justify-between ">
@@ -135,7 +135,7 @@ const Marketplace: NextPage<HomeProps> = () => {
                             <span>{likesNum}</span>
                             <span
                               onClick={() => likeHandler(el, likes)}
-                              className="z-[2]"
+                              className=""
                             >
                               <SvgHeart
                                 className={`${
@@ -148,13 +148,11 @@ const Marketplace: NextPage<HomeProps> = () => {
                         <div
                           className={`${styles.description} ${
                             carSize === 'small' ? 'text-sm' : ''
-                          } ease duration-300`}
+                          } ease duration-300 text-white my-4`}
                         >
-                          Lorem ipsum dolor sit, amet consectetur adipisicing
-                          elit. Doloribus expedita labore laboriosam iste nihil
-                          magnam, quas iusto tenetur rem! Voluptates, quia.
-                          Aspernatur doloremque ullam voluptate ea a consectetur
-                          reiciendis consequatur?
+                          {el.description
+                            ? el.description
+                            : 'No description provided.'}
                         </div>
                       </div>
                       <div className="flex flex-row justify-between items-center mb-6">

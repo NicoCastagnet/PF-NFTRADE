@@ -83,29 +83,32 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
   const [comment, setComment] = useState('')
 
   async function submitComment() {
-    fetch('/api/put/commentPut', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        userId: user?.id,
-        nftId: nft.id,
+    if (comment.length > 0) {
+      fetch('/api/put/commentPut', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId: user?.id,
+          nftId: nft.id,
+          content: comment,
+        }),
+      })
+
+      nft.comments.push({
+        user: {
+          name: user?.name,
+          id: user?.id,
+        },
         content: comment,
-      }),
-    })
+        isPublished: true,
+      })
 
-    nft.comments.push({
-      user: {
-        name: user?.name,
-      },
-      content: comment,
-      isPublished: true,
-    })
+      setComment('')
 
-    setComment('')
-
-    refreshStates()
+      refreshStates()
+    }
   }
 
   async function deleteComment(id: string) {

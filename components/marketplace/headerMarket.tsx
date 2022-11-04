@@ -22,12 +22,7 @@ const HeaderMarket: NextPage<Props> = ({
 }) => {
   const { openFilter, setOpenFilter } = useOpenFilterMenu()
   const [orderMenu, setOrderMenu] = useState(false)
-  // const [sideBar, setSideBar] = useState(false)
   // const [cont, setCont] = useState(0)
-
-  // const openSideBar = () => {
-  //   setSideBar(!sideBar)
-  // }
 
   // const searchPriceAbove = () => {
   //   const value = document.getElementById('priceSearch').value

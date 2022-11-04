@@ -39,7 +39,6 @@ const getNftById = async ({
     })
     return nft
   } catch (e) {
-    console.log(e)
     return null
   }
 }
