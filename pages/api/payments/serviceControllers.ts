@@ -15,7 +15,7 @@ export default class PaymentService {
       },
     ]
     const body = {
-      payer_email: 'test_user_46945293@testuser.com',
+      payer_email: 'test_user_46945293@testuser.com ',
       items: datos,
       back_urls: {
         failure: '/failure',
@@ -27,7 +27,7 @@ export default class PaymentService {
     const payment = await axios.post(url, body, {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer APP_USR-8325476199113387-110310-df457a6bce5bb54df314e0181a2890f4-1230928137`,
+        Authorization: `Bearer ${process.env.ACCES_TOKEN_SELLER}`,
       },
     })
 
