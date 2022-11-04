@@ -16,7 +16,7 @@ export default class PaymentController {
 
       return res
         .status(500)
-        .json({ error: true, msg: 'Failed to create payment ' })
+        .json({ error: true, msg: 'Failed to create payment ' + error })
     }
   }
 }
