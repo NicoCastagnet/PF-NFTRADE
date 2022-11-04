@@ -29,17 +29,6 @@ interface HomeProps {
   fallbackData: NftsResponse
 }
 
-interface Size {
-  margin: string
-  width: string
-  height: string
-  title: string
-  titleH: string
-  ownerAndPrice: string
-  tagsH: string
-  positionR: string
-}
-
 const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
   const { data: nfts } = useSWR<NftsResponse>(URL, fetcher, {
     fallbackData,
@@ -51,6 +40,7 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
   const [order, setOrder] = useState('all')
   const [ordered, setOrdered] = useState([])
   const [filter, setFilter] = useState(['none', -1, -1])
+  const [carSize, setCardSize] = useState('bigger')
 
   useEffect(() => {
     if (order === 'all') {
@@ -72,21 +62,8 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
     } else if (filter[0] === 'between') {
       setOrdered(filterByPriceBetween(nfts, filter[1], filter[2]))
     }
-
-    console.log(filter, order)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [order])
-
-  const [nftSize, setNftSize] = useState<Size>({
-    margin: 'm-4',
-    width: 'w-[280px]',
-    height: 'h-[475px]',
-    title: 'text-[1.4rem]',
-    titleH: 'max-h-[64px]',
-    ownerAndPrice: 'text-[1.1rem]',
-    tagsH: 'min-h-[48px]',
-    positionR: 'right-[9%]',
-  })
 
   const [reload, setReload] = useState(false)
 
@@ -128,100 +105,104 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
       <NavBar />
       <HeaderMarket
         setOrder={setOrder}
-        setNftSize={setNftSize}
         setFilter={setFilter}
+        setCardSize={setCardSize}
       />
       <section className="market_list relative top-48">
-        <div className="market_list-container flex flex-wrap justify-center w-auto rounded-lg mb-48">
+        <div className="market_list-container flex flex-wrap  justify-center w-auto rounded-lg py-6 mb-48 gap-4 min-h-screen">
           {nfts &&
-            ordered.map((e) => {
-              const likes = e.likedBy.map((acc) => acc.id)
+            nfts.map((el) => {
+              const likes = el.likedBy.map((acc) => acc.id)
               const likesNum = likes.length
 
               return (
-                <div key={e.id} className="relative">
+                <Link href={`/nfts/${el.id}`} key={el.id}>
+                  {/* // h-[35rem] w-[22rem] */}
                   <div
-                    className={`likes flex text-white font-semibold items-center justify-center text-center gap-3 bg-gray-500 rounded-full w-16 h-8 absolute bottom-[31%] ${nftSize.positionR}`}
+                    className={` ${
+                      carSize === 'bigger'
+                        ? 'h-[35rem] w-[22rem]'
+                        : carSize === 'small'
+                        ? 'h-[28rem] w-[18rem]'
+                        : ''
+                    }  relative flex flex-col bg-gray-800 rounded-xl overflow-auto p-[1px] border-slate-900 ease duration-300`}
                   >
-                    {likesNum}
-                    {user ? (
-                      <SvgHeart
-                        onClick={() => {
-                          likeHandler(e, likes)
-                        }}
-                        height={20}
-                        width={20}
-                        className={`${
-                          likes.includes(user?.id) && 'fill-green-600'
-                        } hover:fill-red-600 transition-all hover:cursor-pointer `}
-                      />
-                    ) : (
-                      <SvgHeart height={20} width={20} />
-                    )}
-                  </div>
-                  <Link href={`/nfts/${e.id}`} key={e.id}>
-                    <div
-                      className={`market_list-card ${nftSize.width} ${nftSize.height} ${nftSize.margin} rounded-lg border shadow-md bg-gray-800 border-gray-700 cursor-pointer`}
-                    >
+                    <div className="rounded-xl border-spacing-2 h-[20rem]">
                       <Image
-                        className="rounded-t-lg object-cover hover:scale-110 transition duration-300 ease-in-out"
-                        src={e.image}
-                        alt="ds"
+                        src={el.image}
+                        height={carSize === 'small' ? 350 : 370}
                         width={400}
-                        height={400}
                         quality={20}
-                        layout="intrinsic"
+                        alt={`image-${el.name}`}
+                        className="rounded-t-xl object-cover hover:scale-110 transition duration-300 ease-in-out overflow-auto"
                       />
-
-                      <div className="p-[5%]">
-                        <div className="title flex flex-row w-[74%]">
-                          <a href="#">
-                            <h5
-                              className={`${nftSize.title} font-bold flex flex-wrap ${nftSize.titleH} tracking-tight text-gray-900 dark:text-white ${styles.nft_title}`}
+                    </div>
+                    <div className="flex flex-col p-4 h-full w-full justify-between ">
+                      <div className="flex flex-col gap-2">
+                        <div className="flex flex-row w-full justify-between">
+                          <h5
+                            className={`${
+                              carSize === 'small' ? 'text-xl' : 'text-2xl'
+                            } text-gray-900 dark:text-white font-bold truncate ease duration-300`}
+                          >
+                            {el.name}
+                          </h5>
+                          <span className="flex flex-row justify-center items-center gap-2 font-semibold text-white bg-slate-500 rounded-full px-2">
+                            <span>{likesNum}</span>
+                            <span
+                              onClick={() => likeHandler(el, likes)}
+                              className="z-[2]"
                             >
-                              {e.name}
-                            </h5>
-                          </a>
+                              <SvgHeart
+                                className={`${
+                                  likes.includes(user?.id) && 'fill-red-600'
+                                }`}
+                              />
+                            </span>
+                          </span>
                         </div>
-                      </div>
-                      <div className="flex items-center ">
                         <div
-                          className={`text-white ml-[5%] flex flex-wrap w-[71%] ${nftSize.tagsH}`}
+                          className={`${styles.description} ${
+                            carSize === 'small' ? 'text-sm' : ''
+                          } ease duration-300`}
                         >
-                          {e.categories.map((e) => (
-                            <p className="mr-2 " key={e.name}>
-                              #{e.name}
-                            </p>
-                          ))}
+                          Lorem ipsum dolor sit, amet consectetur adipisicing
+                          elit. Doloribus expedita labore laboriosam iste nihil
+                          magnam, quas iusto tenetur rem! Voluptates, quia.
+                          Aspernatur doloremque ullam voluptate ea a consectetur
+                          reiciendis consequatur?
                         </div>
                       </div>
-                      <div className="px-[5%] pt-[3%]">
-                        <div className="owner flex flex-row items-center justify-between">
-                          <a href="#" className="flex items-center w-[70%]">
-                            <RiVipCrownFill className="fill-yellow-500 mr-2" />
-                            <h5
-                              className={`${nftSize.ownerAndPrice} font-semibold tracking-tigh text-white ${styles.nft_title}  `}
-                            >
-                              {e.owner.name}
-                            </h5>
-                          </a>
-                          <div className="flex items-center">
+                      <div className="flex flex-row justify-between items-center mb-6">
+                        <div className="flex flex-row justify-center items-center gap-2 truncate">
+                          <span>
+                            <RiVipCrownFill className="fill-yellow-500" />
+                          </span>
+                          <p
+                            className={`${
+                              carSize === 'small' ? 'text-base' : 'text-xl'
+                            } text-white font-semibold  truncate ease duration-300`}
+                          >
+                            {el.owner.name}
+                          </p>
+                        </div>
+                        <div className="flex flex-row justify-center items-center gap-2">
+                          <span>
                             <SvgCoin
-                              className="fill-white mr-2"
-                              width={20}
                               height={20}
+                              width={20}
+                              className={'fill-white'}
                             />
-                            <h5
-                              className={`${nftSize.ownerAndPrice} font-semibold tracking-tigh text-white`}
-                            >
-                              {e.price}
-                            </h5>
-                          </div>
+                          </span>
+                          <span className="text-white font-semibold text-xl">
+                            {el.price}
+                          </span>
                         </div>
                       </div>
                     </div>
-                  </Link>
-                </div>
+                    {/* <button className={` bg-blue-600 w-[99.5%] rounded-b-xl text-center py-1 z-[3]  font-semibold text-2xl left-0 bottom-0 `}>Buy</button> */}
+                  </div>
+                </Link>
               )
             })}
         </div>

@@ -8,8 +8,8 @@ import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
-import { IoMenu } from 'react-icons/io5'
 import { useOpenMenu } from '../../hook/openCartMenu'
+import Hamburguesa from './hamburguesa'
 import Logo from './logo'
 import Notificaciones from './notificaciones'
 import UserMenuNavBar from './user'
@@ -97,7 +97,7 @@ export default function NavBar() {
           </div>
         </div>
         <div className="md:hidden flex justify-center items-center ">
-          <IoMenu size={45} className="text-slate-600" />
+          <Hamburguesa />
         </div>
       </div>
     </nav>

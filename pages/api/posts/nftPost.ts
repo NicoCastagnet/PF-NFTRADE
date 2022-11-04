@@ -10,7 +10,14 @@ export default async function postNft(
     if (req.method === 'POST') {
       const { creatorId, name, image, description, price, categoriesNames } =
         req.body
-      if (!creatorId || !name || !image || !price) {
+      if (
+        !creatorId ||
+        !name ||
+        !image ||
+        !price ||
+        !description ||
+        categories.length < 1
+      ) {
         res.status(400).send('Missing data')
       } else {
         let categoriesId: string[] | { id: string }[] =
@@ -36,6 +43,9 @@ export default async function postNft(
             },
             price,
             published: true,
+            categories: {
+              connect: categories,
+            },
           },
         })
         console.log(nfts)
@@ -47,6 +57,8 @@ export default async function postNft(
       }
     }
   } catch (error: any) {
+
     console.log(error)
+
   }
 }
