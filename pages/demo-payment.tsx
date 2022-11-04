@@ -5,7 +5,7 @@ import { useState } from 'react'
 const DemoPayment: NextPage = () => {
   const [data, setData] = useState({ quantity: 0, unit_price: 0 })
 
-  const payment = async (e) => {
+  const payment = async (e: React.SyntheticEvent) => {
     e.preventDefault()
     const res = await axios.post('http://localhost:3000/api/payments', data)
     console.log(res.data)
