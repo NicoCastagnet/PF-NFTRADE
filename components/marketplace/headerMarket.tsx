@@ -10,7 +10,7 @@ import styles from '../../styles/form.module.css'
 import FilterLateral from './filterLateral'
 
 interface Props {
-  setOrder: React.Dispatch<React.SetStateAction<string>>
+  setOrder: (order: string) => void
   setFilter: React.Dispatch<React.SetStateAction<(string | number)[]>>
   setCardSize: React.Dispatch<React.SetStateAction<string>>
 }
@@ -83,7 +83,7 @@ const HeaderMarket: NextPage<Props> = ({
             className="group flex items-center py-3 px-3 ml-4 text-sm font-medium rounded-full border focus:z-10 focus:ring-2 bg-gray-700 border-gray-600 text-white hover:text-white hover:bg-gray-600 focus:ring-blue-500 focus:text-white"
             onClick={() => {
               setFilter(['none', -1, -1])
-              setOrder('all')
+              setOrder('')
             }}
           >
             <SvgReload
@@ -133,27 +133,23 @@ const HeaderMarket: NextPage<Props> = ({
               }`}
             ></div>
             <ul className="py-2 text-lg text-gray-200">
-              <li>
-                <a
-                  href="#"
-                  className="block py-2 px-4 hover:bg-gray-600 hover:text-white"
-                >
-                  Oldest
-                </a>
+              <li
+                className="block py-2 px-4 hover:bg-gray-600 hover:text-white"
+                onClick={() => setOrder('createdAt_asc')}
+              >
+                Oldest
               </li>
-              <li>
-                <a
-                  href="#"
-                  className="block py-2 px-4 hover:bg-gray-600 hover:text-white"
-                >
-                  Newest
-                </a>
+              <li
+                onClick={() => setOrder('createdAt_desc')}
+                className="block py-2 px-4 hover:bg-gray-600 hover:text-white"
+              >
+                Newest
               </li>
               <li
                 className="block py-2 px-4 hover:bg-gray-600 hover:text-white cursor-pointer"
                 onClick={() => {
                   setFilter(['none', -1, -1])
-                  setOrder('min')
+                  setOrder('price_asc')
                 }}
               >
                 Min Price
@@ -162,7 +158,7 @@ const HeaderMarket: NextPage<Props> = ({
                 className="block py-2 px-4 hover:bg-gray-600 hover:text-white cursor-pointer"
                 onClick={() => {
                   setFilter(['none', -1, -1])
-                  setOrder('max')
+                  setOrder('price_desc')
                 }}
               >
                 Max Price
@@ -171,7 +167,7 @@ const HeaderMarket: NextPage<Props> = ({
                 className="block py-2 px-4 hover:bg-gray-600 hover:text-white cursor-pointer"
                 onClick={() => {
                   setFilter(['none', -1, -1])
-                  setOrder('AZ')
+                  setOrder('name_asc')
                 }}
               >
                 A-Z
@@ -180,7 +176,7 @@ const HeaderMarket: NextPage<Props> = ({
                 className="block py-2 px-4 hover:bg-gray-600 hover:text-white cursor-pointer"
                 onClick={() => {
                   setFilter(['none', -1, -1])
-                  setOrder('ZA')
+                  setOrder('name_desc')
                 }}
               >
                 Z-A

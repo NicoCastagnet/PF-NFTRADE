@@ -1,5 +1,5 @@
 const getOrderBy = (order: string | undefined) => {
-  const posibleFields = ['price', 'name', 'likes', 'views']
+  const posibleFields = ['price', 'name', 'likes', 'views', 'createdAt']
   const posibleOrders = ['asc', 'desc']
   const orders = order?.split(',')
   const orderBy: { [x: string]: string | { _count: string } }[] = []
