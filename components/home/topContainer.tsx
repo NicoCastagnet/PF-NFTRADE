@@ -47,16 +47,14 @@ const TopContainer = ({ nfts }: { nfts: NftsResponse }) => {
       <div className=" xl:hidden relative mt-14 max-lg:mt-2 h-[43rem] flex justify-center items-center w-full max-w-7xl  bg-slate-900 max-md:bg-transparent max-lg:max-w-2xl rounded-2xl ease duration-500">
         <div className="xl:hidden flex flex-row justify-center items-center gap-8 ease duration-500">
           <div className="init-card max-w-sm m-18 shadow-md bg-gray-800 border-gray-700 rounded-xl">
-            <a href="#">
-              <Image
-                className="object-cover rounded-t-xlrounded-t-xl group-hover:scale-110 transition-all"
-                src={selected?.image}
-                alt="ds"
-                width={1000}
-                height={1000}
-                layout="intrinsic"
-              />
-            </a>
+            <Image
+              className="object-cover rounded-t-xlrounded-t-xl group-hover:scale-110 transition-all"
+              src={selected?.image}
+              alt="ds"
+              width={1000}
+              height={1000}
+              layout="intrinsic"
+            />
             <div className="p-5">
               <div className="title flex flex-row items-center justify-between">
                 <a href="#">
@@ -94,9 +92,9 @@ const TopContainer = ({ nfts }: { nfts: NftsResponse }) => {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                 ></path>
               </svg>
             </a>
@@ -130,7 +128,7 @@ const TopContainer = ({ nfts }: { nfts: NftsResponse }) => {
             return (
               <div
                 key={e.id}
-                className="init-card max-w-sm  rounded-xl border shadow-md bg-gray-800 border-gray-700 group"
+                className="init-card max-w-sm rounded-xl border shadow-md bg-gray-800 border-gray-700 group"
               >
                 <Image
                   className="rounded-t-xl object-cover group-hover:scale-110 transition-all"
@@ -143,7 +141,7 @@ const TopContainer = ({ nfts }: { nfts: NftsResponse }) => {
                 <div className="p-5">
                   <div className="title flex flex-row items-center justify-between">
                     <h5
-                      className={`text-2xl font-bold tracking-tight text-gray-900 dark:text-white ${styles.nft_title}`}
+                      className={`text-2xl font-bold tracking-tight text-gray-900 truncate dark:text-white ${styles.nft_title}`}
                     >
                       {e.name}
                     </h5>
