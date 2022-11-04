@@ -2,11 +2,19 @@
 // @ts-nocheck
 
 import Footer from '@components/footer'
+import SvgCoin from '@components/icons/svgCoin'
 import SvgHeart from '@components/icons/svgHeart'
+import { filterByPriceAbobeBelow } from '@components/marketplace/filters/filterByPriceAbobeBelow'
+import { filterByPriceBetween } from '@components/marketplace/filters/filterByPriceBetwin'
+import { orderByLikes } from '@components/marketplace/filters/orderByLikes'
+import { orderByName } from '@components/marketplace/filters/orderByName'
+import { orderByPrice } from '@components/marketplace/filters/orderByPrice'
+import refreshData from '@components/marketplace/filters/refreshData'
 import HeaderMarket from '@components/marketplace/headerMarket'
 import NavBar from '@components/navbar/navbar'
 import fetcher from '@lib/fetcher'
 import type { GetServerSideProps, NextPage } from 'next'
+import { useSession } from 'next-auth/react'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -14,13 +22,7 @@ import { useEffect, useState } from 'react'
 import { RiVipCrownFill } from 'react-icons/ri'
 import useSWR from 'swr'
 import type { NftsResponse } from 'types/api-responses'
-import SvgCoin from '../components/icons/svgCoin'
 import styles from '../styles/form.module.css'
-import { filterByPriceAbobeBelow } from './api/filters/filterByPriceAbobeBelow'
-import { filterByPriceBetween } from './api/filters/filterByPriceBetwin'
-import { orderByName } from './api/filters/orderByName'
-import { orderByPrice } from './api/filters/orderByPrice'
-import refreshData from './api/filters/refreshData'
 
 const URL = 'http://localhost:3000/api/nfts'
 
@@ -28,69 +30,87 @@ interface HomeProps {
   fallbackData: NftsResponse
 }
 
-interface Size {
-  margin: string
-  width: string
-  height: string
-  title: string
-  titleH: string
-  ownerAndPrice: string
-  tagsH: string
-  positionR: string
-}
-
 const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
   const { data: nfts } = useSWR<NftsResponse>(URL, fetcher, {
     fallbackData,
   })
 
+  const { data: session } = useSession()
+  const user = session?.user
+
   const [order, setOrder] = useState('all')
   const [ordered, setOrdered] = useState([])
   const [filter, setFilter] = useState(['none', -1, -1])
+  const [carSize, setCardSize] = useState('bigger')
 
   useEffect(() => {
-    if (order === 'all') {
-      refreshData(URL).then((data) => setOrdered(data))
-    } else if (order === 'AZ') {
-      setOrdered(orderByName(ordered, order))
-    } else if (order === 'ZA') {
-      setOrdered(orderByName(ordered, order))
-    } else if (order === 'min') {
-      setOrdered(orderByPrice(ordered, order))
-    } else if (order === 'max') {
-      setOrdered(orderByPrice(ordered, order))
+    try {
+      if (order === 'all') {
+        refreshData(URL).then((data) => setOrdered(data))
+      } else if (order === 'AZ') {
+        console.log('az')
+        setOrdered(orderByName(ordered, order))
+      } else if (order === 'ZA') {
+        console.log('za')
+        setOrdered(orderByName(ordered, order))
+      } else if (order === 'min') {
+        console.log('min')
+        setOrdered(orderByPrice(ordered, order))
+      } else if (order === 'max') {
+        console.log('max')
+        setOrdered(orderByPrice(ordered, order))
+      } else if (order === 'mostLiked') {
+        console.log('mostLiked')
+        setOrdered(orderByLikes(ordered, order))
+      } else if (order === 'lessLiked') {
+        console.log('minLiked')
+        setOrdered(orderByLikes(ordered, order))
+      }
+
+      if (filter[0] === 'above') {
+        setOrdered(filterByPriceAbobeBelow(nfts, filter[1], filter[0]))
+      } else if (filter[0] === 'below') {
+        setOrdered(filterByPriceAbobeBelow(nfts, filter[1], filter[0]))
+      } else if (filter[0] === 'between') {
+        setOrdered(filterByPriceBetween(nfts, filter[1], filter[2]))
+      }
+    } catch (e) {
+      console.log(e)
     }
 
-    if (filter[0] === 'above') {
-      setOrdered(filterByPriceAbobeBelow(nfts, filter[1], filter[0]))
-    } else if (filter[0] === 'below') {
-      setOrdered(filterByPriceAbobeBelow(nfts, filter[1], filter[0]))
-    } else if (filter[0] === 'between') {
-      setOrdered(filterByPriceBetween(nfts, filter[1], filter[2]))
-    }
-
-    console.log(filter, order)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [order])
 
-  const [nftSize, setNftSize] = useState<Size>({
-    margin: 'm-10',
-    width: 'w-[350px]',
-    height: 'h-[565px]',
-    title: 'text-2xl',
-    titleH: 'min-h-[64px]',
-    ownerAndPrice: 'text-xl',
-    tagsH: 'min-h-[48px]',
-    positionR: 'right-[13%]',
-  })
+  const [reload, setReload] = useState(false)
 
-  // function likeHandler(e: NftResponse) {
-  //   // este seria el codigo para setear los likes, una vez terminado habria que hacer un put al nft likeado
-  //   // if (e.likedBy.includes(userAccount)) {
-  //   //   e.likedBy.filter(acc => acc !== userAccount)
-  //   // }else{
-  //   //   e.likedBy.push(userAccount)
-  //   // }
-  // }
+  function refreshStates() {
+    if (reload === false) {
+      setReload(true)
+    } else {
+      setReload(false)
+    }
+  }
+
+  async function likeHandler(nft: NftResponse, likes: string[]) {
+    if (likes.includes(user?.id)) {
+      likes = likes.filter((id) => id !== user?.id)
+      nft.likedBy.pop()
+    } else {
+      likes = likes.push(user?.id)
+      nft.likedBy.push({ id: user?.id })
+    }
+    fetch('/api/put/nftLike', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userId: user?.id,
+        nftId: nft.id,
+      }),
+    })
+    refreshStates()
+  }
 
   if (!nfts) return <div>loading...</div>
   return (
@@ -101,90 +121,104 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
       <NavBar />
       <HeaderMarket
         setOrder={setOrder}
-        setNftSize={setNftSize}
         setFilter={setFilter}
+        setCardSize={setCardSize}
       />
       <section className="market_list relative top-48">
-        <div className="market_list-container flex flex-wrap justify-center w-auto rounded-lg mb-48">
+        <div className="market_list-container flex flex-wrap  justify-center w-auto rounded-lg py-6 mb-48 gap-4 min-h-screen">
           {nfts &&
-            ordered.map((e) => {
-              return (
-                <div key={e.id} className="relative">
-                  <div
-                    className={`likes flex text-white font-semibold items-center justify-center text-center gap-3 bg-gray-500 rounded-full w-16 h-8 absolute bottom-[31%] ${nftSize.positionR}`}
-                  >
-                    {e._count.likedBy}
-                    <SvgHeart
-                      onClick={() => {
-                        likeHandler(e)
-                      }}
-                      height={20}
-                      width={20}
-                      className="hover:fill-red-600 transition-all hover:cursor-pointer"
-                    />
-                  </div>
-                  <Link href={`/nfts/${e.id}`} key={e.id}>
-                    <div
-                      className={`market_list-card ${nftSize.width} ${nftSize.height} ${nftSize.margin} rounded-lg border shadow-md bg-gray-800 border-gray-700 cursor-pointer`}
-                    >
-                      <Image
-                        className="rounded-t-lg object-cover"
-                        src={e.image}
-                        alt="ds"
-                        width={1000}
-                        height={1000}
-                        layout="intrinsic"
-                      />
+            ordered.map((el) => {
+              const likes = el.likedBy.map((acc) => acc.id)
+              const likesNum = likes.length
 
-                      <div className="p-[5%]">
-                        <div className="title flex flex-row w-[74%]">
-                          <a href="#">
-                            <h5
-                              className={`${nftSize.title} font-bold flex flex-wrap ${nftSize.titleH} tracking-tight text-gray-900 dark:text-white ${styles.nft_title}`}
+              return (
+                <Link href={`/nfts/${el.id}`} key={el.id}>
+                  {/* // h-[35rem] w-[22rem] */}
+                  <div
+                    className={` ${
+                      carSize === 'bigger'
+                        ? 'h-[35rem] w-[22rem]'
+                        : carSize === 'small'
+                        ? 'h-[28rem] w-[18rem]'
+                        : ''
+                    }  relative flex flex-col bg-gray-800 rounded-xl overflow-auto p-[1px] border-slate-900 ease duration-300`}
+                  >
+                    <div className="rounded-xl border-spacing-2 h-[20rem]">
+                      <Image
+                        src={el.image}
+                        height={carSize === 'small' ? 350 : 370}
+                        width={400}
+                        quality={20}
+                        alt={`image-${el.name}`}
+                        className="rounded-t-xl object-cover hover:scale-110 transition duration-300 ease-in-out overflow-auto"
+                      />
+                    </div>
+                    <div className="flex flex-col p-4 h-full w-full justify-between ">
+                      <div className="flex flex-col gap-2">
+                        <div className="flex flex-row w-full justify-between">
+                          <h5
+                            className={`${
+                              carSize === 'small' ? 'text-xl' : 'text-2xl'
+                            } text-gray-900 dark:text-white font-bold truncate ease duration-300`}
+                          >
+                            {el.name}
+                          </h5>
+                          <span className="flex flex-row justify-center items-center gap-2 font-semibold text-white bg-slate-500 rounded-full px-2">
+                            <span>{likesNum}</span>
+                            <span
+                              onClick={() => likeHandler(el, likes)}
+                              className="z-[2]"
                             >
-                              {e.name}
-                            </h5>
-                          </a>
+                              <SvgHeart
+                                className={`${
+                                  likes.includes(user?.id) && 'fill-red-600'
+                                }`}
+                              />
+                            </span>
+                          </span>
                         </div>
-                      </div>
-                      <div className="flex items-center ">
                         <div
-                          className={`text-white ml-[5%] flex flex-wrap w-[71%] ${nftSize.tagsH}`}
+                          className={`${styles.description} ${
+                            carSize === 'small' ? 'text-sm' : ''
+                          } ease duration-300`}
                         >
-                          {e.categories.map((e) => (
-                            <p className="mr-2 " key={e.name}>
-                              #{e.name}
-                            </p>
-                          ))}
+                          Lorem ipsum dolor sit, amet consectetur adipisicing
+                          elit. Doloribus expedita labore laboriosam iste nihil
+                          magnam, quas iusto tenetur rem! Voluptates, quia.
+                          Aspernatur doloremque ullam voluptate ea a consectetur
+                          reiciendis consequatur?
                         </div>
                       </div>
-                      <div className="px-[5%] pt-[3%]">
-                        <div className="owner flex flex-row items-center justify-between">
-                          <a href="#" className="flex items-center w-[70%]">
-                            <RiVipCrownFill className="fill-yellow-500 mr-2" />
-                            <h5
-                              className={`${nftSize.ownerAndPrice} font-semibold tracking-tigh text-white ${styles.nft_title}  `}
-                            >
-                              {e.owner.name}
-                            </h5>
-                          </a>
-                          <div className="flex items-center">
+                      <div className="flex flex-row justify-between items-center mb-6">
+                        <div className="flex flex-row justify-center items-center gap-2 truncate">
+                          <span>
+                            <RiVipCrownFill className="fill-yellow-500" />
+                          </span>
+                          <p
+                            className={`${
+                              carSize === 'small' ? 'text-base' : 'text-xl'
+                            } text-white font-semibold  truncate ease duration-300`}
+                          >
+                            {el.owner.name}
+                          </p>
+                        </div>
+                        <div className="flex flex-row justify-center items-center gap-2">
+                          <span>
                             <SvgCoin
-                              className="fill-white mr-2"
-                              width={20}
                               height={20}
+                              width={20}
+                              className={'fill-white'}
                             />
-                            <h5
-                              className={`${nftSize.ownerAndPrice} font-semibold tracking-tigh text-white`}
-                            >
-                              {e.price}
-                            </h5>
-                          </div>
+                          </span>
+                          <span className="text-white font-semibold text-xl">
+                            {el.price}
+                          </span>
                         </div>
                       </div>
                     </div>
-                  </Link>
-                </div>
+                    {/* <button className={` bg-blue-600 w-[99.5%] rounded-b-xl text-center py-1 z-[3]  font-semibold text-2xl left-0 bottom-0 `}>Buy</button> */}
+                  </div>
+                </Link>
               )
             })}
         </div>

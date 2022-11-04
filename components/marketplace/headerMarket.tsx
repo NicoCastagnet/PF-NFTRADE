@@ -1,105 +1,80 @@
 import SvgChevron from '@components/icons/svgChevronDown'
-import SvgCross from '@components/icons/svgCross'
 import SvgGrid2 from '@components/icons/svgGrid2'
 import SvgGrid3 from '@components/icons/svgGrid3'
 import SvgList2 from '@components/icons/svgList2'
 import SvgReload from '@components/icons/svgReload'
-import { useState } from 'react'
-import styles from '../../styles/form.module.css'
-
 import type { NextPage } from 'next'
-interface Size {
-  margin: string
-  width: string
-  height: string
-  title: string
-  titleH: string
-  ownerAndPrice: string
-  tagsH: string
-  positionR: string
-}
+import { useState } from 'react'
+import { useOpenFilterMenu } from '../../hook/openFilterMenu'
+import styles from '../../styles/form.module.css'
+import FilterLateral from './filterLateral'
 
 interface Props {
-  setNftSize: React.Dispatch<React.SetStateAction<Size>>
   setOrder: React.Dispatch<React.SetStateAction<string>>
   setFilter: React.Dispatch<React.SetStateAction<(string | number)[]>>
+  setCardSize: React.Dispatch<React.SetStateAction<string>>
 }
 
-const HeaderMarket: NextPage<Props> = ({ setNftSize, setOrder, setFilter }) => {
-  const [sideBar, setSideBar] = useState(false)
+const HeaderMarket: NextPage<Props> = ({
+  setOrder,
+  setFilter,
+  setCardSize,
+}) => {
+  const { openFilter, setOpenFilter } = useOpenFilterMenu()
   const [orderMenu, setOrderMenu] = useState(false)
-  const [cont, setCont] = useState(0)
-  const openSideBar = () => {
-    setSideBar(!sideBar)
-  }
+  // const [sideBar, setSideBar] = useState(false)
+  // const [cont, setCont] = useState(0)
 
-  const searchPriceAbove = () => {
-    const value = document.getElementById('priceSearch').value
-    if (value === '') {
-      alert('digite un valor minimo para el filtrado')
-    } else {
-      setOrder('filter1')
-      setFilter(['above', value, 100])
-    }
-  }
+  // const openSideBar = () => {
+  //   setSideBar(!sideBar)
+  // }
 
-  const searchPriceBelow = () => {
-    const value = document.getElementById('priceSearch').value
-    if (value === '') {
-      alert('digite un valor maximo para el filtrado')
-    } else {
-      setOrder('filter2')
-      setFilter(['below', value, 100])
-    }
-  }
-  const searchPriceBetween = () => {
-    const value1 = document.getElementById('priceSearch1').value
-    const value2 = document.getElementById('priceSearch2').value
-    if (value1 === '') {
-      alert('digite un valor minimo para la busqueda')
-    } else if (value2 === '') {
-      alert('digite un valor maximo para la busqueda')
-    } else {
-      setCont(cont + 1)
-      setOrder(cont.toString())
-      setFilter(['between', value1, value2])
-    }
-  }
+  // const searchPriceAbove = () => {
+  //   const value = document.getElementById('priceSearch').value
+  //   if (value === '') {
+  //     alert('digite un valor minimo para el filtrado')
+  //   } else {
+  //     setOrder('filter1')
+  //     setFilter(['above', value, 100])
+  //   }
+  // }
+
+  // const searchPriceBelow = () => {
+  //   const value = document.getElementById('priceSearch').value
+  //   if (value === '') {
+  //     alert('digite un valor maximo para el filtrado')
+  //   } else {
+  //     setOrder('filter2')
+  //     setFilter(['below', value, 100])
+  //   }
+  // }
+  // const searchPriceBetween = () => {
+  //   const value1 = document.getElementById('priceSearch1').value
+  //   const value2 = document.getElementById('priceSearch2').value
+  //   if (value1 === '') {
+  //     alert('digite un valor minimo para la busqueda')
+  //   } else if (value2 === '') {
+  //     alert('digite un valor maximo para la busqueda')
+  //   } else {
+  //     setCont(cont + 1)
+  //     setOrder(cont.toString())
+  //     setFilter(['between', value1, value2])
+  //   }
+  // }
 
   const openOrderMenu = () => {
     setOrderMenu(!orderMenu)
   }
 
-  const bigger: Size = {
-    margin: 'm-10',
-    width: 'w-[350px]',
-    height: 'h-[565px]',
-    title: 'text-2xl',
-    titleH: 'min-h-[64px]',
-    ownerAndPrice: 'text-xl',
-    tagsH: 'min-h-[48px]',
-    positionR: 'right-[13%]',
-  }
-
-  const smaller: Size = {
-    margin: 'm-4',
-    width: 'w-[280px]',
-    height: 'h-[475px]',
-    title: 'text-[1.4rem]',
-    titleH: 'max-h-[64px]',
-    ownerAndPrice: 'text-[1.1rem]',
-    tagsH: 'min-h-[48px]',
-    positionR: 'right-[9%]',
-  }
-
   return (
     <>
-      <section className="market__header bg-slate-900 text-white py-1 px-20 w-full flex justify-between top-[5.5rem] fixed z-[5] items-center">
+      <section className="market__header bg-slate-900 text-white py-1 px-20 w-full flex justify-between top-[5rem] fixed z-[5] items-center">
         <div className="left flex">
+          <FilterLateral isOpen={openFilter} handleClose={setOpenFilter} />
           <button
             type="button"
             className="py-3 px-3 text-sm font-medium rounded-full border focus:z-10 focus:ring-2 bg-gray-700 border-gray-600 text-white hover:text-white hover:bg-gray-600 focus:ring-blue-500 focus:text-white"
-            onClick={openSideBar}
+            onClick={() => setOpenFilter(!openFilter)}
           >
             <SvgList2 width="25" height="25" />
           </button>
@@ -133,14 +108,14 @@ const HeaderMarket: NextPage<Props> = ({ setNftSize, setOrder, setFilter }) => {
             <button
               type="button"
               className="py-2 px-4 text-sm font-medium rounded-l-lg border focus:z-10 focus:ring-2 bg-gray-700 border-gray-600 text-white hover:text-white hover:bg-gray-600 focus:ring-blue-500 focus:text-white"
-              onClick={() => setNftSize(smaller)}
+              onClick={() => setCardSize('small')}
             >
               <SvgGrid3 width="25" height="25" />
             </button>
             <button
               type="button"
               className="py-2 px-4 text-sm font-medium rounded-r-md border focus:z-10 focus:ring-2 bg-gray-700 border-gray-600 text-white hover:text-white hover:bg-gray-600 focus:ring-blue-500 focus:text-white"
-              onClick={() => setNftSize(bigger)}
+              onClick={() => setCardSize('bigger')}
             >
               <SvgGrid2 width="25" height="25" />
             </button>
@@ -158,6 +133,24 @@ const HeaderMarket: NextPage<Props> = ({ setNftSize, setOrder, setFilter }) => {
               }`}
             ></div>
             <ul className="py-2 text-lg text-gray-200">
+              <li
+                className="block py-2 px-4 hover:bg-gray-600 hover:text-white cursor-pointer"
+                onClick={() => {
+                  setFilter(['none', -1, -1])
+                  setOrder('mostLiked')
+                }}
+              >
+                Most Liked
+              </li>
+              <li
+                className="block py-2 px-4 hover:bg-gray-600 hover:text-white cursor-pointer"
+                onClick={() => {
+                  setFilter(['none', -1, -1])
+                  setOrder('lessLiked')
+                }}
+              >
+                Less Liked
+              </li>
               <li>
                 <a
                   href="#"
@@ -212,55 +205,6 @@ const HeaderMarket: NextPage<Props> = ({ setNftSize, setOrder, setFilter }) => {
               </li>
             </ul>
           </div>
-        </div>
-      </section>
-      <section className={`${sideBar ? '' : 'hidden'}`}>
-        <div
-          onClick={openSideBar}
-          className={` z-20 h-screen w-full fixed ${sideBar ? '' : 'hidden'}`}
-        ></div>
-        <div
-          id="drawer-navigation"
-          className="fixed z-40 h-screen p-4 overflow-y-auto w-80 bg-gray-800 drop-shadow-2xl"
-        >
-          <h5 className="text-base font-semibold uppercase text-gray-400">
-            Filters menu
-          </h5>
-          <button
-            type="button"
-            className="text-gray-400 bg-transparent rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center hover:bg-gray-600 hover:text-white"
-            onClick={openSideBar}
-          >
-            <SvgCross className="w-5 h-5" />
-          </button>
-          <input type="number" id="priceSearch" />
-          <button
-            type="button"
-            className="text-gray-200 bg-transparent rounded-lg text-sm p-1.5 absolute right-2.5 inline-flex items-center hover:bg-gray-600 hover:text-white"
-            onClick={searchPriceAbove}
-          >
-            Price Above
-          </button>
-          <button
-            type="button"
-            className="text-gray-200 bg-transparent rounded-lg mt-10 text-sm p-1.5 absolute right-2.5 inline-flex items-center hover:bg-gray-600 hover:text-white"
-            onClick={searchPriceBelow}
-          >
-            Price Below
-          </button>
-          <h6 className="text-base font-semibold uppercase text-gray-400">
-            Buscar precio entre
-          </h6>
-          <input type="number" id="priceSearch1" />
-          <h6 className="text-base font-semibold uppercase text-gray-400">y</h6>
-          <input type="number" id="priceSearch2" />
-          <button
-            type="button"
-            className="text-gray-200 bg-transparent rounded-lg mt-10 text-sm p-1.5 absolute right-2.5 inline-flex items-center hover:bg-gray-600 hover:text-white"
-            onClick={searchPriceBetween}
-          >
-            Price Between
-          </button>
         </div>
       </section>
     </>
