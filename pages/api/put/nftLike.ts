@@ -27,13 +27,12 @@ export default async function postLike(
           },
         })
         const arr = nft?.likedBy.map((acc) => acc.id)
-        console.log(arr)
+        console.log(nft?.likedBy)
         if (arr?.includes(userId)) {
-          const newArr = nft?.likedBy.filter((acc) => acc.id !== userId)
           const nftt = await prisma.nft.update({
             data: {
               likedBy: {
-                set: newArr,
+                disconnect: { id: user.id },
               },
             },
             where: {
@@ -67,7 +66,7 @@ export default async function postLike(
         res.status(200).send(msg)
       }
     }
-  } catch (e: any) {
-    console.log(e.message)
+  } catch (e) {
+    console.log(e)
   }
 }
