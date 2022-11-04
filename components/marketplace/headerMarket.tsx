@@ -9,89 +9,61 @@ import { useOpenFilterMenu } from '../../hook/openFilterMenu'
 import styles from '../../styles/form.module.css'
 import FilterLateral from './filterLateral'
 
-interface Size {
-  margin: string
-  width: string
-  height: string
-  title: string
-  titleH: string
-  ownerAndPrice: string
-  tagsH: string
-  positionR: string
-}
-
 interface Props {
-  setNftSize: React.Dispatch<React.SetStateAction<Size>>
   setOrder: React.Dispatch<React.SetStateAction<string>>
   setFilter: React.Dispatch<React.SetStateAction<(string | number)[]>>
+  setCardSize: React.Dispatch<React.SetStateAction<string>>
 }
 
-const HeaderMarket: NextPage<Props> = ({ setNftSize, setOrder, setFilter }) => {
+const HeaderMarket: NextPage<Props> = ({
+  setOrder,
+  setFilter,
+  setCardSize,
+}) => {
   const { openFilter, setOpenFilter } = useOpenFilterMenu()
-  const [sideBar, setSideBar] = useState(false)
   const [orderMenu, setOrderMenu] = useState(false)
-  const [cont, setCont] = useState(0)
-  const openSideBar = () => {
-    setSideBar(!sideBar)
-  }
+  // const [sideBar, setSideBar] = useState(false)
+  // const [cont, setCont] = useState(0)
 
-  const searchPriceAbove = () => {
-    const value = document.getElementById('priceSearch').value
-    if (value === '') {
-      alert('digite un valor minimo para el filtrado')
-    } else {
-      setOrder('filter1')
-      setFilter(['above', value, 100])
-    }
-  }
+  // const openSideBar = () => {
+  //   setSideBar(!sideBar)
+  // }
 
-  const searchPriceBelow = () => {
-    const value = document.getElementById('priceSearch').value
-    if (value === '') {
-      alert('digite un valor maximo para el filtrado')
-    } else {
-      setOrder('filter2')
-      setFilter(['below', value, 100])
-    }
-  }
-  const searchPriceBetween = () => {
-    const value1 = document.getElementById('priceSearch1').value
-    const value2 = document.getElementById('priceSearch2').value
-    if (value1 === '') {
-      alert('digite un valor minimo para la busqueda')
-    } else if (value2 === '') {
-      alert('digite un valor maximo para la busqueda')
-    } else {
-      setCont(cont + 1)
-      setOrder(cont.toString())
-      setFilter(['between', value1, value2])
-    }
-  }
+  // const searchPriceAbove = () => {
+  //   const value = document.getElementById('priceSearch').value
+  //   if (value === '') {
+  //     alert('digite un valor minimo para el filtrado')
+  //   } else {
+  //     setOrder('filter1')
+  //     setFilter(['above', value, 100])
+  //   }
+  // }
+
+  // const searchPriceBelow = () => {
+  //   const value = document.getElementById('priceSearch').value
+  //   if (value === '') {
+  //     alert('digite un valor maximo para el filtrado')
+  //   } else {
+  //     setOrder('filter2')
+  //     setFilter(['below', value, 100])
+  //   }
+  // }
+  // const searchPriceBetween = () => {
+  //   const value1 = document.getElementById('priceSearch1').value
+  //   const value2 = document.getElementById('priceSearch2').value
+  //   if (value1 === '') {
+  //     alert('digite un valor minimo para la busqueda')
+  //   } else if (value2 === '') {
+  //     alert('digite un valor maximo para la busqueda')
+  //   } else {
+  //     setCont(cont + 1)
+  //     setOrder(cont.toString())
+  //     setFilter(['between', value1, value2])
+  //   }
+  // }
 
   const openOrderMenu = () => {
     setOrderMenu(!orderMenu)
-  }
-
-  const bigger: Size = {
-    margin: 'm-10',
-    width: 'w-[350px]',
-    height: 'h-[565px]',
-    title: 'text-2xl',
-    titleH: 'min-h-[64px]',
-    ownerAndPrice: 'text-xl',
-    tagsH: 'min-h-[48px]',
-    positionR: 'right-[13%]',
-  }
-
-  const smaller: Size = {
-    margin: 'm-4',
-    width: 'w-[280px]',
-    height: 'h-[475px]',
-    title: 'text-[1.4rem]',
-    titleH: 'max-h-[64px]',
-    ownerAndPrice: 'text-[1.1rem]',
-    tagsH: 'min-h-[48px]',
-    positionR: 'right-[9%]',
   }
 
   return (
@@ -136,14 +108,14 @@ const HeaderMarket: NextPage<Props> = ({ setNftSize, setOrder, setFilter }) => {
             <button
               type="button"
               className="py-2 px-4 text-sm font-medium rounded-l-lg border focus:z-10 focus:ring-2 bg-gray-700 border-gray-600 text-white hover:text-white hover:bg-gray-600 focus:ring-blue-500 focus:text-white"
-              onClick={() => setNftSize(smaller)}
+              onClick={() => setCardSize('small')}
             >
               <SvgGrid3 width="25" height="25" />
             </button>
             <button
               type="button"
               className="py-2 px-4 text-sm font-medium rounded-r-md border focus:z-10 focus:ring-2 bg-gray-700 border-gray-600 text-white hover:text-white hover:bg-gray-600 focus:ring-blue-500 focus:text-white"
-              onClick={() => setNftSize(bigger)}
+              onClick={() => setCardSize('bigger')}
             >
               <SvgGrid2 width="25" height="25" />
             </button>
