@@ -96,6 +96,8 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
         }),
       })
 
+      /*
+       * ????????
       nft.comments.push({
         user: {
           name: user?.name,
@@ -104,6 +106,7 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
         content: comment,
         isPublished: true,
       })
+      */
 
       setComment('')
 
