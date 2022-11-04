@@ -16,7 +16,7 @@ export default async function postNft(
         !image ||
         !price ||
         !description ||
-        categories.length < 1
+        categoriesNames.length < 1
       ) {
         res.status(400).send('Missing data')
       } else {
@@ -43,9 +43,6 @@ export default async function postNft(
             },
             price,
             published: true,
-            categories: {
-              connect: categories,
-            },
           },
         })
         console.log(nfts)
@@ -57,8 +54,6 @@ export default async function postNft(
       }
     }
   } catch (error: any) {
-
     console.log(error)
-
   }
 }
