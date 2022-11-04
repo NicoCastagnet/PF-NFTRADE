@@ -24,6 +24,7 @@ export default async function handler(
       name: true,
       image: true,
       price: true,
+      description: true,
       comments: {
         select: {
           id: true,

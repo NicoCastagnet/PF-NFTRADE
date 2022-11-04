@@ -2,12 +2,15 @@ import Footer from '@components/footer'
 import NavBar from '@components/navbar/navbar'
 import BlurImage from '@components/ui/blurImage'
 import Modal from '@components/ui/modal'
+import fetcher from '@lib/fetcher'
 import supabase from '@lib/supa'
 import { Formik } from 'formik'
-import type { NextPage } from 'next'
+import type { GetServerSideProps, NextPage } from 'next'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { ChangeEvent, useState } from 'react'
+import useSWR from 'swr'
+import type { NftDetailResponse } from 'types/api-responses'
 import * as Yup from 'yup'
 import imagePlaceholder from '/assets/image-placeholder.png'
 
@@ -16,7 +19,18 @@ interface NftFormValues {
   price: number | string
   image: string
   description?: string
-  categories: string[]
+  categoriesNames: string[]
+}
+
+interface Category {
+  id: string
+  name: string
+  image?: string
+  nfts: NftDetailResponse[]
+}
+
+interface Props {
+  fallbackData: Category[]
 }
 
 export const validationSchema = Yup.object().shape(
@@ -43,14 +57,57 @@ export const validationSchema = Yup.object().shape(
   [['description', 'description']],
 )
 
-const CreateProduct: NextPage = () => {
+const CreateProduct: NextPage<Props> = ({ fallbackData }) => {
+  const { data: categories } = useSWR<Category[]>(
+    'http://localhost:3000/api/categories',
+    fetcher,
+    {
+      fallbackData,
+    },
+  )
+
   const initialValues: NftFormValues = {
     name: '',
     price: '',
     description: '',
     image: '',
-    categories: [],
+    categoriesNames: [],
   }
+
+  const [reload, setReload] = useState(false)
+
+  function refreshStates() {
+    if (reload === false) {
+      setReload(true)
+    } else {
+      setReload(false)
+    }
+  }
+
+  const [catError, setCatError] = useState<null | string>(
+    'Select at least one category',
+  )
+  function categoriesHandler(
+    e: ChangeEvent<HTMLSelectElement>,
+    values: NftFormValues,
+  ) {
+    if (values.categoriesNames.length === 5) {
+      setCatError('You can add a max of 5 categories')
+    } else {
+      if (values.categoriesNames.includes(e.target.value)) {
+        setCatError('This category is already set')
+        refreshStates()
+      } else {
+        values.categoriesNames.push(e.target.value)
+        setCatError(null)
+        refreshStates()
+      }
+    }
+  }
+  function deleteCat(cat: string, values: NftFormValues) {
+    values.categoriesNames = values.categoriesNames.filter((c) => c !== cat)
+  }
+
   const router = useRouter()
   const { data: session, status } = useSession()
   const [uploading, setUploading] = useState(false)
@@ -243,19 +300,50 @@ const CreateProduct: NextPage = () => {
                       />
                     </div>
                     <div className="mb-8 w-[80%]">
+                      <label
+                        htmlFor="categories"
+                        className="flex items-center gap-2 mb-2 text-sm font-medium text-gray-900 "
+                      >
+                        <span className="text-[1.2rem]">Categories*</span>
+                        {catError !== null && (
+                          <span className="self-start text-red-400">
+                            {catError}
+                          </span>
+                        )}
+                      </label>
+
                       <select
                         name="categories"
-                        value={values.categories}
-                        onChange={(e) => {
-                          values.categories.push(e.target.value)
-                          console.log(values)
-                        }}
+                        value={values.categoriesNames}
+                        onChange={(e) => categoriesHandler(e, values)}
                         onBlur={handleBlur}
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                       >
-                        <option value="Music">Music</option>
-                        <option value="Art">Art</option>
+                        <option value="" disabled selected hidden>
+                          Select some categories
+                        </option>
+                        {categories?.map((c) => (
+                          <option key={c.id} value={c.name}>
+                            {c.name}
+                          </option>
+                        ))}
                       </select>
+                      <div className="flex flex-row w-full flex-wrap mt-2">
+                        {values.categoriesNames?.map((c) => (
+                          <div
+                            className="flex flex-row justify-center items-center bg-slate-200 rounded-[15px] p-[5px] mr-[5px] text-[0.85rem] border-gray-300 border-[2px]"
+                            key={c}
+                          >
+                            <button
+                              onClick={() => deleteCat(c, values)}
+                              className="mr-[4px] ml-[2px] font-[700] text-slate-800 hover:text-slate-600 "
+                            >
+                              X
+                            </button>
+                            <span>#{c}</span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                     <div className="w-[80%]">
                       <label
@@ -272,7 +360,7 @@ const CreateProduct: NextPage = () => {
                       <textarea
                         id="message"
                         rows={10}
-                        className=" resize-none lg:h-[284px] text-[1rem] mb-4 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                        className=" resize-none lg:h-[240px] text-[1rem] mb-4 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                         placeholder="Description here..."
                         name="description"
                         value={values.description}
@@ -286,7 +374,15 @@ const CreateProduct: NextPage = () => {
             </div>
             <button
               type="submit"
-              disabled={isSubmitting || uploading}
+              disabled={
+                isSubmitting ||
+                uploading ||
+                catError !== null ||
+                errors.price !== undefined ||
+                errors.name !== undefined ||
+                errors.image !== undefined ||
+                errors.description !== undefined
+              }
               className="w-[180px] h-[60px] rounded-[15px] border-[1px] border-gray-400 mb-10 hover:scale-[1.1] hover:bg-slate-900 text-[1.2rem] font-[600] hover:text-white transition-all disabled:bg-gray-500 disabled:transform-none disabled:transition-none disabled:text-white disabled:cursor-not-allowed"
             >
               Submit
@@ -297,6 +393,13 @@ const CreateProduct: NextPage = () => {
       <Footer />
     </div>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const data = await fetcher('http://localhost:3000/api/categories')
+  return {
+    props: { fallbackData: data || {} },
+  }
 }
 
 export default CreateProduct
