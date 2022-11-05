@@ -39,12 +39,12 @@ export default function NavBar() {
           <div className="navbar__buttons flex flex-row justify-end items-center text-white">
             {/* ------------- RUTAS NAVBAR ------------------ */}
             <div className="flex flex-row justify-center items-center max-xl:hidden ease duration-150">
-              <Link href={'#'}>
+              <Link href={'#'} shallow>
                 <button className="m-3 hover:text-blue-500 transition-all font-semibold">
                   Explore
                 </button>
               </Link>
-              <Link href="/marketplace">
+              <Link href="/marketplace" shallow>
                 <button className="m-3 hover:text-blue-500 transition-all font-semibold">
                   Marketplace
                 </button>

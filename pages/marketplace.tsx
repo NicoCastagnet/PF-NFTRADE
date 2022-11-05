@@ -24,9 +24,9 @@ interface HomeProps {
   fallbackData: NftsResponse
 }
 
-const useNfts = (order = '') => {
+const useNfts = (order = '', { minPrice, maxPrice }) => {
   const { data: nfts, error } = useSWR<NftsResponse>(
-    [URL, `?order=${order}`],
+    [URL, `?order=${order}&minPrice=${minPrice}&maxPrice=${maxPrice}`],
     fetcher,
   )
 
@@ -39,8 +39,11 @@ const useNfts = (order = '') => {
 
 const Marketplace: NextPage<HomeProps> = () => {
   const [order, setOrder] = useState('')
-  const [filter, setFilter] = useState('')
-  const { nfts, isLoading } = useNfts(order)
+  const [filter, setFilter] = useState({
+    minPrice: '',
+    maxPrice: '',
+  })
+  const { nfts, isLoading } = useNfts(order, filter)
 
   const { data: session } = useSession()
   const user = session?.user
@@ -86,6 +89,7 @@ const Marketplace: NextPage<HomeProps> = () => {
       <NavBar />
       <HeaderMarket
         setOrder={setOrder}
+        filterValues={filter}
         setFilter={setFilter}
         setCardSize={setCardSize}
       />

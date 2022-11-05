@@ -9,15 +9,22 @@ import { useOpenFilterMenu } from '../../hook/openFilterMenu'
 import styles from '../../styles/form.module.css'
 import FilterLateral from './filterLateral'
 
+export interface FilterProps {
+  minPrice: string
+  maxPrice: string
+}
+
 interface Props {
   setOrder: (order: string) => void
-  setFilter: React.Dispatch<React.SetStateAction<(string | number)[]>>
+  setFilter: ({ minPrice, maxPrice }: FilterProps) => void
+  filterValues: FilterProps
   setCardSize: React.Dispatch<React.SetStateAction<string>>
 }
 
 const HeaderMarket: NextPage<Props> = ({
   setOrder,
   setFilter,
+  filterValues,
   setCardSize,
 }) => {
   const { openFilter, setOpenFilter } = useOpenFilterMenu()
@@ -65,7 +72,12 @@ const HeaderMarket: NextPage<Props> = ({
     <>
       <section className="market__header bg-slate-900 text-white py-1 px-20 w-full flex justify-between top-[5rem] fixed z-[5] items-center">
         <div className="left flex">
-          <FilterLateral isOpen={openFilter} handleClose={setOpenFilter} />
+          <FilterLateral
+            isOpen={openFilter}
+            handleClose={setOpenFilter}
+            filterValues={filterValues}
+            setFilter={setFilter}
+          />
           <button
             type="button"
             className="py-3 px-3 text-sm font-medium rounded-full border focus:z-10 focus:ring-2 bg-gray-700 border-gray-600 text-white hover:text-white hover:bg-gray-600 focus:ring-blue-500 focus:text-white"
@@ -77,8 +89,8 @@ const HeaderMarket: NextPage<Props> = ({
             type="button"
             className="group flex items-center py-3 px-3 ml-4 text-sm font-medium rounded-full border focus:z-10 focus:ring-2 bg-gray-700 border-gray-600 text-white hover:text-white hover:bg-gray-600 focus:ring-blue-500 focus:text-white"
             onClick={() => {
-              setFilter(['none', -1, -1])
               setOrder('')
+              setFilter({ minPrice: '', maxPrice: '' })
             }}
           >
             <SvgReload
@@ -143,7 +155,6 @@ const HeaderMarket: NextPage<Props> = ({
               <li
                 className="block py-2 px-4 hover:bg-gray-600 hover:text-white cursor-pointer"
                 onClick={() => {
-                  setFilter(['none', -1, -1])
                   setOrder('price_asc')
                 }}
               >
@@ -152,7 +163,6 @@ const HeaderMarket: NextPage<Props> = ({
               <li
                 className="block py-2 px-4 hover:bg-gray-600 hover:text-white cursor-pointer"
                 onClick={() => {
-                  setFilter(['none', -1, -1])
                   setOrder('price_desc')
                 }}
               >
@@ -161,7 +171,6 @@ const HeaderMarket: NextPage<Props> = ({
               <li
                 className="block py-2 px-4 hover:bg-gray-600 hover:text-white cursor-pointer"
                 onClick={() => {
-                  setFilter(['none', -1, -1])
                   setOrder('name_asc')
                 }}
               >
@@ -170,7 +179,6 @@ const HeaderMarket: NextPage<Props> = ({
               <li
                 className="block py-2 px-4 hover:bg-gray-600 hover:text-white cursor-pointer"
                 onClick={() => {
-                  setFilter(['none', -1, -1])
                   setOrder('name_desc')
                 }}
               >
