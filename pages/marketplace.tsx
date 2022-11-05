@@ -7,7 +7,7 @@ import SvgHeart from '@components/icons/svgHeart'
 import HeaderMarket from '@components/marketplace/headerMarket'
 import NavBar from '@components/navbar/navbar'
 import fetcher from '@lib/fetcher'
-import type { GetServerSideProps, NextPage } from 'next'
+import type { NextPage } from 'next'
 import { useSession } from 'next-auth/react'
 import Head from 'next/head'
 import Image from 'next/image'
@@ -193,13 +193,6 @@ const Marketplace: NextPage<HomeProps> = () => {
       <Footer />
     </div>
   )
-}
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  const data = await fetcher(URL)
-  return {
-    props: { fallbackData: data || {} },
-  }
 }
 
 export default Marketplace
