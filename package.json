@@ -42,6 +42,7 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",
+    "@tailwindcss/line-clamp": "^0.4.2",
     "@types/bcryptjs": "^2.4.2",
     "@types/node": "18.11.3",
     "@types/nprogress": "^0.2.0",
