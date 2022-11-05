@@ -25,7 +25,12 @@ export type NftsResponse = Prisma.NftGetPayload<{
     _count: {
       select: { likedBy: true; viewedBy: true }
     }
-    categories: true
+    categories: {
+      select: {
+        id: true
+        name: true
+      }
+    }
   }
 }>[]
 
@@ -64,13 +69,25 @@ export type NftDetailResponse = Prisma.NftGetPayload<{
         id: true
       }
     }
-    categories: true
-    comments: true
+    comments: {
+      select: {
+        id: true
+        user: true
+        content: true
+        isPublished: true
+      }
+    }
     published: true
     owner: { select: { name: true } }
     creator: { select: { name: true } }
     _count: {
       select: { likedBy: true; viewedBy: true }
+    }
+    categories: {
+      select: {
+        id: true
+        name: true
+      }
     }
   }
 }>

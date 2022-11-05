@@ -34,7 +34,12 @@ const getNftById = async ({
         _count: {
           select: { likedBy: true, viewedBy: true },
         },
-        categories: true,
+        categories: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
       },
     })
     return nft
