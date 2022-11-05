@@ -10,7 +10,7 @@ export default class PaymentController {
     try {
       const payment = await this.subscriptionService.createPayment(req, res)
 
-      return res.json({ payment: payment.init_point })
+      return res.json({ payment })
     } catch (error: any) {
       console.log(error.message)
 

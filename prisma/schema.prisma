@@ -114,6 +114,7 @@ model WishList {
   @@id([userId, nftId])
 }
 
+
 model Comment {
   id          String   @id @default(cuid())
   nft         Nft      @relation(fields: [nftId], references: [id])
@@ -122,5 +123,11 @@ model Comment {
   userId      String
   isPublished Boolean  @default(true)
   content     String
+  createdAt   DateTime @default(now())
+}
+
+model Buys {
+  id    String   @id @default(cuid())
+  buyId  String
   createdAt   DateTime @default(now())
 }
