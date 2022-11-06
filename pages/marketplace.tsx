@@ -19,7 +19,7 @@ import useSWR from 'swr'
 import type { NftsResponse } from 'types/api-responses'
 import styles from '../styles/form.module.css'
 
-const URL = 'http://localhost:3000/api/nfts'
+const URL = 'https://pf-nftrade.vercel.app/api/nfts'
 
 interface HomeProps {
   fallbackData: NftsResponse

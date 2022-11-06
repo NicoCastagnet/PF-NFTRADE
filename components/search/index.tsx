@@ -29,7 +29,7 @@ export default function Search() {
             getItems: ({ query }) => {
               if (query) {
                 return fetch(
-                  `http://localhost:3000/api/search?q=${query}`,
+                  `https://pf-nftrade.vercel.app/api/search?q=${query}`,
                 ).then((res) => res.json())
               }
               return []

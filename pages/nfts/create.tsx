@@ -59,7 +59,7 @@ export const validationSchema = Yup.object().shape(
 
 const CreateProduct: NextPage<Props> = ({ fallbackData }) => {
   const { data: categories } = useSWR<Category[]>(
-    'http://localhost:3000/api/categories',
+    'https://pf-nftrade.vercel.app/api/categories',
     fetcher,
     {
       fallbackData,
@@ -396,7 +396,7 @@ const CreateProduct: NextPage<Props> = ({ fallbackData }) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const data = await fetcher('http://localhost:3000/api/categories')
+  const data = await fetcher('https://pf-nftrade.vercel.app/api/categories')
   return {
     props: { fallbackData: data || {} },
   }
