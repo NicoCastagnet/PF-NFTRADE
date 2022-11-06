@@ -1,9 +1,8 @@
-import Comments from '@components/comments'
 import Footer from '@components/footer'
 import SvgCoin from '@components/icons/svgCoin'
-import SvgHeart from '@components/icons/svgHeart'
 import SvgViews from '@components/icons/svgViews'
 import NavBar from '@components/navbar/navbar'
+import Comments from '@components/nftDetail/comments'
 import getNftById from '@lib/api/nfts/getById'
 import { useCart } from 'context/cart'
 import type { GetServerSideProps, NextPage } from 'next'
@@ -12,8 +11,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
+import Likes from '@components/nftDetail/likes'
 import { toast, Toaster } from 'react-hot-toast'
 import type { NftDetailResponse } from 'types/api-responses'
 
@@ -47,41 +47,6 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
   }, [nft.id, user?.id])
 
   const categories = nft.categories.map((c) => c.name)
-
-  const [reload, setReload] = useState(false)
-  function refreshStates() {
-    if (reload === false) {
-      setReload(true)
-    } else {
-      setReload(false)
-    }
-  }
-
-  let likes = nft.likedBy.map((acc) => acc.id)
-  const likesNum = likes.length
-
-  async function likeHandler() {
-    if (user) {
-      if (likes.includes(user?.id)) {
-        likes = likes.filter((id) => id !== user?.id)
-        nft.likedBy.pop()
-      } else {
-        likes.push(user?.id)
-        nft.likedBy.push({ id: user?.id })
-      }
-    }
-    fetch('/api/put/nftLike', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        userId: user?.id,
-        nftId: nft.id,
-      }),
-    })
-    refreshStates()
-  }
 
   return (
     <div className="flex flex-col items-center justify-center w-full min-h-screen">
@@ -129,25 +94,7 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                 <span>{nft.price}</span>{' '}
               </div>
             </div>
-            <div className="flex flex-col justify-end">
-              <div className="flex flex-row justify-center items-center gap-2">
-                <span>{likesNum}</span>
-                {user ? (
-                  <SvgHeart
-                    onClick={() => {
-                      likeHandler()
-                    }}
-                    height={20}
-                    width={20}
-                    className={`${
-                      likes.includes(user?.id) && 'fill-green-600'
-                    } hover:fill-red-600 transition-all hover:cursor-pointer `}
-                  />
-                ) : (
-                  <SvgHeart height={20} width={20} />
-                )}
-              </div>
-            </div>
+            <Likes nftId={nftId as string} />
           </div>
           <div className="flex justify-center items-center py-6">
             <Link href={'#'}>

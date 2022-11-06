@@ -7,7 +7,7 @@ export default async function postLike(
 ) {
   try {
     if (req.method === 'PUT') {
-      const { userId, nftId } = req.body
+      const { userId, nftId, isLiked = false } = req.body
 
       const user = await prisma.user.findUnique({
         where: {
@@ -18,7 +18,13 @@ export default async function postLike(
       if (!user) {
         res.status(400).send('el user no existe o es requerido')
       } else {
-        const nft = await prisma.nft.findUnique({
+        const nft = await prisma.nft.update({
+          data: {
+            likedBy: {
+              connect: !isLiked ? { id: user.id } : undefined,
+              disconnect: isLiked ? { id: user.id } : undefined,
+            },
+          },
           where: {
             id: nftId as string,
           },
@@ -26,38 +32,6 @@ export default async function postLike(
             likedBy: true,
           },
         })
-        const arr = nft?.likedBy.map((acc) => acc.id)
-        if (arr?.includes(userId)) {
-          const nftt = await prisma.nft.update({
-            data: {
-              likedBy: {
-                disconnect: { id: user.id },
-              },
-            },
-            where: {
-              id: nftId as string,
-            },
-            include: {
-              likedBy: true,
-            },
-          })
-          console.log(nftt.likedBy)
-        } else {
-          const nftt = await prisma.nft.update({
-            data: {
-              likedBy: {
-                connect: { id: user.id },
-              },
-            },
-            where: {
-              id: nftId as string,
-            },
-            include: {
-              likedBy: true,
-            },
-          })
-          console.log(nftt.likedBy)
-        }
         const msg = {
           message: 'nft actualizado',
           data: nft,

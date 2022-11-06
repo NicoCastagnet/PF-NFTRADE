@@ -228,3 +228,14 @@ export type CommentsResponse = Prisma.CommentGetPayload<{
     }
   }
 }>[]
+
+export type LikesResponse = Prisma.NftGetPayload<{
+  select: {
+    likedBy: { select: { id: true } }
+    _count: {
+      select: {
+        likedBy: true
+      }
+    }
+  }
+}>
