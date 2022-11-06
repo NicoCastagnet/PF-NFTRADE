@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 export default class PaymentService {
   async createPayment(req: NextApiRequest, res: NextApiResponse) {
     const url = 'https://api.mercadopago.com/checkout/preferences'
-    const { quantity, unit_price } = req.body
+    const { quantity, unit_price, idUser } = req.body
     const datos = [
       {
         title: 'Coins',
@@ -12,6 +12,7 @@ export default class PaymentService {
         category_id: 'Coins',
         quantity: quantity,
         unit_price: unit_price,
+        id: idUser,
       },
     ]
     const body = {

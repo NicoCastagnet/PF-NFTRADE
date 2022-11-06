@@ -127,7 +127,11 @@ model Comment {
 }
 
 model Buys {
-  id    String   @id @default(cuid())
-  buyId  String
+  buyId  String   @id
+  userId String
+  date   String
+  coins  Int
+  status String
+  amount Int
   createdAt   DateTime @default(now())
 }
