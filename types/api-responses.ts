@@ -213,3 +213,18 @@ export type SearchResponse = Prisma.NftGetPayload<{
     price: true
   }
 }>[]
+
+export type CommentsResponse = Prisma.CommentGetPayload<{
+  select: {
+    id: true
+    content: true
+    createdAt: true
+    isPublished: true
+    user: {
+      select: {
+        id: true
+        name: true
+      }
+    }
+  }
+}>[]
