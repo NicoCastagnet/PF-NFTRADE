@@ -1,15 +1,14 @@
 import prisma from '@lib/db'
 import axios from 'axios'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import type { number } from 'yup'
 export default async function payDescription(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
   if (req.method === 'POST') {
-    const { query} = req
+    const { query } = req
     try {
-      if (query.topic === 'payment'){ 
+      if (query.topic === 'payment') {
         const url = `https://api.mercadopago.com/v1/payments/${
           query.id as string
         }`
@@ -20,7 +19,6 @@ export default async function payDescription(
           },
         })
         if (payment.data.status_detail) {
-
           const data = await prisma.buys.create({
             data: {
               buyId: query.id as string,
