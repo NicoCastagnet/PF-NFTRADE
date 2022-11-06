@@ -141,14 +141,14 @@ const HeaderMarket: NextPage<Props> = ({
             ></div>
             <ul className="py-2 text-lg text-gray-200">
               <li
-                className="block py-2 px-4 hover:bg-gray-600 hover:text-white"
+                className="block py-2 px-4 hover:bg-gray-600 hover:text-white cursor-pointer"
                 onClick={() => setOrder('createdAt_asc')}
               >
                 Oldest
               </li>
               <li
                 onClick={() => setOrder('createdAt_desc')}
-                className="block py-2 px-4 hover:bg-gray-600 hover:text-white"
+                className="block py-2 px-4 hover:bg-gray-600 hover:text-white cursor-pointer"
               >
                 Newest
               </li>

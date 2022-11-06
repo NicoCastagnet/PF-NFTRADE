@@ -143,8 +143,8 @@ const Marketplace: NextPage<HomeProps> = () => {
                             >
                               <SvgHeart
                                 className={`${
-                                  likes.includes(user?.id) && 'fill-red-600'
-                                }`}
+                                  likes.includes(user?.id) && 'text-red-600'
+                                } w-5 h-5 text-white`}
                               />
                             </span>
                           </span>
