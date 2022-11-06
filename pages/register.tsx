@@ -58,7 +58,7 @@ const SignIn: NextPage = () => {
           password: values.password,
         }),
       }
-      await fetch('api/auth/signup', options)
+      await fetch('https://pf-nftrade.vercel.app/api/auth/signup', options)
         .then((res) => res.json())
         .then((res) => {
           if (res.msg === 'ok') router.push('/login')
