@@ -124,3 +124,12 @@ model Comment {
   content     String
   createdAt   DateTime @default(now())
 }
+model Buys {
+  buyId  String   @id
+  userId String
+  date   String
+  coins  Int
+  status String
+  amount Int
+  createdAt   DateTime @default(now())
+}
