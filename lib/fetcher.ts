@@ -1,6 +1,6 @@
 // TODO: update for post data
-const fetcher = (url: string) =>
-  fetch(url, {
+const fetcher = (url: string, queryParams = '') =>
+  fetch(`${url}${queryParams}`, {
     headers: {
       Accept: 'application/json',
       'User-Agent': '*',

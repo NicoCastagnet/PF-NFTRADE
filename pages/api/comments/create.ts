@@ -16,10 +16,16 @@ export default async function postComment(
         where: {
           id: userId as string,
         },
+        select: {
+          id: true,
+        },
       })
       const nft = await prisma.nft.findUnique({
         where: {
           id: nftId as string,
+        },
+        select: {
+          id: true,
         },
       })
       if (!user) {
