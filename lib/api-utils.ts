@@ -1,5 +1,5 @@
 const getOrderBy = (order: string | undefined) => {
-  const posibleFields = ['price', 'name', 'likes', 'views']
+  const posibleFields = ['price', 'name', 'likes', 'views', 'createdAt']
   const posibleOrders = ['asc', 'desc']
   const orders = order?.split(',')
   const orderBy: { [x: string]: string | { _count: string } }[] = []
@@ -20,4 +20,16 @@ const getOrderBy = (order: string | undefined) => {
   return orderBy
 }
 
-export { getOrderBy }
+const getWhere = (minPrice: string, maxPrice: string) => {
+  const min = isNaN(parseInt(minPrice)) ? 0 : +minPrice
+  const max = isNaN(parseInt(maxPrice)) ? 99999 : +maxPrice
+  const where = {
+    price: {
+      lte: max,
+      gte: min,
+    },
+  }
+  return where
+}
+
+export { getOrderBy, getWhere }

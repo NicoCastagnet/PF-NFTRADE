@@ -155,7 +155,7 @@ const TopContainer = ({ nfts }: { nfts: NftsResponse }) => {
                     </div>
                   </div>
                 </div>
-                <p className="my-3 px-5 font-normal text-gray-700 dark:text-gray-400">
+                <p className="my-3 px-5 font-normal text-gray-700 dark:text-gray-400 line-clamp-2">
                   {e.description ? e.description : 'No description provided.'}
                 </p>
                 <Link href={`/nfts/${e.id}`}>

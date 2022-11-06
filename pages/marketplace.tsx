@@ -4,20 +4,15 @@
 import Footer from '@components/footer'
 import SvgCoin from '@components/icons/svgCoin'
 import SvgHeart from '@components/icons/svgHeart'
-import { filterByPriceAbobeBelow } from '@components/marketplace/filters/filterByPriceAbobeBelow'
-import { filterByPriceBetween } from '@components/marketplace/filters/filterByPriceBetwin'
-import { orderByName } from '@components/marketplace/filters/orderByName'
-import { orderByPrice } from '@components/marketplace/filters/orderByPrice'
-import refreshData from '@components/marketplace/filters/refreshData'
 import HeaderMarket from '@components/marketplace/headerMarket'
 import NavBar from '@components/navbar/navbar'
 import fetcher from '@lib/fetcher'
-import type { GetServerSideProps, NextPage } from 'next'
+import type { NextPage } from 'next'
 import { useSession } from 'next-auth/react'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { RiVipCrownFill } from 'react-icons/ri'
 import useSWR from 'swr'
 import type { NftsResponse } from 'types/api-responses'
@@ -29,41 +24,31 @@ interface HomeProps {
   fallbackData: NftsResponse
 }
 
-const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
-  const { data: nfts } = useSWR<NftsResponse>(URL, fetcher, {
-    fallbackData,
+const useNfts = (order = '', { minPrice, maxPrice }) => {
+  const { data: nfts, error } = useSWR<NftsResponse>(
+    [URL, `?order=${order}&minPrice=${minPrice}&maxPrice=${maxPrice}`],
+    fetcher,
+  )
+
+  return {
+    nfts,
+    isLoading: !error && !nfts,
+    error,
+  }
+}
+
+const Marketplace: NextPage<HomeProps> = () => {
+  const [order, setOrder] = useState('')
+  const [filter, setFilter] = useState({
+    minPrice: '',
+    maxPrice: '',
   })
+  const { nfts, isLoading } = useNfts(order, filter)
 
   const { data: session } = useSession()
   const user = session?.user
 
-  const [order, setOrder] = useState('all')
-  const [ordered, setOrdered] = useState([])
-  const [filter, setFilter] = useState(['none', -1, -1])
   const [carSize, setCardSize] = useState('bigger')
-
-  useEffect(() => {
-    if (order === 'all') {
-      refreshData(URL).then((data) => setOrdered(data))
-    } else if (order === 'AZ') {
-      setOrdered(orderByName(order))
-    } else if (order === 'ZA') {
-      setOrdered(orderByName(order))
-    } else if (order === 'min') {
-      setOrdered(orderByPrice(order))
-    } else if (order === 'max') {
-      setOrdered(orderByPrice(order))
-    }
-
-    if (filter[0] === 'above') {
-      setOrdered(filterByPriceAbobeBelow(nfts, filter[1], filter[0]))
-    } else if (filter[0] === 'below') {
-      setOrdered(filterByPriceAbobeBelow(nfts, filter[1], filter[0]))
-    } else if (filter[0] === 'between') {
-      setOrdered(filterByPriceBetween(nfts, filter[1], filter[2]))
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [order])
 
   const [reload, setReload] = useState(false)
 
@@ -96,7 +81,6 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
     refreshStates()
   }
 
-  if (!nfts) return <div>loading...</div>
   return (
     <div>
       <Head>
@@ -105,12 +89,16 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
       <NavBar />
       <HeaderMarket
         setOrder={setOrder}
+        filterValues={filter}
         setFilter={setFilter}
         setCardSize={setCardSize}
       />
       <section className="market_list relative top-48">
         <div className="market_list-container flex flex-wrap  justify-center w-auto rounded-lg py-6 mb-48 gap-4 min-h-screen">
-          {nfts &&
+          {isLoading ? (
+            <>Here component for loading... {order}</>
+          ) : (
+            nfts &&
             nfts.map((el) => {
               const likes = el.likedBy.map((acc) => acc.id)
               const likesNum = likes.length
@@ -155,8 +143,8 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
                             >
                               <SvgHeart
                                 className={`${
-                                  likes.includes(user?.id) && 'fill-red-600'
-                                }`}
+                                  likes.includes(user?.id) && 'text-red-600'
+                                } w-5 h-5 text-white`}
                               />
                             </span>
                           </span>
@@ -202,19 +190,13 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
                   </div>
                 </Link>
               )
-            })}
+            })
+          )}
         </div>
       </section>
       <Footer />
     </div>
   )
-}
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  const data = await fetcher(URL)
-  return {
-    props: { fallbackData: data || {} },
-  }
 }
 
 export default Marketplace

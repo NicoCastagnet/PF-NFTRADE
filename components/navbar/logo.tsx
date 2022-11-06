@@ -7,7 +7,7 @@ const Logo = () => {
   return (
     <>
       <div className="max-sm:hidden flex justify-center items-center h-full w-72 mr-8">
-        <Link href={'/'}>
+        <Link href={'/'} shallow>
           <Image
             src={whiteLogo}
             alt="white_logo"
