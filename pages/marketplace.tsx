@@ -4,6 +4,7 @@
 import Footer from '@components/footer'
 import SvgCoin from '@components/icons/svgCoin'
 import SvgHeart from '@components/icons/svgHeart'
+import Loading from '@components/loading'
 import HeaderMarket from '@components/marketplace/headerMarket'
 import NavBar from '@components/navbar/navbar'
 import fetcher from '@lib/fetcher'
@@ -96,7 +97,7 @@ const Marketplace: NextPage<HomeProps> = () => {
       <section className="market_list relative top-48">
         <div className="market_list-container flex flex-wrap  justify-center w-auto rounded-lg py-6 mb-48 gap-4 min-h-screen">
           {isLoading ? (
-            <>Here component for loading... {order}</>
+            <Loading />
           ) : (
             nfts &&
             nfts.map((el) => {
