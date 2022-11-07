@@ -58,7 +58,7 @@ const SignIn: NextPage = () => {
           password: values.password,
         }),
       }
-      await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/auth/signup`, options)
+      await fetch('api/auth/signup', options)
         .then((res) => res.json())
         .then((res) => {
           if (res.msg === 'ok') router.push('/login')

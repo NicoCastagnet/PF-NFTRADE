@@ -3,18 +3,11 @@ import type { NextPage } from 'next'
 import { useState } from 'react'
 
 const DemoPayment: NextPage = () => {
-  const [data, setData] = useState({
-    quantity: 0,
-    unit_price: 0,
-    idUser: 'cla4vgl930000py3rf0f4hi6n',
-  })
+  const [data, setData] = useState({ quantity: 0, unit_price: 0, idUser: 'cla4vgl930000py3rf0f4hi6n'})
 
   const payment = async (e: React.SyntheticEvent) => {
     e.preventDefault()
-    const res = await axios.post(
-      `${process.env.NEXT_PUBLIC_APP_URL}/api/payments`,
-      data,
-    )
+    const res = await axios.post('http://localhost:3000/api/payments', data)
     console.log(res.data.payment)
   }
 

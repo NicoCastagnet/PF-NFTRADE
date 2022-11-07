@@ -12,7 +12,6 @@ export type NftsResponse = Prisma.NftGetPayload<{
     id: true
     name: true
     image: true
-    ownerId: true
     price: true
     likedBy: {
       select: {
@@ -40,7 +39,6 @@ export type NftResponse = Prisma.NftGetPayload<{
     id: true
     name: true
     image: true
-    ownerId: true
     price: true
     likedBy: {
       select: {
@@ -64,7 +62,6 @@ export type NftDetailResponse = Prisma.NftGetPayload<{
     id: true
     name: true
     image: true
-    ownerId: true
     description: true
     price: true
     likedBy: {
@@ -112,7 +109,6 @@ export type CategoryDetailResponse = Prisma.CategoryGetPayload<{
   select: {
     id: true
     name: true
-    ownerId: true
     image: true
     nfts: {
       select: {
@@ -149,7 +145,6 @@ export type HomeFeedResponse = Prisma.CategoryGetPayload<{
         owner: {
           select: {
             name: true
-            id: true
           }
         }
         _count: {
@@ -168,8 +163,6 @@ export type CollectionsResponse = Prisma.CollectionGetPayload<{
     id: true
     name: true
     image: true
-    ownerId: true
-
     owner: {
       select: { name: true; id: true }
     }
@@ -184,8 +177,6 @@ export type CollectionDetailResponse = Prisma.CollectionGetPayload<{
   select: {
     id: true
     name: true
-    ownerId: true
-
     image: true
     description: true
     disccount: true
@@ -202,7 +193,6 @@ export type CollectionDetailResponse = Prisma.CollectionGetPayload<{
         id: true
         name: true
         ownerId: true
-
         image: true
         price: true
         owner: {
@@ -222,7 +212,6 @@ export type SearchResponse = Prisma.NftGetPayload<{
     id: true
     name: true
     image: true
-    ownerId: true
     price: true
   }
 }>[]

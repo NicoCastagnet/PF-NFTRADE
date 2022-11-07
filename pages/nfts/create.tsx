@@ -58,9 +58,13 @@ export const validationSchema = Yup.object().shape(
 )
 
 const CreateProduct: NextPage<Props> = ({ fallbackData }) => {
-  const { data: categories } = useSWR<Category[]>('/api/categories', fetcher, {
-    fallbackData,
-  })
+  const { data: categories } = useSWR<Category[]>(
+    'http://localhost:3000/api/categories',
+    fetcher,
+    {
+      fallbackData,
+    },
+  )
 
   const initialValues: NftFormValues = {
     name: '',
@@ -392,7 +396,7 @@ const CreateProduct: NextPage<Props> = ({ fallbackData }) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const data = await fetcher('/api/categories')
+  const data = await fetcher('http://localhost:3000/api/categories')
   return {
     props: { fallbackData: data || {} },
   }
