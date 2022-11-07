@@ -2,6 +2,7 @@ import SvgCoin from '@components/icons/svgCoin'
 import SvgCross from '@components/icons/svgCross'
 import { useCart } from '@context/cart'
 import { Dialog, Transition } from '@headlessui/react'
+import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { Fragment } from 'react'
 import { useTotalPrice } from '../../hook/getPrice'
@@ -28,7 +29,6 @@ const CartSideBar: React.FC<CartSideBarProps> = ({ isOpen, handleClose }) => {
       toast.error('carga plata rata')
     }
   }
-
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
