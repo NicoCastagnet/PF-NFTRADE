@@ -20,13 +20,11 @@ const CartSideBar: React.FC<CartSideBarProps> = ({ isOpen, handleClose }) => {
   const { data: session } = useSession()
 
   const handleChange = async () => {
-    // const nft = []
-    // cart.forEach(el => nft.push(el.id))
     const res = await axios.post('http://localhost:3000/api/cart', {
       nfts: cart,
       comprador: session?.user,
     })
-    console.log('🚀 ~ file: index.tsx ~ line 28 ~ handleChange ~ res', res)
+    // console.log('🚀 ~ file: index.tsx ~ line 28 ~ handleChange ~ res', res)
 
     if (res.status === 404) {
       toast.error('carga plata rata')
