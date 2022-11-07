@@ -3,7 +3,11 @@ import type { NextPage } from 'next'
 import { useState } from 'react'
 
 const DemoPayment: NextPage = () => {
-  const [data, setData] = useState({ quantity: 0, unit_price: 0, idUser: 'cla4vgl930000py3rf0f4hi6n'})
+  const [data, setData] = useState({
+    quantity: 0,
+    unit_price: 0,
+    idUser: 'cla4vgl930000py3rf0f4hi6n',
+  })
 
   const payment = async (e: React.SyntheticEvent) => {
     e.preventDefault()
