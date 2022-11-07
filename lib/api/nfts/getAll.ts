@@ -28,6 +28,7 @@ export default async function getAllNfts({
       name: true,
       image: true,
       price: true,
+      ownerId: true,
       description: true,
       published: true,
       likedBy: {
@@ -36,7 +37,7 @@ export default async function getAllNfts({
         },
       },
       owner: {
-        select: { name: true },
+        select: { name: true, id: true},
       },
       _count: { select: { likedBy: true, viewedBy: true } },
       categories: true,
