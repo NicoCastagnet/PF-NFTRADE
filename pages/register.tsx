@@ -4,7 +4,7 @@ import {
   handleBlurEmail,
   handleBlurPassword,
   handleBlurUserName,
-  registerValidate,
+  registerValidate
 } from 'hook/validate'
 import type { NextPage } from 'next'
 import { useSession } from 'next-auth/react'

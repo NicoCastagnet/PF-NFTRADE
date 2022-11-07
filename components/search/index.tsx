@@ -3,7 +3,7 @@
 import {
   AutocompleteState,
   BaseItem,
-  createAutocomplete,
+  createAutocomplete
 } from '@algolia/autocomplete-core'
 import SearchIcon from '@components/icons/svgSearch'
 import { useMemo, useRef, useState } from 'react'

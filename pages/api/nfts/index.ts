@@ -42,7 +42,7 @@ export default async function handler(
         },
       },
       owner: {
-        select: { name: true },
+        select: { id: true, name: true },
       },
       _count: { select: { likedBy: true, viewedBy: true } },
       categories: {
