@@ -14,7 +14,7 @@ export default async function handler(
       name: true,
       image: true,
       owner: {
-        select: { name: true },
+        select: { id: true, name: true },
       },
       _count: {
         select: {
