@@ -31,18 +31,15 @@ const UserMenuNavBar = ({ menu }: { menu: boolean }) => {
               <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white xl:hidden">
                 <Link href="/marketplace">Marketplace</Link>
               </li>
-              <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white">
-                <Link href="#">Dashboard</Link>
+              <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white cursor-pointer">
+                <Link href="/dashboard">Dashboard</Link>
               </li>
-              <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white">
+              <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white cursor-pointer">
                 <Link href="#">Settings</Link>
-              </li>
-              <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white">
-                <Link href="/nfts/create">Create NFT</Link>
               </li>
             </ul>
             <div
-              className="block py-3 px-4 text-sm hover:bg-gray-600 hover:rounded-b-xl text-gray-200 hover:text-white"
+              className="block py-3 px-4 text-sm hover:bg-gray-600 hover:rounded-b-xl text-gray-200 hover:text-white cursor-pointer"
               onClick={async () => {
                 await signOut()
               }}
@@ -58,9 +55,11 @@ const UserMenuNavBar = ({ menu }: { menu: boolean }) => {
           } before:absolute before:z-20 ${styles.menuLogOut}`}
         >
           <div
-            className={` z-[999] w-44 shadow bg-gray-700 absolute top-9 right-[-2rem] rounded-xl `}
+            className={` z-[999] w-44 shadow bg-gray-700 absolute top-9 right-[-0.2rem] rounded-xl `}
           >
-            <div className="py-3 px-4 text-sm text-white">Welcome user !</div>
+            <div className="py-3 px-4 text-sm text-white">
+              Welcome! Get started
+            </div>
             <ul
               className=" text-sm text-gray-200 border-t-2 border-gray-600"
               aria-labelledby="dropdownInformationButton"
@@ -77,7 +76,7 @@ const UserMenuNavBar = ({ menu }: { menu: boolean }) => {
                   router.push('/login')
                 }}
               >
-                LogIn
+                Login
               </li>
               <li
                 className="block py-3 pb-4 px-4 hover:bg-gray-600 hover:text-white hover:rounded-b-xl cursor-pointer"
