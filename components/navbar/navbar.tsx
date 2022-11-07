@@ -4,10 +4,11 @@ import SvgChevronDown from '@components/icons/svgChevronDown'
 import SvgCoin from '@components/icons/svgCoin'
 import SvgUser from '@components/icons/svgUser'
 import Search from '@components/search'
+import axios from 'axios'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useOpenMenu } from '../../hook/openCartMenu'
 import Hamburguesa from './hamburguesa'
 import Logo from './logo'
@@ -18,6 +19,18 @@ export default function NavBar() {
   const [menu, setMen] = useState(false)
   const { data: session } = useSession()
   const { open, setOpen } = useOpenMenu()
+  const [coins, setCoins] = useState('')
+
+  const userCoins = async () => {
+    const res = await axios.get(
+      `http://localhost:3000/api/user/${session?.user.id}`,
+    )
+    setCoins(res.data.coins)
+  }
+
+  useEffect(() => {
+    session && userCoins()
+  }, [session, userCoins])
 
   return (
     <nav className="navbar__nav h-20 bg-slate-900 w-full flex flex-row  text-center items-center  justify-center drop-shadow-lg fixed top-0 z-10 px-4">
@@ -52,11 +65,12 @@ export default function NavBar() {
             </div>
             {/* ----------------------------------------------- */}
             {session && (
-              <SvgCoin
-                className="m-3 hover:text-blue-500 transition-all"
-                width={'25'}
-                height={'25'}
-              />
+              <div className="flex flex-col items-center justify-center text-center group hover:text-blue-500 transition-all">
+                <SvgCoin className="m-3" width={'25'} height={'25'} />
+                <div className="absolute bg-gray-700 w-20 h-11 top-16 invisible group-hover:visible flex items-center justify-center rounded-lg text-white">
+                  {coins} coins
+                </div>
+              </div>
             )}
             <SvgCart
               className="m-3 cursor-pointer hover:text-blue-500 transition-all"
