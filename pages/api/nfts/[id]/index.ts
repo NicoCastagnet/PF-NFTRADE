@@ -13,7 +13,6 @@ export default async function handler(
         id: true,
         name: true,
         image: true,
-        ownerId: true,
         description: true,
         price: true,
         published: true,

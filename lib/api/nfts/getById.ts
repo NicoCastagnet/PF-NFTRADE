@@ -13,7 +13,6 @@ const getNftById = async ({
         id: true,
         name: true,
         image: true,
-        ownerId: true,
         description: true,
         price: true,
         published: true,
@@ -27,7 +26,7 @@ const getNftById = async ({
         },
         likedBy: { select: { id: true } },
         owner: {
-          select: { name: true, id: true },
+          select: { name: true },
         },
         creator: {
           select: { name: true },

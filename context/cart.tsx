@@ -3,7 +3,7 @@ import type { NftResponse } from 'types/api-responses'
 
 const CART_KEY = 'pf-nftrade-cart'
 
-type CartItem = Pick<NftResponse, 'id' | 'name' | 'image' | 'price' | 'ownerId'>
+type CartItem = Pick<NftResponse, 'id' | 'name' | 'image' | 'price'>
 
 interface CartContext {
   cart: CartItem[]
