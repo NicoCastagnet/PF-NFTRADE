@@ -123,7 +123,7 @@ const UserDetail: NextPage<Props> = ({ user }) => {
                     <div>
                       <div className="rounded-xl border-spacing-2">
                         <Image
-                          src={el.image}
+                          src={el.image || ''}
                           height={350}
                           width={400}
                           quality={20}
@@ -191,7 +191,7 @@ const UserDetail: NextPage<Props> = ({ user }) => {
                     <div>
                       <div className="rounded-xl border-spacing-2">
                         <Image
-                          src={el.image}
+                          src={el.image || ''}
                           height={350}
                           width={400}
                           quality={20}
@@ -254,7 +254,7 @@ const UserDetail: NextPage<Props> = ({ user }) => {
                     <div>
                       <div className="rounded-xl border-spacing-2">
                         <Image
-                          src={el.image}
+                          src={el.image || ''}
                           height={350}
                           width={400}
                           quality={20}
