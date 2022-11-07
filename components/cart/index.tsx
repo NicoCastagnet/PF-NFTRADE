@@ -15,6 +15,21 @@ const CartSideBar: React.FC<CartSideBarProps> = ({ isOpen, handleClose }) => {
   const { cart, removeItem, clearCart } = useCart()
   const { totalPrice } = useTotalPrice()
 
+  const { data: session } = useSession()
+
+  const handleChange = async () => {
+    const res = await axios.post('http://localhost:3000/api/cart', {
+      nfts: cart,
+      comprador: session?.user,
+    })
+    // console.log('🚀 ~ file: index.tsx ~ line 28 ~ handleChange ~ res', res)
+
+    if (res.status === 404) {
+      toast.error('carga plata rata')
+    }
+  }
+
+
   return (
     <Transition.Root show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={handleClose}>
