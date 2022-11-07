@@ -44,13 +44,13 @@ model User {
   accounts           Account[]
   collectionsCreated Collection[] @relation("UserCollectionsCreated")
   collectionsOwned   Collection[] @relation("UserCollectionsOwned")
+  comments           Comment[]
   nftsCreated        Nft[]        @relation("UserNftsCreated")
   nftsOwned          Nft[]        @relation("UserNftsOwned")
   sessions           Session[]
   wishes             WishList[]
   likes              Nft[]        @relation("UserLikedNfts")
   views              Nft[]        @relation("UserViewedNfts")
-  comments           Comment[]
 }
 
 model VerificationToken {
@@ -76,11 +76,11 @@ model Nft {
   collection   Collection? @relation(fields: [collectionId], references: [id])
   creator      User        @relation("UserNftsCreated", fields: [creatorId], references: [id])
   owner        User        @relation("UserNftsOwned", fields: [ownerId], references: [id])
+  comments     Comment[]
   wishedBy     WishList[]
   categories   Category[]  @relation("CategoriesOnNft")
   likedBy      User[]      @relation("UserLikedNfts")
   viewedBy     User[]      @relation("UserViewedNfts")
-  comments     Comment[]
 }
 
 model Category {
@@ -116,20 +116,29 @@ model WishList {
 
 model Comment {
   id          String   @id @default(cuid())
-  nft         Nft      @relation(fields: [nftId], references: [id])
   nftId       String
-  user        User     @relation(fields: [userId], references: [id])
   userId      String
   isPublished Boolean  @default(true)
   content     String
   createdAt   DateTime @default(now())
+  nft         Nft      @relation(fields: [nftId], references: [id])
+  user        User     @relation(fields: [userId], references: [id])
 }
+
 model Buys {
-  buyId  String   @id
-  userId String
-  date   String
-  coins  Int
-  status String
-  amount Int
+  buyId     String   @id
+  userId    String
+  date      String
+  coins     Int
+  status    String
+  amount    Int
+  createdAt DateTime @default(now())
+}
+
+model BuyNfts {
+  nftsId      String   @id
+  compradorId String
+  vendedorId  String
+  coins       Float
   createdAt   DateTime @default(now())
 }
