@@ -6,12 +6,26 @@ import SvgChevronDown from '@components/icons/svgChevronDown'
 import SvgHome from '@components/icons/svgHome'
 import SvgLogOut from '@components/icons/svgLogOut'
 import SvgSettings from '@components/icons/svgSettings'
+import axios from 'axios'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useState } from 'react'
+import { Bar } from 'react-chartjs'
 
 const DashBoard: NextPage = () => {
+  const [chartData, setChartData] = useState()
+  const [chartData2, setChartData2] = useState()
+
+  const data = async () => {
+    const res = await axios.get('http://localhost:3000/api/dashboardata')
+    setChartData(res.data.data)
+    setChartData2(res.data.data2)
+  }
+
+  const [tag, setTag] = useState({ label: chartData2.map((e) => e.coins) })
+
   return (
     <section className="dashboard__home flex">
       <Head>
@@ -89,6 +103,7 @@ const DashBoard: NextPage = () => {
               <p>Total sales</p>
             </div>
           </div>
+          <Bar data={data} options={} />
         </div>
       </div>
     </section>
