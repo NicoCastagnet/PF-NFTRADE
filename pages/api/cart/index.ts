@@ -11,7 +11,7 @@ export default async function handler(
 
   if (req.method === 'POST') {
     try {
-      nfts.forEach(async(el) => {
+      nfts.forEach(async (el) => {
         const comp = await prisma.user.findUnique({
           where: {
             id: el.ownerId,
@@ -21,10 +21,9 @@ export default async function handler(
             coins: true,
           },
         })
-        if(comp?.coins < el.price){
+        if (comp?.coins < el.price) {
           res.status(404).json({ msg: 'not coins' })
         }
-
 
         await prisma.nft.update({
           where: {
@@ -36,7 +35,7 @@ export default async function handler(
           },
         })
 
-      await prisma.nft.findUniqueOrThrow({
+        await prisma.nft.findUniqueOrThrow({
           where: {
             id: el.id,
           },
@@ -46,8 +45,6 @@ export default async function handler(
             ownerId: true,
           },
         })
-
-        
 
         await prisma.user.updateMany({
           where: {
