@@ -119,20 +119,40 @@ const Marketplace: NextPage<HomeProps> = () => {
                       : ''
                   }  relative flex flex-col bg-gray-800 rounded-xl overflow-auto p-[1px] border-slate-900 cursor-pointer group`}
                 >
-                  <span className="flex flex-row justify-center items-center gap-2 font-semibold text-white bg-slate-500 rounded-full px-2 absolute top-2 right-2 z-[1] ">
-                    <span className=" pl-1 ">{likesNum}</span>
-                    <span onClick={() => likeHandler(el, likes)} className="">
-                      <SvgHeart
-                        className={`${
-                          likes.includes(user?.id) && ' text-red-600'
-                        } w-6 h-7 text-white hover:text-green-600`}
-                      />
+                  {user ? (
+                    <span className="flex flex-row justify-center items-center gap-2 font-semibold text-white bg-slate-500 rounded-full px-2 absolute top-2 right-2 z-[1] ">
+                      <span className=" pl-1 ">{likesNum}</span>
+                      <span onClick={() => likeHandler(el, likes)} className="">
+                        <SvgHeart
+                          className={`${
+                            likes.includes(user?.id) && ' text-red-600'
+                          } w-6 h-7 text-white hover:text-green-600`}
+                        />
+                      </span>
                     </span>
-                  </span>
+                  ) : (
+                    <span className=" cursor-default flex flex-row justify-center items-center gap-2 font-semibold text-white bg-slate-500 rounded-full px-2 absolute top-2 right-2 z-[1] ">
+                      <span className=" pl-1 cursor-default">{likesNum}</span>
+                      <span>
+                        <SvgHeart
+                          className={` w-6 h-7 text-white cursor-default`}
+                        />
+                      </span>
+                    </span>
+                  )}
+
                   <Link href={`/nfts/${el.id}`} key={el.id}>
                     {/* // h-[35rem] w-[22rem] */}
-                    <div>
-                      <div className="rounded-xl border-spacing-2">
+                    <div
+                      className={` ${
+                        carSize === 'bigger'
+                          ? 'h-[35rem] w-[22rem] overflow-hidden'
+                          : carSize === 'small'
+                          ? 'h-[28rem] w-[18rem] overflow-hidden'
+                          : ''
+                      }  relative flex flex-col bg-gray-800 rounded-xl overflow-auto p-[1px] border-slate-900 cursor-pointer group`}
+                    >
+                      <div className="rounded-xl border-spacing-2 h-[20rem]">
                         <Image
                           src={el.image}
                           height={carSize === 'small' ? 350 : 370}
@@ -190,8 +210,8 @@ const Marketplace: NextPage<HomeProps> = () => {
                           </div>
                         </div>
                       </div>
+                      {/* <button className={` bg-blue-600 w-[99.5%] rounded-b-xl text-center py-1 z-[3]  font-semibold text-2xl left-0 bottom-0 `}>Buy</button> */}
                     </div>
-                    {/* <button className={` bg-blue-600 w-[99.5%] rounded-b-xl text-center py-1 z-[3]  font-semibold text-2xl left-0 bottom-0 `}>Buy</button> */}
                   </Link>
                 </div>
               )

@@ -2,7 +2,9 @@ import SvgCoin from '@components/icons/svgCoin'
 import SvgCross from '@components/icons/svgCross'
 import { useCart } from '@context/cart'
 import { Dialog, Transition } from '@headlessui/react'
+
 import axios from 'axios'
+
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { Fragment } from 'react'
