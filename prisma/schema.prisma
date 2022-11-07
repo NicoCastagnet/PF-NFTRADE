@@ -133,3 +133,12 @@ model Buys {
   amount Int
   createdAt   DateTime @default(now())
 }
+
+
+model BuyNfts {
+  nftId  String   @id
+  userComprador   String
+  userVendedor    String
+  coins           Int
+  createdAt       DateTime @default(now())
+}
