@@ -46,6 +46,8 @@ const Marketplace: NextPage<HomeProps> = () => {
   })
   const { nfts, isLoading } = useNfts(order, filter)
 
+  useNfts(order, filter)
+
   const { data: session } = useSession()
   const user = session?.user
 
