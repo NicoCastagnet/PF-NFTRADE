@@ -6,32 +6,28 @@ const Notificaciones = () => {
     <section
       className={`flex justify-center items-center relative ${styles.notify}`}
     >
-      {/* ///////////////////////////////////////////////// */}
-      <button className="relative">
+      <button className="relative group">
         <span className="h-4 w-4 bg-red-500 rounded-full inline-flex absolute top-[0.35rem] border-[3px] border-gray-900 z-10"></span>
         <span className="animate-ping h-4 w-4 bg-red-500 rounded-full inline-flex absolute top-[0.35rem] z-10"></span>
         <SvgBell
-          className={`m-3 ${styles.bell} hover:text-yellow-500 transition-all`}
+          className={`m-3 ${styles.bell} group-hover:text-yellow-500 transition-all`}
           width={'25'}
           height={'25'}
         />
       </button>
-      {/* ///////////////////////////////////////////////// */}
-      <section className="absolute top-16 -right-40 w-full before:absolute before:-top-4 before:right-40 before:border-b-[1rem] before:border-b-white before:dark:border-b-gray-800">
+      <section className="absolute top-16 -right-40 w-full before:absolute before:-top-4 before:right-40 before:border-b-[1rem] before:border-b-gray-700 dark:before:border-b-[#303339]">
         <div
-          className={`z-20 w-full bg-white divide-y divide-gray-100 shadow dark:bg-gray-800 dark:divide-gray-700 rounded-lg before:border-b-8 before:border-b-white`}
+          className={`bg-gray-700 dark:bg-[#303339] divide-gray-800 dark:divide-gray-700 z-20 w-full shadow rounded-lg before:border-b-8 before:border-b-gray-700 dark:before:border-b-[#303339]`}
           data-popper-placement="bottom"
         >
-          {/* ----------------------------------------------------------------------------- */}
-          <div className="block py-2 px-4 font-medium text-center text-gray-700 bg-gray-50 dark:bg-gray-800 dark:text-white rounded-t-xl">
+          <div className="block py-2 px-4 font-medium text-center bg-gray-700 dark:bg-[#303339] text-white rounded-t-xl">
             Notifications
           </div>
-          {/* ----------------------------------------------------------------------------- */}
 
-          <div className="divide-y divide-gray-100 dark:divide-gray-700">
+          <div className="divide-y divide-gray-800 dark:divide-gray-700">
             <a
               href="#"
-              className="flex py-3 px-4 hover:bg-gray-100 dark:hover:bg-gray-700"
+              className="flex py-3 px-4 hover:bg-gray-600 dark:hover:bg-[#393b41]"
             >
               <div className="pl-3 w-full">
                 <div className="text-gray-500 text-sm mb-1.5 dark:text-gray-400">
@@ -48,7 +44,7 @@ const Notificaciones = () => {
             </a>
             <a
               href="#"
-              className="flex py-3 px-4 hover:bg-gray-100 dark:hover:bg-gray-700"
+              className="flex py-3 px-4 hover:bg-gray-100 dark:hover:bg-[#393b41]"
             >
               <div className="pl-3 w-full">
                 <div className="text-gray-500 text-sm mb-1.5 dark:text-gray-400">
@@ -68,7 +64,7 @@ const Notificaciones = () => {
             </a>
             <a
               href="#"
-              className="flex py-3 px-4 hover:bg-gray-100 dark:hover:bg-gray-700"
+              className="flex py-3 px-4 hover:bg-gray-100 dark:hover:bg-[#393b41]"
             >
               <div className="pl-3 w-full">
                 <div className="text-gray-500 text-sm mb-1.5 dark:text-gray-400">
@@ -88,7 +84,7 @@ const Notificaciones = () => {
             </a>
             <a
               href="#"
-              className="flex py-3 px-4 hover:bg-gray-100 dark:hover:bg-gray-700"
+              className="flex py-3 px-4 hover:bg-gray-100 dark:hover:bg-[#393b41]"
             >
               <div className="pl-3 w-full">
                 <div className="text-gray-500 text-sm mb-1.5 dark:text-gray-400">
@@ -105,14 +101,12 @@ const Notificaciones = () => {
             </a>
           </div>
 
-          {/* ----------------------------------------------------------------------------- */}
           <a
             href="#"
-            className="block py-2 text-sm font-medium text-center text-gray-900 bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white rounded-b-xl"
+            className="block py-2 text-sm font-medium text-center text-gray-900 bg-gray-50 hover:bg-gray-100 dark:bg-[#303339] dark:hover:bg-[#393b41] dark:text-white rounded-b-xl"
           >
             <div className="inline-flex items-center ">View all</div>
           </a>
-          {/* ----------------------------------------------------------------------------- */}
         </div>
       </section>
     </section>
