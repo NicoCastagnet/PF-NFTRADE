@@ -13,7 +13,7 @@ const AboutHome = () => {
           <p className="left-title text-5xl font-bold tracking-wide max-md:text-3xl">
             Why choosing us?
           </p>
-          <p className="mt-10 max-md:mt-5 mb-10 max-md:text-sm ease duration-500">
+          <p className="mt-10 max-md:mt-5 mb-10 max-md:text-sm ease duration-500 text-gray-600 dark:text-gray-400">
             NFTrade is the best marketplace in the NFT Universe. We cover the
             most eye-catching drops, exciting events, and high-profile releases
             that keep the wheels of the Non-Fungible Token industry turning!
@@ -24,7 +24,7 @@ const AboutHome = () => {
           <Link href="/about">
             <button
               type="button"
-              className="text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-200 font-medium rounded-full text-sm py-2 px-7 text-center"
+              className="text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-full text-sm py-2 px-7 text-center transition-all"
             >
               Read more
             </button>

@@ -10,16 +10,16 @@ interface ItemProps {
 
 const AutocompleteItem: React.FC<ItemProps> = ({ id, name, image, price }) => {
   return (
-    <li className="border-b border-slate-600">
+    <li className="border-b border-slate-600 dark:border-[#393b41]">
       <Link href={`/nfts/${id}`}>
-        <a className="hover:bg-slate-600 flex gap-4 p-4">
+        <a className="hover:bg-slate-600 dark:hover:bg-[#393b41] flex gap-4 p-4">
           <Image
             src={image}
             alt={name}
             width={48}
             height={48}
             layout="fixed"
-            className="rounded-md"
+            className="rounded-md object-cover"
           />
           <div className="text-white text-left">
             <h3 className="text-sm font-semibold">{name}</h3>
