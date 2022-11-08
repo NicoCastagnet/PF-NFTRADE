@@ -65,7 +65,7 @@
 
 @media screen and (max-width: 1280px) {
   .menuLogIn::before {
-    right: 1.7rem;
+    right: 2.28rem;
   }
 }
 
@@ -131,4 +131,16 @@
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+}
+
+.loadding {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  display: inline-block;
+  border-top: 5px solid #FFF;
+  border-right: 5px solid transparent;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+
 }
