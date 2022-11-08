@@ -66,5 +66,33 @@ export default async function payDescription(
     } catch (error: any) {
       console.log(error.message)
     }
+  } else if (req.method === 'GET') {
+    const { user } = req.query
+    console.log('🚀 ~ file: index.ts ~ line 71 ~ user', user)
+
+    const notifyBuys = await prisma.buys.findMany({
+      where: {
+        userId: user?.toString(),
+      },
+    })
+    const notifyCompBuyNfts = await prisma.buyNfts.findMany({
+      where: {
+        compradorId: user?.toString(),
+      },
+    })
+    const notifyVendBuyNfts = await prisma.buyNfts.findMany({
+      where: {
+        compradorId: user?.toString(),
+      },
+    })
+
+    const notify = [...notifyBuys, ...notifyCompBuyNfts, ...notifyVendBuyNfts]
+
+    notify.sort(
+      (a: { createdAt: any }, b: { createdAt: any }) =>
+        b.createdAt - a.createdAt,
+    )
+
+    res.json({ notify: notify.slice(0, 10) })
   }
 }

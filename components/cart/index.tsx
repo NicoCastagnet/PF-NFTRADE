@@ -6,6 +6,7 @@ import axios from 'axios'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { Fragment } from 'react'
+import toast from 'react-hot-toast'
 import { useTotalPrice } from '../../hook/getPrice'
 
 interface CartSideBarProps {
@@ -20,10 +21,14 @@ const CartSideBar: React.FC<CartSideBarProps> = ({ isOpen, handleClose }) => {
   const { data: session } = useSession()
 
   const handleChange = async () => {
-    await axios.post('http://localhost:3000/api/cart', {
+    const res = await axios.post('http://localhost:3000/api/cart', {
       nfts: cart,
       comprador: session?.user,
     })
+
+    if (res.status === 404) {
+      toast.error('Insufficient coins.')
+    }
   }
 
   return (

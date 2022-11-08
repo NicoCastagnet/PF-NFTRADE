@@ -10,6 +10,7 @@ const nextConfig = {
       'lh3.googleusercontent.com',
       'pbs.twimg.com',
       'media-exp1.licdn.com',
+      'platform-lookaside.fbsbx.com',
     ],
   },
   async headers() {
