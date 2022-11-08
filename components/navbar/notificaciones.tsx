@@ -87,57 +87,59 @@ const Notificaciones = () => {
                     </a>
                   ) : (
                     <>
-                      {session?.user.id == el?.compradorId ?
-                      <a
-                        key={index}
-                        href="#"
-                        className="flex py-3 px-4 hover:bg-gray-600 dark:hover:bg-[#393b41]"
-                      >
-                        <div className="pl-3 w-full">
-                          <div className="text-gray-500 text-sm mb-1.5 dark:text-gray-400">
-                            {`has comprado un nft a ${el?.nameVendedor}`}&nbsp;
-                            <span className="font-semibold text-gray-900 dark:text-white">
-                              &nbsp;{`por el total de ${el?.coins} Coins`}
-                              {/* {session?.user.name || session?.user.username} */}
-                            </span>
-                            &nbsp;{` your payment has been made successfully`}
+                      {session?.user.id == el?.compradorId ? (
+                        <a
+                          key={index}
+                          href="#"
+                          className="flex py-3 px-4 hover:bg-gray-600 dark:hover:bg-[#393b41]"
+                        >
+                          <div className="pl-3 w-full">
+                            <div className="text-gray-500 text-sm mb-1.5 dark:text-gray-400">
+                              {`has comprado un nft a ${el?.nameVendedor}`}
+                              &nbsp;
+                              <span className="font-semibold text-gray-900 dark:text-white">
+                                &nbsp;{`por el total de ${el?.coins} Coins`}
+                                {/* {session?.user.name || session?.user.username} */}
+                              </span>
+                              &nbsp;{` your payment has been made successfully`}
+                            </div>
+                            <div className="text-xs text-blue-600 dark:text-blue-500">
+                              {el?.createdAt && (
+                                <ReactTimeAgo
+                                  date={el?.createdAt}
+                                  format={'twitter'}
+                                />
+                              )}
+                            </div>
                           </div>
-                          <div className="text-xs text-blue-600 dark:text-blue-500">
-                            {el?.createdAt && (
-                              <ReactTimeAgo
-                                date={el?.createdAt}
-                                format={'twitter'}
-                              />
-                            )}
+                        </a>
+                      ) : (
+                        <a
+                          key={index}
+                          href="#"
+                          className="flex py-3 px-4 hover:bg-gray-600 dark:hover:bg-[#393b41]"
+                        >
+                          <div className="pl-3 w-full">
+                            <div className="text-gray-500 text-sm mb-1.5 dark:text-gray-400">
+                              {`has realizado una venta de nft al comprador  ${el?.nameComprador}`}
+                              &nbsp;
+                              <span className="font-semibold text-gray-900 dark:text-white">
+                                &nbsp;{`por el total de  ${el?.coins} Coins`}
+                                {/* {session?.user.name || session?.user.username} */}
+                              </span>
+                              &nbsp;{` your payment has been made successfully`}
+                            </div>
+                            <div className="text-xs text-blue-600 dark:text-blue-500">
+                              {el?.createdAt && (
+                                <ReactTimeAgo
+                                  date={el?.createdAt}
+                                  format={'twitter'}
+                                />
+                              )}
+                            </div>
                           </div>
-                        </div>
-                      </a> :
-                      <a
-                      key={index}
-                      href="#"
-                      className="flex py-3 px-4 hover:bg-gray-600 dark:hover:bg-[#393b41]"
-                    >
-                      <div className="pl-3 w-full">
-                        <div className="text-gray-500 text-sm mb-1.5 dark:text-gray-400">
-                          {`has realizado una venta de nft al comprador  ${el?.nameComprador}`}&nbsp;
-                          <span className="font-semibold text-gray-900 dark:text-white">
-                            &nbsp;{`por el total de  ${el?.coins} Coins`}
-                            {/* {session?.user.name || session?.user.username} */}
-                          </span>
-                          &nbsp;{` your payment has been made successfully`}
-                        </div>
-                        <div className="text-xs text-blue-600 dark:text-blue-500">
-                          {el?.createdAt && (
-                            <ReactTimeAgo
-                              date={el?.createdAt}
-                              format={'twitter'}
-                            />
-                          )}
-                        </div>
-                      </div>
-                    </a>
-                      
-                    }
+                        </a>
+                      )}
                     </>
                   )}
                 </>

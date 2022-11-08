@@ -88,8 +88,10 @@ export default async function payDescription(
 
     const notify = [...notifyBuys, ...notifyCompBuyNfts, ...notifyVendBuyNfts]
 
-    notify.sort((a: {createdAt: any}, b: {createdAt: any}) => b.createdAt - a.createdAt)
-
+    notify.sort(
+      (a: { createdAt: any }, b: { createdAt: any }) =>
+        b.createdAt - a.createdAt,
+    )
 
     res.json({ notify: notify.slice(0, 10) })
   }

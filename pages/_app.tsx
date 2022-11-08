@@ -10,7 +10,6 @@ import { CartProvider } from '@context/cart'
 import type { Session } from 'next-auth'
 import { SessionProvider } from 'next-auth/react'
 
-
 import TimeAgo from 'javascript-time-ago'
 
 import en from 'javascript-time-ago/locale/en.json'
