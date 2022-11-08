@@ -3,7 +3,7 @@ import SvgQuestionMark from '@components/icons/svgQuestionMark'
 import {
   Accordion,
   AccordionBody,
-  AccordionHeader
+  AccordionHeader,
 } from '@material-tailwind/react'
 import { Fragment, useState } from 'react'
 
