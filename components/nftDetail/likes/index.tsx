@@ -6,8 +6,7 @@ import { useState } from 'react'
 import useSWR, { mutate } from 'swr'
 import type { LikesResponse } from 'types/api-responses'
 
-const LIKES_URL = (nftId: string) =>
-  `http://localhost:3000/api/nfts/${nftId}/likes`
+const LIKES_URL = (nftId: string) => `/api/nfts/${nftId}/likes`
 
 const useLikes = (nftId: string) => {
   const { data: likes, error } = useSWR<LikesResponse>(

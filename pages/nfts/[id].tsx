@@ -41,7 +41,6 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
         }),
       })
     }
-    console.log('Change nft', nft.id)
     if (user) putViews()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nft.id, user?.id])
