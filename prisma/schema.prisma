@@ -141,4 +141,6 @@ model BuyNfts {
   vendedorId  String
   coins       Float
   createdAt   DateTime @default(now())
+  nameComprador String?
+  nameVendedor String?
 }
