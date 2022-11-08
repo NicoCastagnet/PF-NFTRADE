@@ -1,5 +1,6 @@
-/* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable @next/next/no-img-element */
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import Footer from '@components/footer'
 import SvgCoin from '@components/icons/svgCoin'
 import SvgPencil from '@components/icons/svgPencil'
@@ -115,6 +116,7 @@ const UserDetail: NextPage<Props> = ({ user }) => {
             height={175}
             className=" bg-white rounded-full object-cover h-[175px] w-[175px]"
             src={userDetails.profilePicture || defaultAvatar}
+            alt={userDetails.name}
           />
         </div>
         {account?.id === user.id && (
