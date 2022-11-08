@@ -29,7 +29,7 @@ export default function Search() {
             getItems: ({ query }) => {
               if (query) {
                 return fetch(
-                  `http://localhost:3000/api/search?q=${query}`,
+                  `${process.env.NEXT_PUBLIC_APP_URL}/api/search?q=${query}`,
                 ).then((res) => res.json())
               }
               return []

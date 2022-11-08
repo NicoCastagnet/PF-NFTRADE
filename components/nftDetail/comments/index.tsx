@@ -6,7 +6,7 @@ import { useState } from 'react'
 import useSWR, { mutate } from 'swr'
 import type { CommentsResponse } from 'types/api-responses'
 
-const COMMENTS_URL = 'http://localhost:3000/api/comments/'
+const COMMENTS_URL = '/api/comments/'
 
 const useComments = (nftId: string) => {
   const { data: comments, error } = useSWR<CommentsResponse>(
@@ -29,7 +29,7 @@ const Comments: React.FC<{ nftId: string }> = ({ nftId }) => {
 
   async function handleDelete(commentId: string) {
     setDisabled(true)
-    fetch('http://localhost:3000/api/delete/comment', {
+    fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/delete/comment`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -51,7 +51,7 @@ const Comments: React.FC<{ nftId: string }> = ({ nftId }) => {
   async function submitComment() {
     if (comment.length > 0) {
       setDisabled(true)
-      fetch('http://localhost:3000/api/comments/create', {
+      fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/comments/create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
