@@ -247,17 +247,34 @@ export type UserDetailResponse = Prisma.UserGetPayload<{
     id: true
     name: true
     email: true
+    passwordHash: true
     emailVerified: true
     image: true
     coins: true
-    collectionsCreated: true
-    collectionsOwned: true
+    collectionsCreated: {
+      select: {
+        id: true
+        name: true
+        image: true
+        description: true
+        disccount: true
+      }
+    }
+    collectionsOwned: {
+      select: {
+        id: true
+        name: true
+        image: true
+        description: true
+        disccount: true
+      }
+    }
     nftsCreated: {
-      take: 3
+      take: 6
       select: { id: true; name: true; image: true; price: true }
     }
     nftsOwned: {
-      take: 3
+      take: 6
       select: { id: true; name: true; image: true; price: true }
     }
     wishes: {

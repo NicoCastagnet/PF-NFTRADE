@@ -30,13 +30,20 @@ const UserMenuNavBar = ({ menu }: { menu: boolean }) => {
               <li className="block py-2 px-4 hover:bg-gray-600 dark:hover:bg-[#393b41] hover:text-white xl:hidden">
                 <Link href="#">Explore</Link>
               </li>
-              <li className="block py-2 px-4 hover:bg-gray-600 dark:hover:bg-[#393b41] hover:text-white xl:hidden">
+
+
+              <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white xl:hidden">
                 <Link href="/marketplace">Marketplace</Link>
               </li>
-              <li className="block py-2 px-4 hover:bg-gray-600 dark:hover:bg-[#393b41] hover:text-white cursor-pointer">
+              <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white cursor-pointer">
+                <Link href={`/users/${session.user.id}`}>Profile</Link>
+              </li>
+              <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white cursor-pointer">
                 <Link href="/dashboard">Dashboard</Link>
               </li>
-              <li className="block py-2 px-4 hover:bg-gray-600 dark:hover:bg-[#393b41] hover:text-white cursor-pointer">
+
+              <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white cursor-pointer">
+
                 <Link href="#">Settings</Link>
               </li>
               <li className="block py-2 px-4 hover:bg-gray-600 dark:hover:bg-[#393b41] hover:text-white cursor-pointer">

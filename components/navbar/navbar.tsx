@@ -35,6 +35,8 @@ export default function NavBar() {
     session && userCoins()
   }, [session, userCoins])
 
+  useSession()
+
   return (
     <nav className="navbar__nav bg-slate-900 dark:bg-[#202225] h-20 w-full flex flex-row text-center items-center justify-center fixed top-0 z-10 px-4">
       <div
