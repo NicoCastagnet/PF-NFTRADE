@@ -1,6 +1,8 @@
 import prisma from '@lib/db'
 import axios from 'axios'
 import type { NextApiRequest, NextApiResponse } from 'next'
+import sendMail from '../emails'
+
 export default async function payDescription(
   req: NextApiRequest,
   res: NextApiResponse,
@@ -56,8 +58,11 @@ export default async function payDescription(
                 text: 'The coins were loaded succesfully.',
                 data: user,
               }
+              sendMail(req, res, query.id as string, 'buy Coins')
               res.status(205).json(msg)
             }
+          } else {
+            sendMail(req, res, query.id as string, 'buy Rejected')
           }
           res.status(200).send('recived')
         }
