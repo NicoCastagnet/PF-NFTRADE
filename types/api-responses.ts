@@ -271,15 +271,35 @@ export type UserDetailResponse = Prisma.UserGetPayload<{
     }
     nftsCreated: {
       take: 6
-      select: { id: true; name: true; image: true; price: true }
+      select: {
+        id: true
+        name: true
+        image: true
+        price: true
+        published: true
+      }
     }
     nftsOwned: {
       take: 6
-      select: { id: true; name: true; image: true; price: true }
+      select: {
+        id: true
+        name: true
+        image: true
+        price: true
+        published: true
+      }
     }
     wishes: {
       select: {
-        nft: { select: { id: true; name: true; image: true; price: true } }
+        nft: {
+          select: {
+            id: true
+            name: true
+            image: true
+            price: true
+            published: true
+          }
+        }
       }
     }
     likes: {
@@ -288,12 +308,21 @@ export type UserDetailResponse = Prisma.UserGetPayload<{
         name: true
         image: true
         price: true
+        published: true
       }
     }
     comments: {
       select: {
         id: true
-        nft: { select: { id: true; name: true; image: true; price: true } }
+        nft: {
+          select: {
+            id: true
+            name: true
+            image: true
+            price: true
+            published: true
+          }
+        }
         isPublished: true
         content: true
       }

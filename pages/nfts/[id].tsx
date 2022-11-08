@@ -46,11 +46,12 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
   }, [nft.id, user?.id])
 
   const categories = nft.categories.map((c) => c.name)
+  console.log(nft)
 
   return (
     <div className="flex flex-col items-center justify-center w-full min-h-screen">
       <NavBar />
-      <div className="bg-zinc-800 rounded-2xl flex flex-row py-12 mt-[10rem] mb-[5rem] h-[620px] w-[1200px] justify-around ">
+      <div className="bg-zinc-800 rounded-2xl flex flex-row py-12 mt-[10rem] mb-[5rem] h-[620px] w-[1200px] justify-around items-center ">
         <div className="flex justify-center items-center w-[500px]">
           <Image
             src={nft.image}
@@ -61,13 +62,14 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
             height={1000}
           />
         </div>
-        <div className="flex flex-col items-center justify-center px-8 text-white">
-          <div className="flex flex-row text-2xl font-medium">
-            <h1>{nft.name.toLocaleUpperCase()}</h1>
-          </div>
-
-          <div className="flex flex-row justify-start text-sm w-full font-medium">
-            <span>#{nft.id.toUpperCase().slice(0, 4)}</span>
+        <div className="flex flex-col items-start justify-between w-[30%] h-[80%] text-white ">
+          <div>
+            <div className="flex flex-row text-2xl font-medium">
+              <h1>{nft.name.toLocaleUpperCase()}</h1>
+            </div>
+            <div className="flex flex-row justify-start text-sm w-full font-medium">
+              <span>#{nft.id.toUpperCase().slice(0, 4)}</span>
+            </div>
           </div>
           <div className="flex justify-between w-full">
             {categories.map((c) => (
@@ -100,22 +102,18 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
             </div>
             <Likes nftId={nftId as string} />
           </div>
-          <div className="flex justify-center items-center py-6">
-            <Link href={'#'}>
-              <button
-                className="text-2xl bg-gray-600 py-3 px-20 rounded-xl"
-                onClick={() => {
-                  addItem(nft)
-                  cart.find((e) => e.name === nft.name)
-                    ? toast.error(
-                        'You have already added this NFT to the cart!',
-                      )
-                    : toast.success('NFT added to the cart!')
-                }}
-              >
-                ADD TO CART
-              </button>
-            </Link>
+          <div className="flex justify-center items-center py-6 w-full">
+            <button
+              className="text-2xl bg-gray-600 py-3 px-20 rounded-xl"
+              onClick={() => {
+                addItem(nft)
+                cart.find((e) => e.name === nft.name)
+                  ? toast.error('You have already added this NFT to the cart!')
+                  : toast.success('NFT added to the cart!')
+              }}
+            >
+              ADD TO CART
+            </button>
           </div>
         </div>
       </div>
