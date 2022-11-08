@@ -6,7 +6,7 @@ import { useState } from 'react'
 import useSWR, { mutate } from 'swr'
 import type { CommentsResponse } from 'types/api-responses'
 
-const COMMENTS_URL = 'https://pf-nftrade.vercel.app/api/comments/'
+const COMMENTS_URL = 'https://pf-nftrade.netlify.app/api/comments/'
 
 const useComments = (nftId: string) => {
   const { data: comments, error } = useSWR<CommentsResponse>(
@@ -29,7 +29,7 @@ const Comments: React.FC<{ nftId: string }> = ({ nftId }) => {
 
   async function handleDelete(commentId: string) {
     setDisabled(true)
-    fetch('https://pf-nftrade.vercel.app/api/delete/comment', {
+    fetch('https://pf-nftrade.netlify.app/api/delete/comment', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -51,7 +51,7 @@ const Comments: React.FC<{ nftId: string }> = ({ nftId }) => {
   async function submitComment() {
     if (comment.length > 0) {
       setDisabled(true)
-      fetch('https://pf-nftrade.vercel.app/api/comments/create', {
+      fetch('https://pf-nftrade.netlify.app/api/comments/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -16,14 +16,13 @@ export default class PaymentService {
       },
     ]
     const body = {
-      notification_url:
-        'https://32ed-190-245-83-198.sa.ngrok.io/api/notificaciones',
+      notification_url: 'https://pf-nftrade.netlify.app/api/notificaciones',
       payer_email: 'test_user_46945293@testuser.com ',
       items: datos,
       back_urls: {
         failure: '/failure',
         pending: '/pending',
-        success: '/localhost:3000',
+        success: '/https://pf-nftrade.netlify.app',
       },
     }
 

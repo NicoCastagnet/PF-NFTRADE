@@ -26,7 +26,7 @@ export default function NavBar() {
 
   const userCoins = async () => {
     const res = await axios.get(
-      `http://localhost:3000/api/user/${session?.user.id}`,
+      `http://https://pf-nftrade.netlify.app/api/user/${session?.user.id}`,
     )
     setCoins(res.data.coins)
   }

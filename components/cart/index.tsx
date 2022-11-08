@@ -20,7 +20,7 @@ const CartSideBar: React.FC<CartSideBarProps> = ({ isOpen, handleClose }) => {
   const { data: session } = useSession()
 
   const handleChange = async () => {
-    await axios.post('http://localhost:3000/api/cart', {
+    await axios.post('https://pf-nftrade.netlify.app/api/cart', {
       nfts: cart,
       comprador: session?.user,
     })
