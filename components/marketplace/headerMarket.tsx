@@ -29,40 +29,6 @@ const HeaderMarket: NextPage<Props> = ({
 }) => {
   const { openFilter, setOpenFilter } = useOpenFilterMenu()
   const [orderMenu, setOrderMenu] = useState(false)
-  // const [cont, setCont] = useState(0)
-
-  // const searchPriceAbove = () => {
-  //   const value = document.getElementById('priceSearch').value
-  //   if (value === '') {
-  //     alert('digite un valor minimo para el filtrado')
-  //   } else {
-  //     setOrder('filter1')
-  //     setFilter(['above', value, 100])
-  //   }
-  // }
-
-  // const searchPriceBelow = () => {
-  //   const value = document.getElementById('priceSearch').value
-  //   if (value === '') {
-  //     alert('digite un valor maximo para el filtrado')
-  //   } else {
-  //     setOrder('filter2')
-  //     setFilter(['below', value, 100])
-  //   }
-  // }
-  // const searchPriceBetween = () => {
-  //   const value1 = document.getElementById('priceSearch1').value
-  //   const value2 = document.getElementById('priceSearch2').value
-  //   if (value1 === '') {
-  //     alert('digite un valor minimo para la busqueda')
-  //   } else if (value2 === '') {
-  //     alert('digite un valor maximo para la busqueda')
-  //   } else {
-  //     setCont(cont + 1)
-  //     setOrder(cont.toString())
-  //     setFilter(['between', value1, value2])
-  //   }
-  // }
 
   const openOrderMenu = () => {
     setOrderMenu(!orderMenu)
@@ -70,7 +36,7 @@ const HeaderMarket: NextPage<Props> = ({
 
   return (
     <>
-      <section className="market__header bg-slate-900 text-white py-1 px-20 w-full flex justify-between top-[5rem] fixed z-[5] items-center">
+      <section className="market__header bg-slate-900 dark:bg-[#202225] dark:border-b-gray-600 dark:border-b text-white py-1 px-20 w-full flex justify-between top-[5rem] fixed z-[5] items-center">
         <div className="left flex">
           <FilterLateral
             isOpen={openFilter}
@@ -80,14 +46,14 @@ const HeaderMarket: NextPage<Props> = ({
           />
           <button
             type="button"
-            className="py-3 px-3 text-sm font-medium rounded-full border focus:z-10 focus:ring-2 bg-gray-700 border-gray-600 text-white hover:text-white hover:bg-gray-600 focus:ring-blue-500 focus:text-white"
+            className="bg-gray-700 text-white hover:bg-gray-500 dark:bg-[#303339] dark:hover:drop-shadow-lg transition-all py-3 px-3 text-sm font-medium rounded-full"
             onClick={() => setOpenFilter(!openFilter)}
           >
             <SvgList2 width="25" height="25" />
           </button>
           <button
             type="button"
-            className="group flex items-center py-3 px-3 ml-4 text-sm font-medium rounded-full border focus:z-10 focus:ring-2 bg-gray-700 border-gray-600 text-white hover:text-white hover:bg-gray-600 focus:ring-blue-500 focus:text-white"
+            className="bg-gray-700 text-white hover:bg-gray-500 dark:bg-[#303339] dark:hover:drop-shadow-lg transition-all group flex items-center py-3 px-3 ml-4 text-sm font-medium rounded-full"
             onClick={() => {
               setOrder('')
               setFilter({ minPrice: '', maxPrice: '' })
@@ -104,7 +70,7 @@ const HeaderMarket: NextPage<Props> = ({
         <div className="right flex">
           <button
             id="dropdownButton"
-            className="text-white focus:outline-none font-medium rounded-lg text-xl px-14 py-3 m-3 text-left flex items-center focus:z-10 focus:ring-2 bg-gray-700 border-gray-600 hover:text-white hover:bg-gray-600 focus:ring-blue-500 focus:text-white"
+            className="bg-gray-700 text-white hover:bg-gray-500 dark:bg-[#303339] dark:hover:drop-shadow-lg transition-all font-medium rounded-lg text-xl px-14 py-3 m-3 text-left flex items-center"
             type="button"
             onClick={openOrderMenu}
           >
@@ -114,14 +80,14 @@ const HeaderMarket: NextPage<Props> = ({
           <div className="inline-flex rounded-md shadow-sm m-3" role="group">
             <button
               type="button"
-              className="py-2 px-4 text-sm font-medium rounded-l-lg border focus:z-10 focus:ring-2 bg-gray-700 border-gray-600 text-white hover:text-white hover:bg-gray-600 focus:ring-blue-500 focus:text-white"
+              className="bg-gray-700 text-white hover:bg-gray-500 border-gray-500 dark:bg-[#303339] dark:border-[#43464c] dark:hover:drop-shadow-lg transition-all border py-2 px-4 text-sm font-medium rounded-l-lg"
               onClick={() => setCardSize('small')}
             >
               <SvgGrid3 width="25" height="25" />
             </button>
             <button
               type="button"
-              className="py-2 px-4 text-sm font-medium rounded-r-md border focus:z-10 focus:ring-2 bg-gray-700 border-gray-600 text-white hover:text-white hover:bg-gray-600 focus:ring-blue-500 focus:text-white"
+              className="bg-gray-700 text-white hover:bg-gray-500 border-gray-500 dark:bg-[#303339] dark:border-[#43464c] dark:hover:drop-shadow-lg transition-all border py-2 px-4 text-sm font-medium rounded-r-md"
               onClick={() => setCardSize('bigger')}
             >
               <SvgGrid2 width="25" height="25" />

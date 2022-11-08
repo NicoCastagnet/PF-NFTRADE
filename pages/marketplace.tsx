@@ -87,7 +87,7 @@ const Marketplace: NextPage<HomeProps> = () => {
   }
 
   return (
-    <div>
+    <div className="bg-gray-200 dark:bg-[#202225]">
       <Head>
         <title>NFTrade | Marketplace</title>
       </Head>
@@ -99,7 +99,7 @@ const Marketplace: NextPage<HomeProps> = () => {
         setCardSize={setCardSize}
       />
       <section className="market_list relative top-48">
-        <div className="market_list-container flex flex-wrap  justify-center w-auto rounded-lg py-6 mb-48 gap-4 min-h-screen">
+        <div className="market_list-container flex flex-wrap justify-center w-auto rounded-lg py-6 mb-48 gap-4 min-h-screen">
           {isLoading ? (
             <Loading />
           ) : (
@@ -117,32 +117,31 @@ const Marketplace: NextPage<HomeProps> = () => {
                       : carSize === 'small'
                       ? 'h-[28rem] w-[18rem] overflow-hidden'
                       : ''
-                  }  relative flex flex-col bg-gray-800 rounded-xl overflow-auto p-[1px] border-slate-900 cursor-pointer group`}
+                  }  relative flex flex-col rounded-xl overflow-auto p-[1px] cursor-pointer group drop-shadow-lg`}
                 >
                   {user ? (
-                    <span className="flex flex-row justify-center items-center gap-2 font-semibold text-white bg-slate-500 rounded-full px-2 absolute top-2 right-2 z-[1] ">
-                      <span className=" pl-1 ">{likesNum}</span>
-                      <span onClick={() => likeHandler(el, likes)} className="">
+                    <span className="flex flex-row justify-center items-center gap-2 font-semibold text-white bg-slate-500 rounded-full px-2 absolute top-2 right-2 z-[1]">
+                      <span className="pl-1">{likesNum}</span>
+                      <span onClick={() => likeHandler(el, likes)}>
                         <SvgHeart
                           className={`${
-                            likes.includes(user?.id) && ' text-red-600'
+                            likes.includes(user?.id) && 'text-red-600'
                           } w-6 h-7 text-white hover:text-green-600`}
                         />
                       </span>
                     </span>
                   ) : (
-                    <span className=" cursor-default flex flex-row justify-center items-center gap-2 font-semibold text-white bg-slate-500 rounded-full px-2 absolute top-2 right-2 z-[1] ">
-                      <span className=" pl-1 cursor-default">{likesNum}</span>
-                      <span>
-                        <SvgHeart
-                          className={` w-6 h-7 text-white cursor-default`}
-                        />
+                    <>
+                      <span className="cursor-not-allowed flex flex-row justify-center items-center gap-2 font-semibold text-white bg-slate-500 rounded-full px-2 absolute top-2 right-2 z-[1]">
+                        <span className="pl-1">{likesNum}</span>
+                        <span>
+                          <SvgHeart className={`w-6 h-7 text-white`} />
+                        </span>
                       </span>
-                    </span>
+                    </>
                   )}
 
                   <Link href={`/nfts/${el.id}`} key={el.id}>
-                    {/* // h-[35rem] w-[22rem] */}
                     <div
                       className={` ${
                         carSize === 'bigger'
@@ -150,7 +149,7 @@ const Marketplace: NextPage<HomeProps> = () => {
                           : carSize === 'small'
                           ? 'h-[28rem] w-[18rem] overflow-hidden'
                           : ''
-                      }  relative flex flex-col bg-gray-800 rounded-xl overflow-auto p-[1px] border-slate-900 cursor-pointer group`}
+                      }  relative flex flex-col bg-white dark:bg-[#303339] rounded-xl overflow-auto p-[1px] cursor-pointer group`}
                     >
                       <div className="rounded-xl border-spacing-2 h-[20rem]">
                         <Image
@@ -162,13 +161,13 @@ const Marketplace: NextPage<HomeProps> = () => {
                           className="rounded-t-xl object-cover group-hover:scale-110 transition duration-300 ease-in-out overflow-auto"
                         />
                       </div>
-                      <div className="flex flex-col p-4 h-full w-full justify-between ">
+                      <div className="flex flex-col p-4 h-full w-full justify-between">
                         <div className="flex flex-col gap-2">
                           <div className="flex flex-row w-full justify-between">
                             <h5
                               className={`${
                                 carSize === 'small' ? 'text-xl' : 'text-2xl'
-                              } text-gray-900 dark:text-white font-bold truncate ease duration-300`}
+                              } text-gray-800 dark:text-white font-bold truncate ease duration-300`}
                             >
                               {el.name}
                             </h5>
@@ -176,7 +175,7 @@ const Marketplace: NextPage<HomeProps> = () => {
                           <div
                             className={`${styles.description} ${
                               carSize === 'small' ? 'text-sm' : ''
-                            } ease duration-300 text-white my-4`}
+                            } ease duration-300 text-gray-800 dark:text-white my-4`}
                           >
                             {el.description
                               ? el.description
@@ -191,7 +190,7 @@ const Marketplace: NextPage<HomeProps> = () => {
                             <p
                               className={`${
                                 carSize === 'small' ? 'text-base' : 'text-xl'
-                              } text-white font-semibold  truncate ease duration-300`}
+                              } text-gray-800 dark:text-white font-semibold  truncate ease duration-300`}
                             >
                               {el.owner.name}
                             </p>
@@ -201,16 +200,20 @@ const Marketplace: NextPage<HomeProps> = () => {
                               <SvgCoin
                                 height={20}
                                 width={20}
-                                className={'fill-white'}
+                                className={'fill-gray-800 dark:fill-white'}
                               />
                             </span>
-                            <span className="text-white font-semibold text-xl">
+                            <span className="text-gray-800 dark:text-white font-semibold text-xl">
                               {el.price}
                             </span>
                           </div>
                         </div>
                       </div>
-                      {/* <button className={` bg-blue-600 w-[99.5%] rounded-b-xl text-center py-1 z-[3]  font-semibold text-2xl left-0 bottom-0 `}>Buy</button> */}
+                      <button
+                        className={`translate-y-10 group-hover:translate-y-0 transition-all absolute bg-blue-600 w-full rounded-b-xl text-center py-2 z-[3] font-semibold text-1xl left-0 bottom-0`}
+                      >
+                        Add to cart
+                      </button>
                     </div>
                   </Link>
                 </div>

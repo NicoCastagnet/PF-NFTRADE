@@ -1,3 +1,4 @@
+import { ThemeProvider } from 'next-themes'
 import type { AppProps } from 'next/app'
 import Router from 'next/router'
 import NProgress from 'nprogress'
@@ -34,7 +35,9 @@ export default function App({
       <SessionProvider session={session}>
         <CartProvider>
           <Hydrated>
-            <Component {...pageProps} />
+            <ThemeProvider attribute="class">
+              <Component {...pageProps} />
+            </ThemeProvider>
           </Hydrated>
         </CartProvider>
       </SessionProvider>

@@ -16,7 +16,7 @@ const NewsLetter = () => {
             </span>{' '}
             daily!
           </p>
-          <p className="mt-10 mb-10 w-4/5 max-md:text-sm max-md:my-4">
+          <p className="mt-10 mb-10 w-4/5 max-md:text-sm max-md:my-4 text-gray-600 dark:text-gray-400">
             Find out about all the news, promotions, discounts, events and much
             more subscribing to our news letter. It is easy, just leave us your
             email and we will take care of the rest!
@@ -29,20 +29,20 @@ const NewsLetter = () => {
               <input
                 type="search"
                 id="default-search"
-                className="block p-4 pl-10 pr-28 w-4/5 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-200 max-md:w-full max-md:pr-[5.5rem]"
+                className="block focus:outline-none bg-gray-100 dark:bg-[#303339] dark:border-none p-4 pl-10 pr-28 w-4/5 text-sm rounded-lg border max-md:w-full max-md:pr-[5.5rem]"
                 placeholder="Enter your e-mail"
                 required
               />
               <button
                 type="submit"
-                className="text-white absolute right-[21%] bottom-2.5 bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-200 font-medium rounded-lg text-sm px-4 py-2 max-md:right-[3%]"
+                className="text-white absolute right-[21%] bottom-[8.5px] bg-blue-600 hover:bg-blue-700 font-medium rounded-lg text-sm px-4 py-2 max-md:right-[3%] transition-all"
               >
                 Subscribe
               </button>
             </div>
           </form>
         </div>
-        <div className="home__newsletter-right max-xl:hidden bg-blue-500 rounded-full ease duration-500">
+        <div className="home__newsletter-right max-xl:hidden bg-blue-500 dark:bg-[#303339] rounded-full ease duration-500">
           <Image src={Newsletter} alt="nft2_img" height={850} width={890} />
         </div>
       </div>
