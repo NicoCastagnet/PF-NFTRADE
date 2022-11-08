@@ -11,8 +11,9 @@ import type { GetServerSideProps, NextPage } from 'next'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import type { UserDetailResponse } from 'types/api-responses'
+import defaultAvatar from '/assets/avataricon.png'
 import imagePlaceholder from '/assets/image-placeholder.png'
 interface Props {
   user: UserDetailResponse
@@ -22,7 +23,6 @@ const UserDetail: NextPage<Props> = ({ user }) => {
   const { data: session } = useSession()
   const account = session?.user
 
-  const [preview, setPreview] = useState<string>('')
   const [uploadError, setUploadError] = useState(false)
 
   interface UserDetails {
@@ -38,6 +38,14 @@ const UserDetail: NextPage<Props> = ({ user }) => {
     email: user.email,
     // password: user.passwordHash,
   })
+
+  useEffect(() => {
+    setUserDetails({
+      profilePicture: user.image,
+      name: user.name,
+      email: user.email,
+    })
+  }, [user.email, user.image, user.name])
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const inputName = e.target.name
@@ -62,7 +70,6 @@ const UserDetail: NextPage<Props> = ({ user }) => {
 
     const BUCKET_UPLOAD = process.env.NEXT_PUBLIC_BUCKET_UPLOAD as string
     if (!error) {
-      setPreview(`${BUCKET_UPLOAD}/${data.path}`)
       setUserDetails({
         ...userDetails,
         profilePicture: `${BUCKET_UPLOAD}/${data.path}`,
@@ -70,7 +77,6 @@ const UserDetail: NextPage<Props> = ({ user }) => {
       setSaved(false)
     } else {
       setUploadError(true)
-      setPreview('')
     }
   }
 
@@ -104,17 +110,22 @@ const UserDetail: NextPage<Props> = ({ user }) => {
       <div>
         <div className="h-[350px] bg-slate-900"></div>
         <div className=" h-[185px] w-[185px] absolute top-[225px] left-[60px] rounded-full  border-[8px] border-white ">
-          <img
-            className="rounded-full object-cover h-[175px] w-[175px]"
-            src={userDetails.profilePicture || imagePlaceholder}
+          <Image
+            width={175}
+            height={175}
+            className=" bg-white rounded-full object-cover h-[175px] w-[175px]"
+            src={userDetails.profilePicture || defaultAvatar}
           />
         </div>
-        <div
-          className=" h-[45px] w-[45px] absolute hover:fill-slate-400 hover:scale-[1.1] top-[300px] left-[250px] fill-slate-200 cursor-pointer "
-          onClick={() => setSelectPhoto(true)}
-        >
-          <SvgPencil />
-        </div>
+        {account?.id === user.id && (
+          <div
+            className=" h-[45px] w-[45px] absolute hover:fill-slate-400 hover:scale-[1.1] top-[300px] left-[250px] fill-slate-200 cursor-pointer "
+            onClick={() => setSelectPhoto(true)}
+          >
+            <SvgPencil />
+          </div>
+        )}
+
         {selectPhoto === true && (
           <div className=" drop-shadow-lg rounded-[15px] bg-slate-100 w-[90%] h-[80%] fixed left-[5%] top-[10vh] z-[1] flex justify-evenly items-center ">
             <button
