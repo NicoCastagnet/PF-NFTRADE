@@ -23,9 +23,9 @@ export default async function handle(
         email,
       },
     })
-    if (!checkExist) {
-      return res.status(401).json({ msg: 'That account does not exists.' })
-    }
+    // if (!checkExist) {
+    //   return res.status(401).json({ msg: 'That account does not exists.' })
+    // }
     if (checkExist) {
       return res.status(422).json({ msg: 'The user was created before.' })
     }
