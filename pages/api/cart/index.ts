@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 import type { NextApiRequest, NextApiResponse } from 'next'
-
+import emailNft from '../emails/nftBuy'
 /* this endpoint is for testing purposes */
 export default async function handler(
   req: NextApiRequest,
@@ -80,6 +80,8 @@ export default async function handler(
             coins: el.price,
           },
         })
+        emailNft(req, res, vendedor.id, el.id, 'vendedor')
+        emailNft(req, res, comprador.id, el.id, 'comprador')
       })
     } catch (error) {
       console.log(error)
