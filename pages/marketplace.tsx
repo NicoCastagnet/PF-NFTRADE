@@ -113,9 +113,9 @@ const Marketplace: NextPage<HomeProps> = () => {
                   key={el.id}
                   className={` ${
                     carSize === 'bigger'
-                      ? 'h-[35rem] w-[22rem] overflow-hidden'
+                      ? 'h-[32.5rem] w-[22rem] overflow-hidden'
                       : carSize === 'small'
-                      ? 'h-[28rem] w-[18rem] overflow-hidden'
+                      ? 'h-[27.5rem] w-[18rem] overflow-hidden'
                       : ''
                   }  relative flex flex-col rounded-xl overflow-auto p-[1px] cursor-pointer group drop-shadow-lg`}
                 >
@@ -145,9 +145,9 @@ const Marketplace: NextPage<HomeProps> = () => {
                     <div
                       className={` ${
                         carSize === 'bigger'
-                          ? 'h-[35rem] w-[22rem] overflow-hidden'
+                          ? 'h-[32.5rem] w-[22rem] overflow-hidden'
                           : carSize === 'small'
-                          ? 'h-[28rem] w-[18rem] overflow-hidden'
+                          ? 'h-[27.5rem] w-[18rem] overflow-hidden'
                           : ''
                       }  relative flex flex-col bg-white dark:bg-[#303339] rounded-xl overflow-auto p-[1px] cursor-pointer group`}
                     >
