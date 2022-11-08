@@ -1,4 +1,5 @@
 import { signOut, useSession } from 'next-auth/react'
+import { useTheme } from 'next-themes'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import styles from '../../styles/form.module.css'
@@ -6,6 +7,7 @@ import styles from '../../styles/form.module.css'
 const UserMenuNavBar = ({ menu }: { menu: boolean }) => {
   const { data: session } = useSession()
   const router = useRouter()
+  const { theme, setTheme } = useTheme()
 
   return (
     <>
@@ -16,7 +18,7 @@ const UserMenuNavBar = ({ menu }: { menu: boolean }) => {
           } before:absolute before:z-20 ${styles.menuLogIn}`}
         >
           <div
-            className={` z-[999] w-44 shadow bg-gray-700 divide-gray-600 absolute top-9 right-5 rounded-xl `}
+            className={` z-[999] w-44 shadow bg-gray-700 divide-gray-600 dark:bg-[#303339] dark:divide-[#393b41] absolute top-9 right-5 rounded-xl `}
           >
             <div className="py-3 px-4 text-sm text-white hover:rounded-t-xl">
               <div className="font-medium truncate">{session?.user.email}</div>
@@ -25,24 +27,35 @@ const UserMenuNavBar = ({ menu }: { menu: boolean }) => {
               className="py-1 text-sm text-gray-200 border-y-white border-y-2"
               aria-labelledby="dropdownInformationButton"
             >
-              <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white xl:hidden">
+              <li className="block py-2 px-4 hover:bg-gray-600 dark:hover:bg-[#393b41] hover:text-white xl:hidden">
                 <Link href="#">Explore</Link>
               </li>
+
               <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white xl:hidden">
                 <Link href="/marketplace">Marketplace</Link>
               </li>
-              <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white">
-                <Link href="#">Dashboard</Link>
+              <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white cursor-pointer">
+                <Link href={`/users/${session.user.id}`}>Profile</Link>
               </li>
-              <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white">
+              <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white cursor-pointer">
+                <Link href="/dashboard">Dashboard</Link>
+              </li>
+
+              <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white cursor-pointer">
                 <Link href="#">Settings</Link>
               </li>
-              <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white">
-                <Link href="/nfts/create">Create NFT</Link>
+              <li className="block py-2 px-4 hover:bg-gray-600 dark:hover:bg-[#393b41] hover:text-white cursor-pointer">
+                <Link href="/buy">Buy coins</Link>
+              </li>
+              <li
+                className="block py-2 px-4 hover:bg-gray-600 dark:hover:bg-[#393b41] hover:text-white cursor-pointer"
+                onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+              >
+                Toggle to {theme === 'light' ? 'dark' : 'light'} mode.
               </li>
             </ul>
             <div
-              className="block py-3 px-4 text-sm hover:bg-gray-600 hover:rounded-b-xl text-gray-200 hover:text-white"
+              className="block py-3 px-4 text-sm hover:bg-gray-600 dark:hover:bg-[#393b41] hover:rounded-b-xl text-gray-200 hover:text-white cursor-pointer"
               onClick={async () => {
                 await signOut()
               }}
@@ -58,9 +71,11 @@ const UserMenuNavBar = ({ menu }: { menu: boolean }) => {
           } before:absolute before:z-20 ${styles.menuLogOut}`}
         >
           <div
-            className={` z-[999] w-44 shadow bg-gray-700 absolute top-9 right-[-2rem] rounded-xl `}
+            className={` z-[999] w-44 shadow bg-gray-700 absolute top-9 right-[-0.2rem] rounded-xl `}
           >
-            <div className="py-3 px-4 text-sm text-white">Welcome user !</div>
+            <div className="py-3 px-4 text-sm text-white">
+              Welcome! Get started
+            </div>
             <ul
               className=" text-sm text-gray-200 border-t-2 border-gray-600"
               aria-labelledby="dropdownInformationButton"
@@ -77,7 +92,7 @@ const UserMenuNavBar = ({ menu }: { menu: boolean }) => {
                   router.push('/login')
                 }}
               >
-                LogIn
+                Login
               </li>
               <li
                 className="block py-3 pb-4 px-4 hover:bg-gray-600 hover:text-white hover:rounded-b-xl cursor-pointer"

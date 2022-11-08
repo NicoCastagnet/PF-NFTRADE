@@ -2,6 +2,8 @@ import SvgCoin from '@components/icons/svgCoin'
 import SvgCross from '@components/icons/svgCross'
 import { useCart } from '@context/cart'
 import { Dialog, Transition } from '@headlessui/react'
+import axios from 'axios'
+import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { Fragment } from 'react'
 import { useTotalPrice } from '../../hook/getPrice'
@@ -14,6 +16,15 @@ interface CartSideBarProps {
 const CartSideBar: React.FC<CartSideBarProps> = ({ isOpen, handleClose }) => {
   const { cart, removeItem, clearCart } = useCart()
   const { totalPrice } = useTotalPrice()
+
+  const { data: session } = useSession()
+
+  const handleChange = async () => {
+    await axios.post('http://localhost:3000/api/cart', {
+      nfts: cart,
+      comprador: session?.user,
+    })
+  }
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
@@ -124,7 +135,10 @@ const CartSideBar: React.FC<CartSideBarProps> = ({ isOpen, handleClose }) => {
                               {totalPrice.toLocaleString('es-ES')}
                             </span>
                           </div>
-                          <button className="bg-gray-700 text-white text-lg font-semibold w-full h-10 my-5">
+                          <button
+                            className="bg-gray-700 text-white text-lg font-semibold w-full h-10 my-5"
+                            onClick={handleChange}
+                          >
                             Go to checkout
                           </button>
                         </div>

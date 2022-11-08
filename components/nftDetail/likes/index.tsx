@@ -6,8 +6,7 @@ import { useState } from 'react'
 import useSWR, { mutate } from 'swr'
 import type { LikesResponse } from 'types/api-responses'
 
-const LIKES_URL = (nftId: string) =>
-  `https://pf-nftrade.vercel.app/api/nfts/${nftId}/likes`
+const LIKES_URL = (nftId: string) => `/api/nfts/${nftId}/likes`
 
 const useLikes = (nftId: string) => {
   const { data: likes, error } = useSWR<LikesResponse>(

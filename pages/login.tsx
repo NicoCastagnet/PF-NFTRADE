@@ -43,7 +43,7 @@ const LogIn: NextPage = () => {
         redirect: false,
         email: values.email,
         password: values.password,
-        callbackUrl: 'https://pf-nftrade.vercel.app/',
+        callbackUrl: '/',
       })
       const yo = await JSON.stringify(lucas, null)
       if (!yo.includes('true')) {

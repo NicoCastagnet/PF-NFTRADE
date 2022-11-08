@@ -1,14 +1,14 @@
 import prisma from '@lib/db'
-import type { NftDetailResponse } from 'types/api-responses'
+import type { NextApiRequest, NextApiResponse } from 'next'
 
-const getNftById = async ({
-  id,
-}: {
-  id: string
-}): Promise<NftDetailResponse | null> => {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
+  const { id } = req.query
   try {
-    const nft = await prisma.nft.findUniqueOrThrow({
-      where: { id: id as string },
+    const nft = await prisma.nft.findMany({
+      where: { ownerId: id as string },
       select: {
         id: true,
         name: true,
@@ -19,14 +19,14 @@ const getNftById = async ({
         comments: {
           select: {
             id: true,
-            user: true,
             content: true,
             isPublished: true,
+            user: { select: { name: true } },
           },
         },
         likedBy: { select: { id: true } },
         owner: {
-          select: { name: true, id: true },
+          select: { name: true },
         },
         creator: {
           select: { name: true },
@@ -34,18 +34,16 @@ const getNftById = async ({
         _count: {
           select: { likedBy: true, viewedBy: true },
         },
-        categories: {
-          select: {
-            id: true,
-            name: true,
-          },
-        },
       },
     })
-    return nft
+    return res.json(nft)
   } catch (e) {
-    return null
+    const apiMessage = (e as Error).message
+    return res.status(404).json({
+      success: false,
+      status: 404,
+      message: `Couldn't find nft with id ${id}`,
+      apiMessage,
+    })
   }
 }
-
-export default getNftById

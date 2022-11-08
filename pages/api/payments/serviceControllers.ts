@@ -16,13 +16,14 @@ export default class PaymentService {
       },
     ]
     const body = {
-      notification_url: 'https://pf-nftrade.vercel.app/api/notificaciones',
+      notification_url:
+        'https://32ed-190-245-83-198.sa.ngrok.io/api/notificaciones',
       payer_email: 'test_user_46945293@testuser.com ',
       items: datos,
       back_urls: {
         failure: '/failure',
         pending: '/pending',
-        success: 'https://pf-nftrade.vercel.app',
+        success: '/localhost:3000',
       },
     }
 

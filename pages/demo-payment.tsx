@@ -12,7 +12,7 @@ const DemoPayment: NextPage = () => {
   const payment = async (e: React.SyntheticEvent) => {
     e.preventDefault()
     const res = await axios.post(
-      'https://pf-nftrade.vercel.app/api/payments',
+      `${process.env.NEXT_PUBLIC_APP_URL}/api/payments`,
       data,
     )
     console.log(res.data.payment)

@@ -11,11 +11,14 @@ const BuyPage: NextPage = () => {
   const { data: session } = useSession()
 
   const paymentFunction = async (unit: number, price: number) => {
-    const res = await axios.post('https://pf-nftrade.vercel.app/api/payments', {
-      quantity: unit,
-      unit_price: price,
-      idUser: session?.user.id,
-    })
+    const res = await axios.post(
+      `${process.env.NEXT_PUBLIC_APP_URL}/api/payments`,
+      {
+        quantity: unit,
+        unit_price: price,
+        idUser: session?.user.id,
+      },
+    )
     window.open(res.data.payment, '_blank')
   }
 

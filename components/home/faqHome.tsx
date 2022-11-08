@@ -3,7 +3,7 @@ import SvgQuestionMark from '@components/icons/svgQuestionMark'
 import {
   Accordion,
   AccordionBody,
-  AccordionHeader,
+  AccordionHeader
 } from '@material-tailwind/react'
 import { Fragment, useState } from 'react'
 
@@ -24,7 +24,7 @@ const UtilsContainer = () => {
       <SvgChevronDown
         className={`${
           id === open ? 'rotate-180' : ''
-        } h-5 w-5 transition-transform`}
+        } h-5 w-5 transition-transform text-gray-700 dark:text-gray-400`}
       />
     )
   }
@@ -36,7 +36,7 @@ const UtilsContainer = () => {
           Frequently <span className="font-extrabold text-blue-600">asked</span>{' '}
           questions
         </p>
-        <p className="m-5 text-lg text-gray-500 max-md:text-sm">
+        <p className="m-5 text-lg text-gray-600 dark:text-gray-400 max-md:text-sm">
           Everything you need to know about the product and billing.
         </p>
       </div>
@@ -48,13 +48,16 @@ const UtilsContainer = () => {
             animate={customAnimation}
             icon={<Icon id={1} open={open} />}
           >
-            <AccordionHeader onClick={() => handleOpen(1)}>
+            <AccordionHeader
+              onClick={() => handleOpen(1)}
+              className="dark:border-b-[#303339] border-b-gray-300"
+            >
               <div className="flex items-center text-1xl max-sm:text-base">
-                <SvgQuestionMark className="fill-gray-700 w-6 h-6 mr-2 shrink-0" />
+                <SvgQuestionMark className="fill-gray-700 dark:fill-gray-400 w-6 h-6 mr-2 shrink-0" />
                 What is NFTrade?
               </div>
             </AccordionHeader>
-            <AccordionBody className="text-[15px]">
+            <AccordionBody className="text-[15px] text-gray-600 dark:text-gray-400">
               NFTrade is a project made by a group of 8 students of{' '}
               <a
                 href="https://www.soyhenry.com"
@@ -75,13 +78,16 @@ const UtilsContainer = () => {
             animate={customAnimation}
             icon={<Icon id={2} open={open} />}
           >
-            <AccordionHeader onClick={() => handleOpen(2)}>
+            <AccordionHeader
+              onClick={() => handleOpen(2)}
+              className="dark:border-b-[#303339] border-b-gray-300"
+            >
               <div className="flex items-center text-1xl max-sm:text-base">
-                <SvgQuestionMark className="fill-gray-700 w-6 h-6 mr-2 shrink-0" />
+                <SvgQuestionMark className="fill-gray-700 dark:fill-gray-400 w-6 h-6 mr-2 shrink-0" />
                 What is an NFT?
               </div>
             </AccordionHeader>
-            <AccordionBody className="text-[15px]">
+            <AccordionBody className="text-[15px] text-gray-600 dark:text-gray-400">
               A non-fungible token (NFT) is a unique digital identifier that
               cannot be copied, substituted, or subdivided, that is recorded in
               a blockchain, and that is used to certify authenticity and
@@ -96,13 +102,16 @@ const UtilsContainer = () => {
             animate={customAnimation}
             icon={<Icon id={3} open={open} />}
           >
-            <AccordionHeader onClick={() => handleOpen(3)}>
+            <AccordionHeader
+              onClick={() => handleOpen(3)}
+              className="dark:border-b-[#303339] border-b-gray-300"
+            >
               <div className="flex items-center text-1xl max-sm:text-base">
-                <SvgQuestionMark className="fill-gray-700 w-6 h-6 mr-2 shrink-0" />
+                <SvgQuestionMark className="fill-gray-700 dark:fill-gray-400 w-6 h-6 mr-2 shrink-0" />
                 How can i buy an NFT?
               </div>
             </AccordionHeader>
-            <AccordionBody className="text-[15px]">
+            <AccordionBody className="text-[15px] text-gray-600 dark:text-gray-400">
               First you must create an account, then buy credits joining into
               the dashboard. Finally, start exploring the marketplace and buy
               your NFT&apos;s!

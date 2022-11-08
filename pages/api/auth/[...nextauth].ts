@@ -81,7 +81,7 @@ export const authOptions: NextAuthOptions = {
     strategy: 'jwt',
   },
   pages: {
-    signIn: 'https://pf-nftrade.vercel.app/register',
+    signIn: '/register',
     // signOut:
   },
   callbacks: {

@@ -22,8 +22,10 @@ export default async function handler(
           name: true,
           image: true,
           price: true,
+          ownerId: true,
           owner: {
             select: {
+              id: true,
               name: true,
             },
           },

@@ -41,7 +41,6 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
         }),
       })
     }
-    console.log('Change nft', nft.id)
     if (user) putViews()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nft.id, user?.id])
@@ -76,8 +75,13 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
             ))}
           </div>
           <div className="flex flex-row justify-between w-full my-6 text-base">
-            <div>
-              <span>Owner: {nft.owner.name} </span>
+            <div className=" flex ">
+              <span>Owner: </span>
+              <Link href={`/users/${nft.owner.id}`}>
+                <span className="ml-1 hover:text-gray-300 cursor-pointer">
+                  {nft.owner.name}
+                </span>
+              </Link>
             </div>
             <div className="flex flex-row justify-center items-center gap-2">
               <SvgViews height={18} width={18} fill={'#FFF'} />
