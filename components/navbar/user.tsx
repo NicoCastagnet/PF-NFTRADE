@@ -31,7 +31,6 @@ const UserMenuNavBar = ({ menu }: { menu: boolean }) => {
                 <Link href="#">Explore</Link>
               </li>
 
-
               <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white xl:hidden">
                 <Link href="/marketplace">Marketplace</Link>
               </li>
@@ -43,7 +42,6 @@ const UserMenuNavBar = ({ menu }: { menu: boolean }) => {
               </li>
 
               <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white cursor-pointer">
-
                 <Link href="#">Settings</Link>
               </li>
               <li className="block py-2 px-4 hover:bg-gray-600 dark:hover:bg-[#393b41] hover:text-white cursor-pointer">
