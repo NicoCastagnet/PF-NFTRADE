@@ -89,6 +89,7 @@ export type NftDetailResponse = Prisma.NftGetPayload<{
         name: true
       }
     }
+    wishedBy: { select: { userId: true } }
   }
 }>
 
