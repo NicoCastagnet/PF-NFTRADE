@@ -94,7 +94,7 @@
 
 .notify > section {
   width: 25rem;
-  visibility: hidden;
+  /*visibility: hidden;*/
   transition: all 0.2s ease;
 }
 

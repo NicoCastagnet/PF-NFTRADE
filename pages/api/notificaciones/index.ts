@@ -1,5 +1,6 @@
 import prisma from '@lib/db'
 import axios from 'axios'
+import { truncate } from 'fs'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import sendMail from '../emails'
 
@@ -87,17 +88,30 @@ export default async function payDescription(
     })
     const notifyVendBuyNfts = await prisma.buyNfts.findMany({
       where: {
-        compradorId: user?.toString(),
+        vendedorId: user?.toString(),
       },
     })
 
-    const notify = [...notifyBuys, ...notifyCompBuyNfts, ...notifyVendBuyNfts]
+    // const commnetUser = await prisma.commnet.findMany({
+    //   where: {
+    //     userId: user?.toString(),
+    //   },
+    //   select: {
+    //     userId: true,
+    //     createdAt: true,
+    //     content: true
+    //     nft: {name: true,}
+    //   }
+    // })
 
+    const notify = [...notifyBuys, ...notifyCompBuyNfts, ...notifyVendBuyNfts]
+    
     notify.sort(
       (a: { createdAt: any }, b: { createdAt: any }) =>
-        b.createdAt - a.createdAt,
-    )
-
+      b.createdAt - a.createdAt,
+      )
+      
+      console.log("🚀 ~ file: index.ts ~ line 99 ~ notify", notify)
     res.json({ notify: notify.slice(0, 10) })
   }
 }
