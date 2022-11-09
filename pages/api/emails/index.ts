@@ -20,15 +20,14 @@ export default async function mailSend(
 
   if (reason === 'buy Coins') {
     const transporter = nodemailer.createTransport({
-      host: 'smtp.ethereal.email',
-      port: 587,
-      secure: false,
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
       auth: {
-        user: 'isaac72@ethereal.email',
-        pass: '6wZFKd6u69EgKAuWsd',
+        user: 'nftrade2022@gmail.com',
+        pass: 'kgpcugakgejfmhhi',
       },
     })
-
     const mailOptions = {
       from: 'NFTrade',
       to: mail.email as string,
@@ -45,12 +44,12 @@ export default async function mailSend(
     })
   } else if (reason === 'buy Rejected') {
     const transporter = nodemailer.createTransport({
-      host: 'smtp.ethereal.email',
-      port: 587,
-      secure: false,
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
       auth: {
-        user: 'isaac72@ethereal.email',
-        pass: '6wZFKd6u69EgKAuWsd',
+        user: 'nftrade2022@gmail.com',
+        pass: 'kgpcugakgejfmhhi',
       },
     })
 

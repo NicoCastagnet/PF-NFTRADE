@@ -25,12 +25,12 @@ export default async function emailNft(
     })
 
     const transporter = nodemailer.createTransport({
-      host: 'smtp.ethereal.email',
-      port: 587,
-      secure: false,
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
       auth: {
-        user: 'isaac72@ethereal.email',
-        pass: '6wZFKd6u69EgKAuWsd',
+        user: 'nftrade2022@gmail.com',
+        pass: 'kgpcugakgejfmhhi',
       },
     })
 
@@ -63,14 +63,13 @@ export default async function emailNft(
         email: true,
       },
     })
-
     const transporter = nodemailer.createTransport({
-      host: 'smtp.ethereal.email',
-      port: 587,
-      secure: false,
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
       auth: {
-        user: 'isaac72@ethereal.email',
-        pass: '6wZFKd6u69EgKAuWsd',
+        user: 'nftrade2022@gmail.com',
+        pass: 'kgpcugakgejfmhhi',
       },
     })
 
