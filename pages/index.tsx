@@ -17,7 +17,7 @@ interface HomeProps {
 
 const HomePage: NextPage<HomeProps> = ({ nfts }) => {
   return (
-    <div className="home__container flex flex-col items-center justify-center content-center w-full min bg-gray-200 dark:bg-[#202225]">
+    <div className="home__container flex flex-col items-center justify-center content-center w-full bg-gray-200 dark:bg-[#202225] transition-all">
       <Head>
         <title>NFTrade | Home</title>
       </Head>
