@@ -155,9 +155,9 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
               </div>
             </div>
           </div>
-          <div className="flex justify-between w-full">
+          <div className="flex w-full">
             {categories.map((c) => (
-              <span className=" text-[1.4rem] " key={c}>
+              <span className=" text-[1.4rem] mr-2" key={c}>
                 #{c}
               </span>
             ))}
