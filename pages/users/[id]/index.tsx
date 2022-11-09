@@ -312,8 +312,7 @@ const UserDetail: NextPage<Props> = ({ user }) => {
                   disabled={
                     userDetails.name === user.name &&
                     userDetails.email === user.email &&
-                    userDetails.profilePicture === user.image &&
-                    saved === true
+                    userDetails.profilePicture === user.image
                   }
                   className=" bg-blue-500 mr-10 h-[50px] w-[160px] rounded-[10px] drop-shadow-lg hover:scale-[1.05] transition-all disabled:bg-gray-500 disabled:transform-none disabled:transition-none disabled:text-white disabled:cursor-not-allowed"
                 >
@@ -349,15 +348,15 @@ const UserDetail: NextPage<Props> = ({ user }) => {
               user.nftsOwned.map((el) => (
                 <div
                   key={el.id}
-                  className={`w-[30%] h-[300px] overflow-hidden relative flex flex-col bg-gray-800 rounded-xl p-[1px] border-slate-900 cursor-pointer group`}
+                  className={`w-[30%] max-w-[277px] h-[300px] overflow-hidden relative flex flex-col bg-gray-800 rounded-xl p-[1px] border-slate-900 cursor-pointer group`}
                 >
                   <Link href={`/nfts/${el.id}`} key={el.id}>
                     {/* // h-[35rem] w-[22rem] */}
                     <div>
-                      <div className="rounded-xl border-spacing-2">
+                      <div className="rounded-xl border-spacing-2 ">
                         <Image
                           src={el.image}
-                          height={350}
+                          height={300}
                           width={400}
                           quality={20}
                           alt={`image-${el.name}`}
@@ -368,7 +367,7 @@ const UserDetail: NextPage<Props> = ({ user }) => {
                         <div className="flex flex-col gap-2">
                           <div className="flex flex-row w-full justify-between">
                             <h5
-                              className={`text-xl text-gray-900 dark:text-white font-bold truncate ease duration-300`}
+                              className={`text-xl text-white font-bold truncate ease duration-300`}
                             >
                               {el.name}
                             </h5>
@@ -419,15 +418,15 @@ const UserDetail: NextPage<Props> = ({ user }) => {
               user.nftsCreated.map((el) => (
                 <div
                   key={el.id}
-                  className={`w-[30%] h-[300px] overflow-hidden relative flex flex-col bg-gray-800 rounded-xl p-[1px] border-slate-900 cursor-pointer group`}
+                  className={`w-[30%] max-w-[277px] h-[300px] overflow-hidden relative flex flex-col bg-gray-800 rounded-xl p-[1px] border-slate-900 cursor-pointer group`}
                 >
                   <Link href={`/nfts/${el.id}`} key={el.id}>
                     {/* // h-[35rem] w-[22rem] */}
                     <div>
-                      <div className="rounded-xl border-spacing-2">
+                      <div className="rounded-xl border-spacing-2 ">
                         <Image
-                          src={el.image || ''}
-                          height={350}
+                          src={el.image}
+                          height={300}
                           width={400}
                           quality={20}
                           alt={`image-${el.name}`}
@@ -438,7 +437,7 @@ const UserDetail: NextPage<Props> = ({ user }) => {
                         <div className="flex flex-col gap-2">
                           <div className="flex flex-row w-full justify-between">
                             <h5
-                              className={`text-xl text-gray-900 dark:text-white font-bold truncate ease duration-300`}
+                              className={`text-xl text-white font-bold truncate ease duration-300`}
                             >
                               {el.name}
                             </h5>
