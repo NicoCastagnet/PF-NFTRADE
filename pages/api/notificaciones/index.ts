@@ -103,9 +103,9 @@ export default async function payDescription(
             owner: {
               select: {
                 id: true,
-                name: true
-              }
-            }
+                name: true,
+              },
+            },
           },
         },
         user: {

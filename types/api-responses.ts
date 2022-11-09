@@ -231,7 +231,7 @@ export type CommentsResponse = Prisma.CommentGetPayload<{
     }
     nft: {
       select: {
-        id: true,
+        id: true
         name: true
       }
     }
