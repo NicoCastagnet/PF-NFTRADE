@@ -54,7 +54,11 @@ const LogIn: NextPage = () => {
   }
 
   if (status === 'loading') {
-    return <h1>Loading...</h1>
+    return (
+      <div className="flex justify-center items-center w-full h-screen">
+        <span className={styles.loadding}></span>
+      </div>
+    )
   }
 
   return (
