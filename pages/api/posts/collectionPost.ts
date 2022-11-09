@@ -7,8 +7,10 @@ export default async function postCollection(
   res: NextApiResponse,
 ) {
   if (req.method === 'POST') {
-    const { name, image, description, disccount, creatorId } = req.body
-    if (!name || !disccount || !creatorId) {
+    const { name, image, description, discount, price, creatorId, nftsId } =
+      req.body
+    console.log(req.body)
+    if (!name || !discount || !creatorId) {
       res.status(400).send('Missing data.')
     } else {
       const img: string = image
@@ -19,11 +21,18 @@ export default async function postCollection(
             ? img
             : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCB9tB3P7DWxNB466mjV8mRanhrj2snehAvbDqSXunYg&s',
           description,
-          disccount,
+          price,
+          discount,
           creatorId,
           ownerId: creatorId,
+          nfts: {
+            connect: nftsId.map((nftId: string) => ({ id: nftId })),
+          },
         },
       })
+
+      console.log(collection)
+
       const msg = {
         text: 'The collection was successfully deleted.',
         data: collection,

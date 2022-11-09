@@ -258,7 +258,8 @@ export type UserDetailResponse = Prisma.UserGetPayload<{
         name: true
         image: true
         description: true
-        disccount: true
+        discount: true
+        price: true
       }
     }
     collectionsOwned: {
@@ -267,7 +268,8 @@ export type UserDetailResponse = Prisma.UserGetPayload<{
         name: true
         image: true
         description: true
-        disccount: true
+        discount: true
+        price: true
       }
     }
     nftsCreated: {
