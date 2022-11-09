@@ -36,7 +36,7 @@ const HeaderMarket: NextPage<Props> = ({
 
   return (
     <>
-      <section className="market__header bg-slate-900 dark:bg-[#202225] dark:border-b-gray-600 dark:border-b text-white py-1 px-20 w-full flex justify-between top-[5rem] fixed z-[5] items-center">
+      <section className="market__header bg-slate-900 dark:bg-[#202225] dark:border-b-gray-600 dark:border-b text-white py-1 px-20 w-full flex justify-between top-[5rem] z-[5] fixed items-center">
         <div className="left flex">
           <FilterLateral
             isOpen={openFilter}
@@ -95,7 +95,7 @@ const HeaderMarket: NextPage<Props> = ({
           </div>
 
           <div
-            className={`absolute before:absolute top-[5.5rem] right-64 z-10 w-44  rounded shadow bg-gray-700 ${
+            className={`absolute before:absolute top-[5.5rem] right-64 z-10 w-44 rounded shadow-xl bg-gray-700 dark:bg-[#303339] ${
               orderMenu ? '' : 'hidden'
             } ${styles.orderByMenu}`}
           >
@@ -107,19 +107,19 @@ const HeaderMarket: NextPage<Props> = ({
             ></div>
             <ul className="py-2 text-lg text-gray-200">
               <li
-                className="block py-2 px-4 hover:bg-gray-600 hover:text-white cursor-pointer"
+                className="block py-2 px-4 hover:bg-gray-600 hover:text-white dark:hover:bg-[#393b41] cursor-pointer"
                 onClick={() => setOrder('createdAt_asc')}
               >
                 Oldest
               </li>
               <li
                 onClick={() => setOrder('createdAt_desc')}
-                className="block py-2 px-4 hover:bg-gray-600 hover:text-white cursor-pointer"
+                className="block py-2 px-4 hover:bg-gray-600 hover:text-white dark:hover:bg-[#393b41] cursor-pointer"
               >
                 Newest
               </li>
               <li
-                className="block py-2 px-4 hover:bg-gray-600 hover:text-white cursor-pointer"
+                className="block py-2 px-4 hover:bg-gray-600 hover:text-white dark:hover:bg-[#393b41] cursor-pointer"
                 onClick={() => {
                   setOrder('price_asc')
                 }}
@@ -127,7 +127,7 @@ const HeaderMarket: NextPage<Props> = ({
                 Min Price
               </li>
               <li
-                className="block py-2 px-4 hover:bg-gray-600 hover:text-white cursor-pointer"
+                className="block py-2 px-4 hover:bg-gray-600 hover:text-white dark:hover:bg-[#393b41] cursor-pointer"
                 onClick={() => {
                   setOrder('price_desc')
                 }}
@@ -135,7 +135,7 @@ const HeaderMarket: NextPage<Props> = ({
                 Max Price
               </li>
               <li
-                className="block py-2 px-4 hover:bg-gray-600 hover:text-white cursor-pointer"
+                className="block py-2 px-4 hover:bg-gray-600 hover:text-white dark:hover:bg-[#393b41] cursor-pointer"
                 onClick={() => {
                   setOrder('name_asc')
                 }}
@@ -143,7 +143,7 @@ const HeaderMarket: NextPage<Props> = ({
                 A-Z
               </li>
               <li
-                className="block py-2 px-4 hover:bg-gray-600 hover:text-white cursor-pointer"
+                className="block py-2 px-4 hover:bg-gray-600 hover:text-white dark:hover:bg-[#393b41] cursor-pointer"
                 onClick={() => {
                   setOrder('name_desc')
                 }}
