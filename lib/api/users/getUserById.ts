@@ -24,7 +24,8 @@ const getUserById = async ({
             name: true,
             image: true,
             description: true,
-            disccount: true,
+            discount: true,
+            price: true,
           },
         },
         collectionsOwned: {
@@ -33,7 +34,8 @@ const getUserById = async ({
             name: true,
             image: true,
             description: true,
-            disccount: true,
+            discount: true,
+            price: true,
           },
         },
         nftsCreated: {
@@ -101,6 +103,7 @@ const getUserById = async ({
     console.log(user)
     return user
   } catch (e) {
+    console.log(e)
     return null
   }
 }
