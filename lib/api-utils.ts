@@ -28,6 +28,7 @@ const getWhere = (minPrice: string, maxPrice: string) => {
       lte: max,
       gte: min,
     },
+    published: true,
   }
   return where
 }

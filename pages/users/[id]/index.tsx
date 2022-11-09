@@ -310,9 +310,10 @@ const UserDetail: NextPage<Props> = ({ user }) => {
                     saveChanges()
                   }}
                   disabled={
-                    userDetails.name === user.name &&
-                    userDetails.email === user.email &&
-                    userDetails.profilePicture === user.image
+                    (userDetails.name === user.name &&
+                      userDetails.email === user.email &&
+                      userDetails.profilePicture === user.image) ||
+                    saved === true
                   }
                   className=" bg-blue-500 mr-10 h-[50px] w-[160px] rounded-[10px] drop-shadow-lg hover:scale-[1.05] transition-all disabled:bg-gray-500 disabled:transform-none disabled:transition-none disabled:text-white disabled:cursor-not-allowed"
                 >
@@ -400,9 +401,11 @@ const UserDetail: NextPage<Props> = ({ user }) => {
           </div>
 
           {user.nftsOwned.length > 0 && (
-            <button className=" bg-blue-500 text-white h-[36px] w-full hover:scale-[1.015] transition-all rounded-[8px] mb-2 ">
-              View More
-            </button>
+            <Link href={`${user.id}/nftsOwned`}>
+              <button className=" bg-blue-500 text-white h-[36px] w-full hover:scale-[1.015] transition-all rounded-[8px] mb-2 ">
+                View More
+              </button>
+            </Link>
           )}
         </div>
         <div className=" border-[1px] border-gray-400 w-[48%] min-h-[455px] rounded-[15px] px-[20px]  mb-4">

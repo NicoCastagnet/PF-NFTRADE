@@ -69,8 +69,8 @@ const Likes: React.FC<{ nftId: string }> = ({ nftId }) => {
             }`}
             onClick={handleLike}
           >
-            <span>{likes?._count.likedBy}</span>
-            <SvgHeart />
+            <span className="text-[1.4rem]">{likes?._count.likedBy}</span>
+            <SvgHeart className="w-[28px] h-[28px]" />
           </button>
         )}
       </div>
