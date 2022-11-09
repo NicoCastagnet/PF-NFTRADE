@@ -45,7 +45,7 @@ const FilterSideBar: React.FC<FilterSideBarProps> = ({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-slate-700 bg-opacity-75 transition-opacity" />
+          <div className="fixed inset-0 bg-gray-100 dark:bg-[#393b41] dark:bg-opacity-60 bg-opacity-75 transition-opacity" />
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-hidden">
@@ -72,13 +72,13 @@ const FilterSideBar: React.FC<FilterSideBarProps> = ({
                   >
                     <div className="absolute top-0 right-0 -ml-8 flex pt-4 pr-2 sm:-ml-10 sm:pr-4 z-50 py-5">
                       <div className="px-3 sm:px-3">
-                        <Dialog.Title className="text-lg font-medium text-white">
+                        <Dialog.Title className="text-lg font-medium text-black dark:text-white">
                           Filters menu
                         </Dialog.Title>
                       </div>
                       <button
                         type="button"
-                        className="rounded-md text-gray-300 hover:text-white focus:outline-none"
+                        className="rounded-md text-black dark:text-gray-300 hover:text-red-500 dark:hover:text-red-500 transition-all focus:outline-none"
                         onClick={() => handleClose(false)}
                       >
                         <span className="sr-only">Close panel</span>
@@ -86,7 +86,7 @@ const FilterSideBar: React.FC<FilterSideBarProps> = ({
                       </button>
                     </div>
                   </Transition.Child>
-                  <div className="flex h-full flex-col bg-gray-800 py-14 shadow-xl text-slate-200">
+                  <div className="flex h-full flex-col text-black bg-gray-200 dark:bg-[#202225] dark:text-white py-14 shadow-xl">
                     <div className="p-8">
                       <form
                         onSubmit={handleFilter}
@@ -98,7 +98,7 @@ const FilterSideBar: React.FC<FilterSideBarProps> = ({
                           <div className="flex flex-col w-full">
                             <label htmlFor="minPrice">Min price</label>
                             <input
-                              className="w-full p-2 rounded-sm bg-slate-600 text-white"
+                              className="w-full p-2 rounded-sm text-gray-600 bg-white hover:bg-gray-300 focus:bg-gray-300 dark:bg-[#303339] dark:hover:bg-[#393b41] dark:focus:bg-[#393b41] dark:text-gray-200 transition-all outline-none focus:outline-none"
                               type="number"
                               id="minPrice"
                               min="0"
@@ -111,7 +111,7 @@ const FilterSideBar: React.FC<FilterSideBarProps> = ({
                           <div className="flex flex-col w-full">
                             <label htmlFor="maxPrice">Max price</label>
                             <input
-                              className="w-full p-2 rounded-sm bg-slate-600 text-white"
+                              className="w-full p-2 rounded-sm text-gray-600 bg-white hover:bg-gray-300 focus:bg-gray-300 dark:bg-[#303339] dark:hover:bg-[#393b41] dark:focus:bg-[#393b41] dark:text-gray-200 transition-all outline-none focus:outline-none"
                               type="text"
                               id="maxPrice"
                               min="0"
@@ -124,14 +124,14 @@ const FilterSideBar: React.FC<FilterSideBarProps> = ({
                         </div>
                         <button
                           type="submit"
-                          className="w-full py-3 bg-slate-900 cursor-pointer"
+                          className="w-full py-3 bg-white text-gray-600 hover:bg-gray-300 dark:bg-[#303339] dark:hover:bg-[#393b41] dark:text-white transition-all cursor-pointer"
                         >
                           Apply
                         </button>
                       </form>
                       <button
                         onClick={handleClear}
-                        className="w-full py-3 bg-red-500 text-white mt-4 cursor-pointer"
+                        className="w-full py-3 bg-red-600 hover:bg-red-500 transition-all text-white mt-4 cursor-pointer"
                       >
                         Clear
                       </button>

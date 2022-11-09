@@ -1,6 +1,8 @@
 import prisma from '@lib/db'
 import axios from 'axios'
 import type { NextApiRequest, NextApiResponse } from 'next'
+import sendMail from '../emails'
+
 export default async function payDescription(
   req: NextApiRequest,
   res: NextApiResponse,
@@ -56,8 +58,11 @@ export default async function payDescription(
                 text: 'The coins were loaded succesfully.',
                 data: user,
               }
+              sendMail(req, res, query.id as string, 'buy Coins')
               res.status(205).json(msg)
             }
+          } else {
+            sendMail(req, res, query.id as string, 'buy Rejected')
           }
           res.status(200).send('recived')
         }
@@ -66,5 +71,33 @@ export default async function payDescription(
     } catch (error: any) {
       console.log(error.message)
     }
+  } else if (req.method === 'GET') {
+    const { user } = req.query
+    console.log('🚀 ~ file: index.ts ~ line 71 ~ user', user)
+
+    const notifyBuys = await prisma.buys.findMany({
+      where: {
+        userId: user?.toString(),
+      },
+    })
+    const notifyCompBuyNfts = await prisma.buyNfts.findMany({
+      where: {
+        compradorId: user?.toString(),
+      },
+    })
+    const notifyVendBuyNfts = await prisma.buyNfts.findMany({
+      where: {
+        compradorId: user?.toString(),
+      },
+    })
+
+    const notify = [...notifyBuys, ...notifyCompBuyNfts, ...notifyVendBuyNfts]
+
+    notify.sort(
+      (a: { createdAt: any }, b: { createdAt: any }) =>
+        b.createdAt - a.createdAt,
+    )
+
+    res.json({ notify: notify.slice(0, 10) })
   }
 }

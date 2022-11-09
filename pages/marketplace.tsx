@@ -46,6 +46,8 @@ const Marketplace: NextPage<HomeProps> = () => {
   })
   const { nfts, isLoading } = useNfts(order, filter)
 
+  useNfts(order, filter)
+
   const { data: session } = useSession()
   const user = session?.user
 
@@ -120,13 +122,17 @@ const Marketplace: NextPage<HomeProps> = () => {
                   }  relative flex flex-col rounded-xl overflow-auto p-[1px] cursor-pointer group drop-shadow-lg`}
                 >
                   {user ? (
-                    <span className="flex flex-row justify-center items-center gap-2 font-semibold text-white bg-slate-500 rounded-full px-2 absolute top-2 right-2 z-[1]">
+                    <span
+                      onClick={() => likeHandler(el, likes)}
+                      className="flex flex-row justify-center items-center gap-2 font-semibold text-white bg-slate-500 hover:bg-slate-600 transition-all rounded-full px-2 absolute top-2 right-2 z-[1]"
+                    >
                       <span className="pl-1">{likesNum}</span>
-                      <span onClick={() => likeHandler(el, likes)}>
+                      <span>
                         <SvgHeart
                           className={`${
-                            likes.includes(user?.id) && 'text-red-600'
-                          } w-6 h-7 text-white hover:text-green-600`}
+                            likes.includes(user?.id) &&
+                            'text-red-600 fill-red-600 animate-pulse'
+                          } w-6 h-7 text-white`}
                         />
                       </span>
                     </span>

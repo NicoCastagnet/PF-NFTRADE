@@ -23,11 +23,9 @@ const LogIn: NextPage = () => {
   const router = useRouter()
   const { data: session, status } = useSession()
   const { providers } = useInfoProviders()
-  ////////////////////////////////////////////////
   useEffect(() => {
     if (session) router.push('/')
   }, [router, session, status])
-  /////////////////////////////////////
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -55,9 +53,12 @@ const LogIn: NextPage = () => {
     }
   }
 
-  ///////////////////////////////////////////////////////////////
   if (status === 'loading') {
-    return <h1>Loading...</h1>
+    return (
+      <div className="flex justify-center items-center w-full h-screen">
+        <span className={styles.loadding}></span>
+      </div>
+    )
   }
 
   return (
