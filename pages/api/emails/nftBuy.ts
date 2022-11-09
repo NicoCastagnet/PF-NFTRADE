@@ -9,9 +9,6 @@ export default async function emailNft(
   reason: string,
 ) {
   if (reason === 'comprador') {
-    console.log(userId)
-    console.log(nftId)
-    console.log(reason)
     const info = await prisma.nft.findUnique({
       where: { id: nftId as string },
       select: {
@@ -51,10 +48,7 @@ export default async function emailNft(
         res.status(200).send('email enviado')
       }
     })
-  } else {
-    console.log(userId)
-    console.log(nftId)
-    console.log(reason)
+  } else if (reason === 'vendedor') {
     const info = await prisma.nft.findUnique({
       where: { id: nftId as string },
       select: {
@@ -64,7 +58,7 @@ export default async function emailNft(
     })
 
     const user = await prisma.user.findUnique({
-      where: { id: info?.ownerId as string },
+      where: { id: userId },
       select: {
         email: true,
       },

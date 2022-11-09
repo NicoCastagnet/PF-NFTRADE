@@ -8,13 +8,12 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   const { nfts, comprador } = req.body
-
   if (req.method === 'POST') {
     try {
       nfts.forEach(async (el) => {
         const comp = await prisma.user.findUnique({
           where: {
-            id: el.ownerId,
+            id: comprador.id as string,
           },
           select: {
             id: true,
@@ -27,7 +26,7 @@ export default async function handler(
 
         await prisma.nft.update({
           where: {
-            id: el.id,
+            id: el.id as string,
           },
           data: {
             owner: { connect: { id: comprador.id } },
@@ -57,7 +56,7 @@ export default async function handler(
 
         const vendedor = await prisma.user.findUnique({
           where: {
-            id: el.ownerId,
+            id: el.owner.id as string,
           },
           select: {
             id: true,
@@ -82,8 +81,8 @@ export default async function handler(
             coins: el.price,
           },
         })
-        emailNft(req, res, vendedor.id, el.id, 'vendedor')
         emailNft(req, res, comprador.id, el.id, 'comprador')
+        emailNft(req, res, vendedor.id, el.id, 'vendedor')
       })
     } catch (error) {
       console.log(error)
