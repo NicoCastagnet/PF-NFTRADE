@@ -95,7 +95,8 @@ model Collection {
   name        String
   image       String?
   description String?
-  disccount   Float
+  discount    Float
+  price       Float
   creatorId   String
   ownerId     String
   createdAt   DateTime @default(now())
@@ -136,11 +137,11 @@ model Buys {
 }
 
 model BuyNfts {
-  nftsId      String   @id
-  compradorId String
-  vendedorId  String
-  coins       Float
-  createdAt   DateTime @default(now())
+  nftsId        String   @id
+  compradorId   String
+  vendedorId    String
+  coins         Float
+  createdAt     DateTime @default(now())
   nameComprador String?
-  nameVendedor String?
+  nameVendedor  String?
 }

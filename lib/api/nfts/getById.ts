@@ -40,8 +40,10 @@ const getNftById = async ({
             name: true,
           },
         },
+        wishedBy: { select: { userId: true } },
       },
     })
+    nft.wishedBy = nft.wishedBy.map((w) => w.userId)
     return nft
   } catch (e) {
     return null

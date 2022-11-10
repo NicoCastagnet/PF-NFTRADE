@@ -1,4 +1,5 @@
 import Logo from '@assets/White.png'
+import BarChart from '@components/charts/barchart'
 import SvgBox from '@components/icons/svgBox'
 import SvgChartPie from '@components/icons/svgChartPie'
 import SvgHome from '@components/icons/svgHome'
@@ -11,7 +12,7 @@ import Link from 'next/link'
 
 const DashBoardStatistics: NextPage = () => {
   return (
-    <section className="flex">
+    <section className="flex bg-gray-900">
       <Head>
         <title>Dashboard | Statistics</title>
       </Head>
@@ -59,8 +60,8 @@ const DashBoardStatistics: NextPage = () => {
           </ul>
         </div>
       </div>
-      <div className="righ">
-        <h1>This is the statistics right side</h1>
+      <div className="righ h-full w-full">
+        <BarChart />
       </div>
     </section>
   )

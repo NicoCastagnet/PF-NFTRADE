@@ -11,6 +11,7 @@ const nextConfig = {
       'pbs.twimg.com',
       'media-exp1.licdn.com',
       'platform-lookaside.fbsbx.com',
+      'tailus.io',
     ],
   },
   async headers() {
