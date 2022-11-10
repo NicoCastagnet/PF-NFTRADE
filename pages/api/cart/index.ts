@@ -18,7 +18,7 @@ export default async function handler(
           select: {
             id: true,
             coins: true,
-            name: true
+            name: true,
           },
         })
 
@@ -64,7 +64,7 @@ export default async function handler(
           select: {
             id: true,
             coins: true,
-            name: true
+            name: true,
           },
         })
 
@@ -86,7 +86,7 @@ export default async function handler(
           },
         })
 
-      await prisma.notify.create({
+        await prisma.notify.create({
           data: {
             userId: comprador.id,
             nftId: el.id,
@@ -97,7 +97,7 @@ export default async function handler(
             nameComprador: comp.name,
             vendedorId: vendedor.id,
             nameVendedor: vendedor.name,
-          }
+          },
         })
 
         emailNft(req, res, comprador.id, el.id, 'comprador')
