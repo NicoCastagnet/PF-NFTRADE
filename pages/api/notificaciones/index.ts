@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import prisma from '@lib/db'
 import axios from 'axios'
 import type { NextApiRequest, NextApiResponse } from 'next'
@@ -11,9 +14,8 @@ export default async function payDescription(
     const { query } = req
     try {
       if (query.topic === 'payment') {
-        const url = `https://api.mercadopago.com/v1/payments/${
-          query.id as string
-        }`
+        const url = `https://api.mercadopago.com/v1/payments/${query.id as string
+          }`
         const payment = await axios.get(url, {
           headers: {
             'Content-Type': 'application/json',
@@ -21,18 +23,32 @@ export default async function payDescription(
           },
         })
         if (payment.data.status_detail) {
+          const arrCoins = payment.data.additional_info.map((el: any) => el.quantity)
+          const arrAmount = payment.data.additional_info.items.map((el: any) => el.unit_price)
+          const totalCoin = arrCoins.reduce((a: number, b: number) => a + b, 0)
+          const totalAmount = arrAmount.reduce((a: number, b: number) => a + b, 0)
+
           const data = await prisma.buys.create({
             data: {
               buyId: query.id as string,
               userId: payment.data.additional_info.items[0].id as string,
               date: payment.data.charges_details[0].date_created as string,
-              coins: parseInt(payment.data.additional_info.items[0].quantity),
+              coins: Number(totalCoin),
               status: payment.data.status as string,
-              amount: parseInt(
-                payment.data.additional_info.items[0].unit_price,
-              ),
+              amount: Number(totalAmount,),
             },
           })
+
+          await prisma.notify.create({
+            data: {
+              ordenId: query.id as string,
+              userId: payment.data.additional_info.items[0].id as string,
+              coins: Number(totalCoin),
+              status: payment.data.status as string,
+              amount: Number(totalAmount),
+            }
+          })
+
           const userCoins = await prisma.user.findUnique({
             where: {
               id: data.userId as string,
@@ -45,13 +61,13 @@ export default async function payDescription(
             if (!userCoins) {
               res.status(400).send('An user is neccesary')
             } else {
-              const totalCoins: number = data?.coins + Number(userCoins?.coins)
+              const totalUserCoins: number = data?.coins + Number(userCoins?.coins)
               const user = await prisma.user.update({
                 where: {
                   id: data.userId?.toString(),
                 },
                 data: {
-                  coins: totalCoins,
+                  coins: totalUserCoins,
                 },
               })
               const msg = {

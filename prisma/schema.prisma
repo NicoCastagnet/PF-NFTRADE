@@ -136,11 +136,35 @@ model Buys {
 }
 
 model BuyNfts {
-  nftsId      String   @id
-  compradorId String
-  vendedorId  String
-  coins       Float
-  createdAt   DateTime @default(now())
+  nftsId        String   @id
+  compradorId   String
+  vendedorId    String
+  coins         Float
+  createdAt     DateTime @default(now())
   nameComprador String?
-  nameVendedor String?
+  nameVendedor  String?
+}
+
+model Notify {
+  id            String   @id @default(cuid())
+  userId        String
+  typeNotify    String
+  ordenId       String?
+  nameUser      String?
+  nftId         String?
+  nameNft       String?
+  creatorNft    String?
+  compradorId   String?
+  nameComprador String?
+  vendedorId    String?
+  nameVendedor  String?
+  coins         Float?
+  amount        Float?
+  status        String?
+  comments      String?
+  owner         String?
+  ownerId       String?
+  view          Boolean  @default(false)
+  like          Boolean?
+  createdAt     DateTime @default(now())
 }

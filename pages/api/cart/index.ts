@@ -18,10 +18,12 @@ export default async function handler(
           select: {
             id: true,
             coins: true,
+            name: true
           },
         })
+
         if (comp?.coins < el.price) {
-          res.status(404).json({ msg: 'not coins' })
+          return res.status(404).json({ msg: 'not coins' })
         }
 
         await prisma.nft.update({
@@ -34,12 +36,13 @@ export default async function handler(
           },
         })
 
-        await prisma.nft.findUniqueOrThrow({
+        const nftComp = await prisma.nft.findUniqueOrThrow({
           where: {
             id: el.id,
           },
           select: {
             id: true,
+            name: true,
             owner: true,
             ownerId: true,
           },
@@ -61,6 +64,7 @@ export default async function handler(
           select: {
             id: true,
             coins: true,
+            name: true
           },
         })
 
@@ -81,6 +85,21 @@ export default async function handler(
             coins: el.price,
           },
         })
+
+      await prisma.notify.create({
+          data: {
+            userId: comprador.id,
+            nftId: el.id,
+            nameNft: nftComp.name,
+            owner: nftComp.owner,
+            ownerId: nftComp.ownerId,
+            compradorId: comp.id,
+            nameComprador: comp.name,
+            vendedorId: vendedor.id,
+            nameVendedor: vendedor.name,
+          }
+        })
+
         emailNft(req, res, comprador.id, el.id, 'comprador')
         emailNft(req, res, vendedor.id, el.id, 'vendedor')
       })
