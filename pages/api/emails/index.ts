@@ -32,7 +32,7 @@ export default async function mailSend(
     const mailOptions = {
       from: 'NFTrade',
       to: mail.email as string,
-      subject: 'Confirmación de compra',
+      subject: 'Confirmación de compra!',
       text: `¡Tu compra ha sido realizada con éxito! Tus monedas ahora suman la cantidad de ${mail.coins}. Esperamos que disfrutes tu recorrido por la app. Un saludo, NFTrade!`,
     }
 

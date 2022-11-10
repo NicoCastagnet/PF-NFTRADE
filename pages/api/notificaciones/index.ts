@@ -134,7 +134,7 @@ export default async function payDescription(
         b.createdAt - a.createdAt,
     )
 
-    console.log('🚀 ~ file: index.ts ~ line 99 ~ notify', notify)
+    // console.log('🚀 ~ file: index.ts ~ line 99 ~ notify', notify)
     res.json({ notify: notify.slice(0, 10) })
   }
 }

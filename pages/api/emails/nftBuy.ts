@@ -38,7 +38,7 @@ export default async function emailNft(
       from: 'NFTrade',
       to: user?.email as string,
       subject: 'Compra de NFT',
-      text: `¡La compra ha sido realizada con éxito! Ahora tú eres el poseedor del nft ${info?.name} Esperamos que disfrutes tu recorrido por la app. Un saludo, NFTrade!`,
+      text: `¡La compra ha sido realizada con éxito! Ahora tú eres el poseedor del nft ${info?.name}. Esperamos que disfrutes tu recorrido por la app. Un saludo, NFTrade!`,
     }
 
     transporter.sendMail(mailOptions, (Error, info) => {
