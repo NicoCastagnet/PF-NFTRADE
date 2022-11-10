@@ -5,13 +5,16 @@ import SvgBell from '@components/icons/svgBell'
 import { useSession } from 'next-auth/react'
 import ReactTimeAgo from 'react-time-ago'
 import styles from '../../styles/form.module.css'
-import useSWR from 'swr';
-import fetcher from '@lib/fetcher';
+import useSWR from 'swr'
+import fetcher from '@lib/fetcher'
 
 const Notificaciones = () => {
   const { data: session } = useSession()
-  const {data} = useSWR(`/api/notificaciones?user=${session?.user.id}`, fetcher)
- 
+  const { data } = useSWR(
+    `/api/notificaciones?user=${session?.user.id}`,
+    fetcher,
+  )
+
   return (
     <section
       className={`flex justify-center items-center relative ${styles.notify}`}
