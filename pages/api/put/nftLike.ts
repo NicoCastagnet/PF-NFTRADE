@@ -15,6 +15,12 @@ export default async function postLike(
         },
       })
 
+      const nftDetail = await prisma.nft.findUnique({
+        where: {
+          id: nftId as string,
+        },
+      })
+
       if (!user) {
         res.status(400).send('el user no existe o es requerido')
       } else {
@@ -31,6 +37,17 @@ export default async function postLike(
           include: {
             likedBy: true,
           },
+        })
+        await prisma.notify.create({
+          data: {
+            typeNotify: 'Liked',
+            userId: user.id,
+            nameUser: user.name,
+            nftId: nftDetail?.id,
+            nameNft: nftDetail?.name,
+            userIdLiked: user.id,
+            nameUserLiked: user.name
+          }
         })
         const msg = {
           message: 'nft actualizado',

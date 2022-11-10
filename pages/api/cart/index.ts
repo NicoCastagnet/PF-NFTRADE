@@ -89,6 +89,7 @@ export default async function handler(
         await prisma.notify.create({
           data: {
             userId: comprador.id,
+            typeNotify: 'buyNft',
             nftId: el.id,
             nameNft: nftComp.name,
             owner: nftComp.owner,

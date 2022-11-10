@@ -49,6 +49,7 @@ export default async function payDescription(
 
           await prisma.notify.create({
             data: {
+              typeNotify: 'buy',
               ordenId: query.id as string,
               userId: payment.data.additional_info.items[0].id as string,
               coins: Number(totalCoin),

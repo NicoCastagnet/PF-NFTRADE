@@ -147,24 +147,27 @@ model BuyNfts {
 
 model Notify {
   id            String   @id @default(cuid())
-  userId        String
-  typeNotify    String
-  ordenId       String?
-  nameUser      String?
-  nftId         String?
-  nameNft       String?
-  creatorNft    String?
-  compradorId   String?
-  nameComprador String?
-  vendedorId    String?
-  nameVendedor  String?
-  coins         Float?
-  amount        Float?
-  status        String?
-  comments      String?
-  owner         String?
-  ownerId       String?
-  view          Boolean  @default(false)
-  like          Boolean?
-  createdAt     DateTime @default(now())
+  userId          String
+  typeNotify      String
+  ordenId         String?
+  nameUser        String?
+  nftId           String?
+  nameNft         String?
+  creatorNft      String?
+  compradorId     String?
+  nameComprador   String?
+  vendedorId      String?
+  nameVendedor    String?
+  coins           Float?
+  amount          Float?
+  status          String?
+  userIdComment   String?
+  nameUserComment String?
+  comment         String?
+  owner           String?
+  ownerId         String?
+  view            Boolean  @default(false)
+  userIdLiked     String?
+  nameUserLiked   String?
+  createdAt       DateTime @default(now())
 }

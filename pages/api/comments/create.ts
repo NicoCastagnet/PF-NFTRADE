@@ -18,6 +18,7 @@ export default async function postComment(
         },
         select: {
           id: true,
+          name: true
         },
       })
       const nft = await prisma.nft.findUnique({
@@ -26,6 +27,8 @@ export default async function postComment(
         },
         select: {
           id: true,
+          name: true,
+          owner: true,
         },
       })
       if (!user) {
@@ -40,6 +43,19 @@ export default async function postComment(
             userId: user.id,
           },
         })
+        await prisma.notify.create({
+          data: {
+            typeNotify: 'comment',
+            userId: nft.owner.id,
+            nameUser: nft.owner.name,
+            nftId: nft.id,
+            nameNft: nft.name,
+            userIdComment: user.id,
+            nameUserComment: user.name,
+            comment: content
+          }
+        })
+
         res.status(200).json({ message: 'Comment created', data: comment })
       }
     } catch (e) {
