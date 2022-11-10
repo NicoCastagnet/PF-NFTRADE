@@ -8,6 +8,7 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   const { nfts, comprador } = req.body
+  console.log(nfts, comprador)
   if (req.method === 'POST') {
     try {
       nfts.forEach(async (el) => {
