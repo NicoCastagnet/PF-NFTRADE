@@ -103,6 +103,8 @@ const UserDetail: NextPage<Props> = ({ user }) => {
     setSaved(true)
   }
 
+  console.log(user.collectionsCreated)
+
   // const passwordhash = hash(password, 5)
 
   return (
@@ -509,7 +511,7 @@ const UserDetail: NextPage<Props> = ({ user }) => {
           </h3>
           <div className="flex w-full my-3 h-[330px]">
             {user.collectionsOwned.length > 0 ? (
-              user.collectionsOwned.map((el) => <div key={el.id}>Hola</div>)
+              user.collectionsOwned.map((el) => <div key={el.id}></div>)
             ) : (
               <div>
                 <p>There are no collections owned yet</p>
@@ -532,7 +534,7 @@ const UserDetail: NextPage<Props> = ({ user }) => {
           </h3>
           <div className="flex w-full my-3 h-[330px]">
             {user.collectionsCreated.length > 0 &&
-              user.collectionsCreated.map((el) => <div key={el.id}>Hola</div>)}
+              user.collectionsCreated.map((el) => <div key={el.id}></div>)}
             {user.collectionsCreated.length < 3 && (
               <Link href={`${user.id}/collections/create`}>
                 <div
