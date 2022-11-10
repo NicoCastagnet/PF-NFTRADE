@@ -20,7 +20,22 @@ export default async function payDescription(
             Authorization: `Bearer ${process.env.ACCES_TOKEN_SELLER}`,
           },
         })
-        if (payment.data.status_detail) {
+        const flag = await prisma.buyNfts.findUnique({
+          where: {
+            nftsId: query.id as string,
+          },
+          select: {
+            nftsId: true,
+          },
+        })
+        console.log(query.id)
+        console.log(flag?.nftsId)
+        if (payment.data.status_detail && !flag?.nftsId) {
+          console.log(
+            'dentro del ifFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFf',
+          )
+          console.log(query.id)
+          console.log(flag?.nftsId)
           const data = await prisma.buys.create({
             data: {
               buyId: query.id as string,
@@ -58,11 +73,13 @@ export default async function payDescription(
                 text: 'The coins were loaded succesfully.',
                 data: user,
               }
-              sendMail(req, res, query.id as string, 'buy Coins')
+              console.log('APROBADOOOOOOOOOOOOOOOOOO:', data.userId)
+              sendMail(req, res, data.userId as string, 'buy Coins')
               res.status(205).json(msg)
             }
           } else {
-            sendMail(req, res, query.id as string, 'buy Rejected')
+            console.log('RECHAZOOOOOOOOOO:', data.userId)
+            sendMail(req, res, data.userId as string, 'buy Rejected')
           }
           res.status(200).send('recived')
         }
@@ -73,7 +90,7 @@ export default async function payDescription(
     }
   } else if (req.method === 'GET') {
     const { user } = req.query
-    console.log('🚀 ~ file: index.ts ~ line 71 ~ user', user)
+    // console.log('🚀 ~ file: index.ts ~ line 71 ~ user', user)
 
     const notifyBuys = await prisma.buys.findMany({
       where: {
@@ -120,7 +137,7 @@ export default async function payDescription(
         content: true,
       },
     })
-    console.log('🚀 ~ file: index.ts ~ line 106 ~ commnetUser', commnetUser)
+    // console.log('🚀 ~ file: index.ts ~ line 106 ~ commnetUser', commnetUser)
 
     const notify = [
       ...commnetUser,
@@ -134,7 +151,7 @@ export default async function payDescription(
         b.createdAt - a.createdAt,
     )
 
-    console.log('🚀 ~ file: index.ts ~ line 99 ~ notify', notify)
+    // console.log('🚀 ~ file: index.ts ~ line 99 ~ notify', notify)
     res.json({ notify: notify.slice(0, 10) })
   }
 }
