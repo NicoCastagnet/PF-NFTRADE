@@ -21,6 +21,7 @@ export default async function payDescription(
           },
         })
         if (payment.data.status_detail) {
+          console.log(query.id)
           const data = await prisma.buys.create({
             data: {
               buyId: query.id as string,
@@ -58,11 +59,13 @@ export default async function payDescription(
                 text: 'The coins were loaded succesfully.',
                 data: user,
               }
-              sendMail(req, res, query.id as string, 'buy Coins')
+              console.log('APROBADOOOOOOOOOOOOOOOOOO:', data.userId)
+              sendMail(req, res, data.userId as string, 'buy Coins')
               res.status(205).json(msg)
             }
           } else {
-            sendMail(req, res, query.id as string, 'buy Rejected')
+            console.log('RECHAZOOOOOOOOOO:', data.userId)
+            sendMail(req, res, data.userId as string, 'buy Rejected')
           }
           res.status(200).send('recived')
         }

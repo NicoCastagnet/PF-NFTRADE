@@ -29,8 +29,8 @@ export default async function emailNft(
       port: 465,
       secure: true,
       auth: {
-        user: 'nftrade2022@gmail.com',
-        pass: 'kgpcugakgejfmhhi',
+        user: process.env.SECRET_EMAIL,
+        pass: process.env.SECRET_PASS,
       },
     })
 
@@ -68,8 +68,8 @@ export default async function emailNft(
       port: 465,
       secure: true,
       auth: {
-        user: 'nftrade2022@gmail.com',
-        pass: 'kgpcugakgejfmhhi',
+        user: process.env.SECRET_EMAIL,
+        pass: process.env.SECRET_PASS,
       },
     })
 

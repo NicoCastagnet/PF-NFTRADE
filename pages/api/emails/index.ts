@@ -24,8 +24,8 @@ export default async function mailSend(
       port: 465,
       secure: true,
       auth: {
-        user: 'nftrade2022@gmail.com',
-        pass: 'kgpcugakgejfmhhi',
+        user: process.env.SECRET_EMAIL,
+        pass: process.env.SECRET_PASS,
       },
     })
     const mailOptions = {
@@ -48,8 +48,8 @@ export default async function mailSend(
       port: 465,
       secure: true,
       auth: {
-        user: 'nftrade2022@gmail.com',
-        pass: 'kgpcugakgejfmhhi',
+        user: process.env.SECRET_EMAIL,
+        pass: process.env.SECRET_PASS,
       },
     })
 
