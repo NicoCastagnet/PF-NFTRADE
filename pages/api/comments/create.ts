@@ -43,6 +43,7 @@ export default async function postComment(
             userId: user.id,
           },
         })
+        console.log('iniciando => ')
         await prisma.notify.create({
           data: {
             typeNotify: 'comment',
@@ -50,11 +51,12 @@ export default async function postComment(
             nameUser: nft.owner.name,
             nftId: nft.id,
             nameNft: nft.name,
-            userIdComment: user.id,
+            userIdComment: user.id.toString(),
             nameUserComment: user.name,
             comment: content,
           },
         })
+        console.log('finalizamos => ')
 
         res.status(200).json({ message: 'Comment created', data: comment })
       }
