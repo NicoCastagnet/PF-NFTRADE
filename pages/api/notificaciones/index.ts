@@ -98,29 +98,18 @@ export default async function payDescription(
       select: {
         nft: {
           select: {
-            id: true,
             name: true,
             owner: {
               select: {
-                id: true,
                 name: true,
               },
             },
           },
         },
-        user: {
-          select: {
-            id: true,
-            name: true,
-          },
-        },
-        nftId: true,
-        userId: true,
         createdAt: true,
         content: true,
       },
     })
-    console.log('🚀 ~ file: index.ts ~ line 106 ~ commnetUser', commnetUser)
 
     const notify = [
       ...commnetUser,
@@ -134,7 +123,6 @@ export default async function payDescription(
         b.createdAt - a.createdAt,
     )
 
-    console.log('🚀 ~ file: index.ts ~ line 99 ~ notify', notify)
-    res.json({ notify: notify.slice(0, 10) })
+    res.json({ notify: notify.slice(0, 10), total: notify.length })
   }
 }

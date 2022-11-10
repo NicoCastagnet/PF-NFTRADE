@@ -2,41 +2,25 @@
 // @ts-nocheck
 
 import SvgBell from '@components/icons/svgBell'
-import axios from 'axios'
 import { useSession } from 'next-auth/react'
-import { useEffect, useState } from 'react'
 import ReactTimeAgo from 'react-time-ago'
 import styles from '../../styles/form.module.css'
+import useSWR from 'swr';
+import fetcher from '@lib/fetcher';
 
 const Notificaciones = () => {
   const { data: session } = useSession()
-  const [bell, setBell] = useState([])
-
-  useEffect(() => {
-    notify()
-  }, [])
-
-  const notify = async () => {
-    const res = await axios.get(
-      `http://localhost:3000/api/notificaciones?user=${session?.user.id}`,
-    )
-    // const res = await axios.get(
-    //   `http://localhost:3000/api/notificaciones?user=cla6w7vfm0003ubeob6jck43a`,
-    // )
-    console.log(session?.user.id)
-    console.log('notificaciones => ', res.data)
-    setBell(res.data.notify)
-  }
-
+  const {data} = useSWR(`/api/notificaciones?user=${session?.user.id}`, fetcher)
+ 
   return (
     <section
       className={`flex justify-center items-center relative ${styles.notify}`}
     >
       <button className="relative group">
-        {bell?.length ? (
+        {data?.notify.length ? (
           <>
             <span className="h-5 w-6 bg-red-500 rounded-full absolute top-[0.35rem] left-5 border-[3px] border-gray-900 z-10 text-sm text-center flex justify-center items-center pt-1 ">
-              {bell.length}
+              {data.total}
             </span>
             <span className="animate-ping h-5 w-6 bg-red-500 rounded-full inline-flex absolute top-[0.35rem] left-5 z-10"></span>
           </>
@@ -61,8 +45,8 @@ const Notificaciones = () => {
           <div
             className={`divide-y divide-gray-800 dark:divide-gray-700 max-h-[30rem] overflow-auto ${styles.scrollbar}`}
           >
-            {bell.length ? (
-              bell?.map((el, index) => (
+            {data?.notify.length ? (
+              data?.notify.map((el, index) => (
                 <>
                   {el.status ? (
                     ////// SI TENGO STATUS ""MERCADO PAGOS"" ///////////
