@@ -18,7 +18,7 @@ export default async function postComment(
         },
         select: {
           id: true,
-          name: true
+          name: true,
         },
       })
       const nft = await prisma.nft.findUnique({
@@ -52,8 +52,8 @@ export default async function postComment(
             nameNft: nft.name,
             userIdComment: user.id,
             nameUserComment: user.name,
-            comment: content
-          }
+            comment: content,
+          },
         })
 
         res.status(200).json({ message: 'Comment created', data: comment })

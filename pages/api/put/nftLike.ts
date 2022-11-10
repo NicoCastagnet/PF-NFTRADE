@@ -46,8 +46,8 @@ export default async function postLike(
             nftId: nftDetail?.id,
             nameNft: nftDetail?.name,
             userIdLiked: user.id,
-            nameUserLiked: user.name
-          }
+            nameUserLiked: user.name,
+          },
         })
         const msg = {
           message: 'nft actualizado',
