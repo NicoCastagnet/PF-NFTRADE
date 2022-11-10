@@ -87,6 +87,8 @@ const CreateCollection: NextPage<Props> = ({ user }) => {
     const inputName = e.target.name
     let inputValue: string | number = e.target.value
 
+    validateErrors(e)
+
     if (e.target.name === 'discount') {
       inputValue = parseInt(inputValue)
       const newPrice = totalPrice * (1 - inputValue / 100)
@@ -106,25 +108,82 @@ const CreateCollection: NextPage<Props> = ({ user }) => {
     if (collection.nftsId.includes(id)) {
       setTotalPrice((prev) => prev - price)
       const newPrice = totalPrice - price
-      setCollection({
-        ...collection,
+      setCollection((prev) => ({
+        ...prev,
         nftsId: collection.nftsId.filter((nftId) => nftId !== id),
-        price: newPrice * (1 - collection.discount / 100),
-      })
+        price: Math.round(newPrice * (1 - collection.discount / 100)),
+      }))
     } else {
       setTotalPrice((prev) => prev + price)
       const newPrice = totalPrice + price
-      setCollection({
-        ...collection,
+      setCollection((prev) => ({
+        ...prev,
         nftsId: [...collection.nftsId, id],
-        price: newPrice * (1 - collection.discount / 100),
+        price: Math.round(newPrice * (1 - collection.discount / 100)),
+      }))
+    }
+    if (collection.nftsId.length < 3) {
+      setError({
+        ...error,
+        nftsId: 'You must select at least 3 NFTs',
       })
     }
   }
 
-  console.log(collection)
-
   const [loading, setLoading] = useState(false)
+
+  function validate(collection: Collection) {
+    const error = {}
+
+    if (!collection.name) {
+      error.name = 'Name missing'
+    } else if (collection.name.length < 3) {
+      error.name = 'Name must have at least 3 characters'
+    } else if (collection.name.length > 24) {
+      error.name = 'Name must have less than 24 characters'
+    }
+
+    if (!collection.image) {
+      error.image = 'Image missing'
+    }
+
+    if (!collection.description) {
+      error.description = 'Description missing'
+    } else if (collection.description.length < 10) {
+      error.description = 'Description must have at least 10 characters'
+    } else if (collection.description.length > 140) {
+      error.description = 'Description must have at less than 140 characters'
+    }
+
+    return error
+  }
+
+  const [error, setError] = useState({
+    name: 'Name missing',
+    image: '',
+    description: '',
+    nftsId: '',
+  })
+
+  if (collection.nftsId.length < 3) {
+    error.nftsId = 'You must select at least 3 NFTs'
+  } else {
+    error.nftsId = ''
+  }
+  console.log(error)
+
+  function validateErrors(
+    e:
+      | ChangeEvent<HTMLInputElement>
+      | ChangeEvent<HTMLSelectElement>
+      | ChangeEvent<HTMLTextAreaElement>,
+  ) {
+    const objError = validate({
+      ...collection,
+      [e.target.name]: e.target.value,
+    })
+    setError(objError)
+  }
 
   async function submitCollection() {
     setLoading(true)
@@ -166,12 +225,16 @@ const CreateCollection: NextPage<Props> = ({ user }) => {
               {uploadError && 'Failed while loading the file. Try again.'}
             </span>
             <div className="h-auto w-full">
+              {error.image && (
+                <span className=" text-red-800">{error.image}* </span>
+              )}
               <label
                 htmlFor="fileInput"
                 className="cursor-pointer text-gray-600 bg-gray-200 hover:bg-gray-300 dark:bg-[#393b41] dark:hover:bg-[#2c2d30] dark:text-gray-400 h-auto py-4 mb-0 mt-10 flex items-center justify-center transition-all"
               >
                 <span className="text-[1.2rem]">Select Image</span>
               </label>
+
               <input
                 className=" invisible w-[0]"
                 id="fileInput"
@@ -187,12 +250,17 @@ const CreateCollection: NextPage<Props> = ({ user }) => {
           </div>
           <div className="w-[450px] mr-10">
             <div className="mb-6 w-full  mr-10">
-              <label
-                htmlFor="name"
-                className="flex items-center gap-2 mb-2 text-[1.4rem] font-medium text-gray-600 dark:text-gray-400"
-              >
-                Collection Name
-              </label>
+              <div className="flex justify-between items-center">
+                <label
+                  htmlFor="name"
+                  className="flex items-center gap-2 mb-2 text-[1.4rem] font-medium text-gray-600 dark:text-gray-400"
+                >
+                  Collection Name
+                </label>
+                {error.name && (
+                  <span className=" text-red-800">{error.name}*</span>
+                )}
+              </div>
               <input
                 type="text"
                 id="name"
@@ -203,12 +271,17 @@ const CreateCollection: NextPage<Props> = ({ user }) => {
               />
             </div>
             <div className="w-full">
-              <label
-                htmlFor="description"
-                className="flex items-center gap-2 mb-2 text-sm font-medium text-gray-600 dark:text-gray-400"
-              >
-                <span className="text-[1.2rem]">Description</span>
-              </label>
+              <div className="flex justify-between items-center">
+                <label
+                  htmlFor="description"
+                  className="flex items-center gap-2 mb-2 text-sm font-medium text-gray-600 dark:text-gray-400"
+                >
+                  <span className="text-[1.2rem]">Description</span>
+                </label>
+                {error.description && (
+                  <span className=" text-red-800">{error.description}*</span>
+                )}
+              </div>
               <textarea
                 id="description"
                 value={collection.description}
@@ -224,7 +297,10 @@ const CreateCollection: NextPage<Props> = ({ user }) => {
             <div className="w-full flex justify-center">
               <button
                 onClick={submitCollection}
-                className="w-full h-[60px] bg-blue-600 rounded-[10px] mt-10 text-[1.4rem] font-[600] hover:scale-[1.04] transition-all"
+                className="w-full h-[60px] bg-blue-600 rounded-[10px] mt-10 text-[1.4rem] font-[600] hover:scale-[1.04] transition-all disabled:bg-gray-500 disabled:cursor-not-allowed disabled:hover:scale-[1]"
+                disabled={
+                  error.name || error.description || error.image || error.nftsId
+                }
               >
                 Submit
               </button>
@@ -277,9 +353,14 @@ const CreateCollection: NextPage<Props> = ({ user }) => {
             <h3 className="flex items-center gap-2  text-[2rem] font-medium text-gray-600 dark:text-gray-400">
               Select some NFTs for your new collection
             </h3>
-            <span className="font-medium text-gray-600 dark:text-gray-400">
-              (At least 3)
-            </span>
+            <div>
+              <span className="font-medium text-gray-600 dark:text-gray-400">
+                (At least 3)
+              </span>
+              {error.nftsId && (
+                <span className=" ml-2 text-red-800">{error.nftsId}*</span>
+              )}
+            </div>
           </div>
           <div className="flex justify-center">
             <div className="flex min-h-[900px] p-8 border-[1px] border-gray-400 rounded-[15px] w-full flex-wrap">
@@ -288,7 +369,7 @@ const CreateCollection: NextPage<Props> = ({ user }) => {
                   <div
                     onClick={() => handleNfts(el.id, el.price)}
                     key={el.id}
-                    className={` w-[30%] mr-10 max-w-[287px] h-[380px] overflow-hidden relative flex flex-col bg-gray-800 rounded-xl p-[1px] border-slate-900 cursor-pointer group  dark:bg-stone-900 dark:border-[1px]   dark:border-gray-400  group shadow-lg shadow-zinc-500`}
+                    className={` w-[30%] min-w-[284px] mr-10 max-w-[287px] h-[380px] overflow-hidden relative flex flex-col bg-gray-800 rounded-xl p-[1px] border-slate-900 cursor-pointer group  dark:bg-stone-900 dark:border-[1px]   dark:border-gray-400  group shadow-lg shadow-zinc-500`}
                   >
                     <div
                       className={`${

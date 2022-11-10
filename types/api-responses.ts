@@ -180,7 +180,7 @@ export type CollectionDetailResponse = Prisma.CollectionGetPayload<{
     name: true
     image: true
     description: true
-    disccount: true
+    discount: true
     owner: {
       select: { name: true; id: true }
     }
@@ -189,6 +189,7 @@ export type CollectionDetailResponse = Prisma.CollectionGetPayload<{
     }
     createdAt: true
     updatedAt: true
+    price: true
     nfts: {
       select: {
         id: true
