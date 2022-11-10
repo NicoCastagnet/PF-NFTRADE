@@ -180,7 +180,7 @@ export type CollectionDetailResponse = Prisma.CollectionGetPayload<{
     name: true
     image: true
     description: true
-    disccount: true
+    discount: true
     owner: {
       select: { name: true; id: true }
     }
@@ -189,6 +189,7 @@ export type CollectionDetailResponse = Prisma.CollectionGetPayload<{
     }
     createdAt: true
     updatedAt: true
+    price: true
     nfts: {
       select: {
         id: true
@@ -229,6 +230,12 @@ export type CommentsResponse = Prisma.CommentGetPayload<{
         name: true
       }
     }
+    nft: {
+      select: {
+        id: true
+        name: true
+      }
+    }
   }
 }>[]
 
@@ -258,7 +265,8 @@ export type UserDetailResponse = Prisma.UserGetPayload<{
         name: true
         image: true
         description: true
-        disccount: true
+        discount: true
+        price: true
       }
     }
     collectionsOwned: {
@@ -267,7 +275,8 @@ export type UserDetailResponse = Prisma.UserGetPayload<{
         name: true
         image: true
         description: true
-        disccount: true
+        discount: true
+        price: true
       }
     }
     nftsCreated: {

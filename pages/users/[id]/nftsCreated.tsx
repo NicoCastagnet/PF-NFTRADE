@@ -2,6 +2,7 @@
 /* eslint-disable react/jsx-no-undef */
 import Footer from '@components/footer'
 import SvgCoin from '@components/icons/svgCoin'
+import SvgPlus from '@components/icons/svgPlus'
 import NavBar from '@components/navbar/navbar'
 import getUserById from '@lib/api/users/getUserById'
 import type { GetServerSideProps, NextPage } from 'next'
@@ -15,11 +16,11 @@ interface Props {
   user: UserDetailResponse
 }
 
-const NftsOwned: NextPage<Props> = ({ user }) => {
+const NftsCreated: NextPage<Props> = ({ user }) => {
   const { data: session } = useSession()
   const account = session?.user
 
-  const nfts = user.nftsOwned
+  const nfts = user.nftsCreated
 
   return (
     <div>
@@ -41,7 +42,7 @@ const NftsOwned: NextPage<Props> = ({ user }) => {
                 nfts.map((el) => (
                   <div
                     key={el.id}
-                    className={` w-[30%] mr-10 max-w-[287px] h-[380px] overflow-hidden relative flex flex-col bg-gray-800 rounded-xl p-[1px] border-slate-900 cursor-pointer group  dark:bg-stone-900 dark:border-[1px]   dark:border-gray-400  group shadow-lg shadow-zinc-500`}
+                    className={`w-[30%] mr-10 max-w-[287px] h-[380px] overflow-hidden relative flex flex-col bg-gray-800 rounded-xl p-[1px] border-slate-900 cursor-pointer group  dark:bg-stone-900 dark:border-[1px]   dark:border-gray-400  group shadow-lg shadow-zinc-500`}
                   >
                     <Link href={`/nfts/${el.id}`} key={el.id}>
                       {/* // h-[35rem] w-[22rem] */}
@@ -85,6 +86,24 @@ const NftsOwned: NextPage<Props> = ({ user }) => {
                     </Link>
                   </div>
                 ))}
+              <Link href={`/nfts/create`}>
+                <div
+                  className={`w-[30%] max-w-[287px] min-w-[194px] h-[380px] overflow-hidden relative flex flex-col bg-gray-200  dark:border-[1px] rounded-[15px] p-9 dark:border-gray-400 cursor-pointer justify-center shadow-lg group shadow-zinc-500`}
+                >
+                  <div
+                    className={` group-hover:scale-[1.1] transition-all duration-500 rounded-[20px] shadow-inner shadow-zinc-600 bg-gray-300 w-full h-full flex justify-center items-center flex-col`}
+                  >
+                    <div
+                      className={`group-hover:animate-bounce shadow-inner shadow-zinc-800 rounded-[15px] w-[50%] h-[40%] flex justify-center items-center`}
+                    >
+                      <SvgPlus className="  fill-gray-500 w-[44px] h-[44px] blur-[0.8px]" />
+                    </div>
+                    <span className="mt-2 text-gray-600 text-[1rem] font-[500]">
+                      Create NFT
+                    </span>
+                  </div>
+                </div>
+              </Link>
             </div>
           </div>
         </div>
@@ -109,4 +128,4 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   }
 }
 
-export default NftsOwned
+export default NftsCreated

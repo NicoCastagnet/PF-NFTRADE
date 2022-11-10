@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import SvgBell from '@components/icons/svgBell'
 import axios from 'axios'
 import { useSession } from 'next-auth/react'
@@ -14,12 +17,13 @@ const Notificaciones = () => {
   }, [])
 
   const notify = async () => {
-    // const res = await axios.get(
-    //   `http://localhost:3000/api/notificaciones?user=${session?.user.id}`,
-    // )
     const res = await axios.get(
-      `http://localhost:3000/api/notificaciones?user=cla6w7vfm0003ubeob6jck43a`,
+      `http://localhost:3000/api/notificaciones?user=${session?.user.id}`,
     )
+    // const res = await axios.get(
+    //   `http://localhost:3000/api/notificaciones?user=cla6w7vfm0003ubeob6jck43a`,
+    // )
+    console.log(session?.user.id)
     console.log('notificaciones => ', res.data)
     setBell(res.data.notify)
   }
@@ -61,6 +65,7 @@ const Notificaciones = () => {
               bell?.map((el, index) => (
                 <>
                   {el.status ? (
+                    ////// SI TENGO STATUS ""MERCADO PAGOS"" ///////////
                     <a
                       key={index}
                       href="#"
@@ -86,8 +91,10 @@ const Notificaciones = () => {
                       </div>
                     </a>
                   ) : (
+                    //////// SI NO TENGO STATUS ""MECADO PAGOS"" //////////
                     <>
-                      {session?.user.id == el?.compradorId ? (
+                      {session?.user.id == el?.compradorId && (
+                        ///////// SI EL ID DEL USER COINSIDE CON ID COMPRADOR ////////
                         <a
                           key={index}
                           href="#"
@@ -113,7 +120,9 @@ const Notificaciones = () => {
                             </div>
                           </div>
                         </a>
-                      ) : (
+                      )}
+                      {session?.user.id == el.vendedorId && (
+                        ///////// SI EL ID DEL USER COINSIDE CON ID VENDEDOR ////////
                         <a
                           key={index}
                           href="#"
@@ -128,6 +137,33 @@ const Notificaciones = () => {
                                 {/* {session?.user.name || session?.user.username} */}
                               </span>
                               &nbsp;{` your payment has been made successfully`}
+                            </div>
+                            <div className="text-xs text-blue-600 dark:text-blue-500">
+                              {el?.createdAt && (
+                                <ReactTimeAgo
+                                  date={el?.createdAt}
+                                  format={'twitter'}
+                                />
+                              )}
+                            </div>
+                          </div>
+                        </a>
+                      )}
+                      {el?.content && (
+                        <a
+                          key={index}
+                          href="#"
+                          className="flex py-3 px-4 hover:bg-gray-600 dark:hover:bg-[#393b41]"
+                        >
+                          <div className="pl-3 w-full">
+                            <div className="text-gray-500 text-sm mb-1.5 dark:text-gray-400">
+                              {`has dejado un comentario en el NFT  `}
+                              &nbsp;
+                              <span className="font-semibold text-gray-900 dark:text-white">
+                                &nbsp;{`${el?.nft.name} `}
+                              </span>
+                              &nbsp;{` pertenecioente a `}
+                              <span className="font-semibold text-gray-900 dark:text-white">{`${el.nft.owner.name}`}</span>
                             </div>
                             <div className="text-xs text-blue-600 dark:text-blue-500">
                               {el?.createdAt && (

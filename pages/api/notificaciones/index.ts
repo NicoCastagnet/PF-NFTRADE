@@ -90,17 +90,54 @@ export default async function payDescription(
     })
     const notifyVendBuyNfts = await prisma.buyNfts.findMany({
       where: {
-        compradorId: user?.toString(),
+        vendedorId: user?.toString(),
       },
     })
 
-    const notify = [...notifyBuys, ...notifyCompBuyNfts, ...notifyVendBuyNfts]
+    const commnetUser = await prisma.comment.findMany({
+      where: {
+        userId: user?.toString(),
+      },
+      select: {
+        nft: {
+          select: {
+            id: true,
+            name: true,
+            owner: {
+              select: {
+                id: true,
+                name: true,
+              },
+            },
+          },
+        },
+        user: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+        nftId: true,
+        userId: true,
+        createdAt: true,
+        content: true,
+      },
+    })
+    console.log('🚀 ~ file: index.ts ~ line 106 ~ commnetUser', commnetUser)
+
+    const notify = [
+      ...commnetUser,
+      ...notifyBuys,
+      ...notifyCompBuyNfts,
+      ...notifyVendBuyNfts,
+    ]
 
     notify.sort(
       (a: { createdAt: any }, b: { createdAt: any }) =>
         b.createdAt - a.createdAt,
     )
 
+    console.log('🚀 ~ file: index.ts ~ line 99 ~ notify', notify)
     res.json({ notify: notify.slice(0, 10) })
   }
 }
