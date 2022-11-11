@@ -8,7 +8,6 @@ import { useState } from 'react'
 import { HiAtSymbol } from 'react-icons/hi'
 import styles from '../styles/form.module.css'
 
-
 const ForgottenPass: NextPage = () => {
   const [email, setEmail] = useState('')
 

@@ -119,7 +119,7 @@ const LogIn: NextPage = () => {
                     <HiFingerPrint size={28} />
                   </span>
                 </div>
-                
+
                 <button
                   className="bg-zinc-800 text-white rounded-full py-2 px-8 text-lg w-3/5 hover:scale-105 transition-transform font-bold uppercase"
                   type="submit"
@@ -180,7 +180,7 @@ const LogIn: NextPage = () => {
               </Link>
             </p>
             <p className="text-center text-sm mt-3 text-gray-400">
-            <Link href={'/forgottenPass'}>
+              <Link href={'/forgottenPass'}>
                 <a className="text-blue-700">olvidaste tu password</a>
               </Link>
             </p>

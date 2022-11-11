@@ -13,13 +13,14 @@ export default async function handle(
   if (req.method === 'PUT') {
     if (!req.body.email) {
       let generador = ''
-      const characters = "0123456789abcdfghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.?,;-_!*%&$/(){}|@><"
-      for(let i = 0; i < 8; i++) {
+      const characters =
+        '0123456789abcdfghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.?,;-_!*%&$/(){}|@><'
+      for (let i = 0; i < 8; i++) {
         const aleatorio = Math.floor(Math.random() * characters.length)
         generador += characters.charAt(aleatorio)
       }
       //// STRING A ENVIAR POR EMAIL ""PASSWORD"" ////
-      const  newPass = `Mdg84${generador}*`
+      const newPass = `Mdg84${generador}*`
       /////////////////////////////////////////////////
       // escriba su codigo aca ivo
       //
@@ -30,11 +31,11 @@ export default async function handle(
       const passHash = await hash(newPass, 5)
       await prisma.user.update({
         where: {
-          email: req.body.email
+          email: req.body.email,
         },
         data: {
-          passwordHash: passHash
-        }
+          passwordHash: passHash,
+        },
       })
     }
   }
