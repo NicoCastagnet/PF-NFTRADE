@@ -21,22 +21,28 @@ const DashBoardStatistics: NextPage = () => {
         <div className="overflow-y-auto">
           <ul className="space-y-2">
             <Link href="/dashboard">
-              <li className="flex items-center p-2 text-base font-normal rounded-lg text-white hover:bg-gray-700 cursor-pointer">
-                <SvgHome className="w-6 h-6 transition duration-75 text-gray-400 group-hover:text-white" />
-                <span className="ml-3">Home</span>
-              </li>
+              <a>
+                <li className="flex items-center p-2 text-base font-normal rounded-lg text-white hover:bg-gray-700 cursor-pointer">
+                  <SvgHome className="w-6 h-6 transition duration-75 text-gray-400 group-hover:text-white" />
+                  <span className="ml-3">Home</span>
+                </li>
+              </a>
             </Link>
             <Link href="#">
-              <li className="flex items-center p-2 text-base font-normal rounded-lg text-white hover:bg-gray-700 cursor-pointer">
-                <SvgChartPie className="w-6 h-6 transition duration-75 text-gray-400 group-hover:text-white" />
-                <span className="ml-3">Statistics</span>
-              </li>
+              <a>
+                <li className="flex items-center p-2 text-base font-normal rounded-lg text-white hover:bg-gray-700 cursor-pointer">
+                  <SvgChartPie className="w-6 h-6 transition duration-75 text-gray-400 group-hover:text-white" />
+                  <span className="ml-3">Statistics</span>
+                </li>
+              </a>
             </Link>
             <Link href="../mynfts">
-              <li className="flex items-center p-2 text-base font-normal rounded-lg text-white hover:bg-gray-700 cursor-pointer">
-                <SvgBox className="w-6 h-6 transition duration-75 text-gray-400 group-hover:text-white" />
-                <span className="ml-3">My NFT&apos;s</span>
-              </li>
+              <a>
+                <li className="flex items-center p-2 text-base font-normal rounded-lg text-white hover:bg-gray-700 cursor-pointer">
+                  <SvgBox className="w-6 h-6 transition duration-75 text-gray-400 group-hover:text-white" />
+                  <span className="ml-3">My NFT&apos;s</span>
+                </li>
+              </a>
             </Link>
             <li>
               <a

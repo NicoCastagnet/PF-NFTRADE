@@ -28,24 +28,36 @@ const UserMenuNavBar = ({ menu }: { menu: boolean }) => {
               aria-labelledby="dropdownInformationButton"
             >
               <li className="block py-2 px-4 hover:bg-gray-600 dark:hover:bg-[#393b41] hover:text-white xl:hidden">
-                <Link href="#">Explore</Link>
+                <Link href="#">
+                  <a>Explore</a>
+                </Link>
               </li>
 
               <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white xl:hidden">
-                <Link href="/marketplace">Marketplace</Link>
+                <Link href="/marketplace">
+                  <a>Marketplace</a>
+                </Link>
               </li>
               <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white dark:hover:bg-[#393b41] cursor-pointer">
-                <Link href={`/users/${session.user.id}`}>Profile</Link>
+                <Link href={`/users/${session.user.id}`}>
+                  <a>Profile</a>
+                </Link>
               </li>
               <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white dark:hover:bg-[#393b41] cursor-pointer">
-                <Link href="/dashboard">Dashboard</Link>
+                <Link href="/dashboard">
+                  <a>Dashboard</a>
+                </Link>
               </li>
 
               <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white dark:hover:bg-[#393b41] cursor-pointer">
-                <Link href="#">Settings</Link>
+                <Link href="#">
+                  <a>Settings</a>
+                </Link>
               </li>
               <li className="block py-2 px-4 hover:bg-gray-600 dark:hover:bg-[#393b41] hover:text-white cursor-pointer">
-                <Link href="/buy">Buy coins</Link>
+                <Link href="/buy">
+                  <a>Buy coins</a>
+                </Link>
               </li>
               <li
                 className="block py-2 px-4 hover:bg-gray-600 dark:hover:bg-[#393b41] hover:text-white cursor-pointer"
@@ -60,7 +72,9 @@ const UserMenuNavBar = ({ menu }: { menu: boolean }) => {
                 await signOut()
               }}
             >
-              <a href="#">Sign out</a>
+              <Link href="#">
+                <a>Sign out</a>
+              </Link>
             </div>
           </div>
         </div>
@@ -81,10 +95,14 @@ const UserMenuNavBar = ({ menu }: { menu: boolean }) => {
               aria-labelledby="dropdownInformationButton"
             >
               <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white min-[1145px]:hidden">
-                <Link href="#">Explore</Link>
+                <Link href="#">
+                  <a>Explore</a>
+                </Link>
               </li>
               <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white min-[1145px]:hidden">
-                <Link href="/marketplace">Marketplace</Link>
+                <Link href="/marketplace">
+                  <a>Marketplace</a>
+                </Link>
               </li>
               <li
                 className="block py-3 px-4 hover:bg-gray-600 hover:text-white cursor-pointer"

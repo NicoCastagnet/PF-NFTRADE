@@ -52,49 +52,59 @@ const Hamburguesa = () => {
             )}
             {session && (
               <Link href={'#'}>
-                <li className="flex flex-row justify-satart items-center gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6">
-                  <span>
-                    <SvgCoin width={'28'} height={'28'} />
-                  </span>
-                  1.687,25 coins
-                </li>
+                <a>
+                  <li className="flex flex-row justify-satart items-center gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6">
+                    <span>
+                      <SvgCoin width={'28'} height={'28'} />
+                    </span>
+                    1.687,25 coins
+                  </li>
+                </a>
               </Link>
             )}
             <Link href={'#'}>
-              <li className="flex flex-row justify-start items-center gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6">
-                <span>
-                  <SvgCart width={'28'} height={'28'} />
-                </span>
-                <span>0</span>
-                Cart
-              </li>
+              <a>
+                <li className="flex flex-row justify-start items-center gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6">
+                  <span>
+                    <SvgCart width={'28'} height={'28'} />
+                  </span>
+                  <span>0</span>
+                  Cart
+                </li>
+              </a>
             </Link>
             {session && (
               <Link href={'#'}>
-                <li className="flex flex-row justify-start items-center gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6">
-                  <span>
-                    <SvgBell width={'28'} height={'28'} />
-                  </span>
-                  <span>0</span>
-                  Notifications
-                </li>
+                <a>
+                  <li className="flex flex-row justify-start items-center gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6">
+                    <span>
+                      <SvgBell width={'28'} height={'28'} />
+                    </span>
+                    <span>0</span>
+                    Notifications
+                  </li>
+                </a>
               </Link>
             )}
             <Link href={'#'}>
-              <li className="flex flex-row justify-start items-center pl-8 gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6">
-                <span className="pr-6">
-                  <SearchIcon width={'28'} height={'28'} />{' '}
-                </span>
-                Explore
-              </li>
+              <a>
+                <li className="flex flex-row justify-start items-center pl-8 gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6">
+                  <span className="pr-6">
+                    <SearchIcon width={'28'} height={'28'} />{' '}
+                  </span>
+                  Explore
+                </li>
+              </a>
             </Link>
             <Link href={'/marketplace'}>
-              <li className="flex flex-row justify-start items-center pl-8 gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6">
-                <span className="pr-6">
-                  <SvgMarket width={'28'} height={'28'} />{' '}
-                </span>
-                Marketplace
-              </li>
+              <a>
+                <li className="flex flex-row justify-start items-center pl-8 gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6">
+                  <span className="pr-6">
+                    <SvgMarket width={'28'} height={'28'} />{' '}
+                  </span>
+                  Marketplace
+                </li>
+              </a>
             </Link>
           </ul>
           <ul className="absolute text-gray-300 bottom-24 text-2xl w-full flex flex-col items-start px-4">
@@ -102,18 +112,22 @@ const Hamburguesa = () => {
               <div className="w-full">
                 <li className="flex flex-row justify-start items-center pl-8 gap-4 py-2 w-full px-6">
                   <Link href={'/login'}>
-                    <span className="flex w-full justify-center items-center bg-gray-500 hover:bg-gray-800 dark:bg-[#3b3d41] hover:dark:bg-[#3b3d41] py-2 rounded-xl">
-                      <SvgLogin className="mr-2 h-6 w-6" />
-                      Log in
-                    </span>
+                    <a>
+                      <span className="flex w-full justify-center items-center bg-gray-500 hover:bg-gray-800 dark:bg-[#3b3d41] hover:dark:bg-[#3b3d41] py-2 rounded-xl">
+                        <SvgLogin className="mr-2 h-6 w-6" />
+                        Log in
+                      </span>
+                    </a>
                   </Link>
                 </li>
                 <li className="flex flex-row justify-start items-center pl-8 gap-4 py-2 w-full px-6">
                   <Link href={'/register'}>
-                    <span className="flex w-full justify-center items-center bg-gray-500 hover:bg-gray-800 dark:bg-[#3b3d41] hover:dark:bg-[#3b3d41] py-2 rounded-xl">
-                      <VscSignIn className="mr-2 h-6 w-6" />
-                      Register
-                    </span>
+                    <a>
+                      <span className="flex w-full justify-center items-center bg-gray-500 hover:bg-gray-800 dark:bg-[#3b3d41] hover:dark:bg-[#3b3d41] py-2 rounded-xl">
+                        <VscSignIn className="mr-2 h-6 w-6" />
+                        Register
+                      </span>
+                    </a>
                   </Link>
                 </li>
               </div>

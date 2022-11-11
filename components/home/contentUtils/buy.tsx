@@ -13,12 +13,14 @@ const Buy = () => {
           Explore our marketplace to get the best NFT&apos;s from it.
         </p>
         <Link href="/marketplace">
-          <button
-            type="button"
-            className="text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-full text-sm py-2 px-7 text-center transition-all"
-          >
-            Buy now
-          </button>
+          <a>
+            <button
+              type="button"
+              className="text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-full text-sm py-2 px-7 text-center transition-all"
+            >
+              Buy now
+            </button>
+          </a>
         </Link>
       </div>
     </div>

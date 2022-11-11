@@ -22,12 +22,14 @@ const AboutHome = () => {
             creators and publishers on a daily basis.
           </p>
           <Link href="/about">
-            <button
-              type="button"
-              className="text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-full text-sm py-2 px-7 text-center transition-all"
-            >
-              Read more
-            </button>
+            <a>
+              <button
+                type="button"
+                className="text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-full text-sm py-2 px-7 text-center transition-all"
+              >
+                Read more
+              </button>
+            </a>
           </Link>
         </div>
       </div>

@@ -30,20 +30,24 @@ const HeaderContainer = () => {
           {/* ------------------------------------------------------ */}
           <div className="flex flex-row justify-start items-center gap-4 pl-3">
             <Link href="/marketplace">
-              <button
-                type="button"
-                className="bg-blue-600 hover:bg-blue-700 transition-all font-medium rounded-full text-sm px-9 py-3 text-center max-sm:px-6 max-sm:text-xs"
-              >
-                Explore now
-              </button>
+              <a>
+                <button
+                  type="button"
+                  className="bg-blue-600 hover:bg-blue-700 transition-all font-medium rounded-full text-sm px-9 py-3 text-center max-sm:px-6 max-sm:text-xs"
+                >
+                  Explore now
+                </button>
+              </a>
             </Link>
 
             <Link href={`${session ? '/nfts/create' : '/login'}`}>
-              <button className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-white rounded-full group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white">
-                <span className="relative px-9 py-2.5 transition-all ease-in duration-75 bg-slate-900 dark:bg-[#202225] rounded-full group-hover:bg-opacity-0 max-sm:m-0 max-sm:px-6 max-sm:text-xs">
-                  Create NFT
-                </span>
-              </button>
+              <a>
+                <button className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-white rounded-full group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white">
+                  <span className="relative px-9 py-2.5 transition-all ease-in duration-75 bg-slate-900 dark:bg-[#202225] rounded-full group-hover:bg-opacity-0 max-sm:m-0 max-sm:px-6 max-sm:text-xs">
+                    Create NFT
+                  </span>
+                </button>
+              </a>
             </Link>
           </div>
           {/* ------------------------------------------------------ */}

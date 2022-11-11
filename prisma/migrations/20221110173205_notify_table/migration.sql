@@ -26,4 +26,6 @@ CREATE TABLE "Notify" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Notify_pkey" PRIMARY KEY ("id")
+
 );
+

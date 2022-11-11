@@ -8,13 +8,15 @@ export default function Footer() {
       <div className="md:flex md:justify-between">
         <div className="mb-6 md:mb-0">
           <Link href="/">
-            <Image
-              src={whiteLogo}
-              alt="white_logo"
-              height={80}
-              width={150}
-              className="flex items-center cursor-pointer"
-            />
+            <a>
+              <Image
+                src={whiteLogo}
+                alt="white_logo"
+                height={80}
+                width={150}
+                className="flex items-center cursor-pointer"
+              />
+            </a>
           </Link>
           <p className="w-[17rem] text-gray-400">
             NFTrade is a project made by students from{' '}
@@ -39,14 +41,18 @@ export default function Footer() {
             <ul className="text-gray-400">
               <li className="mb-4 hover:underline">
                 <Link href="/about" className="hover:underline">
-                  About us
+                  <a>About us</a>
                 </Link>
               </li>
               <li className="mb-4 hover:underline">
-                <Link href="/marketplace">Marketplace</Link>
+                <Link href="/marketplace">
+                  <a>Marketplace</a>
+                </Link>
               </li>
               <li className="hover:underline">
-                <Link href="/team">Meet the team</Link>
+                <Link href="/team">
+                  <a>Meet the team</a>
+                </Link>
               </li>
             </ul>
           </div>
