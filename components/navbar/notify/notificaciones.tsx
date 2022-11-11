@@ -77,20 +77,20 @@ const Notificaciones = () => {
                       createdAt={el.createdAt}
                     />
                   )}
-                  {el.typeNotify === 'buyNft' &&
+                  {el.typeNotify === 'buyNft' && (
                     <NotifyBuyNft
-                    key={el.id}
-                    id={el.id}
-                    nftid={el.nftId}
-                    nameNft={el.nameNft}
-                    compradorId={el.compradorId}
-                    nameComprador={el.nameComprador}
-                    vendedorId={el.vendedorId}
-                    nameVendedor={el.nameVendedor}
-                    coins={el.coins}
-                    createdAt={el.createdAt}
+                      key={el.id}
+                      id={el.id}
+                      nftid={el.nftId}
+                      nameNft={el.nameNft}
+                      compradorId={el.compradorId}
+                      nameComprador={el.nameComprador}
+                      vendedorId={el.vendedorId}
+                      nameVendedor={el.nameVendedor}
+                      coins={el.coins}
+                      createdAt={el.createdAt}
                     />
-                  }
+                  )}
                   {/* {el.typeNotify ? ( */}
                   {/* ////// SI TENGO STATUS ""MERCADO PAGOS"" /////////// */}
                   {/* // eslint-disable-next-line @typescript-eslint/ban-ts-comment

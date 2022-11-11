@@ -1,10 +1,5 @@
-const SvgX = ({...props}) => (
-  <svg
-    viewBox="0 0 48 48"
-    width={32}
-    height={32}
-    {...props}
-  >
+const SvgX = ({ ...props }) => (
+  <svg viewBox="0 0 48 48" width={32} height={32} {...props}>
     <path
       fill="#f44336"
       d="M44 24c0 11.045-8.955 20-20 20S4 35.045 4 24 12.955 4 24 4s20 8.955 20 20z"

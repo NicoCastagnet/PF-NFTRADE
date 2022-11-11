@@ -22,9 +22,11 @@ const NotifyLiked = ({
         view ? '' : 'flex py-2 px-2 hover:bg-gray-600 dark:hover:bg-[#393b41]'
       } `}
     >
-      <div className={`${
-            view ? 'hidden' : ''
-          } flex flex-row justify-between items-start`}>
+      <div
+        className={`${
+          view ? 'hidden' : ''
+        } flex flex-row justify-between items-start`}
+      >
         <div
           className={` px-1 w-full flex flex-col justify-center items-center`}
         >
@@ -44,7 +46,7 @@ const NotifyLiked = ({
           </div>
         </div>
         <div className=" px-[2px] flex justify-start items-start h-full">
-          <ClearView id={id} setView={setView} heig/>
+          <ClearView id={id} setView={setView} heig />
         </div>
       </div>
     </Link>

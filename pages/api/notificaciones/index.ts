@@ -151,29 +151,30 @@ export default async function payDescription(
     // })
     const notificacones = await prisma.notify.findMany({
       where: {
-        userId: user.toString()
-      }
+        userId: user.toString(),
+      },
     })
-    const notViewNotify = notificacones.filter(el  => el.view === false)
-    
+    const notViewNotify = notificacones.filter((el) => el.view === false)
 
     notViewNotify.sort(
       (a: { createdAt: any }, b: { createdAt: any }) =>
         b.createdAt - a.createdAt,
     )
 
-    res.json({ notify: notViewNotify.slice(0, 10), total: notViewNotify.length })
-    
-  } else if(req.method === 'PUT') {
-    const {id} = req.query
+    res.json({
+      notify: notViewNotify.slice(0, 10),
+      total: notViewNotify.length,
+    })
+  } else if (req.method === 'PUT') {
+    const { id } = req.query
 
     await prisma.notify.update({
       where: {
         id: id,
       },
       data: {
-        view: true
-      }
+        view: true,
+      },
     })
   }
 }

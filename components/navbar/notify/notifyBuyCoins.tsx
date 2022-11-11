@@ -8,9 +8,7 @@ import ClearView from './clear'
 const NotifyBuyCoins = () => {
   const [view, setView] = useState(false)
 
-  return (
-    <div>NotifyBuyCoins</div>
-  )
+  return <div>NotifyBuyCoins</div>
 }
 
 export default NotifyBuyCoins
