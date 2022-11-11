@@ -5,7 +5,7 @@ import SvgCheck from '@components/icons/svgCheck'
 import SvgCoin from '@components/icons/svgCoin'
 import NavBar from '@components/navbar/navbar'
 import BlurImage from '@components/ui/blurImage'
-import getUserById from '@lib/api/users/getUserById'
+import getDataToCreateCollection from '@lib/api/users/getDataToCreateCollection'
 import supabase from '@lib/supa'
 import type { GetServerSideProps, NextPage } from 'next'
 import { useSession } from 'next-auth/react'
@@ -31,6 +31,8 @@ interface Collection {
 const CreateCollection: NextPage<Props> = ({ user }) => {
   const { data: session } = useSession()
   const account = session?.user
+
+  console.log(user)
 
   const discounts = [
     0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90,
@@ -61,7 +63,9 @@ const CreateCollection: NextPage<Props> = ({ user }) => {
     const { data, error } = await supabase.storage
       .from('nfts')
       .upload(
-        `public/${Date.now().toString().slice(0, 6)}-${file?.name}`,
+        `public/${Date.now().toString().slice(0, 6)}-${
+          file?.name
+        }-${Math.random().toString().slice(0, 6)}`,
         file as File,
       )
 
@@ -170,7 +174,6 @@ const CreateCollection: NextPage<Props> = ({ user }) => {
   } else {
     error.nftsId = ''
   }
-  console.log(error)
 
   function validateErrors(
     e:
@@ -194,6 +197,18 @@ const CreateCollection: NextPage<Props> = ({ user }) => {
       },
       body: JSON.stringify(collection),
     })
+
+    await fetch('/api/put/published', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        nftsId: collection.nftsId,
+        published: false,
+      }),
+    })
+
     setCollection({
       image: '',
       name: '',
@@ -217,6 +232,11 @@ const CreateCollection: NextPage<Props> = ({ user }) => {
             <div className="w-full h-full relative">
               {uploading ? (
                 <div className="ease-in-out duration-300 absolute inset-0 h-full bg-gradient-to-r from-sky-500 to-indigo-500 dark:from-gray-500 dark:to-slate-500 blur-lg animate-pulse" />
+              ) : collection.image ? (
+                <BlurImage
+                  loader={() => collection.image}
+                  src={collection.image || imagePlaceholder}
+                />
               ) : (
                 <BlurImage src={collection.image || imagePlaceholder} />
               )}
@@ -367,7 +387,9 @@ const CreateCollection: NextPage<Props> = ({ user }) => {
               {nfts.length > 0 &&
                 nfts.map((el) => (
                   <div
-                    onClick={() => handleNfts(el.id, el.price)}
+                    onClick={() => {
+                      el.collectionId ? null : handleNfts(el.id, el.price)
+                    }}
                     key={el.id}
                     className={` w-[30%] min-w-[284px] mr-10 max-w-[287px] h-[380px] overflow-hidden relative flex flex-col bg-gray-800 rounded-xl p-[1px] border-slate-900 cursor-pointer group  dark:bg-stone-900 dark:border-[1px]   dark:border-gray-400  group shadow-lg shadow-zinc-500`}
                   >
@@ -381,10 +403,25 @@ const CreateCollection: NextPage<Props> = ({ user }) => {
                       <SvgCheck />
                     </div>
                     <div
+                      className={`
+                      ${
+                        el.collectionId &&
+                        'w-[80%] bg-gray-600 rounded-full absolute top-[56%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-[1] p-3'
+                      }
+                       transition-all `}
+                    >
+                      <p className=" text-center text-[1.2rem] ">
+                        {' '}
+                        This nft is already in a collection{' '}
+                      </p>
+                    </div>
+                    <div
                       className={` ${
+                        el.collectionId && ' cursor-default blur-[2px] '
+                      } ${
                         collection.nftsId.includes(el.id) &&
                         'opacity-70 blur-[2px]'
-                      } transition-all`}
+                      } ${el.collectionId && 'opacity-70'} transition-all`}
                     >
                       <div className="rounded-xl border-spacing-2 ">
                         <Image
@@ -434,7 +471,7 @@ const CreateCollection: NextPage<Props> = ({ user }) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const data = await getUserById({ id: params?.id as string })
+  const data = await getDataToCreateCollection({ id: params?.id as string })
   if (!data) {
     return {
       notFound: true,

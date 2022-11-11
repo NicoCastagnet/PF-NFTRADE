@@ -126,7 +126,9 @@ const CreateProduct: NextPage<Props> = ({ fallbackData }) => {
     const { data, error } = await supabase.storage
       .from('nfts')
       .upload(
-        `public/${Date.now().toString().slice(0, 6)}-${file?.name}`,
+        `public/${Date.now().toString().slice(0, 6)}-${
+          file?.name
+        }-${Math.random().toString().slice(0, 6)}`,
         file as File,
       )
 
@@ -242,6 +244,11 @@ const CreateProduct: NextPage<Props> = ({ fallbackData }) => {
                     <div className="w-full h-full relative">
                       {uploading ? (
                         <div className="ease-in-out duration-300 absolute inset-0 h-full bg-gradient-to-r from-sky-500 to-indigo-500 dark:from-gray-500 dark:to-slate-500 blur-lg animate-pulse" />
+                      ) : preview ? (
+                        <BlurImage
+                          src={preview || imagePlaceholder}
+                          loader={() => preview}
+                        />
                       ) : (
                         <BlurImage src={preview || imagePlaceholder} />
                       )}

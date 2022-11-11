@@ -23,6 +23,9 @@ export default async function getAllNfts({
     orderBy,
     take,
     skip,
+    where: {
+      erased: false,
+    },
     select: {
       id: true,
       name: true,
