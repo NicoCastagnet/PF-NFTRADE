@@ -33,11 +33,7 @@ export default async function postCollection(
 
       console.log(collection)
 
-      const msg = {
-        text: 'The collection was successfully deleted.',
-        data: collection,
-      }
-      res.status(201).json(msg)
+      res.status(201).json(collection)
     }
   }
 }
