@@ -15,7 +15,7 @@ import { useEffect, useState } from 'react'
 import { useOpenMenu } from '../../hook/openCartMenu'
 import Hamburguesa from './hamburguesa'
 import Logo from './logo'
-import Notificaciones from './notificaciones'
+import Notificaciones from './notify/notificaciones'
 import UserMenuNavBar from './user'
 
 export default function NavBar() {
