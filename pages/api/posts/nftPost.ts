@@ -30,7 +30,6 @@ export default async function postNft(
             },
           })
         categoriesId = categoriesId.map((c) => c.id)
-        console.log(categoriesId)
         const nfts = await prisma.nft.create({
           data: {
             creatorId,
@@ -45,7 +44,6 @@ export default async function postNft(
             published: true,
           },
         })
-        console.log(nfts)
         const msg = {
           text: 'The NFT was created sucessfully.',
           data: nfts,

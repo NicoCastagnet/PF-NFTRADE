@@ -9,6 +9,7 @@ export default async function postLike(
     if (req.method === 'PUT') {
       const { nftId, published, nftsId } = req.body
 
+
       if (nftId) {
         const nft = await prisma.nft.update({
           data: {

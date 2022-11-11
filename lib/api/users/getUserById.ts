@@ -89,7 +89,6 @@ const getUserById = async ({
         },
       },
     })
-    console.log(user)
     return user
   } catch (e) {
     console.log(e)

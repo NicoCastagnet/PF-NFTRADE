@@ -1,5 +1,7 @@
-import Footer from '@components/footer'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 
+import Footer from '@components/footer'
 import SvgViews from '@components/icons/svgViews'
 import NavBar from '@components/navbar/navbar'
 import getNftById from '@lib/api/nfts/getById'
@@ -180,6 +182,7 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                 Cancel
               </button>
             </div>
+
           </div>
         </div>
         <div
@@ -188,10 +191,29 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
           <div
             className={`flex flex-row py-12 px-12 mt-14 h-full w-full justify-center `}
           >
-            <article>
-              <header className="flex justify-between items-center px-5 w-[600px] h-[55px] rounded-t-md bg-gray-100 dark:bg-[#303339]">
-                <p className="text-gray-600 dark:text-gray-400">
-                  #{nft.id.toUpperCase()}
+
+          </article>
+          <div className="flex  flex-col justify-between text-gray-600 dark:text-white ml-5">
+            <div className="arriba w-full">
+              <h5 className="text-4xl font-bold">
+                {nft.name} #{nft.id.slice(0, 5).toUpperCase()}
+              </h5>
+              <div>
+                {categories.map((c) => (
+                  <span key={c} className="mr-2">
+                    #{c}
+                  </span>
+                ))}
+              </div>
+              <div className="flex items-center justify-start my-10">
+                <p className="text-xl text-gray-600 dark:text-gray-400 font-semibold mr-5">
+                  Property of{' '}
+                  <span className="text-blue-500 hover:underline hover:text-blue-600 cursor-pointer">
+                    <Link href={`/users/${nft.owner.id}`}>
+                      <a>{nft.owner.name}</a>
+                    </Link>
+                  </span>
+
                 </p>
                 <div className="flex justify-center items-center">
                   <Likes nftId={nftId as string} />
@@ -399,6 +421,7 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                         Add to cart
                       </button>
                     </div>
+
                   )}
                   {session?.user.id !== nft.owner.id && published === true && (
                     <Link href={'#'}>
@@ -407,6 +430,47 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                       </button>
                     </Link>
                   )}
+
+                  )
+                ) : published === false ? (
+                  <div className="flex w-full ">
+                    <p className="text-[1.2rem] min-h-[90px] flex justify-center items-center text-gray-400 italic p-4 bg-gray-600 rounded-xl w-full">
+                      This product is not for sale at this time
+                    </p>
+                  </div>
+                ) : nft.collectionId ? (
+                  <Link href={`/collections/${nft.collectionId}`}>
+                    <button className="text-xl bg-white hover:bg-gray-300 text-gray-600 dark:text-gray-400 dark:bg-[#303339] dark:hover:bg-[#393b41] hover:drop-shadow-lg transition-all w-full min-h-[90px] py-3 px-20 rounded-xl mr-2">
+                      Go to collection
+                    </button>
+                  </Link>
+                ) : (
+                  <div className="flex items-center py-6 w-full ">
+                    <button
+                      className="text-xl bg-white hover:bg-gray-300 text-gray-600 dark:text-gray-400 dark:bg-[#303339] dark:hover:bg-[#393b41] hover:drop-shadow-lg transition-all w-[100%] min-h-[90px] py-3 px-20 rounded-xl mr-2"
+                      onClick={() => {
+                        addItem(nft)
+                        cart.find((e) => e.name === nft.name)
+                          ? toast.error(
+                              'You have already added this NFT to the cart!',
+                            )
+                          : toast.success('NFT added to the cart!')
+                      }}
+                    >
+                      Add to cart
+                    </button>
+                  </div>
+                )}
+                {session?.user.id !== nft.owner.id && published === true && (
+                  <Link href={'#'}>
+                    <a>
+                      <button className="text-xl w-[50%] min-h-[90px] text-white bg-blue-600 hover:bg-blue-500 hover:drop-shadow-lg transition-all py-3 px-20 mx-2 rounded-xl">
+                        Buy now
+                      </button>
+                    </a>
+                  </Link>
+                )}
+
 
                   {/* //dev */}
                 </div>

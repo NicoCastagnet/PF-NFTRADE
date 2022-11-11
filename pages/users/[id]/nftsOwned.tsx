@@ -47,44 +47,46 @@ const NftsOwned: NextPage<Props> = ({ user }) => {
                     className={` w-[30%] mr-10 max-w-[287px] h-[380px] overflow-hidden relative flex flex-col bg-gray-800 rounded-xl p-[1px] border-slate-900 cursor-pointer group  dark:bg-stone-900 dark:border-[1px]   dark:border-gray-400  group shadow-lg shadow-zinc-500`}
                   >
                     <Link href={`/nfts/${el.id}`} key={el.id}>
-                      {/* // h-[35rem] w-[22rem] */}
-                      <div>
-                        <div className="rounded-xl border-spacing-2 ">
-                          <Image
-                            src={el.image}
-                            height={300}
-                            width={400}
-                            quality={20}
-                            alt={`image-${el.name}`}
-                            className="rounded-t-xl object-cover group-hover:scale-110 transition duration-300 ease-in-out overflow-auto"
-                          />
-                        </div>
-                        <div className="flex flex-col p-4 w-full justify-between ">
-                          <div className="flex flex-col gap-2">
-                            <div className="flex flex-row w-full justify-between">
-                              <h5
-                                className={`text-xl text-white font-bold truncate ease duration-300`}
-                              >
-                                {el.name}
-                              </h5>
+                      <a>
+                        {/* // h-[35rem] w-[22rem] */}
+                        <div>
+                          <div className="rounded-xl border-spacing-2 ">
+                            <Image
+                              src={el.image}
+                              height={300}
+                              width={400}
+                              quality={20}
+                              alt={`image-${el.name}`}
+                              className="rounded-t-xl object-cover group-hover:scale-110 transition duration-300 ease-in-out overflow-auto"
+                            />
+                          </div>
+                          <div className="flex flex-col p-4 w-full justify-between ">
+                            <div className="flex flex-col gap-2">
+                              <div className="flex flex-row w-full justify-between">
+                                <h5
+                                  className={`text-xl text-white font-bold truncate ease duration-300`}
+                                >
+                                  {el.name}
+                                </h5>
+                              </div>
+                            </div>
+                            <div className="flex flex-row justify-between items-center mb-6">
+                              <div className="flex flex-row justify-center items-center gap-2">
+                                <span>
+                                  <SvgCoin
+                                    height={20}
+                                    width={20}
+                                    className={'fill-white'}
+                                  />
+                                </span>
+                                <span className="text-white font-semibold text-xl">
+                                  {el.price}
+                                </span>
+                              </div>
                             </div>
                           </div>
-                          <div className="flex flex-row justify-between items-center mb-6">
-                            <div className="flex flex-row justify-center items-center gap-2">
-                              <span>
-                                <SvgCoin
-                                  height={20}
-                                  width={20}
-                                  className={'fill-white'}
-                                />
-                              </span>
-                              <span className="text-white font-semibold text-xl">
-                                {el.price}
-                              </span>
-                            </div>
-                          </div>
                         </div>
-                      </div>
+                      </a>
                     </Link>
                   </div>
                 ))}

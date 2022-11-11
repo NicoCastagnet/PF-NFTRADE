@@ -15,7 +15,7 @@ import { useEffect, useState } from 'react'
 import { useOpenMenu } from '../../hook/openCartMenu'
 import Hamburguesa from './hamburguesa'
 import Logo from './logo'
-import Notificaciones from './notificaciones'
+import Notificaciones from './notify/notificaciones'
 import UserMenuNavBar from './user'
 
 export default function NavBar() {
@@ -54,16 +54,20 @@ export default function NavBar() {
           <div className="navbar__buttons flex items-center text-white">
             <div className="flex max-xl:hidden ease duration-150 justify-between w-[165px]">
               <Link href={'#'} shallow>
-                <p className="relative group cursor-pointer">
-                  <span className="font-semibold">Explore</span>
-                  <span className="absolute -bottom-0 left-0 w-0 h-1 bg-blue-600 transition-all group-hover:w-full"></span>
-                </p>
+                <a>
+                  <p className="relative group cursor-pointer">
+                    <span className="font-semibold">Explore</span>
+                    <span className="absolute -bottom-0 left-0 w-0 h-1 bg-blue-600 transition-all group-hover:w-full"></span>
+                  </p>
+                </a>
               </Link>
               <Link href="/marketplace" shallow>
-                <p className="relative group cursor-pointer">
-                  <span className="font-semibold">Marketplace</span>
-                  <span className="absolute -bottom-0 left-0 w-0 h-1 bg-blue-600 transition-all group-hover:w-full"></span>
-                </p>
+                <a>
+                  <p className="relative group cursor-pointer">
+                    <span className="font-semibold">Marketplace</span>
+                    <span className="absolute -bottom-0 left-0 w-0 h-1 bg-blue-600 transition-all group-hover:w-full"></span>
+                  </p>
+                </a>
               </Link>
             </div>
             {session && (
