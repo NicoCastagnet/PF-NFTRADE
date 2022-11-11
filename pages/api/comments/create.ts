@@ -43,7 +43,6 @@ export default async function postComment(
             userId: user.id,
           },
         })
-        console.log('iniciando => ')
         await prisma.notify.create({
           data: {
             typeNotify: 'comment',
@@ -56,7 +55,6 @@ export default async function postComment(
             comment: content,
           },
         })
-        console.log('finalizamos => ')
 
         res.status(200).json({ message: 'Comment created', data: comment })
       }

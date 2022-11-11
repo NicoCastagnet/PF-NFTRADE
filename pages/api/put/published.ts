@@ -18,8 +18,6 @@ export default async function postLike(
         },
       })
 
-      console.log(nft)
-
       const msg = {
         message: 'nft actualizado',
         data: nft,

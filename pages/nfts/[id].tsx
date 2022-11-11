@@ -112,8 +112,6 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
 
   const [loadingPublished, setLoadingPublished] = useState(false)
 
-  console.log(published)
-
   async function handlePublished(boolean: boolean) {
     setLoadingPublished(true)
     setPublished(boolean)

@@ -7,6 +7,7 @@ import { useSession } from 'next-auth/react'
 // import ReactTimeAgo from 'react-time-ago'
 import useSWR from 'swr'
 import styles from '../../../styles/form.module.css'
+import NotifyBuyCoins from './notifyBuyCoins'
 import NotifyBuyNft from './notifyBuyNft'
 import NotifyComment from './notifyComment'
 import NotifyLiked from './notifyLiked'
@@ -91,97 +92,15 @@ const Notificaciones = () => {
                       createdAt={el.createdAt}
                     />
                   )}
-                  {/* {el.typeNotify ? ( */}
-                  {/* ////// SI TENGO STATUS ""MERCADO PAGOS"" /////////// */}
-                  {/* // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck */}
-                  {/* ) : ( */}
-                  {/* //////// SI NO TENGO STATUS ""MECADO PAGOS"" ////////// */}
-                  {/* <> */}
-                  {/* {session?.user.id == el?.compradorId && ( */}
-                  {/* ///////// SI EL ID DEL USER COINSIDE CON ID COMPRADOR //////// */}
-                  {/* <a
-                    key={index}
-                    href="#"
-                    className="flex py-3 px-4 hover:bg-gray-600 dark:hover:bg-[#393b41]"
-                  >
-                    <div className="pl-3 w-full">
-                      <div className="text-gray-500 text-sm mb-1.5 dark:text-gray-400">
-                        {`has comprado un nft a ${el?.nameVendedor}`}
-                        &nbsp;
-                        <span className="font-semibold text-gray-900 dark:text-white">
-                          &nbsp;{`por el total de ${el?.coins} Coins`}
-                        </span>
-                        &nbsp;{` your payment has been made successfully`}
-                      </div>
-                      <div className="text-xs text-blue-600 dark:text-blue-500">
-                        {el?.createdAt && (
-                          <ReactTimeAgo
-                            date={el?.createdAt}
-                            format={'twitter'}
-                          />
-                        )}
-                      </div>
-                    </div>
-                  </a> */}
-                  {/* )} */}
-                  {/* {session?.user.id == el.vendedorId && ( */}
-                  {/* ///////// SI EL ID DEL USER COINSIDE CON ID VENDEDOR //////// */}
-                  {/* <a
-                    key={index}
-                    href="#"
-                    className="flex py-3 px-4 hover:bg-gray-600 dark:hover:bg-[#393b41]"
-                  >
-                    <div className="pl-3 w-full">
-                      <div className="text-gray-500 text-sm mb-1.5 dark:text-gray-400">
-                        {`has realizado una venta de nft al comprador  ${el?.nameComprador}`}
-                        &nbsp;
-                        <span className="font-semibold text-gray-900 dark:text-white">
-                          &nbsp;{`por el total de  ${el?.coins} Coins`}
-                          {session?.user.name || session?.user.username}
-                        </span>
-                        &nbsp;{` your payment has been made successfully`}
-                      </div>
-                      <div className="text-xs text-blue-600 dark:text-blue-500">
-                        {el?.createdAt && (
-                          <ReactTimeAgo
-                            date={el?.createdAt}
-                            format={'twitter'}
-                          />
-                        )}
-                      </div>
-                    </div>
-                  </a> */}
-                  {/* )} */}
-                  {/* {el?.content && ( */}
-                  {/* <a
-                    key={index}
-                    href="#"
-                    className="flex py-3 px-4 hover:bg-gray-600 dark:hover:bg-[#393b41]"
-                  >
-                    <div className="pl-3 w-full">
-                      <div className="text-gray-500 text-sm mb-1.5 dark:text-gray-400">
-                        {`has dejado un comentario en el NFT  `}
-                        &nbsp;
-                        <span className="font-semibold text-gray-900 dark:text-white">
-                          &nbsp;{`${el?.nft.name} `}
-                        </span>
-                        &nbsp;{` pertenecioente a `}
-                        <span className="font-semibold text-gray-900 dark:text-white">{`${el.nft.owner.name}`}</span>
-                      </div>
-                      <div className="text-xs text-blue-600 dark:text-blue-500">
-                        {el?.createdAt && (
-                          <ReactTimeAgo
-                            date={el?.createdAt}
-                            format={'twitter'}
-                          />
-                        )}
-                      </div>
-                    </div>
-                  </a> */}
-                  {/* )} */}
-                  {/* </> */}
-                  {/* )} */}
+                  {el.typeNotify === 'buy' && (
+                    <NotifyBuyCoins
+                      ordenId={el.ordenId}
+                      coins={el.coins}
+                      amount={el.amount}
+                      status={el.status}
+                      creatredAt={el.creatredAt}
+                    />
+                  )}
                 </>
               ))
             ) : (

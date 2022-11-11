@@ -98,7 +98,6 @@ const getUserById = async ({
         sessions: true,
       },
     })
-    console.log(user)
     return user
   } catch (e) {
     return null

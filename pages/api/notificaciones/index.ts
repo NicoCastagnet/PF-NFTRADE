@@ -99,56 +99,7 @@ export default async function payDescription(
     }
   } else if (req.method === 'GET') {
     const { user } = req.query
-    // console.log('🚀 ~ file: index.ts ~ line 71 ~ user', user)
 
-    // const notifyBuys = await prisma.buys.findMany({
-    //   where: {
-    //     userId: user?.toString(),
-    //   },
-    // })
-    // const notifyCompBuyNfts = await prisma.buyNfts.findMany({
-    //   where: {
-    //     compradorId: user?.toString(),
-    //   },
-    // })
-    // const notifyVendBuyNfts = await prisma.buyNfts.findMany({
-    //   where: {
-    //     vendedorId: user?.toString(),
-    //   },
-    // })
-
-    // const commnetUser = await prisma.comment.findMany({
-    //   where: {
-    //     userId: user?.toString(),
-    //   },
-    //   select: {
-    //     nft: {
-    //       select: {
-    //         name: true,
-    //         owner: {
-    //           select: {
-    //             name: true,
-    //           },
-    //         },
-    //       },
-    //     },
-    //     createdAt: true,
-    //     content: true,
-    //   },
-    // })
-
-    // const notify = [
-    //   ...commnetUser,
-    //   ...notifyBuys,
-    //   ...notifyCompBuyNfts,
-    //   ...notifyVendBuyNfts,
-    // ]
-
-    // const notify = await prisma.notify.findMany({
-    //   where: {
-    //     userId: user?.toString(),
-    //   },
-    // })
     const notificacones = await prisma.notify.findMany({
       where: {
         userId: user.toString(),

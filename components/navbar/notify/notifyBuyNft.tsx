@@ -28,7 +28,7 @@ const NotifyBuyNft = () => {
         <div className="flex justify-center ite w-full text-xs text-blue-600 dark:text-blue-500">
           <ReactTimeAgo date={createdAt} format={'twitter'} />
         </div>
-        <ClearView id={id} />
+        <ClearView id={id} setView={setView} />
       </div>
     </Link>
   )
