@@ -2,7 +2,6 @@
 // @ts-nocheck
 
 import Footer from '@components/footer'
-import SvgViews from '@components/icons/svgViews'
 import NavBar from '@components/navbar/navbar'
 import getNftById from '@lib/api/nfts/getById'
 import { useCart } from 'context/cart'
@@ -23,6 +22,7 @@ import SvgCoin from '@components/icons/svgCoin'
 import SvgPencil from '@components/icons/svgPencil'
 import SvgPlus from '@components/icons/svgPlus'
 import SvgTrash from '@components/icons/svgTrash'
+import SvgViews from '@components/icons/svgViews'
 import Likes from '@components/nftDetail/likes'
 import { toast, Toaster } from 'react-hot-toast'
 import type { NftDetailResponse } from 'types/api-responses'
@@ -152,7 +152,7 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
   return (
     <div className="bg-gray-200 dark:bg-[#202225] flex flex-col items-center justify-around w-full min-h-screen transition-all">
       <NavBar />
-      <div className="flex flex-col ">
+      <div className="flex flex-col  justify-center items-center mt-[120px] ">
         <div
           className={`${
             deleteWarning === true
@@ -182,48 +182,21 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                 Cancel
               </button>
             </div>
-
           </div>
         </div>
-        <div
-          className={` ${deleteWarning === true && 'blur-[10px] opacity-60'} `}
-        >
-          <div
-            className={`flex flex-row py-12 px-12 mt-14 h-full w-full justify-center `}
-          >
-
-          </article>
-          <div className="flex  flex-col justify-between text-gray-600 dark:text-white ml-5">
-            <div className="arriba w-full">
-              <h5 className="text-4xl font-bold">
-                {nft.name} #{nft.id.slice(0, 5).toUpperCase()}
-              </h5>
-              <div>
-                {categories.map((c) => (
-                  <span key={c} className="mr-2">
-                    #{c}
-                  </span>
-                ))}
-              </div>
-              <div className="flex items-center justify-start my-10">
-                <p className="text-xl text-gray-600 dark:text-gray-400 font-semibold mr-5">
-                  Property of{' '}
-                  <span className="text-blue-500 hover:underline hover:text-blue-600 cursor-pointer">
-                    <Link href={`/users/${nft.owner.id}`}>
-                      <a>{nft.owner.name}</a>
-                    </Link>
-                  </span>
-
+        <div className=" w-[80%]">
+          <div className="flex justify-center w-full mb-[50px]">
+            <div className="mr-10 ">
+              <header className="flex justify-between items-center px-5 w-[600px] h-[55px] rounded-t-md bg-gray-100 dark:bg-[#303339]">
+                <p className="text-gray-600 dark:text-gray-400">
+                  #{nft.id.toUpperCase()}
                 </p>
-                <div className="flex justify-center items-center">
-                  <Likes nftId={nftId as string} />
-                  {session?.user.id === nft.owner.id && (
-                    <SvgTrash
-                      onClick={() => setDeleteWarning(true)}
-                      className=" ml-4 w-[25px] h-[25px] fill-slate-500 hover:fill-red-800 cursor-pointer "
-                    />
-                  )}
-                </div>
+                {session?.user.id === nft.owner.id && (
+                  <SvgTrash
+                    onClick={() => setDeleteWarning(true)}
+                    className=" ml-4 w-[25px] h-[25px] fill-slate-500 hover:fill-red-800 cursor-pointer "
+                  />
+                )}
               </header>
               <div className="w-[600px] h-[600px] border-2 border-gray-100 dark:border-[#303339]">
                 <Image
@@ -235,8 +208,8 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                   height={1000}
                 />
               </div>
-            </article>
-            <div className="flex  flex-col justify-between text-gray-600 dark:text-white ml-5">
+            </div>
+            <div className="flex flex-col justify-between text-gray-600 dark:text-white ml-5">
               <div className="arriba w-full">
                 <h5 className="text-4xl font-bold">
                   {nft.name} #{nft.id.slice(0, 5).toUpperCase()}
@@ -248,7 +221,7 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                     </span>
                   ))}
                 </div>
-                <div className="flex items-center justify-start my-10">
+                <div className="  w-full items-center justify-between flex mt-6 mb-4">
                   <p className="text-xl text-gray-600 dark:text-gray-400 font-semibold mr-5">
                     Property of{' '}
                     <span className="text-blue-500 hover:underline hover:text-blue-600 cursor-pointer">
@@ -257,14 +230,6 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                       </Link>
                     </span>
                   </p>
-                  <div className="flex items-center text-gray-600 dark:text-gray-400 font-semibold text-lg mr-5">
-                    <SvgViews className="w-7 h-7 fill-gray-600 dark:fill-gray-400 mr-2" />
-                    {nft._count.viewedBy} views
-                  </div>
-                  <div className="flex items-center text-gray-600 dark:text-gray-400 font-semibold text-lg mr-5">
-                    <Likes nftId={nftId as string} />
-                    <p className="ml-2">likes</p>
-                  </div>
                   {nft.owner.id !== session?.user.id && (
                     <div className="flex flex-row  w-[240px] h-[40px] items-center">
                       {loadingWish ? (
@@ -296,6 +261,16 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                       )}
                     </div>
                   )}
+                </div>
+                <div className="flex mb-6">
+                  <div className="flex items-center text-gray-600 dark:text-gray-400 font-semibold text-lg mr-5">
+                    <SvgViews className="w-7 h-7 fill-gray-600 dark:fill-gray-400 mr-2" />
+                    {nft._count.viewedBy} views
+                  </div>
+                  <div className="flex items-center text-gray-600 dark:text-gray-400 font-semibold text-lg mr-5">
+                    <Likes nftId={nftId as string} />
+                    <p className="ml-2">likes</p>
+                  </div>
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="flex flex-row justify-between w-full">
@@ -360,7 +335,7 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
               </div>
 
               <div>
-                <div className="buttons flex justify-center items-center my-[31px] max-w-[590px]">
+                <div className="buttons flex justify-center items-center my-[12px] max-w-[590px]">
                   {nft.owner.id === session?.user?.id ? (
                     loadingPublished ? (
                       <div className="animate-spin flex justify-center items-center w-full h-[82px] mt-2 rounded-full">
@@ -421,7 +396,6 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                         Add to cart
                       </button>
                     </div>
-
                   )}
                   {session?.user.id !== nft.owner.id && published === true && (
                     <Link href={'#'}>
@@ -430,48 +404,6 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                       </button>
                     </Link>
                   )}
-
-                  )
-                ) : published === false ? (
-                  <div className="flex w-full ">
-                    <p className="text-[1.2rem] min-h-[90px] flex justify-center items-center text-gray-400 italic p-4 bg-gray-600 rounded-xl w-full">
-                      This product is not for sale at this time
-                    </p>
-                  </div>
-                ) : nft.collectionId ? (
-                  <Link href={`/collections/${nft.collectionId}`}>
-                    <button className="text-xl bg-white hover:bg-gray-300 text-gray-600 dark:text-gray-400 dark:bg-[#303339] dark:hover:bg-[#393b41] hover:drop-shadow-lg transition-all w-full min-h-[90px] py-3 px-20 rounded-xl mr-2">
-                      Go to collection
-                    </button>
-                  </Link>
-                ) : (
-                  <div className="flex items-center py-6 w-full ">
-                    <button
-                      className="text-xl bg-white hover:bg-gray-300 text-gray-600 dark:text-gray-400 dark:bg-[#303339] dark:hover:bg-[#393b41] hover:drop-shadow-lg transition-all w-[100%] min-h-[90px] py-3 px-20 rounded-xl mr-2"
-                      onClick={() => {
-                        addItem(nft)
-                        cart.find((e) => e.name === nft.name)
-                          ? toast.error(
-                              'You have already added this NFT to the cart!',
-                            )
-                          : toast.success('NFT added to the cart!')
-                      }}
-                    >
-                      Add to cart
-                    </button>
-                  </div>
-                )}
-                {session?.user.id !== nft.owner.id && published === true && (
-                  <Link href={'#'}>
-                    <a>
-                      <button className="text-xl w-[50%] min-h-[90px] text-white bg-blue-600 hover:bg-blue-500 hover:drop-shadow-lg transition-all py-3 px-20 mx-2 rounded-xl">
-                        Buy now
-                      </button>
-                    </a>
-                  </Link>
-                )}
-
-
                   {/* //dev */}
                 </div>
                 <article className="abajo mt-6 w-full sm:w-[580px] min-h-[285px] lg:mt-0 rounded-t-xl border-2 border-gray-100 dark:border-[#303339]">
