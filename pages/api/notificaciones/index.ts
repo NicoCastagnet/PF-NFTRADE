@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import prisma from '@lib/db'
 import axios from 'axios'
 import type { NextApiRequest, NextApiResponse } from 'next'
@@ -20,34 +23,42 @@ export default async function payDescription(
             Authorization: `Bearer ${process.env.ACCES_TOKEN_SELLER}`,
           },
         })
-        const flag = await prisma.buyNfts.findUnique({
-          where: {
-            nftsId: query.id as string,
-          },
-          select: {
-            nftsId: true,
-          },
-        })
-        console.log(query.id)
-        console.log(flag?.nftsId)
-        if (payment.data.status_detail && !flag?.nftsId) {
-          console.log(
-            'dentro del ifFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFf',
+
+        if (payment.data.status_detail) {
+          const arrCoins = payment.data.additional_info.map(
+            (el: any) => el.quantity,
           )
-          console.log(query.id)
-          console.log(flag?.nftsId)
+          const arrAmount = payment.data.additional_info.items.map(
+            (el: any) => el.unit_price,
+          )
+          const totalCoin = arrCoins.reduce((a: number, b: number) => a + b, 0)
+          const totalAmount = arrAmount.reduce(
+            (a: number, b: number) => a + b,
+            0,
+          )
+
           const data = await prisma.buys.create({
             data: {
               buyId: query.id as string,
               userId: payment.data.additional_info.items[0].id as string,
               date: payment.data.charges_details[0].date_created as string,
-              coins: parseInt(payment.data.additional_info.items[0].quantity),
+              coins: Number(totalCoin),
               status: payment.data.status as string,
-              amount: parseInt(
-                payment.data.additional_info.items[0].unit_price,
-              ),
+              amount: Number(totalAmount),
             },
           })
+
+          await prisma.notify.create({
+            data: {
+              typeNotify: 'buy',
+              ordenId: query.id as string,
+              userId: payment.data.additional_info.items[0].id as string,
+              coins: Number(totalCoin),
+              status: payment.data.status as string,
+              amount: Number(totalAmount),
+            },
+          })
+
           const userCoins = await prisma.user.findUnique({
             where: {
               id: data.userId as string,
@@ -60,13 +71,14 @@ export default async function payDescription(
             if (!userCoins) {
               res.status(400).send('An user is neccesary')
             } else {
-              const totalCoins: number = data?.coins + Number(userCoins?.coins)
+              const totalUserCoins: number =
+                data?.coins + Number(userCoins?.coins)
               const user = await prisma.user.update({
                 where: {
                   id: data.userId?.toString(),
                 },
                 data: {
-                  coins: totalCoins,
+                  coins: totalUserCoins,
                 },
               })
               const msg = {
@@ -90,68 +102,35 @@ export default async function payDescription(
     }
   } else if (req.method === 'GET') {
     const { user } = req.query
-    // console.log('🚀 ~ file: index.ts ~ line 71 ~ user', user)
 
-    const notifyBuys = await prisma.buys.findMany({
+
+    const notificacones = await prisma.notify.findMany({
       where: {
-        userId: user?.toString(),
+        userId: user.toString(),
       },
     })
-    const notifyCompBuyNfts = await prisma.buyNfts.findMany({
-      where: {
-        compradorId: user?.toString(),
-      },
-    })
-    const notifyVendBuyNfts = await prisma.buyNfts.findMany({
-      where: {
-        vendedorId: user?.toString(),
-      },
-    })
+    const notViewNotify = notificacones.filter((el) => el.view === false)
 
-    const commnetUser = await prisma.comment.findMany({
-      where: {
-        userId: user?.toString(),
-      },
-      select: {
-        nft: {
-          select: {
-            id: true,
-            name: true,
-            owner: {
-              select: {
-                id: true,
-                name: true,
-              },
-            },
-          },
-        },
-        user: {
-          select: {
-            id: true,
-            name: true,
-          },
-        },
-        nftId: true,
-        userId: true,
-        createdAt: true,
-        content: true,
-      },
-    })
-    // console.log('🚀 ~ file: index.ts ~ line 106 ~ commnetUser', commnetUser)
-
-    const notify = [
-      ...commnetUser,
-      ...notifyBuys,
-      ...notifyCompBuyNfts,
-      ...notifyVendBuyNfts,
-    ]
-
-    notify.sort(
+    notViewNotify.sort(
       (a: { createdAt: any }, b: { createdAt: any }) =>
         b.createdAt - a.createdAt,
     )
 
-    // console.log('🚀 ~ file: index.ts ~ line 99 ~ notify', notify)
-    res.json({ notify: notify.slice(0, 10) })
+    res.json({
+      notify: notViewNotify.slice(0, 10),
+      total: notViewNotify.length,
+    })
+  } else if (req.method === 'PUT') {
+    const { id } = req.query
+
+    await prisma.notify.update({
+      where: {
+        id: id,
+      },
+      data: {
+        view: true,
+      },
+    })
+
   }
 }

@@ -30,8 +30,6 @@ export default async function putWish(
         })
       }
 
-      console.log(wishList)
-
       const msg = {
         message: 'nft actualizado',
         data: wishList,

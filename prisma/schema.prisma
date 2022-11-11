@@ -151,6 +151,7 @@ model BuyNfts {
 }
 
 model Notify {
+
   id              String   @id @default(cuid())
   userId          String
   typeNotify      String
