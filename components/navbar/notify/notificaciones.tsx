@@ -94,6 +94,8 @@ const Notificaciones = () => {
                   )}
                   {el.typeNotify === 'buy' && (
                     <NotifyBuyCoins
+                      key={el.id}
+                      id={el.id}
                       ordenId={el.ordenId}
                       coins={el.coins}
                       amount={el.amount}
