@@ -1,15 +1,14 @@
 import Footer from '@components/footer'
-import SvgCheck from '@components/icons/svgCheck'
 import SvgCoin from '@components/icons/svgCoin'
 import SvgLoading from '@components/icons/svgLoading'
-import SvgPencil from '@components/icons/svgPencil'
 import NavBar from '@components/navbar/navbar'
 import { useCart } from '@context/cart'
-import type { NextPage } from 'next'
+import getCollectionById from '@lib/api/collections/getCollectionById'
+import type { GetServerSideProps, NextPage } from 'next'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ChangeEvent, useState } from 'react'
+import { useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { RiVipCrownFill } from 'react-icons/ri'
 import type { CollectionDetailResponse } from 'types/api-responses'
@@ -19,16 +18,16 @@ interface Props {
 }
 
 const CollectionDetail: NextPage<Props> = ({ collection }) => {
-  console.log(collection)
   const { data: session } = useSession()
   const { cart, addItem } = useCart()
   console.log(session)
 
   const [loadingPublished, setLoadingPublished] = useState(false)
 
-  const [published, setPublished] = useState(false)
+  const [published, setPublished] = useState(collection.published)
 
   async function handlePublished(boolean: boolean) {
+    const nftsId = collection.nfts.map((nft) => nft.id)
     setLoadingPublished(true)
     setPublished(boolean)
     await fetch('/api/put/published', {
@@ -37,32 +36,21 @@ const CollectionDetail: NextPage<Props> = ({ collection }) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        collectionId: collection.id,
+        nftsId: nftsId,
         published: boolean,
       }),
-    })
-    setLoadingPublished(false)
-  }
-
-  const [priceToEdit, setPriceToEdit] = useState(false)
-  const [price, setPrice] = useState<string | number>(collection.price)
-
-  function handlePrice(e: ChangeEvent<HTMLInputElement>) {
-    setPrice(e.target.value)
-  }
-
-  async function putPrice() {
-    await fetch('/api/put/nftPrice', {
+    }).then((r) => console.log(r))
+    await fetch('/api/put/publishedCollection', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         collectionId: collection.id,
-        price: parseFloat(price),
+        published: boolean,
       }),
-    })
-    setPriceToEdit(false)
+    }).then((r) => console.log(r))
+    setLoadingPublished(false)
   }
 
   return (
@@ -111,49 +99,12 @@ const CollectionDetail: NextPage<Props> = ({ collection }) => {
                 </div>
                 <div className=" text-[1.3rem] flex flex-row justify-start items-center gap-2">
                   <SvgCoin height={24} width={24} />
-                  {priceToEdit === true ? (
-                    <div className="flex">
-                      <input
-                        type="number"
-                        value={price}
-                        onChange={(e) => handlePrice(e)}
-                        className="w-[80px] h-[30px] bg-gray-200 border-b-gray-400 dark:bg-[#202225] border-b-[1px] placeholder:${price} focus:ring-blue-500 text-[1.1rem] focus:border-blue-500 block w-full p-1"
-                      ></input>
-                      <div className="flex justify-center items-center">
-                        <button
-                          className={`hover:fill-slate-400 fill-slate-300 disabled:fill-red-800 cursor-pointer disabled:cursor-not-allowed`}
-                          onClick={putPrice}
-                          disabled={price <= 0 || price > 9999}
-                        >
-                          <SvgCheck className="ml-2" height={30} width={30} />
-                        </button>
-                        {price > 9999 ? (
-                          <span className=" text-red-800 text-[0.9rem] ml-2 ">
-                            *Price must be less than 9999
-                          </span>
-                        ) : (
-                          price <= 0 && (
-                            <span className=" text-red-800 text-[0.9rem] ml-2 ">
-                              *Price must be greater than 0
-                            </span>
-                          )
-                        )}
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="flex items-center">
-                      <span>{price}</span>
-                      {session?.user?.id === collection.owner.id && (
-                        <div>
-                          <SvgPencil
-                            className="ml-3 fill-slate-300 hover:fill-slate-400 cursor-pointer"
-                            height={20}
-                            width={20}
-                            onClick={() => setPriceToEdit(true)}
-                          />
-                        </div>
-                      )}
-                    </div>
+                  <span>{collection.price}</span>
+                  {collection.discount > 0 && (
+                    <span className=" text-[1rem] p-1 bg-red-800 rounded-[15px] ">
+                      {' '}
+                      -{collection.discount} %{' '}
+                    </span>
                   )}
                 </div>
               </div>
@@ -234,7 +185,7 @@ const CollectionDetail: NextPage<Props> = ({ collection }) => {
               </h2>
             </div>
 
-            <div className="flex justify-center  ">
+            <div className="flex justify-center mb-10 ">
               <div className="flex min-h-[900px] p-8 border-[1px] border-gray-400 rounded-[15px] w-full min-w-[1220px] justify-center flex-wrap">
                 {collection.nfts.length > 0 &&
                   collection.nfts.map((el) => (
@@ -242,53 +193,55 @@ const CollectionDetail: NextPage<Props> = ({ collection }) => {
                       key={el.id}
                       className={` w-[30%] min-w-[284px] mr-10 max-w-[287px] h-[380px] overflow-hidden relative flex flex-col bg-gray-800 rounded-xl p-[1px] border-slate-900 cursor-pointer group  dark:bg-stone-900 dark:border-[1px]   dark:border-gray-400  group shadow-lg shadow-zinc-500`}
                     >
-                      <div>
-                        <div className="rounded-xl border-spacing-2 ">
-                          <Image
-                            src={el.image}
-                            height={300}
-                            width={400}
-                            quality={20}
-                            alt={`image-${el.name}`}
-                            className="rounded-t-xl object-cover group-hover:scale-110 transition duration-300 ease-in-out overflow-auto"
-                          />
-                        </div>
-                        <div className="flex flex-col p-4 w-full justify-between ">
-                          <div className="flex flex-col gap-2">
-                            <div className="flex flex-row w-full justify-between">
-                              <h5
-                                className={`text-xl text-white font-bold truncate ease duration-300`}
-                              >
-                                {el.name}
-                              </h5>
-                            </div>
+                      <Link href={`/nfts/${el.id}`}>
+                        <div>
+                          <div className="rounded-xl border-spacing-2 ">
+                            <Image
+                              src={el.image}
+                              height={300}
+                              width={400}
+                              quality={20}
+                              alt={`image-${el.name}`}
+                              className="rounded-t-xl object-cover group-hover:scale-110 transition duration-300 ease-in-out overflow-auto"
+                            />
                           </div>
-                          <div className="flex flex-row justify-between items-center mb-6">
-                            <div className="flex flex-row justify-center items-center gap-2">
+                          <div className="flex flex-col p-4 w-full justify-between ">
+                            <div className="flex flex-col gap-2">
+                              <div className="flex flex-row w-full justify-between">
+                                <h5
+                                  className={`text-xl text-white font-bold truncate ease duration-300`}
+                                >
+                                  {el.name}
+                                </h5>
+                              </div>
+                            </div>
+                            <div className="flex flex-row justify-between items-center mb-6">
+                              <div className="flex flex-row justify-center items-center gap-2">
+                                <span>
+                                  <SvgCoin
+                                    height={20}
+                                    width={20}
+                                    className={'fill-white'}
+                                  />
+                                </span>
+                                <span className="text-white font-semibold text-xl">
+                                  {el.price}
+                                </span>
+                              </div>
+                            </div>
+                            <div className="flex flex-row items-center gap-2 truncate">
                               <span>
-                                <SvgCoin
-                                  height={20}
-                                  width={20}
-                                  className={'fill-white'}
-                                />
+                                <RiVipCrownFill className="fill-yellow-500" />
                               </span>
-                              <span className="text-white font-semibold text-xl">
-                                {el.price}
-                              </span>
+                              <p
+                                className={` text-lg text-gray-800 dark:text-white font-semibold  truncate ease duration-300`}
+                              >
+                                {el.owner.name}
+                              </p>
                             </div>
                           </div>
-                          <div className="flex flex-row items-center gap-2 truncate">
-                            <span>
-                              <RiVipCrownFill className="fill-yellow-500" />
-                            </span>
-                            <p
-                              className={` text-lg text-gray-800 dark:text-white font-semibold  truncate ease duration-300`}
-                            >
-                              {el.owner.name}
-                            </p>
-                          </div>
                         </div>
-                      </div>
+                      </Link>
                     </div>
                   ))}
               </div>

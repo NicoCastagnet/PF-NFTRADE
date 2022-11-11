@@ -3,7 +3,7 @@
 import Footer from '@components/footer'
 import SvgCoin from '@components/icons/svgCoin'
 import NavBar from '@components/navbar/navbar'
-import getUserById from '@lib/api/users/getUserById'
+import getNftsOwned from '@lib/api/users/getNftsOwned'
 import type { GetServerSideProps, NextPage } from 'next'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
@@ -34,8 +34,11 @@ const NftsOwned: NextPage<Props> = ({ user }) => {
             src={account?.image || defaultAvatar}
           />
         </div>
-        <div className="mt-[100px] mb-[60px] ">
-          <div className="flex justify-center">
+        <div className="mt-[100px] mb-[60px] items-center flex flex-col w-full ">
+          <div className=" w-[90%] mb-2  ">
+            <h3 className=" text-[2rem] font-[600] ">Nfts Owned</h3>
+          </div>
+          <div className="flex justify-center w-full">
             <div className="flex min-h-[900px] p-8 border-[1px] border-gray-400 rounded-[15px] w-[93%] flex-wrap">
               {nfts.length > 0 &&
                 nfts.map((el) => (
@@ -95,7 +98,7 @@ const NftsOwned: NextPage<Props> = ({ user }) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const data = await getUserById({ id: params?.id as string })
+  const data = await getNftsOwned({ id: params?.id as string })
   if (!data) {
     return {
       notFound: true,
