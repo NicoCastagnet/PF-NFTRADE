@@ -1,17 +1,12 @@
 import prisma from '@lib/db'
-import type { NextApiRequest, NextApiResponse } from 'next'
 import nodemailer from 'nodemailer'
 
-export default async function mailSend(
-  req: NextApiRequest,
-  res: NextApiResponse,
-  // id: string,
-) {
-  const { id } = req.body
-  console.log(id)
+export default async function mailSend(email: string, pass: string) {
+  console.log(pass)
+  console.log(email)
   const mail = await prisma.user.findUniqueOrThrow({
     where: {
-      id: id.toString(),
+      email: email as string,
     },
     select: {
       email: true,
@@ -32,15 +27,15 @@ export default async function mailSend(
   const mailOptions = {
     from: 'NFTrade',
     to: mail.email as string,
-    subject: 'Recuperación de cntraseña',
-    text: `${mail.name} esta es tu nueva contraseña: ${mail.passwordHash}`,
+    subject: 'Recuperación de contraseña',
+
+    text: `${mail.name} esta es tu nueva contraseña: ${pass}`,
   }
   transporter.sendMail(mailOptions, (Error, info) => {
     if (Error) {
-      res.status(500).send(Error.message)
+      console.log(Error.message)
     } else {
       console.log('email send')
-      res.status(200).send('email send')
     }
   })
 }
