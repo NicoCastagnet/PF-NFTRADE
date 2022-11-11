@@ -23,6 +23,7 @@ export default async function payDescription(
             Authorization: `Bearer ${process.env.ACCES_TOKEN_SELLER}`,
           },
         })
+
         if (payment.data.status_detail) {
           const arrCoins = payment.data.additional_info.map(
             (el: any) => el.quantity,
@@ -84,11 +85,13 @@ export default async function payDescription(
                 text: 'The coins were loaded succesfully.',
                 data: user,
               }
-              sendMail(req, res, query.id as string, 'buy Coins')
+              console.log('APROBADOOOOOOOOOOOOOOOOOO:', data.userId)
+              sendMail(req, res, data.userId as string, 'buy Coins')
               res.status(205).json(msg)
             }
           } else {
-            sendMail(req, res, query.id as string, 'buy Rejected')
+            console.log('RECHAZOOOOOOOOOO:', data.userId)
+            sendMail(req, res, data.userId as string, 'buy Rejected')
           }
           res.status(200).send('recived')
         }
@@ -99,6 +102,7 @@ export default async function payDescription(
     }
   } else if (req.method === 'GET') {
     const { user } = req.query
+
 
     const notificacones = await prisma.notify.findMany({
       where: {
@@ -127,5 +131,6 @@ export default async function payDescription(
         view: true,
       },
     })
+
   }
 }

@@ -35,6 +35,7 @@ model Session {
 
 model User {
   id                 String       @id @default(cuid())
+  erased             Boolean?     @default(false)
   name               String?
   email              String?      @unique
   emailVerified      DateTime?
@@ -70,6 +71,7 @@ model Nft {
   description  String
   price        Float
   published    Boolean?    @default(false)
+  erased       Boolean?    @default(false)
   createdAt    DateTime    @default(now())
   updatedAt    DateTime    @updatedAt
   collectionId String?
@@ -95,7 +97,10 @@ model Collection {
   name        String
   image       String?
   description String?
-  disccount   Float
+  discount    Float
+  price       Float
+  published   Boolean? @default(false)
+  erased      Boolean? @default(false)
   creatorId   String
   ownerId     String
   createdAt   DateTime @default(now())
@@ -146,7 +151,8 @@ model BuyNfts {
 }
 
 model Notify {
-  id            String   @id @default(cuid())
+
+  id              String   @id @default(cuid())
   userId          String
   typeNotify      String
   ordenId         String?

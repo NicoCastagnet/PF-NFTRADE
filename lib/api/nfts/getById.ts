@@ -19,6 +19,7 @@ const getNftById = async ({
         description: true,
         price: true,
         published: true,
+        collectionId: true,
         comments: {
           select: {
             id: true,

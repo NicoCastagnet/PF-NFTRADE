@@ -3,7 +3,7 @@
 import Footer from '@components/footer'
 import SvgCoin from '@components/icons/svgCoin'
 import NavBar from '@components/navbar/navbar'
-import getNftsOwned from '@lib/api/users/getNftsOwned'
+import getWishes from '@lib/api/users/getWishes'
 import type { GetServerSideProps, NextPage } from 'next'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
@@ -19,7 +19,9 @@ const NftsOwned: NextPage<Props> = ({ user }) => {
   const { data: session } = useSession()
   const account = session?.user
 
-  const nfts = user.nftsOwned
+  const nfts = user.wishes
+
+  console.log(user.wishes)
 
   return (
     <div>
@@ -36,27 +38,28 @@ const NftsOwned: NextPage<Props> = ({ user }) => {
         </div>
         <div className="mt-[100px] mb-[60px] items-center flex flex-col w-full ">
           <div className=" w-[90%] mb-2  ">
-            <h3 className=" text-[2rem] font-[600] ">Nfts Owned</h3>
+            <h3 className=" text-[2rem] font-[600] ">Wishlist</h3>
           </div>
           <div className="flex justify-center w-full">
             <div className="flex min-h-[900px] p-8 border-[1px] border-gray-400 rounded-[15px] w-[93%] flex-wrap">
               {nfts.length > 0 &&
-                nfts.map((el) => (
-                  <div
-                    key={el.id}
-                    className={` w-[30%] mr-10 max-w-[287px] h-[380px] overflow-hidden relative flex flex-col bg-gray-800 rounded-xl p-[1px] border-slate-900 cursor-pointer group  dark:bg-stone-900 dark:border-[1px]   dark:border-gray-400  group shadow-lg shadow-zinc-500`}
-                  >
-                    <Link href={`/nfts/${el.id}`} key={el.id}>
-                      <a>
+                nfts
+                  .filter((nft) => nft.nft.erased === false)
+                  .map((el) => (
+                    <div
+                      key={el.nft.id}
+                      className={` w-[30%] mr-10 max-w-[287px] h-[380px] overflow-hidden relative flex flex-col bg-gray-800 rounded-xl p-[1px] border-slate-900 cursor-pointer group  dark:bg-stone-900 dark:border-[1px]   dark:border-gray-400  group shadow-lg shadow-zinc-500`}
+                    >
+                      <Link href={`/nfts/${el.nft.id}`} key={el.nft.id}>
                         {/* // h-[35rem] w-[22rem] */}
                         <div>
                           <div className="rounded-xl border-spacing-2 ">
                             <Image
-                              src={el.image}
+                              src={el.nft.image}
                               height={300}
                               width={400}
                               quality={20}
-                              alt={`image-${el.name}`}
+                              alt={`image-${el.nft.name}`}
                               className="rounded-t-xl object-cover group-hover:scale-110 transition duration-300 ease-in-out overflow-auto"
                             />
                           </div>
@@ -66,7 +69,7 @@ const NftsOwned: NextPage<Props> = ({ user }) => {
                                 <h5
                                   className={`text-xl text-white font-bold truncate ease duration-300`}
                                 >
-                                  {el.name}
+                                  {el.nft.name}
                                 </h5>
                               </div>
                             </div>
@@ -80,16 +83,15 @@ const NftsOwned: NextPage<Props> = ({ user }) => {
                                   />
                                 </span>
                                 <span className="text-white font-semibold text-xl">
-                                  {el.price}
+                                  {el.nft.price}
                                 </span>
                               </div>
                             </div>
                           </div>
                         </div>
-                      </a>
-                    </Link>
-                  </div>
-                ))}
+                      </Link>
+                    </div>
+                  ))}
             </div>
           </div>
         </div>
@@ -100,7 +102,7 @@ const NftsOwned: NextPage<Props> = ({ user }) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const data = await getNftsOwned({ id: params?.id as string })
+  const data = await getWishes({ id: params?.id as string })
   if (!data) {
     return {
       notFound: true,

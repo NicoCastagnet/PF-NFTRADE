@@ -9,7 +9,9 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<NftsResponse>,
 ) {
-  const data = await prisma.buys.findMany({
+  const { user } = req.query
+
+  const coinsData = await prisma.buys.findMany({
     select: {
       buyId: true,
       userId: true,
@@ -21,7 +23,7 @@ export default async function handler(
     },
   })
 
-  const data2 = await prisma.buyNfts.findMany({
+  const nftData = await prisma.buyNfts.findMany({
     select: {
       nftsId: true,
       compradorId: true,
@@ -31,5 +33,24 @@ export default async function handler(
     },
   })
 
-  res.json({ data, data2 })
+  const filteredSeller = nftData.filter((e) => e.vendedorId === user)
+  const filteredSellerCoins = filteredSeller.map((e) => e.coins)
+  const sum = filteredSellerCoins.reduce((acc, val) => {
+    return acc + val
+  }, 0)
+
+  const filteredBuyer = nftData.filter((e) => e.compradorId === user)
+  const filteredBuyerDates = filteredBuyer.map((e) => e.createdAt)
+  const filteredBuyerCoins = filteredBuyer.map((e) => e.coins)
+
+  res.json({
+    coinsData,
+    nftData,
+    staticDashData: {
+      sellerCoins: sum,
+      buyerCoins: filteredBuyerCoins,
+      sellerSales: filteredSeller.length,
+      buyerDates: filteredBuyerDates,
+    },
+  })
 }
