@@ -33,7 +33,7 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
   const { data: session } = useSession()
   const router = useRouter()
   const { id: nftId } = router.query
-  const user = session?.user
+  console.log(nft.collectionId)
 
   useEffect(() => {
     async function putViews() {
@@ -43,17 +43,17 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          userId: user?.id,
+          userId: session?.user?.id,
           nftId: nft.id,
         }),
       })
     }
-    if (user) putViews()
-    if (nft.wishedBy.includes(user?.id)) {
+    if (session?.user) putViews()
+    if (nft.wishedBy.includes(session?.user?.id)) {
       setWishlisted(true)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [nft.id, user?.id])
+  }, [nft.id, session?.user?.id])
 
   const [priceToEdit, setPriceToEdit] = useState(false)
   const [price, setPrice] = useState<string | number>(nft.price)
@@ -83,11 +83,11 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
   async function addToWished() {
     setLoadingWish(true)
 
-    if (nft.wishedBy.includes(user?.id)) {
+    if (nft.wishedBy.includes(session?.user?.id)) {
       setWishlisted(false)
-      nft.wishedBy = nft.wishedBy.filter((w) => w !== user?.id)
+      nft.wishedBy = nft.wishedBy.filter((w) => w !== session?.user?.id)
     } else {
-      nft.wishedBy.push(user?.id)
+      nft.wishedBy.push(session?.user?.id)
       setWishlisted(true)
     }
     await fetch('/api/put/wishes', {
@@ -97,7 +97,7 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
       },
       body: JSON.stringify({
         nftId: nft.id,
-        userId: user?.id,
+        userId: session?.user?.id,
       }),
     })
     setWishAdvice(false)
@@ -109,8 +109,6 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
   const [published, setPublished] = useState(nft.published)
 
   const [loadingPublished, setLoadingPublished] = useState(false)
-
-  console.log(published)
 
   async function handlePublished(boolean: boolean) {
     setLoadingPublished(true)
@@ -183,35 +181,37 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                   <Likes nftId={nftId as string} />
                   <p className="ml-2">likes</p>
                 </div>
-                <div className="flex flex-row  w-[240px] h-[40px] items-center">
-                  {loadingWish ? (
-                    <div className="animate-spin flex justify-center items-center ml-1 w-[40px] h-[40px] rounded-full">
-                      <SvgLoading />
-                    </div>
-                  ) : (
-                    <div className="flex w-[240px] items-center ml-2">
-                      <button
-                        onMouseOver={() => setWishAdvice(true)}
-                        onMouseOut={() => setWishAdvice(false)}
-                        onClick={addToWished}
-                        className={`fill-slate-200 ${
-                          wishlisted === true && ' fill-green-600 '
-                        } hover:fill-slate-300 bg-zinc-700 flex justify-center items-center w-[30px] h-[30px] rounded-full `}
-                      >
-                        <SvgPlus className="w-[25px] h-[25px] " />
-                      </button>
-                      {wishAdvice === true && (
-                        <span className="w-auto p-4 h-[30px] bg-zinc-300 dark:bg-zinc-900 flex justify-center items-center rounded-[12px] transition-all ml-2">
-                          {`${
-                            wishlisted === false
-                              ? 'Add to wishlist'
-                              : 'Remove from wishlist'
-                          }`}
-                        </span>
-                      )}
-                    </div>
-                  )}
-                </div>
+                {nft.owner.id !== session?.user.id && (
+                  <div className="flex flex-row  w-[240px] h-[40px] items-center">
+                    {loadingWish ? (
+                      <div className="animate-spin flex justify-center items-center ml-1 w-[40px] h-[40px] rounded-full">
+                        <SvgLoading />
+                      </div>
+                    ) : (
+                      <div className="flex w-[240px] items-center ml-2">
+                        <button
+                          onMouseOver={() => setWishAdvice(true)}
+                          onMouseOut={() => setWishAdvice(false)}
+                          onClick={addToWished}
+                          className={`fill-slate-200 ${
+                            wishlisted === true && ' fill-green-600 '
+                          } hover:fill-slate-300 bg-zinc-700 flex justify-center items-center w-[30px] h-[30px] rounded-full `}
+                        >
+                          <SvgPlus className="w-[25px] h-[25px] " />
+                        </button>
+                        {wishAdvice === true && (
+                          <span className="w-auto p-4 h-[30px] bg-zinc-300 dark:bg-zinc-900 flex justify-center items-center rounded-[12px] transition-all ml-2">
+                            {`${
+                              wishlisted === false
+                                ? 'Add to wishlist'
+                                : 'Remove from wishlist'
+                            }`}
+                          </span>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex flex-row justify-between w-full">
@@ -257,7 +257,7 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                       ) : (
                         <div className="flex items-center">
                           <span>{price}</span>
-                          {user?.id === nft.owner.id && (
+                          {session?.user?.id === nft.owner.id && (
                             <div>
                               <SvgPencil
                                 className="ml-3 fill-slate-300 hover:fill-slate-400 cursor-pointer"
@@ -277,7 +277,7 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
 
             <div>
               <div className="buttons flex justify-center items-center my-[31px] max-w-[590px]">
-                {nft.owner.id === user?.id ? (
+                {nft.owner.id === session?.user?.id ? (
                   loadingPublished ? (
                     <div className="animate-spin flex justify-center items-center w-full h-[82px] mt-2 rounded-full">
                       <SvgLoading className="w-[40px] h-[40px] " />
@@ -290,6 +290,14 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                       >
                         Add to market
                       </button>
+                    </div>
+                  ) : nft.collectionId ? (
+                    <div className="flex w-full ">
+                      <p className="text-[1.2rem] min-h-[90px] flex justify-center items-center text-gray-400 italic p-4 bg-gray-600 rounded-xl w-full">
+                        This NFT belongs to a collections, if you want to add or
+                        remove it from te market particullary, please delete the
+                        collection
+                      </p>
                     </div>
                   ) : (
                     <div className="flex w-full ">
@@ -307,6 +315,12 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                       This product is not for sale at this time
                     </p>
                   </div>
+                ) : nft.collectionId ? (
+                  <Link href={`/collections/${nft.collectionId}`}>
+                    <button className="text-xl bg-white hover:bg-gray-300 text-gray-600 dark:text-gray-400 dark:bg-[#303339] dark:hover:bg-[#393b41] hover:drop-shadow-lg transition-all w-full min-h-[90px] py-3 px-20 rounded-xl mr-2">
+                      Go to collection
+                    </button>
+                  </Link>
                 ) : (
                   <div className="flex items-center py-6 w-full ">
                     <button
@@ -324,7 +338,7 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                     </button>
                   </div>
                 )}
-                {user.id !== nft.owner.id && published === true && (
+                {session?.user.id !== nft.owner.id && published === true && (
                   <Link href={'#'}>
                     <button className="text-xl w-[50%] min-h-[90px] text-white bg-blue-600 hover:bg-blue-500 hover:drop-shadow-lg transition-all py-3 px-20 mx-2 rounded-xl">
                       Buy now
