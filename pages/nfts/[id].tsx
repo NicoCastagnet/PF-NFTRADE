@@ -205,7 +205,7 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                   Property of{' '}
                   <span className="text-blue-500 hover:underline hover:text-blue-600 cursor-pointer">
                     <Link href={`/users/${nft.owner.id}`}>
-                      {nft.owner.name}
+                      <a>{nft.owner.name}</a>
                     </Link>
                   </span>
                 </p>
@@ -424,9 +424,11 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                 )}
                 {user.id !== nft.owner.id && published === true && (
                   <Link href={'#'}>
-                    <button className="text-xl w-[50%] min-h-[90px] text-white bg-blue-600 hover:bg-blue-500 hover:drop-shadow-lg transition-all py-3 px-20 mx-2 rounded-xl">
-                      Buy now
-                    </button>
+                    <a>
+                      <button className="text-xl w-[50%] min-h-[90px] text-white bg-blue-600 hover:bg-blue-500 hover:drop-shadow-lg transition-all py-3 px-20 mx-2 rounded-xl">
+                        Buy now
+                      </button>
+                    </a>
                   </Link>
                 )}
 
