@@ -2,9 +2,12 @@
 // @ts-nocheck
 
 import Link from 'next/link'
+import { useState } from 'react'
 import ReactTimeAgo from 'react-time-ago'
+import ClearView from './clear'
 
 const NotifyComment = ({
+  id,
   nameUserComment,
   namenft,
   nftId,
@@ -15,25 +18,35 @@ const NotifyComment = ({
 
   return (
     <Link
-      href="#"
-      className="flex py-3 px-4 hover:bg-gray-600 dark:hover:bg-[#393b41]"
+      href={`#`} // link user que dejo el comentario o el NFT del comentario
+      className={`${
+        view ? '' : 'flex py-2 px-2 hover:bg-gray-600 dark:hover:bg-[#393b41]'
+      } `}
     >
       <a>
-        <div className="pl-3 w-full">
-          <div className="text-gray-500 text-sm mb-1.5 dark:text-gray-400">
-            {`has dejado un comentario en el NFT  `}
-            &nbsp;
-            <span className="font-semibold text-gray-900 dark:text-white">
-              &nbsp;{`${nameUserComment} `}
-              &nbsp;{`${namenft} `}
-              &nbsp;{`${nftId} `}
-              &nbsp;{`${comment} `}
-            </span>
-            &nbsp;{` pertenecioente a `}
-            <span className="font-semibold text-gray-900 dark:text-white"></span>
+        <div
+          className={`${
+            view ? 'hidden' : ''
+          } flex flex-row justify-between items-start`}
+        >
+          <div className="px-1 w-full flex flex-col justify-center items-center">
+            <div className="text-gray-500 text-sm dark:text-gray-400">
+              El usuario
+              <span className="font-semibold text-gray-900 dark:text-white">
+                {` ${nameUserComment}`}
+              </span>
+              &nbsp;{`te a dejado un comentario en el nft `}
+              <span className="font-semibold text-gray-900 dark:text-white">
+                &nbsp;{`${nameNft}`}
+              </span>
+              &nbsp;{` en tu pocesion`}
+            </div>
+            <div className="flex justify-center ite w-full text-xs text-blue-600 dark:text-blue-500">
+              <ReactTimeAgo date={createdAt} format={'twitter'} />
+            </div>
           </div>
-          <div className="text-xs text-blue-600 dark:text-blue-500">
-            <ReactTimeAgo date={createdAt} format={'twitter'} />
+          <div className=" px-[2px] flex justify-start items-start h-full">
+            <ClearView id={id} setView={setView} heig />
           </div>
         </div>
       </a>
