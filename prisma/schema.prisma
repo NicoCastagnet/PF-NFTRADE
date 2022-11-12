@@ -137,7 +137,7 @@ model Buys {
   date      String
   coins     Int
   status    String
-  amount    Int
+  amount    Float    @db.Real
   createdAt DateTime @default(now())
 }
 

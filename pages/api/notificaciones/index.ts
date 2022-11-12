@@ -25,7 +25,7 @@ export default async function payDescription(
         })
 
         if (payment.data.status_detail) {
-          const arrCoins = payment.data.additional_info.map(
+          const arrCoins = payment.data.additional_info.items.map(
             (el: any) => el.quantity,
           )
           const arrAmount = payment.data.additional_info.items.map(
@@ -36,7 +36,6 @@ export default async function payDescription(
             (a: number, b: number) => a + b,
             0,
           )
-
           const data = await prisma.buys.create({
             data: {
               buyId: query.id as string,

@@ -4,7 +4,6 @@
 import SvgBell from '@components/icons/svgBell'
 import fetcher from '@lib/fetcher'
 import { useSession } from 'next-auth/react'
-// import ReactTimeAgo from 'react-time-ago'
 import useSWR from 'swr'
 import styles from '../../../styles/form.module.css'
 import NotifyBuyCoins from './notifyBuyCoins'
@@ -82,7 +81,7 @@ const Notificaciones = () => {
                     <NotifyBuyNft
                       key={el.id}
                       id={el.id}
-                      nftid={el.nftId}
+                      nftId={el.nftId}
                       nameNft={el.nameNft}
                       compradorId={el.compradorId}
                       nameComprador={el.nameComprador}

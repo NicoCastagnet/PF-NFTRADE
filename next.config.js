@@ -12,6 +12,7 @@ const nextConfig = {
       'media-exp1.licdn.com',
       'platform-lookaside.fbsbx.com',
       'tailus.io',
+      'jrgivjodpnydgnfmeelp.supabase.co',
     ],
   },
   async headers() {
