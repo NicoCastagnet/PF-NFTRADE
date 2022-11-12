@@ -386,9 +386,14 @@ const UserDetail: NextPage<Props> = ({ user }) => {
             Created
           </h3>
           <div className={`flex w-full h-[700px] my-3 flex-wrap overflow-auto`}>
-            {user.nftsCreated.length > 0 &&
-              user.nftsCreated.map((el) => <NftCard key={el.id} nft={el} />)}
-            {user.nftsCreated.length < 6 && (
+            {user.nftsCreated.length > 0
+              ? user.nftsCreated.map((el) => <NftCard key={el.id} nft={el} />)
+              : user.id !== session?.user.id && (
+                  <div>
+                    <p>There are no nfts created yet</p>
+                  </div>
+                )}
+            {user.nftsCreated.length < 6 && 3 && user.id === session?.user.id && (
               <Link href={`/nfts/create`}>
                 <div
                   className={`w-[30%] max-w-[277px] min-w-[194px] h-[300px] overflow-hidden relative flex flex-col bg-gray-200  dark:border-[1px] rounded-[15px] p-9 dark:border-gray-400 cursor-pointer justify-center group shadow-lg shadow-zinc-500`}
@@ -452,31 +457,41 @@ const UserDetail: NextPage<Props> = ({ user }) => {
             Collections Created
           </h3>
           <div className="flex w-full my-3 h-[330px]  flex-wrap overflow-auto">
-            {user.collectionsCreated.length > 0 &&
-              user.collectionsCreated.map((el) => (
-                <CollectionCard key={el.id} collection={el} />
-              ))}
-            {user.collectionsCreated.length < 3 && (
-              <Link href={`${user.id}/collections/create`}>
-                <div
-                  className={`w-[30%] max-w-[277px] min-w-[194px] h-[300px] overflow-hidden relative flex flex-col bg-gray-200  dark:border-[1px] rounded-[15px] p-9 dark:border-gray-400 cursor-pointer justify-center group shadow-lg shadow-zinc-500`}
-                >
+
+            {user.collectionsOwned.length > 0
+              ? user.collectionsOwned.map((el) => (
+                  <CollectionCard key={el.id} collection={el} />
+                ))
+              : user.id !== session?.user.id && (
+                  <div>
+                    <p>There are no collections created yet</p>
+                  </div>
+                )}
+            {user.collectionsCreated.length < 3 &&
+              user.id === session?.user.id && (
+                <Link href={`${user.id}/collections/create`}>
+
                   <div
-                    className={`group-hover:scale-[1.1] transition-all duration-500 rounded-[20px] shadow-inner shadow-zinc-600 bg-gray-300 w-full h-full flex justify-center items-center flex-col`}
+                    className={`w-[30%] max-w-[277px] min-w-[194px] h-[300px] overflow-hidden relative flex flex-col bg-gray-200  dark:border-[1px] rounded-[15px] p-9 dark:border-gray-400 cursor-pointer justify-center group shadow-lg shadow-zinc-500`}
                   >
                     <div
-                      className={`group-hover:animate-bounce 
-                    } shadow-inner shadow-zinc-800 rounded-[15px] w-[50%] h-[40%] flex justify-center items-center`}
+                      className={`group-hover:scale-[1.1] transition-all duration-500 rounded-[20px] shadow-inner shadow-zinc-600 bg-gray-300 w-full h-full flex justify-center items-center flex-col`}
                     >
-                      <SvgPlus className="  fill-gray-500 w-[44px] h-[44px] blur-[0.8px]" />
+                      <div
+                        className={`group-hover:animate-bounce 
+                    } shadow-inner shadow-zinc-800 rounded-[15px] w-[50%] h-[40%] flex justify-center items-center`}
+                      >
+                        <SvgPlus className="  fill-gray-500 w-[44px] h-[44px] blur-[0.8px]" />
+                      </div>
+                      <span className="mt-2 text-center text-gray-600 text-[1rem] font-[500]">
+                        Create Collection
+                      </span>
                     </div>
-                    <span className="mt-2 text-center text-gray-600 text-[1rem] font-[500]">
-                      Create Collection
-                    </span>
                   </div>
-                </div>
-              </Link>
-            )}
+
+                </Link>
+              )}
+
           </div>
 
           <Link href={`${user.id}/collectionsCreated`}>
