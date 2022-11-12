@@ -10,7 +10,7 @@ import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { RiVipCrownFill } from 'react-icons/ri'
 import type { CollectionDetailResponse } from 'types/api-responses'
@@ -24,6 +24,23 @@ const CollectionDetail: NextPage<Props> = ({ collection }) => {
   const { cart, addItem } = useCart()
   const router = useRouter()
   console.log(session)
+  const [admin, setAdmin] = useState(false)
+
+  useEffect(() => {
+    async function getAdmin() {
+      await fetch(`/api/user/${session?.user.id}/getIsAdmin/`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then((r) => r.json())
+        .then((r) => setAdmin(r))
+    }
+    getAdmin()
+  })
+
+  console.log(admin)
 
   const [loadingPublished, setLoadingPublished] = useState(false)
 
@@ -33,6 +50,7 @@ const CollectionDetail: NextPage<Props> = ({ collection }) => {
     const nftsId = collection.nfts.map((nft) => nft.id)
     setLoadingPublished(true)
     setPublished(boolean)
+
     await fetch('/api/put/published', {
       method: 'PUT',
       headers: {
@@ -111,17 +129,24 @@ const CollectionDetail: NextPage<Props> = ({ collection }) => {
               </div>
             </div>
           </div>
-          <div className=" w-[80%]">
+          <div
+            className={` w-[80%] ${
+              deleteWarning === true && 'blur-[10px] opacity-40'
+            } `}
+          >
             <div className="flex justify-center ">
               <div className="mr-10 ">
                 <header className="flex justify-between items-center px-5 w-[600px] h-[55px] rounded-t-md bg-gray-100 dark:bg-[#303339]">
                   <p className="text-gray-600 dark:text-gray-400">
                     #{collection.id.toUpperCase()}
                   </p>
-                  {session?.user.id === collection.owner.id && (
+                  {(session?.user.id === collection.owner.id ||
+                    admin === true) && (
                     <SvgTrash
                       onClick={() => setDeleteWarning(true)}
-                      className=" ml-4 w-[25px] h-[25px] fill-slate-500 hover:fill-red-800 cursor-pointer "
+                      className={` ml-4 w-[25px] h-[25px] fill-slate-500 ${
+                        admin === true && 'hover:fill-yellow-500'
+                      } hover:fill-red-800 cursor-pointer`}
                     />
                   )}
                 </header>

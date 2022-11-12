@@ -36,7 +36,7 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
   const { data: session } = useSession()
   const router = useRouter()
   const { id: nftId } = router.query
-  console.log(nft.collectionId)
+  const [admin, setAdmin] = useState(false)
 
   useEffect(() => {
     async function putViews() {
@@ -55,8 +55,22 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
     if (nft.wishedBy.includes(session?.user?.id)) {
       setWishlisted(true)
     }
+    async function getAdmin() {
+      await fetch(`/api/user/${session?.user.id}/getIsAdmin/`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then((r) => r.json())
+        .then((r) => setAdmin(r))
+    }
+    getAdmin()
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nft.id, session?.user?.id])
+
+  console.log(admin)
 
   const [priceToEdit, setPriceToEdit] = useState(false)
   const [price, setPrice] = useState<string | number>(nft.price)
@@ -184,19 +198,26 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
             </div>
           </div>
         </div>
-        <div className=" w-[80%]">
+        <div
+          className={` w-[80%] ${
+            deleteWarning === true && 'blur-[10px] opacity-40'
+          } `}
+        >
           <div className="flex justify-center w-full mb-[50px]">
             <div className="mr-10 ">
               <header className="flex justify-between items-center px-5 w-[600px] h-[55px] rounded-t-md bg-gray-100 dark:bg-[#303339]">
                 <p className="text-gray-600 dark:text-gray-400">
                   #{nft.id.toUpperCase()}
                 </p>
-                {session?.user.id === nft.owner.id && (
-                  <SvgTrash
-                    onClick={() => setDeleteWarning(true)}
-                    className=" ml-4 w-[25px] h-[25px] fill-slate-500 hover:fill-red-800 cursor-pointer "
-                  />
-                )}
+                {session?.user.id === nft.owner.id ||
+                  (admin === true && (
+                    <SvgTrash
+                      onClick={() => setDeleteWarning(true)}
+                      className={` ml-4 w-[25px] h-[25px] fill-slate-500 ${
+                        admin === true && 'hover:fill-yellow-500'
+                      } hover:fill-red-800 cursor-pointer`}
+                    />
+                  ))}
               </header>
               <div className="w-[600px] h-[600px] border-2 border-gray-100 dark:border-[#303339]">
                 <Image

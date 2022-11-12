@@ -261,6 +261,7 @@ export type UserDetailResponse = Prisma.UserGetPayload<{
     emailVerified: true
     image: true
     coins: true
+    admin: true
     collectionsCreated: {
       select: {
         id: true
@@ -314,6 +315,16 @@ export type UserDetailResponse = Prisma.UserGetPayload<{
         }
       }
     }
+  }
+}>
+
+export type UserBasicResponse = Prisma.UserGetPayload<{
+  select: {
+    id: true
+    name: true
+    email: true
+    image: true
+    admin: true
   }
 }>
 
