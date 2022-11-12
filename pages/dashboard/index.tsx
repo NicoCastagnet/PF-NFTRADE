@@ -6,6 +6,7 @@ import fetcher from '@lib/fetcher'
 import type { NextPage } from 'next'
 import { useSession } from 'next-auth/react'
 import Head from 'next/head'
+
 import useSWR from 'swr'
 
 const DashBoard: NextPage = () => {
