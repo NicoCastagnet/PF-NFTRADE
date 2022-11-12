@@ -3,16 +3,12 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: [
-      'loremflickr.com',
-      'tdhdjernzsaepxgzandc.supabase.co',
-      'media.licdn.com',
-      'lh3.googleusercontent.com',
-      'pbs.twimg.com',
-      'media-exp1.licdn.com',
-      'platform-lookaside.fbsbx.com',
-      'tailus.io',
-    ],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**'
+      }
+    ]
   },
   async headers() {
     return [
