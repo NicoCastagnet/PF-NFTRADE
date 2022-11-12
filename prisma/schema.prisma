@@ -136,7 +136,7 @@ model Buys {
   date      String
   coins     Int
   status    String
-  amount    Int
+  amount    Float    @db.Real
   createdAt DateTime @default(now())
 }
 
@@ -151,7 +151,6 @@ model BuyNfts {
 }
 
 model Notify {
-
   id              String   @id @default(cuid())
   userId          String
   typeNotify      String

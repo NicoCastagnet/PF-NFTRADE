@@ -114,7 +114,6 @@ const CreateProduct: NextPage<Props> = ({ fallbackData }) => {
   if (!session && status !== 'loading') {
     router.push('/login')
   }
-
   const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     setUploading(true)
     setUploadError(false)
@@ -126,13 +125,11 @@ const CreateProduct: NextPage<Props> = ({ fallbackData }) => {
     const { data, error } = await supabase.storage
       .from('nfts')
       .upload(
-        `public/${Date.now().toString().slice(0, 6)}-${
-          file?.name
-        }-${Math.random().toString().slice(0, 6)}`,
+        `public/${Date.now().toString().slice(0, 8)}-${file?.name}`,
         file as File,
       )
 
-    const BUCKET_UPLOAD = process.env.NEXT_PUBLIC_BUCKET_UPLOAD as string
+    const BUCKET_UPLOAD = process.env.NEXT_PUBLIC_SUPABASE_UPLOAD as string
     if (!error) {
       setPreview(`${BUCKET_UPLOAD}/${data.path}`)
       setUploading(false)
