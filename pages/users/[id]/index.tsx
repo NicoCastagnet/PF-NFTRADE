@@ -362,9 +362,7 @@ const UserDetail: NextPage<Props> = ({ user }) => {
             className={`flex w-full h-[700px] my-3 flex-wrap overflow-auto `}
           >
             {user.nftsOwned.length > 0 ? (
-
               user.nftsOwned.map((el) => <NftCard key={el.id} nft={el} />)
-
             ) : (
               <div className="h-[330px]">
                 <p>There are no nfts owned yet</p>
@@ -372,15 +370,14 @@ const UserDetail: NextPage<Props> = ({ user }) => {
             )}
           </div>
 
-
           <Link href={`${user.id}/nftsOwned`}>
-          <a>
-            <button
-              disabled={user.nftsOwned.length < 1}
-              className=" bg-blue-500 disabled:cursor-default disabled:bg-gray-500 disabled:hover:scale-[1] text-white h-[36px] w-full hover:scale-[1.015] transition-all rounded-[8px] mb-5 "
-            >
-              View More
-            </button>
+            <a>
+              <button
+                disabled={user.nftsOwned.length < 1}
+                className=" bg-blue-500 disabled:cursor-default disabled:bg-gray-500 disabled:hover:scale-[1] text-white h-[36px] w-full hover:scale-[1.015] transition-all rounded-[8px] mb-5 "
+              >
+                View More
+              </button>
             </a>
           </Link>
         </div>
@@ -396,7 +393,6 @@ const UserDetail: NextPage<Props> = ({ user }) => {
                 <div
                   className={`w-[30%] max-w-[277px] min-w-[194px] h-[300px] overflow-hidden relative flex flex-col bg-gray-200  dark:border-[1px] rounded-[15px] p-9 dark:border-gray-400 cursor-pointer justify-center group shadow-lg shadow-zinc-500`}
                 >
-
                   <div
                     className={`group-hover:scale-[1.1] transition-all duration-500 rounded-[20px] shadow-inner shadow-zinc-600 bg-gray-300 w-full h-full flex justify-center items-center flex-col`}
                   >
@@ -410,7 +406,6 @@ const UserDetail: NextPage<Props> = ({ user }) => {
                       Create NFT
                     </span>
                   </div>
-
                 </div>
               </Link>
             )}
@@ -434,7 +429,6 @@ const UserDetail: NextPage<Props> = ({ user }) => {
           <div className="flex w-full my-3 h-[330px]  flex-wrap overflow-auto">
             {user.collectionsOwned.length > 0 ? (
               user.collectionsOwned.map((el) => (
-
                 <CollectionCard key={el.id} collection={el} />
               ))
             ) : (
@@ -467,7 +461,6 @@ const UserDetail: NextPage<Props> = ({ user }) => {
                 <div
                   className={`w-[30%] max-w-[277px] min-w-[194px] h-[300px] overflow-hidden relative flex flex-col bg-gray-200  dark:border-[1px] rounded-[15px] p-9 dark:border-gray-400 cursor-pointer justify-center group shadow-lg shadow-zinc-500`}
                 >
-
                   <div
                     className={`group-hover:scale-[1.1] transition-all duration-500 rounded-[20px] shadow-inner shadow-zinc-600 bg-gray-300 w-full h-full flex justify-center items-center flex-col`}
                   >
@@ -481,7 +474,6 @@ const UserDetail: NextPage<Props> = ({ user }) => {
                       Create Collection
                     </span>
                   </div>
-
                 </div>
               </Link>
             )}

@@ -17,7 +17,7 @@ const NotifyLiked = ({
   const [view, setView] = useState(false)
   return (
     <Link
-      href={`#`}
+      href={`#`} // link user que dio liked o el NFT que le dieron liked
       className={`${
         view ? '' : 'flex py-2 px-2 hover:bg-gray-600 dark:hover:bg-[#393b41]'
       } `}
@@ -28,11 +28,9 @@ const NotifyLiked = ({
             view ? 'hidden' : ''
           } flex flex-row justify-between items-start`}
         >
-          <div
-            className={` px-1 w-full flex flex-col justify-center items-center`}
-          >
-            <div>
-              el usuario
+          <div className="px-1 w-full flex flex-col justify-center items-center">
+            <div className="text-gray-500 text-sm dark:text-gray-400">
+              El usuario
               <span className="font-semibold text-gray-900 dark:text-white">
                 {` ${nameUserLiked}`}
               </span>
