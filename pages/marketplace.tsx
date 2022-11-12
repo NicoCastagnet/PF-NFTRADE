@@ -168,8 +168,8 @@ const Marketplace: NextPage<HomeProps> = () => {
                             className="rounded-t-xl object-cover group-hover:scale-110 transition duration-300 ease-in-out overflow-auto"
                           />
                         </div>
-                        <div className="flex flex-col p-4 h-full w-full justify-between">
-                          <div className="flex flex-col gap-2">
+                        <div className="flex flex-col p-4 pb-3 h-full w-full justify-between">
+                          <div className="flex flex-col justify-center items-center w-full">
                             <div className="flex flex-row w-full justify-between">
                               <h5
                                 className={`${
@@ -182,14 +182,14 @@ const Marketplace: NextPage<HomeProps> = () => {
                             <div
                               className={`${styles.description} ${
                                 carSize === 'small' ? 'text-sm' : ''
-                              } ease duration-300 text-gray-800 dark:text-white my-4`}
+                              } ease duration-300 text-gray-800 dark:text-white w-full my-3`}
                             >
                               {el.description
                                 ? el.description
                                 : 'No description provided.'}
                             </div>
                           </div>
-                          <div className="flex flex-row justify-between items-center mb-6">
+                          <div className="flex flex-row justify-between items-center">
                             <div className="flex flex-row justify-center items-center gap-2 truncate">
                               <span>
                                 <RiVipCrownFill className="fill-yellow-500" />
