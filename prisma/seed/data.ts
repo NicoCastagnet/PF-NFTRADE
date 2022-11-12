@@ -88,9 +88,10 @@ export const createCollections = (
   for (let x = 1; x <= 5; x++) {
     collections.push({
       name: faker.commerce.productName(),
-      disccount: faker.datatype.float({ min: 0, max: 5, precision: 0.1 }),
+      discount: faker.datatype.float({ min: 0, max: 5, precision: 0.1 }),
       ownerId: getRandomItem(users) as string,
       creatorId: getRandomItem(users) as string,
+      price: faker.datatype.float({min: 1, max: 5000})
     })
   }
   return collections
