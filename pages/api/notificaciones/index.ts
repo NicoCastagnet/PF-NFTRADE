@@ -103,7 +103,6 @@ export default async function payDescription(
   } else if (req.method === 'GET') {
     const { user } = req.query
 
-
     const notificacones = await prisma.notify.findMany({
       where: {
         userId: user.toString(),
@@ -131,6 +130,5 @@ export default async function payDescription(
         view: true,
       },
     })
-
   }
 }

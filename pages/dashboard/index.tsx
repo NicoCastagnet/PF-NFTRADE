@@ -23,7 +23,6 @@ const DashBoard: NextPage = () => {
       <div className="dashboard__home-content w-screen flex-row">
         <NavBar />
         <div className="dashboard__home-content mx-[5%] flex flex-col items-center">
-
           <h1 className="text-xl m-2">Main stats</h1>
           <div className="main-boxes flex justify-center items-center text-center w-full">
             <div className="left flex flex-col border rounded-xl w-full p-5 m-2">
