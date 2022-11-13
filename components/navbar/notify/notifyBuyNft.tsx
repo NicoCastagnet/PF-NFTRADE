@@ -46,11 +46,11 @@ const NotifyBuyNft = ({
               <span className="font-semibold text-gray-900 dark:text-white">{`${coins} Coins`}</span>
             </div>
             <div className="flex justify-center ite w-full text-xs text-blue-600 dark:text-blue-500">
-              <ReactTimeAgo date={createdAt} format={'twitter'} />
+              <ReactTimeAgo date={createdAt as Date} format={'twitter'} />
             </div>
           </div>
           <div className=" px-[2px] flex justify-start items-start h-full">
-            <ClearView id={id} setView={setView} heig />
+            <ClearView id={id} setView={setView} />
           </div>
         </div>
       </a>
