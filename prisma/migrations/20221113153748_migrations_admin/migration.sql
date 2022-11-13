@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Buys" ALTER COLUMN "amount" SET DATA TYPE REAL;
