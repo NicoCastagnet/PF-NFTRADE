@@ -14,7 +14,7 @@ const NotifyComment = ({
   comment,
   createdAt,
   mutate,
-  url
+  url,
 }) => {
   const [view, setView] = useState(false)
 

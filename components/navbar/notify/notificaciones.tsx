@@ -14,7 +14,7 @@ import NotifyLiked from './notifyLiked'
 const Notificaciones = () => {
   const { data: session } = useSession()
   const URL = `/api/notificaciones?user=${session?.user.id}`
-  const { data } = useSWR( URL, fetcher, { refreshInterval: 1000,} )
+  const { data } = useSWR(URL, fetcher, { refreshInterval: 1000 })
 
   return (
     <section
@@ -49,7 +49,7 @@ const Notificaciones = () => {
           <div
             className={`divide-y divide-gray-800 dark:divide-gray-700 max-h-[30rem] overflow-auto ${styles.scrollbar}`}
           >
-            { data?.notify.length ? (
+            {data?.notify.length ? (
               data?.notify.map((el) => (
                 <>
                   {el.typeNotify === 'comment' && (

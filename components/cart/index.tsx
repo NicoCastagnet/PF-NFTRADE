@@ -34,7 +34,7 @@ const CartSideBar: React.FC<CartSideBarProps> = ({ isOpen, handleClose }) => {
     if (res.status === 404) {
       toast.error('Insufficient coins.')
     } else {
-      toast.success('gracias por comprar en NFTRADE!!', {  duration: 3000})
+      toast.success('gracias por comprar en NFTRADE!!', { duration: 3000 })
     }
   }
 

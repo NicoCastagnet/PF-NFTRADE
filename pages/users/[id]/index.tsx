@@ -457,7 +457,6 @@ const UserDetail: NextPage<Props> = ({ user }) => {
             Collections Created
           </h3>
           <div className="flex w-full my-3 h-[330px]  flex-wrap overflow-auto">
-
             {user.collectionsOwned.length > 0
               ? user.collectionsOwned.map((el) => (
                   <CollectionCard key={el.id} collection={el} />
@@ -470,7 +469,6 @@ const UserDetail: NextPage<Props> = ({ user }) => {
             {user.collectionsCreated.length < 3 &&
               user.id === session?.user.id && (
                 <Link href={`${user.id}/collections/create`}>
-
                   <div
                     className={`w-[30%] max-w-[277px] min-w-[194px] h-[300px] overflow-hidden relative flex flex-col bg-gray-200  dark:border-[1px] rounded-[15px] p-9 dark:border-gray-400 cursor-pointer justify-center group shadow-lg shadow-zinc-500`}
                   >
@@ -488,10 +486,8 @@ const UserDetail: NextPage<Props> = ({ user }) => {
                       </span>
                     </div>
                   </div>
-
                 </Link>
               )}
-
           </div>
 
           <Link href={`${user.id}/collectionsCreated`}>

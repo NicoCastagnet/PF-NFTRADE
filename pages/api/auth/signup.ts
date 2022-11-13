@@ -38,10 +38,13 @@ export default async function handle(
           passwordHash: passwordhash,
         },
       })
-      await axios.post(`${process.env.NEXT_PUBLIC_APP_URL}/api/emails/welcomeEmail`, {
-        user: username,
-        email: email,
-      })
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_APP_URL}/api/emails/welcomeEmail`,
+        {
+          user: username,
+          email: email,
+        },
+      )
     }
 
     // // hash password
