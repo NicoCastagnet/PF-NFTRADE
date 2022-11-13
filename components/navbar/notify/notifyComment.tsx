@@ -9,7 +9,7 @@ import ClearView from './clear'
 const NotifyComment = ({
   id,
   nameUserComment,
-  namenft,
+  nameNft,
   nftId,
   comment,
   createdAt,

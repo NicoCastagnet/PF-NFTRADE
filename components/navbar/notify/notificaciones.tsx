@@ -58,7 +58,7 @@ const Notificaciones = () => {
                     <NotifyComment
                       key={el.id}
                       id={el.id}
-                      namenft={el.nameNft}
+                      nameNft={el.nameNft}
                       nftId={el.nftId}
                       userIdComment={el.userIdComment}
                       nameUserComment={el.nameUserComment}
