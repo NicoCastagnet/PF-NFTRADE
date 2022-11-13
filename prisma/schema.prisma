@@ -98,7 +98,7 @@ model Collection {
   name        String
   image       String?
   description String?
-  disccount    Float
+  disccount   Float
   price       Float?
   published   Boolean? @default(false)
   erased      Boolean? @default(false)
