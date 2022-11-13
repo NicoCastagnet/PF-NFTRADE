@@ -98,8 +98,8 @@ model Collection {
   name        String
   image       String?
   description String?
-  discount    Float
-  price       Float
+  disccount    Float
+  price       Float?
   published   Boolean? @default(false)
   erased      Boolean? @default(false)
   creatorId   String
