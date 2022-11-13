@@ -21,13 +21,20 @@ const CartSideBar: React.FC<CartSideBarProps> = ({ isOpen, handleClose }) => {
   const { data: session } = useSession()
 
   const handleChange = async () => {
-    const res = await axios.post('http://localhost:3000/api/cart', {
-      nfts: cart,
-      comprador: session?.user,
-    })
+    clearCart()
+    handleClose(false)
+    const res = await axios.post(
+      `${process.env.NEXT_PUBLIC_APP_URL}/api/cart`,
+      {
+        nfts: cart,
+        comprador: session?.user,
+      },
+    )
 
     if (res.status === 404) {
       toast.error('Insufficient coins.')
+    } else {
+      toast.success('gracias por comprar en NFTRADE!!', {  duration: 3000})
     }
   }
 

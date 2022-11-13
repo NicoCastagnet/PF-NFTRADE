@@ -38,7 +38,7 @@ export default async function handle(
           passwordHash: passwordhash,
         },
       })
-      await axios.post('http://localhost:3000/api/emails/welcomeEmail', {
+      await axios.post(`${process.env.NEXT_PUBLIC_APP_URL}/api/emails/welcomeEmail`, {
         user: username,
         email: email,
       })

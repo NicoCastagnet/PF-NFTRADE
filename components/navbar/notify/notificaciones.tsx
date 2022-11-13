@@ -13,17 +13,15 @@ import NotifyLiked from './notifyLiked'
 
 const Notificaciones = () => {
   const { data: session } = useSession()
-  const { data } = useSWR(
-    `/api/notificaciones?user=${session?.user.id}`,
-    fetcher,
-  )
+  const URL = `/api/notificaciones?user=${session?.user.id}`
+  const { data } = useSWR( URL, fetcher, { refreshInterval: 1000,} )
 
   return (
     <section
       className={`flex justify-center items-center relative ${styles.notify}`}
     >
       <button className="relative group">
-        {data?.notify.length ? (
+        {data?.total ? (
           <>
             <span className="h-5 w-6 bg-red-500 rounded-full absolute top-[0.35rem] left-5 border-[3px] border-gray-900 z-10 text-sm text-center flex justify-center items-center pt-1 ">
               {data.total}
@@ -51,7 +49,7 @@ const Notificaciones = () => {
           <div
             className={`divide-y divide-gray-800 dark:divide-gray-700 max-h-[30rem] overflow-auto ${styles.scrollbar}`}
           >
-            {data?.notify.length ? (
+            { data?.notify.length ? (
               data?.notify.map((el) => (
                 <>
                   {el.typeNotify === 'comment' && (
