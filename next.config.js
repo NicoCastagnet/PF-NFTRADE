@@ -6,9 +6,9 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**'
-      }
-    ]
+        hostname: '**',
+      },
+    ],
     domains: [
       'loremflickr.com',
       'tdhdjernzsaepxgzandc.supabase.co',

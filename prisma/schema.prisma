@@ -98,7 +98,7 @@ model Collection {
   name        String
   image       String?
   description String?
-  disccount   Float
+  discount    Float
   creatorId   String
   ownerId     String
   createdAt   DateTime @default(now())
