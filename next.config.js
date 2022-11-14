@@ -8,7 +8,7 @@ const nextConfig = {
         protocol: 'https',
         hostname: '**'
       }
-    ]
+    ],
     domains: [
       'loremflickr.com',
       'tdhdjernzsaepxgzandc.supabase.co',

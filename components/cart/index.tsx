@@ -1,13 +1,9 @@
 import SvgCoin from '@components/icons/svgCoin'
 import SvgCross from '@components/icons/svgCross'
-import { useCart } from '@context/cart'
 import { Dialog, Transition } from '@headlessui/react'
-import axios from 'axios'
-import { useSession } from 'next-auth/react'
+import useBuyNftPriceCoins from 'hook/useBuyNftPriceCoins'
 import Image from 'next/image'
 import { Fragment } from 'react'
-import toast from 'react-hot-toast'
-import { useTotalPrice } from '../../hook/getPrice'
 
 interface CartSideBarProps {
   isOpen: boolean
@@ -15,28 +11,10 @@ interface CartSideBarProps {
 }
 
 const CartSideBar: React.FC<CartSideBarProps> = ({ isOpen, handleClose }) => {
-  const { cart, removeItem, clearCart } = useCart()
-  const { totalPrice } = useTotalPrice()
+  
+  const { totalPrice, cart, removeItem, clearCart, handleChange } =
+    useBuyNftPriceCoins(handleClose)
 
-  const { data: session } = useSession()
-
-  const handleChange = async () => {
-    clearCart()
-    handleClose(false)
-    const res = await axios.post(
-      `${process.env.NEXT_PUBLIC_APP_URL}/api/cart`,
-      {
-        nfts: cart,
-        comprador: session?.user,
-      },
-    )
-
-    if (res.status === 404) {
-      toast.error('Insufficient coins.')
-    } else {
-      toast.success('gracias por comprar en NFTRADE!!', { duration: 3000 })
-    }
-  }
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
