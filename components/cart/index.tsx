@@ -11,10 +11,8 @@ interface CartSideBarProps {
 }
 
 const CartSideBar: React.FC<CartSideBarProps> = ({ isOpen, handleClose }) => {
-  
   const { totalPrice, cart, removeItem, clearCart, handleChange } =
     useBuyNftPriceCoins(handleClose)
-
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>

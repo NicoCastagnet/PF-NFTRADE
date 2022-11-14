@@ -14,7 +14,7 @@ const useCoins = () => {
         })
   }, [session])
 
-  return { session,status, coins }
+  return { session, status, coins }
 }
 
 export default useCoins

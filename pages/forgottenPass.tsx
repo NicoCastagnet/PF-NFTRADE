@@ -9,7 +9,6 @@ import { HiAtSymbol } from 'react-icons/hi'
 import styles from '../styles/form.module.css'
 import { Toaster } from 'react-hot-toast'
 
-
 const ForgottenPass: NextPage = () => {
   const [email, setEmail] = useState('')
 
