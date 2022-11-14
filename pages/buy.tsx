@@ -5,6 +5,7 @@ import type { NextPage } from 'next'
 import { useSession } from 'next-auth/react'
 import Head from 'next/head'
 import { useState } from 'react'
+import { Toaster } from 'react-hot-toast'
 
 const BuyPage: NextPage = () => {
   const [customValue, setCustomValue] = useState(0)
@@ -128,6 +129,7 @@ const BuyPage: NextPage = () => {
         </div>
       </section>
       <Footer />
+      <Toaster position="top-center" reverseOrder={false} />
     </>
   )
 }

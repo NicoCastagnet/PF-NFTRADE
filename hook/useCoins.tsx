@@ -2,7 +2,7 @@ import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 
 const useCoins = () => {
-  const { data: session } = useSession()
+  const { data: session, status } = useSession()
   const [coins, setCoins] = useState(0)
 
   useEffect(() => {
@@ -14,7 +14,7 @@ const useCoins = () => {
         })
   }, [session])
 
-  return { session, coins }
+  return { session, status, coins }
 }
 
 export default useCoins
