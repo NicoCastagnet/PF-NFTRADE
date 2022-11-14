@@ -9,6 +9,9 @@ export default async function handler(
   try {
     const user = await prisma.user.findUniqueOrThrow({
       where: { id: id as string },
+      include: {
+        nftsOwned: true,
+      },
     })
     return res.json(user)
   } catch (e) {

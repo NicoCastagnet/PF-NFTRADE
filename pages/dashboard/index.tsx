@@ -48,7 +48,7 @@ const DashBoard: NextPage = () => {
             </div>
           </div>
           <div className="h-auto w-full py-10">
-            <BarChart />
+            <BarChart userData={data} />
           </div>
         </div>
       </div>
