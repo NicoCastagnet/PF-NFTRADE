@@ -1,4 +1,5 @@
 import SvgList from '@components/icons/svgList'
+import Link from 'next/link'
 
 const List = () => {
   return (
@@ -11,12 +12,16 @@ const List = () => {
         <p className="text-gray-400 mt-3 mb-3">
           Post all your NFT&apos;s start getting money.
         </p>
-        <button
-          type="button"
-          className="text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-full text-sm py-2 px-7 text-center transition-all"
-        >
-          Sell now
-        </button>
+        <Link href="/dashboard/mynfts">
+          <a>
+            <button
+              type="button"
+              className="text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-full text-sm py-2 px-7 text-center transition-all"
+            >
+              Sell now
+            </button>
+          </a>
+        </Link>
       </div>
     </div>
   )

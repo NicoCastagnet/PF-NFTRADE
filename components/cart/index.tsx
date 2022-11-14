@@ -104,7 +104,7 @@ const CartSideBar: React.FC<CartSideBarProps> = ({ isOpen, handleClose }) => {
                             {cart.map((item) => (
                               <li
                                 key={item.id}
-                                className="flex items-center gap-4 h-auto my-3 border border-gray-300 rounded-md pr-2"
+                                className="flex items-center gap-4 h-auto my-3 border border-white dark:border-[#303339] rounded-md pr-2"
                               >
                                 <Image
                                   src={item.image}
