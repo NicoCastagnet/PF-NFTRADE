@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server'
 
 export default withAuth(
   function middleware(req: NextRequest) {
-    return NextResponse.rewrite(new URL('/buy', req.url))
+    return NextResponse.rewrite(new URL(req.url))
   },
   {
     callbacks: {
@@ -14,4 +14,4 @@ export default withAuth(
   },
 )
 
-export const config = { matcher: ['/buy'] }
+export const config = { matcher: ['/buy', '/nfts/create'] }
