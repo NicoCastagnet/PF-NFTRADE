@@ -35,11 +35,11 @@ const NotifyBuyCoins = ({ id, orderId, coins, amount, status, createdAt }) => {
               &nbsp;{`, que se han sumado en tu billetera`}
             </div>
             <div className="flex justify-center ite w-full text-xs text-blue-600 dark:text-blue-500">
-              <ReactTimeAgo date={createdAt} format={'twitter'} />
+              <ReactTimeAgo date={createdAt as Date} format={'twitter'} />
             </div>
           </div>
           <div className=" px-[2px] flex justify-start items-start h-full">
-            <ClearView id={id} setView={setView} heig />
+            <ClearView id={id} setView={setView} />
           </div>
         </div>
       </a>

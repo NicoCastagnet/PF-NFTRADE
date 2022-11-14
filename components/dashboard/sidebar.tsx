@@ -55,7 +55,7 @@ const SideBar: NextPage = () => {
               <span className="ml-3">Statistics</span>
             </li>
           </Link>
-          <Link href="#">
+          <Link href="dashboard/mynfts">
             <li className="flex items-center p-2 text-base font-normal rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-300 dark:hover:bg-[#393b41] cursor-pointer transition-all">
               <SvgBox className="w-6 h-6 transition duration-75" />
               <span className="ml-3">My NFT&apos;s</span>

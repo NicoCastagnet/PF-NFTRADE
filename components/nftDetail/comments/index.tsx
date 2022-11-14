@@ -80,7 +80,7 @@ const Comments: React.FC<{ nftId: string }> = ({ nftId }) => {
   }
 
   return (
-    <div className="flex flex-col px-12 h-full w-full justify-center mb-10">
+    <div className="flex flex-col h-full w-full justify-center mb-10">
       <article className="w-full border-2 border-gray-100 dark:border-[#303339] rounded-t-xl">
         <header className="flex justify-between items-center text-xl font-semibold px-5 w-full h-[50px] rounded-t-md bg-gray-100 dark:bg-[#303339]">
           <span className="text-gray-600 dark:text-gray-400">Comments</span>
