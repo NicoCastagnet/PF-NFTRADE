@@ -7,6 +7,7 @@ import SvgHeart from '@components/icons/svgHeart'
 import Loading from '@components/loading'
 import HeaderMarket from '@components/marketplace/headerMarket'
 import NavBar from '@components/navbar/navbar'
+import { useCart } from '@context/cart'
 import fetcher from '@lib/fetcher'
 import type { NextPage } from 'next'
 import { useSession } from 'next-auth/react'
@@ -14,6 +15,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
+import toast from 'react-hot-toast'
 import { RiVipCrownFill } from 'react-icons/ri'
 import useSWR from 'swr'
 import type { NftsResponse } from 'types/api-responses'
@@ -38,22 +40,21 @@ const useNfts = (order = '', { minPrice, maxPrice }) => {
   }
 }
 
-const Marketplace: NextPage<HomeProps> = () => {
+const Marketplace: NextPage<HomeProps> = ({ nft }) => {
   const [order, setOrder] = useState('')
   const [filter, setFilter] = useState({
     minPrice: '',
     maxPrice: '',
   })
+
   const { nfts, isLoading } = useNfts(order, filter)
+  const { cart, addItem } = useCart()
+  const { data: session } = useSession()
+  const [carSize, setCardSize] = useState('bigger')
+  const [reload, setReload] = useState(false)
 
   useNfts(order, filter)
-
-  const { data: session } = useSession()
   const user = session?.user
-
-  const [carSize, setCardSize] = useState('bigger')
-
-  const [reload, setReload] = useState(false)
 
   function refreshStates() {
     if (reload === false) {
@@ -216,14 +217,22 @@ const Marketplace: NextPage<HomeProps> = () => {
                             </div>
                           </div>
                         </div>
-                        <button
-                          className={`translate-y-10 group-hover:translate-y-0 transition-all absolute bg-blue-600 w-full rounded-b-xl text-center py-2 z-[3] font-semibold text-1xl left-0 bottom-0`}
-                        >
-                          Add to cart
-                        </button>
                       </div>
                     </a>
                   </Link>
+                  <button
+                    className={`translate-y-10 group-hover:translate-y-0 transition-all absolute bg-blue-600 w-full rounded-b-xl text-center py-2 z-[3] font-semibold text-1xl left-0 bottom-0`}
+                    onClick={() => {
+                      addItem(el)
+                      cart.find((e) => e.name === el.name)
+                        ? toast.error(
+                            'You have already added this NFT to the cart!',
+                          )
+                        : toast.success('NFT added to the cart!')
+                    }}
+                  >
+                    Add to cart
+                  </button>
                 </div>
               )
             })

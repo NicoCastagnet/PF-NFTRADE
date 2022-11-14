@@ -1,5 +1,4 @@
 import SvgLoading from '@components/icons/svgLoading'
-import fetcher from '@lib/fetcher'
 import {
   CategoryScale,
   Chart as ChartJS,
@@ -11,10 +10,7 @@ import {
   Title,
   Tooltip,
 } from 'chart.js'
-import { useSession } from 'next-auth/react'
-import { useState } from 'react'
 import { Line } from 'react-chartjs-2'
-import useSWR from 'swr'
 
 ChartJS.register(
   CategoryScale,
@@ -27,14 +23,8 @@ ChartJS.register(
   Filler,
 )
 
-const BarChart = () => {
-  const { data: session } = useSession()
-  const { data: userData } = useSWR(
-    `/api/dashboardata?user=${session?.user.id}`,
-    fetcher,
-  )
-
-  const [chartData, setChartData] = useState({
+const BarChart = ({ userData }: { userData: any }) => {
+  const chartData = {
     labels: userData?.staticDashData.buyerDates,
     datasets: [
       {
@@ -46,7 +36,7 @@ const BarChart = () => {
         pointRadius: 6,
       },
     ],
-  })
+  }
 
   const options = {
     fill: true,
