@@ -18,7 +18,6 @@ export default async function putPrice(
         },
       })
 
-      console.log(nft)
       const msg = {
         message: 'nft actualizado',
         data: nft,

@@ -8,7 +8,13 @@ export default async function emailNft(
   nftId: string,
   reason: string,
 ) {
+  console.log(userId)
+  console.log(nftId)
+  console.log(reason)
   if (reason === 'comprador') {
+    console.log(userId)
+    console.log(nftId)
+    console.log(reason)
     const info = await prisma.nft.findUnique({
       where: { id: nftId as string },
       select: {
@@ -25,15 +31,15 @@ export default async function emailNft(
     })
 
     const transporter = nodemailer.createTransport({
-      host: 'smtp.ethereal.email',
-      port: 587,
-      secure: false,
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
       auth: {
-        user: 'isaac72@ethereal.email',
-        pass: '6wZFKd6u69EgKAuWsd',
+        user: 'nftrade2022@gmail.com',
+        pass: 'kgpcugakgejfmhhi',
       },
     })
-
+    console.log(user?.email)
     const mailOptions = {
       from: 'NFTrade',
       to: user?.email as string,
@@ -49,6 +55,9 @@ export default async function emailNft(
       }
     })
   } else if (reason === 'vendedor') {
+    console.log(userId)
+    console.log(nftId)
+    console.log(reason)
     const info = await prisma.nft.findUnique({
       where: { id: nftId as string },
       select: {
@@ -63,17 +72,17 @@ export default async function emailNft(
         email: true,
       },
     })
-
     const transporter = nodemailer.createTransport({
-      host: 'smtp.ethereal.email',
-      port: 587,
-      secure: false,
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
       auth: {
-        user: 'isaac72@ethereal.email',
-        pass: '6wZFKd6u69EgKAuWsd',
+        user: 'nftrade2022@gmail.com',
+        pass: 'kgpcugakgejfmhhi',
       },
     })
 
+    console.log(user?.email)
     const mailOptions = {
       from: 'NFTrade',
       to: user?.email as string,

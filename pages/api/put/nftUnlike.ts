@@ -8,7 +8,6 @@ export default async function unpostLike(
   try {
     if (req.method === 'PUT') {
       const { userId, nftId } = req.query
-      console.log(userId, nftId)
       const user = await prisma.user.findUnique({
         where: {
           id: userId as string,

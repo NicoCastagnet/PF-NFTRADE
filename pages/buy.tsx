@@ -27,7 +27,6 @@ const BuyPage: NextPage = () => {
       <Head>
         <title>NFTrade | Buy coins</title>
       </Head>
-      {console.log(session?.user.id)}
       <section className="flex flex-col justify-center items-center p-10">
         <div className="container">
           <div className="text-center mx-auto mb-[60px] max-w-[510px]">

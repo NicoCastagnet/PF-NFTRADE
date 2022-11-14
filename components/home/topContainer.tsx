@@ -148,10 +148,12 @@ const TopContainer = ({ nfts }: { nfts: NftsResponse }) => {
                   {e.description ? e.description : 'No description provided.'}
                 </p>
                 <Link href={`/nfts/${e.id}`}>
-                  <div className="cursor-pointer inline-flex my-5 ml-5 items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-all">
-                    See details
-                    <SvgArrow className="animate-pulse transition-all ml-2 -mr-1 w-4 h-4" />
-                  </div>
+                  <a>
+                    <div className="cursor-pointer inline-flex my-5 ml-5 items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-all">
+                      See details
+                      <SvgArrow className="animate-pulse transition-all ml-2 -mr-1 w-4 h-4" />
+                    </div>
+                  </a>
                 </Link>
               </div>
             )

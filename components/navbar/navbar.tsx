@@ -7,35 +7,20 @@ import SvgChevronDown from '@components/icons/svgChevronDown'
 import SvgCoin from '@components/icons/svgCoin'
 import SvgUser from '@components/icons/svgUser'
 import Search from '@components/search'
-import axios from 'axios'
-import { useSession } from 'next-auth/react'
+import useCoins from 'hook/useCoins'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useOpenMenu } from '../../hook/openCartMenu'
 import Hamburguesa from './hamburguesa'
 import Logo from './logo'
-import Notificaciones from './notificaciones'
+import Notificaciones from './notify/notificaciones'
 import UserMenuNavBar from './user'
 
 export default function NavBar() {
   const [menu, setMen] = useState(false)
-  const { data: session } = useSession()
+  const { session, coins } = useCoins()
   const { open, setOpen } = useOpenMenu()
-  const [coins, setCoins] = useState('')
-
-  const userCoins = async () => {
-    const res = await axios.get(
-      `http://localhost:3000/api/user/${session?.user.id}`,
-    )
-    setCoins(res.data.coins)
-  }
-
-  useEffect(() => {
-    session && userCoins()
-  }, [session, userCoins])
-
-  useSession()
 
   return (
     <nav className="navbar__nav bg-slate-900 dark:bg-[#202225] h-20 w-full flex flex-row text-center items-center justify-center fixed top-0 z-10 px-4">
@@ -54,16 +39,20 @@ export default function NavBar() {
           <div className="navbar__buttons flex items-center text-white">
             <div className="flex max-xl:hidden ease duration-150 justify-between w-[165px]">
               <Link href={'#'} shallow>
-                <p className="relative group cursor-pointer">
-                  <span className="font-semibold">Explore</span>
-                  <span className="absolute -bottom-0 left-0 w-0 h-1 bg-blue-600 transition-all group-hover:w-full"></span>
-                </p>
+                <a>
+                  <p className="relative group cursor-pointer">
+                    <span className="font-semibold">Explore</span>
+                    <span className="absolute -bottom-0 left-0 w-0 h-1 bg-blue-600 transition-all group-hover:w-full"></span>
+                  </p>
+                </a>
               </Link>
               <Link href="/marketplace" shallow>
-                <p className="relative group cursor-pointer">
-                  <span className="font-semibold">Marketplace</span>
-                  <span className="absolute -bottom-0 left-0 w-0 h-1 bg-blue-600 transition-all group-hover:w-full"></span>
-                </p>
+                <a>
+                  <p className="relative group cursor-pointer">
+                    <span className="font-semibold">Marketplace</span>
+                    <span className="absolute -bottom-0 left-0 w-0 h-1 bg-blue-600 transition-all group-hover:w-full"></span>
+                  </p>
+                </a>
               </Link>
             </div>
             {session && (
@@ -74,7 +63,7 @@ export default function NavBar() {
                   height={'25'}
                 />
                 <div className="absolute bg-gray-700 dark:bg-[#303339] w-auto h-11 p-3 top-16 invisible group-hover:visible flex items-center justify-center rounded-lg text-white">
-                  {coins.toLocaleString('es-AR')} coins
+                  {coins && coins.toLocaleString('es-AR')} Coins
                 </div>
               </div>
             )}
