@@ -11,7 +11,6 @@ const useBuyNftPriceCoins = (handleClose: any) => {
   const { data: session, status } = useSession()
   const [totalPrice, setTotalPrice] = useState(0)
   const [coins, setCoins] = useState(0)
-  console.log('click ')
   useEffect(() => {
     setTotalPrice(0)
     cart.forEach((el) => {
@@ -30,15 +29,13 @@ const useBuyNftPriceCoins = (handleClose: any) => {
   }, [session])
 
   const handleChange = async () => {
-    console.log('dentro del handle')
     if (status === 'unauthenticated') {
-      console.log('not auttentication')
       toast.custom((t) => (
         <div className="flex flex-col justify-center items-center w-96 bg-white rounded-xl py-3 px-8 gap-4 ease duration-500 z-50">
           <div className="flex  text-center font-medium">
-            deves estar auhenticado para realizar compras de NFT`s.
+            You must be logged to buy NFT&apos;s
             <br />
-            deseas authenticarte?
+            Please log in or register.
           </div>
           <div className="flex flex-row justify-evenly items-center gap-4 w-full">
             <button
@@ -63,7 +60,6 @@ const useBuyNftPriceCoins = (handleClose: any) => {
         </div>
       ))
     } else if (coins > totalPrice) {
-      console.log('dentro de valid coins')
       clearCart()
       handleClose(false)
       const res = await axios.post(
@@ -75,18 +71,19 @@ const useBuyNftPriceCoins = (handleClose: any) => {
       )
 
       if (res.status === 404) {
-        toast.error('Insufficient coins.')
+        toast.error(
+          'You do not have sufficient coins to conclude the purchase.',
+        )
       } else {
-        toast.success('gracias por comprar en NFTRADE!!', { duration: 3000 })
+        toast.success('Purchase made successfully!', { duration: 3000 })
       }
     } else {
-      console.log('dentro toast buy coins')
       toast.custom(
         (t) => (
           <div className="flex flex-col justify-center items-center w-96 bg-white rounded-xl py-3 px-8 gap-4 ease duration-500 z-50">
             <div className="flex  text-center font-medium">
-              las coins en su poder no son suficientes para realizar la compra
-              desea adquirir mas coins?
+              You do not have suffucient coins to conclude the purchase. Do you
+              want to buy them?
             </div>
             <div className="flex flex-row justify-evenly items-center gap-4 w-full">
               <button
@@ -96,7 +93,7 @@ const useBuyNftPriceCoins = (handleClose: any) => {
                 }}
                 className="flex justify-center items-center bg-blue-600 py-1 px-4 rounded-lg font-medium text-xl scale-105"
               >
-                buy coins
+                Buy coins
               </button>
             </div>
           </div>
