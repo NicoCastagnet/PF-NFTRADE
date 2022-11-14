@@ -93,5 +93,13 @@ export const authOptions: NextAuthOptions = {
       return session
     },
   },
+  jwt: async (params) => {
+    // update token
+    if (params.user?.role) {
+      params.token.role = params.user.role
+    }
+    // return final_token
+    return params.token
+  },
 }
 export default NextAuth(authOptions)

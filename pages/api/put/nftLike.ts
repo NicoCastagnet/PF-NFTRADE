@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import prisma from '@lib/db'
 import type { NextApiRequest, NextApiResponse } from 'next'
 /* this endpoint is for testing purposes */
@@ -12,6 +15,12 @@ export default async function postLike(
       const user = await prisma.user.findUnique({
         where: {
           id: userId as string,
+        },
+      })
+
+      const nftDetail = await prisma.nft.findUnique({
+        where: {
+          id: nftId as string,
         },
       })
 
@@ -30,6 +39,17 @@ export default async function postLike(
           },
           include: {
             likedBy: true,
+          },
+        })
+        await prisma.notify.create({
+          data: {
+            typeNotify: 'Liked',
+            userId: nftDetail.ownerId,
+            nameUser: user.name,
+            nftId: nftDetail?.id,
+            nameNft: nftDetail?.name,
+            userIdLiked: user.id,
+            nameUserLiked: user.name,
           },
         })
         const msg = {

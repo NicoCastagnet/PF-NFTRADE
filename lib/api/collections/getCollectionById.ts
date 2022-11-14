@@ -15,6 +15,7 @@ const getCollectionById = async ({
         image: true,
         description: true,
         discount: true,
+        published: true,
         owner: {
           select: { name: true, id: true },
         },

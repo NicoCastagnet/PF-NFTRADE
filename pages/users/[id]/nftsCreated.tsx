@@ -4,7 +4,7 @@ import Footer from '@components/footer'
 import SvgCoin from '@components/icons/svgCoin'
 import SvgPlus from '@components/icons/svgPlus'
 import NavBar from '@components/navbar/navbar'
-import getUserById from '@lib/api/users/getUserById'
+import getNftsCreated from '@lib/api/users/getNftsCreated'
 import type { GetServerSideProps, NextPage } from 'next'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
@@ -35,14 +35,17 @@ const NftsCreated: NextPage<Props> = ({ user }) => {
             src={account?.image || defaultAvatar}
           />
         </div>
-        <div className="mt-[100px] mb-[60px] ">
-          <div className="flex justify-center">
+        <div className="mt-[100px] mb-[60px] items-center flex flex-col w-full ">
+          <div className=" w-[90%] mb-2  ">
+            <h3 className=" text-[2rem] font-[600] ">Nfts Created</h3>
+          </div>
+          <div className="flex justify-center w-full">
             <div className="flex min-h-[900px] p-8 border-[1px] border-gray-400 rounded-[15px] w-[93%] flex-wrap">
               {nfts.length > 0 &&
                 nfts.map((el) => (
                   <div
                     key={el.id}
-                    className={`w-[30%] mr-10 max-w-[287px] h-[380px] overflow-hidden relative flex flex-col bg-gray-800 rounded-xl p-[1px] border-slate-900 cursor-pointer group  dark:bg-stone-900 dark:border-[1px]   dark:border-gray-400  group shadow-lg shadow-zinc-500`}
+                    className={` w-[30%] mr-10 max-w-[287px] h-[380px] overflow-hidden relative flex flex-col bg-gray-800 rounded-xl p-[1px] border-slate-900 cursor-pointer group  dark:bg-stone-900 dark:border-[1px]   dark:border-gray-400  group shadow-lg shadow-zinc-500`}
                   >
                     <Link href={`/nfts/${el.id}`} key={el.id}>
                       {/* // h-[35rem] w-[22rem] */}
@@ -88,7 +91,7 @@ const NftsCreated: NextPage<Props> = ({ user }) => {
                 ))}
               <Link href={`/nfts/create`}>
                 <div
-                  className={`w-[30%] max-w-[287px] min-w-[194px] h-[380px] overflow-hidden relative flex flex-col bg-gray-200  dark:border-[1px] rounded-[15px] p-9 dark:border-gray-400 cursor-pointer justify-center shadow-lg group shadow-zinc-500`}
+                  className={`w-[30%] max-w-[287px] min-w-[283px] h-[380px] overflow-hidden relative flex flex-col bg-gray-200  dark:border-[1px] rounded-[15px] p-9 dark:border-gray-400 cursor-pointer justify-center shadow-lg group shadow-zinc-500`}
                 >
                   <div
                     className={` group-hover:scale-[1.1] transition-all duration-500 rounded-[20px] shadow-inner shadow-zinc-600 bg-gray-300 w-full h-full flex justify-center items-center flex-col`}
@@ -114,7 +117,7 @@ const NftsCreated: NextPage<Props> = ({ user }) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const data = await getUserById({ id: params?.id as string })
+  const data = await getNftsCreated({ id: params?.id as string })
   if (!data) {
     return {
       notFound: true,

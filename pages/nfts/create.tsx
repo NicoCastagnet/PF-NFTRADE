@@ -114,7 +114,6 @@ const CreateProduct: NextPage<Props> = ({ fallbackData }) => {
   if (!session && status !== 'loading') {
     router.push('/login')
   }
-
   const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     setUploading(true)
     setUploadError(false)
@@ -126,11 +125,11 @@ const CreateProduct: NextPage<Props> = ({ fallbackData }) => {
     const { data, error } = await supabase.storage
       .from('nfts')
       .upload(
-        `public/${Date.now().toString().slice(0, 6)}-${file?.name}`,
+        `public/${Date.now().toString().slice(0, 8)}-${file?.name}`,
         file as File,
       )
 
-    const BUCKET_UPLOAD = process.env.NEXT_PUBLIC_BUCKET_UPLOAD as string
+    const BUCKET_UPLOAD = process.env.NEXT_PUBLIC_SUPABASE_UPLOAD as string
     if (!error) {
       setPreview(`${BUCKET_UPLOAD}/${data.path}`)
       setUploading(false)
@@ -242,6 +241,11 @@ const CreateProduct: NextPage<Props> = ({ fallbackData }) => {
                     <div className="w-full h-full relative">
                       {uploading ? (
                         <div className="ease-in-out duration-300 absolute inset-0 h-full bg-gradient-to-r from-sky-500 to-indigo-500 dark:from-gray-500 dark:to-slate-500 blur-lg animate-pulse" />
+                      ) : preview ? (
+                        <BlurImage
+                          src={preview || imagePlaceholder}
+                          loader={() => preview}
+                        />
                       ) : (
                         <BlurImage src={preview || imagePlaceholder} />
                       )}

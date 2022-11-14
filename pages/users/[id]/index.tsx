@@ -1,11 +1,15 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
 import Footer from '@components/footer'
-import SvgCoin from '@components/icons/svgCoin'
 import SvgPencil from '@components/icons/svgPencil'
 import SvgPlus from '@components/icons/svgPlus'
 import NavBar from '@components/navbar/navbar'
 import BlurImage from '@components/ui/blurImage'
+import CollectionCard from '@components/user/collectionCard'
+import NftCard from '@components/user/nftCard'
 import getUserById from '@lib/api/users/getUserById'
 import supabase from '@lib/supa'
 import type { GetServerSideProps, NextPage } from 'next'
@@ -16,6 +20,7 @@ import { ChangeEvent, useEffect, useState } from 'react'
 import type { UserDetailResponse } from 'types/api-responses'
 import defaultAvatar from '/assets/avataricon.png'
 import imagePlaceholder from '/assets/image-placeholder.png'
+
 interface Props {
   user: UserDetailResponse
 }
@@ -24,10 +29,12 @@ const UserDetail: NextPage<Props> = ({ user }) => {
   const { data: session } = useSession()
   const account = session?.user
 
+  console.log(user)
+
   const [uploadError, setUploadError] = useState(false)
 
   interface UserDetails {
-    profilePicture: string | null | undefined
+    profilePicture: string
     name: string | null | undefined
     email: string
     // password: string | null
@@ -65,7 +72,9 @@ const UserDetail: NextPage<Props> = ({ user }) => {
     const { data, error } = await supabase.storage
       .from('nfts')
       .upload(
-        `public/${Date.now().toString().slice(0, 6)}-${file?.name}`,
+        `public/${Date.now().toString().slice(0, 6)}-${
+          file?.name
+        }-${Math.random().toString().slice(0, 6)}`,
         file as File,
       )
 
@@ -103,8 +112,6 @@ const UserDetail: NextPage<Props> = ({ user }) => {
     setSaved(true)
   }
 
-  console.log(user.collectionsCreated)
-
   // const passwordhash = hash(password, 5)
 
   return (
@@ -139,10 +146,18 @@ const UserDetail: NextPage<Props> = ({ user }) => {
             </button>
             <div className="flex lg:py-6 flex-col mb-6 p-3 w-[80%] h-[58vh] items-center justify-center border-[1px] border-gray-300 bg-slate-50 rounded-[15px] lg:h-[50vh] lg:max-w-[420px] lg:min-h-[500px]">
               <div className="relative h-[300px] w-[300px]">
-                <BlurImage
-                  className="rounded-full"
-                  src={userDetails.profilePicture || imagePlaceholder}
-                />
+                {userDetails.profilePicture ? (
+                  <BlurImage
+                    className="rounded-full"
+                    loader={() => userDetails.profilePicture}
+                    src={userDetails.profilePicture || imagePlaceholder}
+                  />
+                ) : (
+                  <BlurImage
+                    className="rounded-full"
+                    src={userDetails.profilePicture || imagePlaceholder}
+                  />
+                )}
               </div>
               <span className="self-start text-red-400">
                 {uploadError && 'Fail to load file. Try again.'}
@@ -344,60 +359,10 @@ const UserDetail: NextPage<Props> = ({ user }) => {
             Owned
           </h3>
           <div
-            className={`flex w-full ${
-              user.nftsOwned.length !== 2 && user.nftsOwned.length !== 5
-                ? 'justify-between'
-                : 'justify-evenly'
-            } justify-between h-[700px] my-3 flex-wrap overflow-auto `}
+            className={`flex w-full h-[700px] my-3 flex-wrap overflow-auto `}
           >
             {user.nftsOwned.length > 0 ? (
-              user.nftsOwned.map((el) => (
-                <div
-                  key={el.id}
-                  className={`w-[30%] max-w-[277px] min-w-[194px] h-[300px] overflow-hidden relative flex flex-col bg-slate-900 dark:bg-stone-900 dark:border-[1px] rounded-xl p-[1px] dark:border-gray-400 cursor-pointer group shadow-lg shadow-zinc-500`}
-                >
-                  <Link href={`/nfts/${el.id}`} key={el.id}>
-                    {/* // h-[35rem] w-[22rem] */}
-                    <div>
-                      <div className="rounded-xl border-spacing-2 ">
-                        <Image
-                          src={el.image}
-                          height={300}
-                          width={400}
-                          quality={20}
-                          alt={`image-${el.name}`}
-                          className="rounded-t-xl object-cover group-hover:scale-110 transition duration-300 ease-in-out overflow-auto"
-                        />
-                      </div>
-                      <div className="flex flex-col p-4 w-full justify-between ">
-                        <div className="flex flex-col gap-2">
-                          <div className="flex flex-row w-full justify-between">
-                            <h5
-                              className={`text-xl text-white font-bold truncate ease duration-300`}
-                            >
-                              {el.name}
-                            </h5>
-                          </div>
-                        </div>
-                        <div className="flex flex-row justify-between items-center mb-6">
-                          <div className="flex flex-row justify-center items-center gap-2">
-                            <span>
-                              <SvgCoin
-                                height={20}
-                                width={20}
-                                className={'fill-white'}
-                              />
-                            </span>
-                            <span className="text-white font-semibold text-xl">
-                              {el.price}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </Link>
-                </div>
-              ))
+              user.nftsOwned.map((el) => <NftCard key={el.id} nft={el} />)
             ) : (
               <div className="h-[330px]">
                 <p>There are no nfts owned yet</p>
@@ -406,72 +371,29 @@ const UserDetail: NextPage<Props> = ({ user }) => {
           </div>
 
           <Link href={`${user.id}/nftsOwned`}>
-            <button
-              disabled={user.nftsOwned.length < 1}
-              className=" bg-blue-500 disabled:cursor-default disabled:bg-gray-500 disabled:hover:scale-[1] text-white h-[36px] w-full hover:scale-[1.015] transition-all rounded-[8px] mb-5 "
-            >
-              View More
-            </button>
+            <a>
+              <button
+                disabled={user.nftsOwned.length < 1}
+                className=" bg-blue-500 disabled:cursor-default disabled:bg-gray-500 disabled:hover:scale-[1] text-white h-[36px] w-full hover:scale-[1.015] transition-all rounded-[8px] mb-5 "
+              >
+                View More
+              </button>
+            </a>
           </Link>
         </div>
         <div className=" border-[1px] border-gray-400 w-[48%] min-h-[455px] rounded-[15px] px-[20px]  mb-4">
           <h3 className="text-[1.5rem] font-[600] dark:text-gray-200 text-gray-900 mt-2">
             Created
           </h3>
-          <div
-            className={`flex w-full ${
-              user.nftsCreated.length > 1 ? 'justify-between' : 'justify-around'
-            } justify-between h-[700px] my-3 flex-wrap overflow-auto`}
-          >
-            {user.nftsCreated.length > 0 &&
-              user.nftsCreated.map((el) => (
-                <div
-                  key={el.id}
-                  className={`shadow-lg shadow-zinc-700 w-[30%] max-w-[277px] min-w-[194px] h-[300px] overflow-hidden relative flex flex-col bg-slate-900 dark:bg-stone-900 dark:border-[1px] rounded-xl p-[1px] dark:border-gray-400 cursor-pointer group`}
-                >
-                  <Link href={`/nfts/${el.id}`} key={el.id}>
-                    {/* // h-[35rem] w-[22rem] */}
-                    <div>
-                      <div className="rounded-xl border-spacing-2 ">
-                        <Image
-                          src={el.image}
-                          height={300}
-                          width={400}
-                          quality={20}
-                          alt={`image-${el.name}`}
-                          className="rounded-t-xl object-cover group-hover:scale-110 transition duration-300 ease-in-out overflow-auto"
-                        />
-                      </div>
-                      <div className="flex flex-col p-4 w-full justify-between ">
-                        <div className="flex flex-col gap-2">
-                          <div className="flex flex-row w-full justify-between">
-                            <h5
-                              className={`text-xl text-white font-bold truncate ease duration-300`}
-                            >
-                              {el.name}
-                            </h5>
-                          </div>
-                        </div>
-                        <div className="flex flex-row justify-between items-center mb-6">
-                          <div className="flex flex-row justify-center items-center gap-2">
-                            <span>
-                              <SvgCoin
-                                height={20}
-                                width={20}
-                                className={'fill-white'}
-                              />
-                            </span>
-                            <span className="text-white font-semibold text-xl">
-                              {el.price}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </Link>
-                </div>
-              ))}
-            {user.nftsCreated.length < 6 && (
+          <div className={`flex w-full h-[700px] my-3 flex-wrap overflow-auto`}>
+            {user.nftsCreated.length > 0
+              ? user.nftsCreated.map((el) => <NftCard key={el.id} nft={el} />)
+              : user.id !== session?.user.id && (
+                  <div>
+                    <p>There are no nfts created yet</p>
+                  </div>
+                )}
+            {user.nftsCreated.length < 6 && 3 && user.id === session?.user.id && (
               <Link href={`/nfts/create`}>
                 <div
                   className={`w-[30%] max-w-[277px] min-w-[194px] h-[300px] overflow-hidden relative flex flex-col bg-gray-200  dark:border-[1px] rounded-[15px] p-9 dark:border-gray-400 cursor-pointer justify-center group shadow-lg shadow-zinc-500`}
@@ -509,9 +431,11 @@ const UserDetail: NextPage<Props> = ({ user }) => {
           <h3 className="text-[1.5rem] font-[600] text-gray-900 mt-2 dark:text-gray-200">
             Collections Owned
           </h3>
-          <div className="flex w-full my-3 h-[330px]">
+          <div className="flex w-full my-3 h-[330px]  flex-wrap overflow-auto">
             {user.collectionsOwned.length > 0 ? (
-              user.collectionsOwned.map((el) => <div key={el.id}></div>)
+              user.collectionsOwned.map((el) => (
+                <CollectionCard key={el.id} collection={el} />
+              ))
             ) : (
               <div>
                 <p>There are no collections owned yet</p>
@@ -532,35 +456,64 @@ const UserDetail: NextPage<Props> = ({ user }) => {
           <h3 className="text-[1.5rem] font-[600] text-gray-900 mt-2 dark:text-gray-200">
             Collections Created
           </h3>
-          <div className="flex w-full my-3 h-[330px]">
-            {user.collectionsCreated.length > 0 &&
-              user.collectionsCreated.map((el) => <div key={el.id}></div>)}
-            {user.collectionsCreated.length < 3 && (
-              <Link href={`${user.id}/collections/create`}>
-                <div
-                  className={`w-[30%] max-w-[277px] min-w-[194px] h-[300px] overflow-hidden relative flex flex-col bg-gray-200  dark:border-[1px] rounded-[15px] p-9 dark:border-gray-400 cursor-pointer justify-center group shadow-lg shadow-zinc-500`}
-                >
+          <div className="flex w-full my-3 h-[330px]  flex-wrap overflow-auto">
+            {user.collectionsOwned.length > 0
+              ? user.collectionsOwned.map((el) => (
+                  <CollectionCard key={el.id} collection={el} />
+                ))
+              : user.id !== session?.user.id && (
+                  <div>
+                    <p>There are no collections created yet</p>
+                  </div>
+                )}
+            {user.collectionsCreated.length < 3 &&
+              user.id === session?.user.id && (
+                <Link href={`${user.id}/collections/create`}>
                   <div
-                    className={`group-hover:scale-[1.1] transition-all duration-500 rounded-[20px] shadow-inner shadow-zinc-600 bg-gray-300 w-full h-full flex justify-center items-center flex-col`}
+                    className={`w-[30%] max-w-[277px] min-w-[194px] h-[300px] overflow-hidden relative flex flex-col bg-gray-200  dark:border-[1px] rounded-[15px] p-9 dark:border-gray-400 cursor-pointer justify-center group shadow-lg shadow-zinc-500`}
                   >
                     <div
-                      className={`group-hover:animate-bounce 
-                    } shadow-inner shadow-zinc-800 rounded-[15px] w-[50%] h-[40%] flex justify-center items-center`}
+                      className={`group-hover:scale-[1.1] transition-all duration-500 rounded-[20px] shadow-inner shadow-zinc-600 bg-gray-300 w-full h-full flex justify-center items-center flex-col`}
                     >
-                      <SvgPlus className="  fill-gray-500 w-[44px] h-[44px] blur-[0.8px]" />
+                      <div
+                        className={`group-hover:animate-bounce 
+                    } shadow-inner shadow-zinc-800 rounded-[15px] w-[50%] h-[40%] flex justify-center items-center`}
+                      >
+                        <SvgPlus className="  fill-gray-500 w-[44px] h-[44px] blur-[0.8px]" />
+                      </div>
+                      <span className="mt-2 text-center text-gray-600 text-[1rem] font-[500]">
+                        Create Collection
+                      </span>
                     </div>
-                    <span className="mt-2 text-center text-gray-600 text-[1rem] font-[500]">
-                      Create Collection
-                    </span>
                   </div>
-                </div>
-              </Link>
-            )}
+                </Link>
+              )}
           </div>
 
-          <Link href={`${user.id}/nftsOwned`}>
+          <Link href={`${user.id}/collectionsCreated`}>
             <button
               disabled={user.collectionsCreated.length < 1}
+              className=" bg-blue-500 disabled:cursor-default disabled:bg-gray-500 disabled:hover:scale-[1] text-white h-[36px] w-full hover:scale-[1.015] transition-all rounded-[8px] mb-5 "
+            >
+              View More
+            </button>
+          </Link>
+        </div>
+      </div>
+      <div className="px-[50px] flex flex-wrap mt-[20px]">
+        <div className=" border-[1px] border-gray-400 w-[98%] min-h-[455px] rounded-[15px] px-[20px]  mb-4">
+          <h3 className="text-[1.5rem] font-[600] text-gray-900 mt-2 dark:text-gray-200">
+            Wishlist
+          </h3>
+          <div
+            className={`flex w-full max-h-[700px] my-3 min-h-[325px] flex-wrap overflow-auto`}
+          >
+            {user.wishes.length > 0 &&
+              user.wishes.map((el) => <NftCard key={el.id} nft={el.nft} />)}
+          </div>
+          <Link href={`${user.id}/wishlist`}>
+            <button
+              disabled={user.wishes.length < 1}
               className=" bg-blue-500 disabled:cursor-default disabled:bg-gray-500 disabled:hover:scale-[1] text-white h-[36px] w-full hover:scale-[1.015] transition-all rounded-[8px] mb-5 "
             >
               View More

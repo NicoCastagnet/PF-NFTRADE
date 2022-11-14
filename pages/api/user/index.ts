@@ -16,6 +16,7 @@ export default async function handler(
       image: true,
       passwordHash: true,
       coins: true,
+      nftsOwned: true,
     },
   })
 

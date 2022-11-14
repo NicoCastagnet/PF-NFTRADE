@@ -19,6 +19,10 @@ const getUserById = async ({
         image: true,
         coins: true,
         collectionsCreated: {
+          where: {
+            erased: false,
+          },
+          take: 3,
           select: {
             id: true,
             name: true,
@@ -29,6 +33,10 @@ const getUserById = async ({
           },
         },
         collectionsOwned: {
+          where: {
+            erased: false,
+          },
+          take: 3,
           select: {
             id: true,
             name: true,
@@ -39,6 +47,9 @@ const getUserById = async ({
           },
         },
         nftsCreated: {
+          where: {
+            erased: false,
+          },
           take: 6,
           select: {
             id: true,
@@ -49,6 +60,9 @@ const getUserById = async ({
           },
         },
         nftsOwned: {
+          where: {
+            erased: false,
+          },
           take: 6,
           select: {
             id: true,
@@ -59,6 +73,7 @@ const getUserById = async ({
           },
         },
         wishes: {
+          take: 6,
           select: {
             nft: {
               select: {
@@ -67,40 +82,13 @@ const getUserById = async ({
                 image: true,
                 price: true,
                 published: true,
+                erased: true,
               },
             },
           },
         },
-        likes: {
-          select: {
-            id: true,
-            name: true,
-            image: true,
-            price: true,
-            published: true,
-          },
-        },
-        comments: {
-          select: {
-            id: true,
-            nft: {
-              select: {
-                id: true,
-                name: true,
-                image: true,
-                price: true,
-                published: true,
-              },
-            },
-            isPublished: true,
-            content: true,
-          },
-        },
-        accounts: true,
-        sessions: true,
       },
     })
-    console.log(user)
     return user
   } catch (e) {
     console.log(e)
