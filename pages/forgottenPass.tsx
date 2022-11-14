@@ -13,7 +13,7 @@ const ForgottenPass: NextPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    await axios.put(`${process.env.NEXT_PUBLIC_APP_URL}api/auth/resetpass`, {
+    await axios.put(`${process.env.NEXT_PUBLIC_APP_URL}/api/auth/resetpass`, {
       email: email,
     })
   }

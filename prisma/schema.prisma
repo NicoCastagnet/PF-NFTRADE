@@ -35,13 +35,14 @@ model Session {
 
 model User {
   id                 String       @id @default(cuid())
-  erased             Boolean?     @default(false)
   name               String?
   email              String?      @unique
   emailVerified      DateTime?
   image              String?
   passwordHash       String?
   coins              Float?       @default(0)
+  erased             Boolean?     @default(false)
+  admin              Boolean?     @default(false)
   accounts           Account[]
   collectionsCreated Collection[] @relation("UserCollectionsCreated")
   collectionsOwned   Collection[] @relation("UserCollectionsOwned")
@@ -71,10 +72,10 @@ model Nft {
   description  String
   price        Float
   published    Boolean?    @default(false)
-  erased       Boolean?    @default(false)
   createdAt    DateTime    @default(now())
   updatedAt    DateTime    @updatedAt
   collectionId String?
+  erased       Boolean?    @default(false)
   collection   Collection? @relation(fields: [collectionId], references: [id])
   creator      User        @relation("UserNftsCreated", fields: [creatorId], references: [id])
   owner        User        @relation("UserNftsOwned", fields: [ownerId], references: [id])
@@ -97,14 +98,14 @@ model Collection {
   name        String
   image       String?
   description String?
-  discount    Float
-  price       Float
-  published   Boolean? @default(false)
-  erased      Boolean? @default(false)
+  disccount   Float
   creatorId   String
   ownerId     String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  price       Float?
+  erased      Boolean? @default(false)
+  published   Boolean? @default(false)
   creator     User     @relation("UserCollectionsCreated", fields: [creatorId], references: [id])
   owner       User     @relation("UserCollectionsOwned", fields: [ownerId], references: [id])
   nfts        Nft[]
@@ -136,7 +137,7 @@ model Buys {
   date      String
   coins     Int
   status    String
-  amount    Int
+  amount    Float    @db.Real
   createdAt DateTime @default(now())
 }
 
@@ -151,7 +152,6 @@ model BuyNfts {
 }
 
 model Notify {
-
   id              String   @id @default(cuid())
   userId          String
   typeNotify      String

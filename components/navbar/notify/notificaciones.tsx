@@ -4,7 +4,6 @@
 import SvgBell from '@components/icons/svgBell'
 import fetcher from '@lib/fetcher'
 import { useSession } from 'next-auth/react'
-// import ReactTimeAgo from 'react-time-ago'
 import useSWR from 'swr'
 import styles from '../../../styles/form.module.css'
 import NotifyBuyCoins from './notifyBuyCoins'
@@ -14,17 +13,15 @@ import NotifyLiked from './notifyLiked'
 
 const Notificaciones = () => {
   const { data: session } = useSession()
-  const { data } = useSWR(
-    `/api/notificaciones?user=${session?.user.id}`,
-    fetcher,
-  )
+  const URL = `/api/notificaciones?user=${session?.user.id}`
+  const { data } = useSWR(URL, fetcher, { refreshInterval: 1000 })
 
   return (
     <section
       className={`flex justify-center items-center relative ${styles.notify}`}
     >
       <button className="relative group">
-        {data?.notify.length ? (
+        {data?.total ? (
           <>
             <span className="h-5 w-6 bg-red-500 rounded-full absolute top-[0.35rem] left-5 border-[3px] border-gray-900 z-10 text-sm text-center flex justify-center items-center pt-1 ">
               {data.total}
@@ -59,7 +56,7 @@ const Notificaciones = () => {
                     <NotifyComment
                       key={el.id}
                       id={el.id}
-                      namenft={el.nameNft}
+                      nameNft={el.nameNft}
                       nftId={el.nftId}
                       userIdComment={el.userIdComment}
                       nameUserComment={el.nameUserComment}
@@ -82,7 +79,7 @@ const Notificaciones = () => {
                     <NotifyBuyNft
                       key={el.id}
                       id={el.id}
-                      nftid={el.nftId}
+                      nftId={el.nftId}
                       nameNft={el.nameNft}
                       compradorId={el.compradorId}
                       nameComprador={el.nameComprador}

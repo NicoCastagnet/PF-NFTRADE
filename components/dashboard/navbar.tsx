@@ -3,7 +3,11 @@ import SvgChevronDown from '@components/icons/svgChevronDown'
 import type { NextPage } from 'next'
 import Link from 'next/link'
 
-const NavBar: NextPage = () => {
+interface Props {
+  site: string
+}
+
+const NavBar: NextPage<Props> = ({ site }) => {
   return (
     <div className="dashboard__home-nav">
       <nav className="flex px-5 py-5 bg-gray-200 text-gray-600 dark:text-gray-400 border-b border-b-gray-400 dark:border-b-gray-600 dark:bg-[#202225] transition-all">
@@ -19,7 +23,7 @@ const NavBar: NextPage = () => {
           <li>
             <div className="flex items-center">
               <SvgChevronDown className="w-6 h-6 -rotate-90" />
-              <p className="ml-1 text-sm font-medium md:ml-2">Home</p>
+              <p className="ml-1 text-sm font-medium md:ml-2">{site}</p>
             </div>
           </li>
         </ol>

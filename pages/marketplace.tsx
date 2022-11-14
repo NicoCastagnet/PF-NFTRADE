@@ -7,6 +7,7 @@ import SvgHeart from '@components/icons/svgHeart'
 import Loading from '@components/loading'
 import HeaderMarket from '@components/marketplace/headerMarket'
 import NavBar from '@components/navbar/navbar'
+import { useCart } from '@context/cart'
 import fetcher from '@lib/fetcher'
 import type { NextPage } from 'next'
 import { useSession } from 'next-auth/react'
@@ -14,6 +15,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
+import toast from 'react-hot-toast'
 import { RiVipCrownFill } from 'react-icons/ri'
 import useSWR from 'swr'
 import type { NftsResponse } from 'types/api-responses'
@@ -38,22 +40,21 @@ const useNfts = (order = '', { minPrice, maxPrice }) => {
   }
 }
 
-const Marketplace: NextPage<HomeProps> = () => {
+const Marketplace: NextPage<HomeProps> = ({ nft }) => {
   const [order, setOrder] = useState('')
   const [filter, setFilter] = useState({
     minPrice: '',
     maxPrice: '',
   })
+
   const { nfts, isLoading } = useNfts(order, filter)
+  const { cart, addItem } = useCart()
+  const { data: session } = useSession()
+  const [carSize, setCardSize] = useState('bigger')
+  const [reload, setReload] = useState(false)
 
   useNfts(order, filter)
-
-  const { data: session } = useSession()
   const user = session?.user
-
-  const [carSize, setCardSize] = useState('bigger')
-
-  const [reload, setReload] = useState(false)
 
   function refreshStates() {
     if (reload === false) {
@@ -168,8 +169,8 @@ const Marketplace: NextPage<HomeProps> = () => {
                             className="rounded-t-xl object-cover group-hover:scale-110 transition duration-300 ease-in-out overflow-auto"
                           />
                         </div>
-                        <div className="flex flex-col p-4 h-full w-full justify-between">
-                          <div className="flex flex-col gap-2">
+                        <div className="flex flex-col p-4 pb-3 h-full w-full justify-between">
+                          <div className="flex flex-col justify-center items-center w-full">
                             <div className="flex flex-row w-full justify-between">
                               <h5
                                 className={`${
@@ -182,14 +183,14 @@ const Marketplace: NextPage<HomeProps> = () => {
                             <div
                               className={`${styles.description} ${
                                 carSize === 'small' ? 'text-sm' : ''
-                              } ease duration-300 text-gray-800 dark:text-white my-4`}
+                              } ease duration-300 text-gray-800 dark:text-white w-full my-3`}
                             >
                               {el.description
                                 ? el.description
                                 : 'No description provided.'}
                             </div>
                           </div>
-                          <div className="flex flex-row justify-between items-center mb-6">
+                          <div className="flex flex-row justify-between items-center">
                             <div className="flex flex-row justify-center items-center gap-2 truncate">
                               <span>
                                 <RiVipCrownFill className="fill-yellow-500" />
@@ -216,14 +217,22 @@ const Marketplace: NextPage<HomeProps> = () => {
                             </div>
                           </div>
                         </div>
-                        <button
-                          className={`translate-y-10 group-hover:translate-y-0 transition-all absolute bg-blue-600 w-full rounded-b-xl text-center py-2 z-[3] font-semibold text-1xl left-0 bottom-0`}
-                        >
-                          Add to cart
-                        </button>
                       </div>
                     </a>
                   </Link>
+                  <button
+                    className={`translate-y-10 group-hover:translate-y-0 transition-all absolute bg-blue-600 w-full rounded-b-xl text-center py-2 z-[3] font-semibold text-1xl left-0 bottom-0`}
+                    onClick={() => {
+                      addItem(el)
+                      cart.find((e) => e.name === el.name)
+                        ? toast.error(
+                            'You have already added this NFT to the cart!',
+                          )
+                        : toast.success('NFT added to the cart!')
+                    }}
+                  >
+                    Add to cart
+                  </button>
                 </div>
               )
             })

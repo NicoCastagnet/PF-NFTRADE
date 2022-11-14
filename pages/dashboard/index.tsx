@@ -6,6 +6,7 @@ import fetcher from '@lib/fetcher'
 import type { NextPage } from 'next'
 import { useSession } from 'next-auth/react'
 import Head from 'next/head'
+
 import useSWR from 'swr'
 
 const DashBoard: NextPage = () => {
@@ -21,9 +22,8 @@ const DashBoard: NextPage = () => {
 
       <SideBar />
       <div className="dashboard__home-content w-screen flex-row">
-        <NavBar />
+        <NavBar site={'Home'} />
         <div className="dashboard__home-content mx-[5%] flex flex-col items-center">
-
           <h1 className="text-xl m-2">Main stats</h1>
           <div className="main-boxes flex justify-center items-center text-center w-full">
             <div className="left flex flex-col border rounded-xl w-full p-5 m-2">
@@ -48,7 +48,7 @@ const DashBoard: NextPage = () => {
             </div>
           </div>
           <div className="h-auto w-full py-10">
-            <BarChart />
+            <BarChart userData={data} />
           </div>
         </div>
       </div>
