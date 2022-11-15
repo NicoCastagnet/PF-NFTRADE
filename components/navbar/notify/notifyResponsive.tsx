@@ -10,10 +10,14 @@ import useSWR from 'swr'
 interface NotyfiResponsiveProps {
   isOpen: boolean
   handleClose: (isOpen: boolean) => void
-  session: {user: {id: string}}
+  session: { user: { id: string } }
 }
 
-const NotifyResponsive: React.FC<NotyfiResponsiveProps> = ({ isOpen, handleClose, session }) => {
+const NotifyResponsive: React.FC<NotyfiResponsiveProps> = ({
+  isOpen,
+  handleClose,
+  session,
+}) => {
   const { totalPrice, cart, removeItem, clearCart, handleChange } =
     useBuyNftPriceCoins(handleClose)
   // const { data: session } = useSession()
@@ -71,8 +75,10 @@ const NotifyResponsive: React.FC<NotyfiResponsiveProps> = ({ isOpen, handleClose
                           Notificaciones
                         </Dialog.Title>
                       </div>
-                      <div className='flex justify-start items-center w-full'>
-                        <span className='flex justify-center items-center'>{data?.total !== 0 ? data.total : ''}</span>
+                      <div className="flex justify-start items-center w-full">
+                        <span className="flex justify-center items-center">
+                          {data?.total !== 0 ? data.total : ''}
+                        </span>
                       </div>
                     </div>
                   </Transition.Child>
