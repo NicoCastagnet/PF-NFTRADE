@@ -23,7 +23,6 @@ const CollectionDetail: NextPage<Props> = ({ collection }) => {
   const { data: session } = useSession()
   const { cart, addItem } = useCart()
   const router = useRouter()
-  console.log(session)
   const [admin, setAdmin] = useState(false)
 
   useEffect(() => {
@@ -39,8 +38,6 @@ const CollectionDetail: NextPage<Props> = ({ collection }) => {
     }
     getAdmin()
   })
-
-  console.log(admin)
 
   const [loadingPublished, setLoadingPublished] = useState(false)
 
