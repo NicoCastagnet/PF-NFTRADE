@@ -46,7 +46,6 @@ const CreateCollection: NextPage<Props> = ({ user }) => {
     creatorId: user.id,
   })
 
-  console.log(collection)
 
   const [uploadError, setUploadError] = useState(false)
   const [uploading, setUploading] = useState(false)

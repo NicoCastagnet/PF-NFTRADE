@@ -18,6 +18,8 @@ export type NftsResponse = Prisma.NftGetPayload<{
         id: true
       }
     }
+    description: true
+
     published: true
     owner: {
       select: { name: true; id: true }
@@ -45,6 +47,7 @@ export type NftResponse = Prisma.NftGetPayload<{
         id: true
       }
     }
+    description: true
     published: true
     owner: {
       select: { name: true; id: true }

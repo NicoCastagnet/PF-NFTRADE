@@ -21,7 +21,6 @@ const NftsOwned: NextPage<Props> = ({ user }) => {
 
   const nfts = user.wishes
 
-  console.log(user.wishes)
 
   return (
     <div>
