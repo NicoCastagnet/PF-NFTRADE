@@ -196,14 +196,14 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
           </div>
         </div>
         <div
-          className={` w-[80%] ${
+          className={` w-[85%] sm:w-[80%] ${
             deleteWarning === true && 'blur-[10px] opacity-40'
           } `}
         >
-          <div className="flex justify-center w-full mb-[50px]">
-            <div className="mr-10 ">
-              <header className="flex justify-between items-center px-5 w-[600px] h-[55px] rounded-t-md bg-gray-100 dark:bg-[#303339]">
-                <p className="text-gray-600 dark:text-gray-400">
+          <div className="flex flex-col lg:flex-row items-center justify-center w-full mb-[50px]">
+            <div className=" lg:mr-10 ">
+              <header className="flex justify-between items-center px-5 sm:w-[555px] w-[300px] h-[55px] rounded-t-md bg-gray-100 dark:bg-[#303339]">
+                <p className="text-gray-600 dark:text-gray-400 text-[0.8rem] sm:text-[1rem] ">
                   #{nft.id.toUpperCase()}
                 </p>
                 {session?.user.id === nft.owner.id ||
@@ -216,7 +216,7 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                     />
                   ))}
               </header>
-              <div className="w-[600px] h-[600px] border-2 border-gray-100 dark:border-[#303339]">
+              <div className=" w-[300px] h-[300px]  sm:w-[555px]  sm:h-[555px] border-2 border-gray-100 dark:border-[#303339]">
                 <Image
                   src={nft.image}
                   alt={`img-${nft.name}`}
@@ -227,12 +227,12 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                 />
               </div>
             </div>
-            <div className="flex flex-col justify-between text-gray-600 dark:text-white ml-5 my-10">
+            <div className="flex flex-col justify-between text-gray-600 dark:text-white mt-5 sm:ml-5 sm:my-10">
               <div className="arriba w-full">
                 <h5 className="text-4xl font-bold">
                   {nft.name} #{nft.id.slice(0, 5).toUpperCase()}
                 </h5>
-                <div className="w-auto flex items-center justify-start my-6">
+                <div className="w-auto flex sm:items-center sm:justify-start my-6 flex-col sm:flex-row">
                   <p className="text-xl text-gray-600 dark:text-gray-400 font-semibold mr-4">
                     Property of{' '}
                     <span className="text-blue-500 hover:underline hover:text-blue-600 cursor-pointer">
@@ -249,30 +249,30 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                     <Likes nftId={nftId as string} />
                     <p className="ml-2">likes</p>
                   </div>
-                  {nft.owner.id !== session?.user.id && (
-                    <div className="flex flex-row items-center">
-                      {loadingWish ? (
-                        <div className="animate-spin flex justify-center items-center ml-1 w-[40px] h-[40px] rounded-full">
-                          <SvgLoading />
-                        </div>
-                      ) : (
-                        <div className="flex items-center text-gray-600 dark:text-gray-400 font-semibold text-lg">
-                          <button
-                            onClick={addToWished}
-                            className={`fill-slate-200 ${
-                              wishlisted === true && ' fill-green-600 '
-                            } hover:fill-slate-300 flex justify-center items-center`}
-                          >
-                            <SvgPlus className="w-8 h-8 bg-zinc-700 p-1 rounded-full mr-2" />
-                            {wishlisted === true
-                              ? 'Remove from wishlist'
-                              : 'Add to wishlist'}
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                  )}
                 </div>
+                {nft.owner.id !== session?.user.id && (
+                  <div className="flex flex-row items-center mb-5">
+                    {loadingWish ? (
+                      <div className="animate-spin flex justify-center items-center ml-1 w-[40px] h-[40px] rounded-full">
+                        <SvgLoading />
+                      </div>
+                    ) : (
+                      <div className="flex items-center text-gray-600 dark:text-gray-400 font-semibold text-lg">
+                        <button
+                          onClick={addToWished}
+                          className={`fill-slate-200 ${
+                            wishlisted === true && ' fill-green-600 '
+                          } hover:fill-slate-300 flex justify-center items-center`}
+                        >
+                          <SvgPlus className="w-8 h-8 bg-zinc-700 p-1 rounded-full mr-2" />
+                          {wishlisted === true
+                            ? 'Remove from wishlist'
+                            : 'Add to wishlist'}
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )}
                 <div className="flex text-gray-600 dark:text-gray-400 font-semibold text-lg flex-row justify-start items-center gap-2">
                   {priceToEdit === true ? (
                     <div className="flex">
@@ -371,7 +371,7 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                 ) : (
                   <div className="flex items-center py-6 w-full ">
                     <button
-                      className="text-xl bg-white hover:bg-gray-300 text-gray-600 dark:text-gray-400 dark:bg-[#303339] dark:hover:bg-[#393b41] hover:drop-shadow-lg transition-all w-[100%] py-4 px-20 rounded-xl mr-2"
+                      className="text-xl bg-white hover:bg-gray-300 text-gray-600 dark:text-gray-400 dark:bg-[#303339] dark:hover:bg-[#393b41] hover:drop-shadow-lg transition-all w-[100%] py-4 rounded-xl mr-2"
                       onClick={() => {
                         addItem(nft)
                         cart.find((e) => e.name === nft.name)
@@ -387,7 +387,7 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                 )}
                 {session?.user.id !== nft.owner.id && published === true && (
                   <Link href={'#'}>
-                    <button className="text-xl w-[50%] text-white bg-blue-600 hover:bg-blue-500 hover:drop-shadow-lg transition-all py-4 px-20 mx-2 rounded-xl">
+                    <button className="text-xl w-[50%] text-white bg-blue-600 hover:bg-blue-500 hover:drop-shadow-lg transition-all py-4 px-2 mx-2 rounded-xl">
                       Buy now
                     </button>
                   </Link>
