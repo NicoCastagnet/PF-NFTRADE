@@ -36,7 +36,7 @@ const HeaderMarket: NextPage<Props> = ({
 
   return (
     <>
-      <section className="market__header bg-slate-900 dark:bg-[#202225] dark:border-b-gray-600 dark:border-b text-white py-1 px-20 w-full flex justify-between top-[5rem] z-[5] fixed items-center">
+      <section className="market__header bg-slate-900 dark:bg-[#202225] dark:border-b-gray-600 dark:border-b text-white py-1 px-2 lg:px-20 w-full flex flex-wrap justify-between top-[5rem] z-[5] fixed items-center">
         <div className="left flex">
           <FilterLateral
             isOpen={openFilter}
@@ -46,7 +46,7 @@ const HeaderMarket: NextPage<Props> = ({
           />
           <button
             type="button"
-            className="bg-gray-700 text-white hover:bg-gray-500 dark:bg-[#303339] dark:hover:drop-shadow-lg transition-all py-3 px-3 text-sm font-medium rounded-full"
+            className="bg-gray-700 text-white hover:bg-gray-500 dark:bg-[#303339] dark:hover:drop-shadow-lg transition-all ml-3 py-3 px-3 text-sm font-medium rounded-full"
             onClick={() => setOpenFilter(!openFilter)}
           >
             <SvgList2 width="25" height="25" />
@@ -70,7 +70,7 @@ const HeaderMarket: NextPage<Props> = ({
         <div className="right flex">
           <button
             id="dropdownButton"
-            className="bg-gray-700 text-white hover:bg-gray-500 dark:bg-[#303339] dark:hover:drop-shadow-lg transition-all font-medium rounded-lg text-xl px-14 py-3 m-3 text-left flex items-center"
+            className="bg-gray-700 text-white hover:bg-gray-500 dark:bg-[#303339] dark:hover:drop-shadow-lg transition-all font-medium rounded-lg lg:text-xl px-5 lg:px-14 py-3 m-3 text-left flex items-center"
             type="button"
             onClick={openOrderMenu}
           >
