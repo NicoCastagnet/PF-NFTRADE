@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import type { NftDetailResponse } from 'types/api-responses'
 
-const useDetail = (nft: NftDetailResponse, view=false) => {
+const useDetail = (nft: NftDetailResponse, view = false) => {
   const router = useRouter()
   const { data: session } = useSession()
   const [subState, setSubState] = useState({
