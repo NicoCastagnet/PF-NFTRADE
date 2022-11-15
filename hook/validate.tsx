@@ -130,20 +130,3 @@ export const handleBlurPassword = ({
     })
   }
 }
-
-// export const handleBlurCPassword = ({
-//   target: { value },
-// }: {
-//   target: { value: string }
-// }) => {
-//   // validate confirm password
-//   if (!value) {
-//     toast.error('need to confirm password', { duration: 1500 })
-//   } else if (cpassword !== password) {
-//     toast.error('Password Not Match...!')
-//   } else if (cpassword.includes(' ')) {
-//     errs.cpassword = 'Invalid Confirm Password'
-//   }
-// }
-// export const handleSubmit = (e) => {
-// }

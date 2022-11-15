@@ -2,27 +2,21 @@
 // @ts-nocheck
 
 import Footer from '@components/footer'
-import NavBar from '@components/navbar/navbar'
-import getNftById from '@lib/api/nfts/getById'
-import { useCart } from 'context/cart'
-import type { GetServerSideProps, NextPage } from 'next'
-import { useSession } from 'next-auth/react'
-import Image from 'next/image'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-
-import { ChangeEvent, useEffect, useState } from 'react'
-
-import SvgLoading from '@components/icons/svgLoading'
-
-import Comments from '@components/nftDetail/comments'
-
 import SvgCheck from '@components/icons/svgCheck'
+import SvgLoading from '@components/icons/svgLoading'
 import SvgPencil from '@components/icons/svgPencil'
 import SvgPlus from '@components/icons/svgPlus'
 import SvgTrash from '@components/icons/svgTrash'
 import SvgViews from '@components/icons/svgViews'
+import NavBar from '@components/navbar/navbar'
+import Comments from '@components/nftDetail/comments'
 import Likes from '@components/nftDetail/likes'
+import axios from 'axios'
+import { useCart } from 'context/cart'
+import useDetail from 'hook/useDetail'
+import type { GetServerSideProps, NextPage } from 'next'
+import Image from 'next/image'
+import Link from 'next/link'
 import { toast, Toaster } from 'react-hot-toast'
 import type { NftDetailResponse } from 'types/api-responses'
 
@@ -32,135 +26,16 @@ interface NftDetailProps {
 
 const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
   const { cart, addItem } = useCart()
-  const { data: session } = useSession()
-  const router = useRouter()
-  const { id: nftId } = router.query
-  const [admin, setAdmin] = useState(false)
 
-  useEffect(() => {
-    async function putViews() {
-      await fetch('/api/put/nftViews', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          userId: session?.user?.id,
-          nftId: nft.id,
-        }),
-      })
-    }
-    if (session?.user) putViews()
-    if (nft.wishedBy.includes(session?.user?.id)) {
-      setWishlisted(true)
-    }
-    async function getAdmin() {
-      await fetch(`/api/user/${session?.user.id}/getIsAdmin/`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-        .then((r) => r.json())
-        .then((r) => setAdmin(r))
-    }
-    getAdmin()
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [nft.id, session?.user?.id])
-
-  console.log(admin)
-
-  const [priceToEdit, setPriceToEdit] = useState(false)
-  const [price, setPrice] = useState<string | number>(nft.price)
-
-  function handlePrice(e: ChangeEvent<HTMLInputElement>) {
-    setPrice(e.target.value)
-  }
-
-  async function putPrice() {
-    await fetch('/api/put/nftPrice', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        nftId: nft.id,
-        price: parseFloat(price),
-      }),
-    })
-    setPriceToEdit(false)
-  }
-
-  const [wishlisted, setWishlisted] = useState(false)
-
-  const [loadingWish, setLoadingWish] = useState(false)
-
-  async function addToWished() {
-    setLoadingWish(true)
-
-    if (nft.wishedBy.includes(session?.user?.id)) {
-      setWishlisted(false)
-      nft.wishedBy = nft.wishedBy.filter((w) => w !== session?.user?.id)
-    } else {
-      nft.wishedBy.push(session?.user?.id)
-      setWishlisted(true)
-    }
-    await fetch('/api/put/wishes', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        nftId: nft.id,
-        userId: session?.user?.id,
-      }),
-    })
-    setWishAdvice(false)
-    setLoadingWish(false)
-  }
-
-  const [wishAdvice, setWishAdvice] = useState(false)
-
-  const [published, setPublished] = useState(nft.published)
-
-  const [loadingPublished, setLoadingPublished] = useState(false)
-
-  async function handlePublished(boolean: boolean) {
-    setLoadingPublished(true)
-    setPublished(boolean)
-    await fetch('/api/put/published', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        nftId: nft.id,
-        published: boolean,
-      }),
-    })
-    setLoadingPublished(false)
-  }
-
-  const categories = nft.categories.map((c) => c.name)
-
-  const [deleteWarning, setDeleteWarning] = useState(false)
-  const [deleteLoading, setDeleteLoading] = useState(false)
-  async function deleteNft() {
-    setDeleteLoading(true)
-    await fetch('/api/put/nftPutErased', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        id: nft.id,
-        collectionId: nft.collectionId,
-      }),
-    })
-    setDeleteLoading(false)
-    router.push(`/`)
-  }
+  const {
+    session,
+    subState,
+    setSubState,
+    addToWished,
+    deleteNft,
+    handlePublished,
+    putPrice,
+  } = useDetail(nft, true)
 
   return (
     <div className="bg-gray-200 dark:bg-[#202225] flex flex-col items-center justify-around w-full min-h-screen transition-all">
@@ -168,19 +43,21 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
       <div className="flex flex-col justify-center items-center mt-[120px] ">
         <div
           className={`${
-            deleteWarning === true
+            subState.deleteWarning === true
               ? 'bg-gray-200 dark:bg-[#303339] flex justify-center border-[1px] rounded-[15px] shadow-red-800 shadow-md min-w-[300px] w-[60%] min-h-[300px] fixed top-[40%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-[1]'
               : 'hidden'
           } `}
         >
           <button
-            onClick={() => setDeleteWarning(false)}
+            onClick={() =>
+              setSubState((state) => ({ ...state, deleteWarning: false }))
+            }
             className="rounded-full flex justify-center items-center dark:bg-zinc-700 w-[36px] h-[36px] border-[1px] border-gray-400 hover:scale-[1.1] transition-all absolute top-[11%] right-[0%] translate-x-[-50%] translate-y-[-50%] "
           >
             X
           </button>
           <div className="w-full flex justify-center flex-col items-center">
-            <p className="text-[1.2rem] mb-8">{`Are you sure you want to delete ${nft.name}? this action will be permanent`}</p>
+            <p className="text-[1.2rem] mb-8">{`Are you sure you want to delete ${nft?.name}? this action will be permanent`}</p>
             <div>
               <button
                 onClick={deleteNft}
@@ -189,7 +66,9 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                 Delete
               </button>
               <button
-                onClick={() => setDeleteWarning(false)}
+                onClick={() =>
+                  setSubState((state) => ({ ...state, deleteWarning: false }))
+                }
                 className="w-[100px] h-[40px] rounded-[15px] hover:scale-[1.1] transition-all  shadow-md shadow-gray-900 ]"
               >
                 Cancel
@@ -198,30 +77,35 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
           </div>
         </div>
         <div
-          className={` w-[80%] ${
-            deleteWarning === true && 'blur-[10px] opacity-40'
+          className={` w-[85%] sm:w-[80%] ${
+            subState.deleteWarning === true && 'blur-[10px] opacity-40'
           } `}
         >
-          <div className="flex justify-center w-full mb-[50px]">
-            <div className="mr-10 ">
-              <header className="flex justify-between items-center px-5 w-[600px] h-[55px] rounded-t-md bg-gray-100 dark:bg-[#303339]">
-                <p className="text-gray-600 dark:text-gray-400">
+          <div className="flex flex-col lg:flex-row items-center justify-center w-full mb-[50px]">
+            <div className=" lg:mr-10 ">
+              <header className="flex justify-between items-center px-5 sm:w-[555px] w-[300px] h-[55px] rounded-t-md bg-gray-100 dark:bg-[#303339]">
+                <p className="text-gray-600 dark:text-gray-400 text-[0.8rem] sm:text-[1rem] ">
                   #{nft.id.toUpperCase()}
                 </p>
-                {session?.user.id === nft.owner.id ||
-                  (admin === true && (
+                {session?.user.id === nft?.owner.id ||
+                  (subState.admin === true && (
                     <SvgTrash
-                      onClick={() => setDeleteWarning(true)}
+                      onClick={() =>
+                        setSubState((state) => ({
+                          ...state,
+                          deleteWarning: true,
+                        }))
+                      }
                       className={` ml-4 w-[25px] h-[25px] fill-slate-500 ${
-                        admin === true && 'hover:fill-yellow-500'
+                        subState.admin === true && 'hover:fill-yellow-500'
                       } hover:fill-red-800 cursor-pointer`}
                     />
                   ))}
               </header>
-              <div className="w-[600px] h-[600px] border-2 border-gray-100 dark:border-[#303339]">
+              <div className=" w-[300px] h-[300px]  sm:w-[555px]  sm:h-[555px] border-2 border-gray-100 dark:border-[#303339]">
                 <Image
-                  src={nft.image}
-                  alt={`img-${nft.name}`}
+                  src={nft?.image}
+                  alt={`img-${nft?.name}`}
                   className=" object-cover"
                   quality={50}
                   width={1000}
@@ -229,76 +113,83 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                 />
               </div>
             </div>
-            <div className="flex flex-col justify-between text-gray-600 dark:text-white ml-5 my-10">
+            <div className="flex flex-col justify-between text-gray-600 dark:text-white mt-5 sm:ml-5 sm:my-10">
               <div className="arriba w-full">
                 <h5 className="text-4xl font-bold">
-                  {nft.name} #{nft.id.slice(0, 5).toUpperCase()}
+                  {nft?.name} #{nft?.id.slice(0, 5).toUpperCase()}
                 </h5>
-                <div className="w-auto flex items-center justify-start my-6">
+                <div className="w-auto flex sm:items-center sm:justify-start my-6 flex-col sm:flex-row">
                   <p className="text-xl text-gray-600 dark:text-gray-400 font-semibold mr-4">
                     Property of{' '}
                     <span className="text-blue-500 hover:underline hover:text-blue-600 cursor-pointer">
-                      <Link href={`/users/${nft.owner.id}`}>
-                        {nft.owner.name}
+                      <Link href={`/users/${nft?.owner.id}`}>
+                        {nft?.owner.name}
                       </Link>
                     </span>
                   </p>
                   <div className="flex items-center text-gray-600 dark:text-gray-400 font-semibold text-lg mr-4">
                     <SvgViews className="w-7 h-7 fill-gray-600 dark:fill-gray-400 mr-2" />
-                    {nft._count.viewedBy} views
+                    {nft?._count.viewedBy} views
                   </div>
                   <div className="flex items-center text-gray-600 dark:text-gray-400 font-semibold text-lg mr-4">
-                    <Likes nftId={nftId as string} />
+                    <Likes nftId={nft.id} />
                     <p className="ml-2">likes</p>
                   </div>
-                  {nft.owner.id !== session?.user.id && (
-                    <div className="flex flex-row items-center">
-                      {loadingWish ? (
-                        <div className="animate-spin flex justify-center items-center ml-1 w-[40px] h-[40px] rounded-full">
-                          <SvgLoading />
-                        </div>
-                      ) : (
-                        <div className="flex items-center text-gray-600 dark:text-gray-400 font-semibold text-lg">
-                          <button
-                            onClick={addToWished}
-                            className={`fill-slate-200 ${
-                              wishlisted === true && ' fill-green-600 '
-                            } hover:fill-slate-300 flex justify-center items-center`}
-                          >
-                            <SvgPlus className="w-8 h-8 bg-zinc-700 p-1 rounded-full mr-2" />
-                            {wishlisted === true
-                              ? 'Remove from wishlist'
-                              : 'Add to wishlist'}
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                  )}
                 </div>
+                {nft.owner.id !== session?.user.id && (
+                  <div className="flex flex-row items-center mb-5">
+                    {subState.loadingWish ? (
+                      <div className="animate-spin flex justify-center items-center ml-1 w-[40px] h-[40px] rounded-full">
+                        <SvgLoading />
+                      </div>
+                    ) : (
+                      <div className="flex items-center text-gray-600 dark:text-gray-400 font-semibold text-lg">
+                        <button
+                          onClick={addToWished}
+                          className={`fill-slate-200 ${
+                            subState.wishlisted === true && ' fill-green-600 '
+                          } hover:fill-slate-300 flex justify-center items-center`}
+                        >
+                          <SvgPlus className="w-8 h-8 bg-zinc-700 p-1 rounded-full mr-2" />
+                          {subState.wishlisted === true
+                            ? 'Remove from wishlist'
+                            : 'Add to wishlist'}
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )}
                 <div className="flex text-gray-600 dark:text-gray-400 font-semibold text-lg flex-row justify-start items-center gap-2">
-                  {priceToEdit === true ? (
+                  {subState.priceToEdit === true ? (
                     <div className="flex">
                       <input
                         type="number"
-                        value={price}
-                        onChange={(e) => handlePrice(e)}
-                        placeholder={price}
+                        value={subState.price}
+                        onChange={(e) =>
+                          setSubState((state) => ({
+                            ...state,
+                            price: e.target.value,
+                          }))
+                        }
+                        placeholder={subState.price}
                         className="w-[80px] h-[30px] bg-gray-200 border-b-gray-400 dark:bg-[#202225] border-b-[1px] text-[1.1rem] focus:outline-none outline-none block p-1"
                       />
                       <div className="flex justify-center items-center">
                         <button
                           className={`hover:fill-slate-400 fill-slate-300 disabled:fill-red-600 cursor-pointer disabled:cursor-not-allowed`}
                           onClick={putPrice}
-                          disabled={price <= 0 || price > 9999}
+                          disabled={
+                            subState.price <= 0 || subState.price > 9999
+                          }
                         >
                           <SvgCheck className="ml-2" height={25} width={25} />
                         </button>
-                        {price > 9999 ? (
+                        {subState.price > 9999 ? (
                           <span className=" text-red-600 text-1 ml-2 ">
                             * Price must be less than 9999.
                           </span>
                         ) : (
-                          price <= 0 && (
+                          subState.price <= 0 && (
                             <span className=" text-red-600 text-1 ml-2 ">
                               * Price must be greater than 0.
                             </span>
@@ -310,15 +201,22 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                     <div className="flex items-center justify-center">
                       <span>
                         Product price{' '}
-                        <span className="text-xl font-bold">{price}</span>{' '}
+                        <span className="text-xl font-bold">
+                          {subState.price}
+                        </span>{' '}
                         coins.
                       </span>
-                      {session?.user?.id === nft.owner.id && (
+                      {session?.user?.id === nft?.owner.id && (
                         <SvgPencil
                           className="ml-3 fill-slate-300 hover:fill-slate-400 cursor-pointer"
                           height={20}
                           width={20}
-                          onClick={() => setPriceToEdit(true)}
+                          onClick={() =>
+                            setSubState((state) => ({
+                              ...state,
+                              priceToEdit: true,
+                            }))
+                          }
                         />
                       )}
                     </div>
@@ -326,12 +224,12 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                 </div>
               </div>
               <div className="buttons flex justify-center items-center">
-                {nft.owner.id === session?.user?.id ? (
-                  loadingPublished ? (
+                {nft?.owner.id === session?.user?.id ? (
+                  subState.loadingPublished ? (
                     <div className="animate-spin flex justify-center items-center w-full h-[82px] mt-2 rounded-full">
                       <SvgLoading className="w-[40px] h-[40px]" />
                     </div>
-                  ) : published === false ? (
+                  ) : subState.published === false ? (
                     <div className="flex w-full">
                       <button
                         onClick={() => handlePublished(true)}
@@ -340,7 +238,7 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                         Add to market
                       </button>
                     </div>
-                  ) : nft.collectionId ? (
+                  ) : nft?.collectionId ? (
                     <div className="flex w-full">
                       <p className="text-[1.2rem] flex justify-center items-center text-gray-600 bg-white dark:text-gray-400 dark:bg-[#303339] italic p-4 rounded-xl w-full">
                         This NFT belongs to a collection, if you want to add or
@@ -358,14 +256,14 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                       </button>
                     </div>
                   )
-                ) : published === false ? (
+                ) : subState.published === false ? (
                   <div className="flex w-full ">
                     <p className="text-[1.2rem] flex justify-center items-center text-gray-600 bg-white dark:text-gray-400 dark:bg-[#303339] italic p-4 rounded-xl w-full">
                       This product is not for sale at this time
                     </p>
                   </div>
-                ) : nft.collectionId ? (
-                  <Link href={`/collections/${nft.collectionId}`}>
+                ) : nft?.collectionId ? (
+                  <Link href={`/collections/${nft?.collectionId}`}>
                     <button className="text-xl bg-white hover:bg-gray-300 text-gray-600 dark:text-gray-400 dark:bg-[#303339] dark:hover:bg-[#393b41] hover:drop-shadow-lg transition-all w-full py-3 px-20 rounded-xl mr-2">
                       Go to collection
                     </button>
@@ -373,10 +271,10 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                 ) : (
                   <div className="flex items-center py-6 w-full ">
                     <button
-                      className="text-xl bg-white hover:bg-gray-300 text-gray-600 dark:text-gray-400 dark:bg-[#303339] dark:hover:bg-[#393b41] hover:drop-shadow-lg transition-all w-[100%] py-4 px-20 rounded-xl mr-2"
+                      className="text-xl bg-white hover:bg-gray-300 text-gray-600 dark:text-gray-400 dark:bg-[#303339] dark:hover:bg-[#393b41] hover:drop-shadow-lg transition-all w-[100%] py-4 rounded-xl mr-2"
                       onClick={() => {
                         addItem(nft)
-                        cart.find((e) => e.name === nft.name)
+                        cart.find((e) => e.name === nft?.name)
                           ? toast.error(
                               'You have already added this NFT to the cart!',
                             )
@@ -387,22 +285,25 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                     </button>
                   </div>
                 )}
-                {session?.user.id !== nft.owner.id && published === true && (
-                  <Link href={'#'}>
-                    <button className="text-xl w-[50%] text-white bg-blue-600 hover:bg-blue-500 hover:drop-shadow-lg transition-all py-4 px-20 mx-2 rounded-xl">
-                      Buy now
-                    </button>
-                  </Link>
-                )}
+
+                {session?.user.id !== nft?.owner.id &&
+                  subState.published === true && (
+                    <Link href={'#'}>
+                      <button className="text-xl w-[50%] text-white bg-blue-600 hover:bg-blue-500 hover:drop-shadow-lg transition-all py-4 px-2 mx-2 rounded-xl">
+                        Buy now
+                      </button>
+                    </Link>
+                  )}
+
                 {/* //dev */}
               </div>
               <article className="abajo w-full min-h-[285px] rounded-t-xl border-2 border-gray-100 dark:border-[#303339]">
                 <header className="flex justify-between items-center text-xl font-semibold px-5 w-full h-[50px] rounded-t-md bg-gray-100 text-gray-600 dark:bg-[#303339] dark:text-gray-400">
                   Description
                 </header>
-                {nft.description ? (
+                {nft?.description ? (
                   <p className="text-[1.2rem] p-5 text-gray-600 dark:text-gray-400">
-                    {nft.description}
+                    {nft?.description}
                   </p>
                 ) : (
                   <p className="text-[1.2rem] p-5">
@@ -412,7 +313,7 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
               </article>
             </div>
           </div>
-          <Comments nftId={nftId as string} />
+          <Comments nftId={nft.id} />
         </div>
       </div>
       <Footer />
@@ -422,13 +323,14 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const data = await getNftById({ id: params?.id as string })
+  const { data } = await axios.get(
+    `${process.env.NEXT_PUBLIC_APP_URL}/api/nfts/${params.id}`,
+  )
   if (!data) {
     return {
       notFound: true,
     }
   }
-
   return {
     props: {
       nft: data,

@@ -79,11 +79,11 @@ const MyNFTS: NextPage = () => {
                     <div className="flex flex-row justify-between items-center text-lg text-gray-800 dark:text-white font-semibold mt-2">
                       <div className="flex flex-row justify-center items-center gap-2 ">
                         <p>NFT Views: </p>
-                        <span>1</span>
+                        <span>{e.viewedBy.length}</span>
                       </div>
                       <div className="flex flex-row justify-center items-center gap-2">
                         <p>NFT Likes: </p>
-                        <span>1</span>
+                        <span>{e.likedBy.length}</span>
                       </div>
                     </div>
                   </div>
