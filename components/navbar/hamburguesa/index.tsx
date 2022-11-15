@@ -1,3 +1,4 @@
+import CartSide from '@components/cart'
 import SvgBell from '@components/icons/svgBell'
 import SvgCart from '@components/icons/svgCart'
 import SvgCoin from '@components/icons/svgCoin'
@@ -5,14 +6,18 @@ import SvgLogin from '@components/icons/svgLogin'
 import SvgLogOut from '@components/icons/svgLogOut'
 import SvgMarket from '@components/icons/svgMarket'
 import SearchIcon from '@components/icons/svgSearch'
-import { signOut, useSession } from 'next-auth/react'
+import useCoins from 'hook/useCoins'
+import { signOut } from 'next-auth/react'
 import Link from 'next/link'
 import { useState } from 'react'
 import { VscSignIn } from 'react-icons/vsc'
+import NotifyResponsive from '../notify/notifyResponsive'
 
 const Hamburguesa = () => {
   const [hamburguer, setHamburguer] = useState(false)
-  const { data: session } = useSession()
+  const { session, coins } = useCoins()
+  const [open, setOpen] = useState(false)
+  const [openNotify, setOpenNotify] = useState(false)
 
   return (
     <>
@@ -57,32 +62,44 @@ const Hamburguesa = () => {
                     <span>
                       <SvgCoin width={'28'} height={'28'} />
                     </span>
-                    1.687,25 coins
+                    {coins && coins.toLocaleString('es-AR')} Coins
                   </li>
                 </a>
               </Link>
             )}
             <Link href={'#'}>
               <a>
-                <li className="flex flex-row justify-start items-center gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6">
+                <li
+                  onClick={() => setOpen(!open)}
+                  className="flex flex-row justify-start items-center gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6"
+                >
                   <span>
                     <SvgCart width={'28'} height={'28'} />
                   </span>
                   <span>0</span>
                   Cart
                 </li>
+                <CartSide isOpen={open} handleClose={setOpen} />
               </a>
             </Link>
             {session && (
               <Link href={'#'}>
                 <a>
-                  <li className="flex flex-row justify-start items-center gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6">
+                  <li
+                    onClick={() => setOpenNotify(!openNotify)}
+                    className="flex flex-row justify-start items-center gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6"
+                  >
                     <span>
                       <SvgBell width={'28'} height={'28'} />
                     </span>
                     <span>0</span>
                     Notifications
                   </li>
+                  <NotifyResponsive
+                    isOpen={openNotify}
+                    handleClose={setOpenNotify}
+                    session={session}
+                  />
                 </a>
               </Link>
             )}
