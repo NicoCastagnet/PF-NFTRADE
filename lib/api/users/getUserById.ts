@@ -14,6 +14,7 @@ const getUserById = async ({
         id: true,
         name: true,
         email: true,
+        admin: true,
         emailVerified: true,
         passwordHash: true,
         image: true,
