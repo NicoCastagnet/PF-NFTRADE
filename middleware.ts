@@ -8,7 +8,6 @@ export default withAuth(
   {
     callbacks: {
       authorized({ token }) {
-        // console.log('DESDE MIDDLEWARE:', token)
         return token?.email !== undefined
       },
     },

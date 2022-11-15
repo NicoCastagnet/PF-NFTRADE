@@ -26,6 +26,7 @@ const MyNFTS: NextPage = () => {
               return (
                 <Nfts
                   key={e.id}
+                  nft={e}
                   id={e.id}
                   image={e.image}
                   name={e.name}

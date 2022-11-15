@@ -84,12 +84,10 @@ export default async function payDescription(
                 text: 'The coins were loaded succesfully.',
                 data: user,
               }
-              console.log('APROBADOOOOOOOOOOOOOOOOOO:', data.userId)
               sendMail(req, res, data.userId as string, 'buy Coins')
               res.status(205).json(msg)
             }
           } else {
-            console.log('RECHAZOOOOOOOOOO:', data.userId)
             sendMail(req, res, data.userId as string, 'buy Rejected')
           }
           res.status(200).send('recived')

@@ -14,6 +14,7 @@ export default async function handler(
           include: {
             likedBy: true,
             viewedBy: true,
+            wishedBy: true,
           },
         },
       },
