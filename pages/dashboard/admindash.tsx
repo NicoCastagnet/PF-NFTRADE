@@ -31,20 +31,18 @@ const AdminDashBoard: NextPage = () => {
     getData()
   }, [])
 
-  console.log(adminData)
-
   const [table, setTable] = useState('users')
 
   return (
-    <section className="dashboard__home flex bg-gray-200 dark:bg-[#202225] transition-all ">
+    <section className="dashboard__home flex bg-gray-200 dark:bg-[#202225] transition-all h-[100vh] ">
       <Head>
         <title>NFTrade | Dashboard</title>
       </Head>
 
       <SideBar />
-      <div className="dashboard__home-content w-screen flex-row">
+      <div className="dashboard__home-content w-screen h-full flex-row">
         <NavBar site="Admin" />
-        <div className="dashboard__home-content flex flex-col">
+        <div className="dashboard__home-content flex flex-col h-[93.1%] ">
           <div className="flex h-[6.9%]">
             <div
               onClick={() => setTable('users')}
@@ -71,7 +69,7 @@ const AdminDashBoard: NextPage = () => {
               </div>
             </div>
           </div>
-          <div className=" h-full ">
+          <div className=" h-[93.1%] overflow-auto ">
             {adminData ? (
               table === 'users' ? (
                 <Users data={adminData.users} />
