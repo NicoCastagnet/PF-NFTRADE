@@ -35,7 +35,7 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
     deleteNft,
     handlePublished,
     putPrice,
-  } = useDetail(nft)
+  } = useDetail(nft, true)
 
   return (
     <div className="bg-gray-200 dark:bg-[#202225] flex flex-col items-center justify-around w-full min-h-screen transition-all">
