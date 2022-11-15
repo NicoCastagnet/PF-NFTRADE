@@ -77,7 +77,6 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
           </div>
         </div>
         <div
-
           className={` w-[85%] sm:w-[80%] ${
             subState.deleteWarning === true && 'blur-[10px] opacity-40'
           } `}
@@ -87,7 +86,6 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
               <header className="flex justify-between items-center px-5 sm:w-[555px] w-[300px] h-[55px] rounded-t-md bg-gray-100 dark:bg-[#303339]">
                 <p className="text-gray-600 dark:text-gray-400 text-[0.8rem] sm:text-[1rem] ">
                   #{nft.id.toUpperCase()}
-
                 </p>
                 {session?.user.id === nft?.owner.id ||
                   (subState.admin === true && (
@@ -137,35 +135,10 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                     <Likes nftId={nft.id} />
                     <p className="ml-2">likes</p>
                   </div>
-
-                  {nft?.owner.id !== session?.user.id && (
-                    <div className="flex flex-row items-center">
-                      {subState.loadingWish ? (
-                        <div className="animate-spin flex justify-center items-center ml-1 w-[40px] h-[40px] rounded-full">
-                          <SvgLoading />
-                        </div>
-                      ) : (
-                        <div className="flex items-center text-gray-600 dark:text-gray-400 font-semibold text-lg">
-                          <button
-                            onClick={addToWished}
-                            className={`fill-slate-200 ${
-                              subState.wishlisted === true && ' fill-green-600 '
-                            } hover:fill-slate-300 flex justify-center items-center`}
-                          >
-                            <SvgPlus className="w-8 h-8 bg-zinc-700 p-1 rounded-full mr-2" />
-                            {subState.wishlisted === true
-                              ? 'Remove from wishlist'
-                              : 'Add to wishlist'}
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                  )}
-
                 </div>
                 {nft.owner.id !== session?.user.id && (
                   <div className="flex flex-row items-center mb-5">
-                    {loadingWish ? (
+                    {subState.loadingWish ? (
                       <div className="animate-spin flex justify-center items-center ml-1 w-[40px] h-[40px] rounded-full">
                         <SvgLoading />
                       </div>
@@ -174,11 +147,11 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                         <button
                           onClick={addToWished}
                           className={`fill-slate-200 ${
-                            wishlisted === true && ' fill-green-600 '
+                            subState.wishlisted === true && ' fill-green-600 '
                           } hover:fill-slate-300 flex justify-center items-center`}
                         >
                           <SvgPlus className="w-8 h-8 bg-zinc-700 p-1 rounded-full mr-2" />
-                          {wishlisted === true
+                          {subState.wishlisted === true
                             ? 'Remove from wishlist'
                             : 'Add to wishlist'}
                         </button>
