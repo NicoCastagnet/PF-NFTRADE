@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import prisma from '@lib/db'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
@@ -16,18 +19,18 @@ export default async function handler(
         description: true,
         price: true,
         published: true,
+        collectionId: true,
         comments: {
           select: {
             id: true,
+            user: true,
             content: true,
             isPublished: true,
-            user: { select: { name: true } },
-            createdAt: true,
           },
         },
         likedBy: { select: { id: true } },
         owner: {
-          select: { name: true },
+          select: { name: true, id: true },
         },
         creator: {
           select: { name: true },
@@ -35,8 +38,16 @@ export default async function handler(
         _count: {
           select: { likedBy: true, viewedBy: true },
         },
+        categories: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+        wishedBy: { select: { userId: true } },
       },
     })
+    nft.wishedBy = nft.wishedBy.map((w) => w.userId)
     return res.json(nft)
   } catch (e) {
     const apiMessage = (e as Error).message
