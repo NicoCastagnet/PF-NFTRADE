@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import type { NftDetailResponse } from 'types/api-responses'
 
-const useDetail = (nft: NftDetailResponse) => {
+const useDetail = (nft: NftDetailResponse, view=false) => {
   const router = useRouter()
   const { data: session } = useSession()
   const [subState, setSubState] = useState({
@@ -22,13 +22,13 @@ const useDetail = (nft: NftDetailResponse) => {
   })
 
   useEffect(() => {
-    if (session?.user) {
+    if (session?.user && view) {
       axios.put(`${process.env.NEXT_PUBLIC_APP_URL}/api/put/nftViews`, {
         userId: session?.user?.id,
         nftId: nft?.id,
       })
     }
-    if (nft.wishedBy.includes(session?.user?.id)) {
+    if (nft.wishedBy.includes(session?.user?.id) && view) {
       setSubState((state) => ({ ...state, wishlisted: true }))
     }
 
