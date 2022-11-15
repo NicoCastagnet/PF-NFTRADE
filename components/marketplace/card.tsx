@@ -22,7 +22,7 @@ const Card = ({
   likedBy,
 }) => {
   const { cart, addItem } = useCart()
-  const { session, likedCount, likeHandler } = useLiked(likedBy, owner, name)
+  const { session, likedCount, likeHandler } = useLiked(likedBy)
 
   return (
     <div

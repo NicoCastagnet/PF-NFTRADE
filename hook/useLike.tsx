@@ -5,7 +5,7 @@ import axios from 'axios'
 import { useSession } from 'next-auth/react'
 import { useState } from 'react'
 
-const useLiked = (likedBy, owner, name) => {
+const useLiked = (likedBy) => {
   const { data: session } = useSession()
   const [likedCount, setLikedCount] = useState(likedBy.length as number)
   const li = likedBy.map((el) => el.id)
@@ -21,12 +21,10 @@ const useLiked = (likedBy, owner, name) => {
       setLikedCount((state) => state - 1)
       setLikedByMe((state) => !state)
     }
-    await axios.post('/api/put/nftLike', {
+    await axios.put('/api/put/nftLike', {
       nftId,
       userId: session?.user.id,
       isLiked: likedByMe,
-      owner,
-      name,
     })
   }
 
