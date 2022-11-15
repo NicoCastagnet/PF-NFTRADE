@@ -52,7 +52,10 @@ const Nfts = ({ id, image, name, published, price, views, likes, nft }) => {
                 {name}
               </h5>
             </div>
-            <button className="bg-white hover:bg-gray-300 text-black dark:text-white dark:bg-[#393b41] dark:hover:bg-[#4c4e53] transition-all text-lg font-semibold w-full h-10 my-1">
+            <button
+              className="bg-white hover:bg-gray-300 text-black dark:text-white dark:bg-[#393b41] dark:hover:bg-[#4c4e53] transition-all text-lg font-semibold w-full h-10 my-1"
+              onClick={handlePublished}
+            >
               Click to{' '}
               {published ? 'remove the nft from market' : 'publish the nft'}
             </button>

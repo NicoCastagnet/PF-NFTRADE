@@ -28,7 +28,6 @@ const getWishes = async ({ id }: { id: string }): Promise<WishesResponse> => {
         },
       },
     })
-    console.log(user)
     return user
   } catch (e) {
     console.log(e)

@@ -43,9 +43,6 @@ export default async function updateNft(
             ),
           },
         })
-        console.log(nft)
-        console.log(oldCollection)
-        console.log(newCollection)
         const msg = {
           text: 'The NFT was successfully updated.',
           data: nft,
@@ -60,7 +57,6 @@ export default async function updateNft(
             erased: boolean,
           },
         })
-        console.log(nft)
         const msg = {
           text: 'The NFT was successfully updated.',
           data: nft,

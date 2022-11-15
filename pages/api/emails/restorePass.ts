@@ -2,8 +2,6 @@ import prisma from '@lib/db'
 import nodemailer from 'nodemailer'
 
 export default async function mailSend(email: string, pass: string) {
-  console.log(pass)
-  console.log(email)
   const mail = await prisma.user.findUniqueOrThrow({
     where: {
       email: email as string,

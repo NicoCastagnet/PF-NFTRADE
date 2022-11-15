@@ -14,7 +14,6 @@ interface Nft {
 }
 
 const NftCard = ({ nft }: Props) => {
-  console.log(nft)
   return (
     <div
       key={nft.id}

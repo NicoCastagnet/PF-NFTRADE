@@ -104,8 +104,6 @@ export const authOptions: NextAuthOptions = {
         },
       })
       token.admin = admin
-      // return final_token
-      // console.log('DESDE JWT:', token)
       return token
     },
   },

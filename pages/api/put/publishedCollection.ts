@@ -21,7 +21,6 @@ export default async function postLike(
         message: 'nft actualizado',
         data: collection,
       }
-      console.log(collection)
       res.status(200).send(msg)
     }
   } catch (e) {
