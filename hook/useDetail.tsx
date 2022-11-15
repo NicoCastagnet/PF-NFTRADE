@@ -21,7 +21,6 @@ const useDetail = (nft: NftDetailResponse) => {
     price: nft?.price,
   })
 
-
   useEffect(() => {
     if (session?.user) {
       axios.put(`${process.env.NEXT_PUBLIC_APP_URL}/api/put/nftViews`, {
