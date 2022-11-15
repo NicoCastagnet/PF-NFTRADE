@@ -6,7 +6,6 @@ export default async function mailSend(
 ) {
   if (req.method === 'POST') {
     const { user, email } = req.body
-    console.log('entró')
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 465,

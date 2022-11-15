@@ -8,7 +8,6 @@ export default async function mailSend(
   id: string,
   reason: string,
 ) {
-  console.log(id, reason)
   const mail = await prisma.user.findUniqueOrThrow({
     where: {
       id: id.toString(),
@@ -20,7 +19,6 @@ export default async function mailSend(
   })
 
   if (reason === 'buy Coins') {
-    console.log('APROVEDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD')
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 465,
@@ -36,7 +34,6 @@ export default async function mailSend(
       subject: 'Confirmación de compra',
       text: `¡Tu compra ha sido realizada con éxito! Tus monedas ahora suman la cantidad de ${mail.coins}. Esperamos que disfrutes tu recorrido por la app. Un saludo, NFTrade!`,
     }
-    console.log('MAIL SENDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD')
     transporter.sendMail(mailOptions, (Error, info) => {
       if (Error) {
         res.status(500).send(Error.message)
