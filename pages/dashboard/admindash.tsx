@@ -8,12 +8,14 @@ import fetcher from '@lib/fetcher'
 import type { NextPage } from 'next'
 import { useSession } from 'next-auth/react'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import useSWR from 'swr'
 
 const AdminDashBoard: NextPage = () => {
   const { data: session } = useSession()
   const { data } = useSWR(`/api/dashboardata?user=${session?.user.id}`, fetcher)
+  const router = useRouter()
 
   const [adminData, setAdminData] = useState()
 
@@ -31,9 +33,10 @@ const AdminDashBoard: NextPage = () => {
     getData()
   }, [])
 
-  console.log(adminData)
-
   const [table, setTable] = useState('users')
+  if (data?.admin === false) {
+    router.push('/dashboard')
+  }
 
   return (
     <section className="dashboard__home flex bg-gray-200 dark:bg-[#202225] transition-all ">
@@ -72,9 +75,19 @@ const AdminDashBoard: NextPage = () => {
             </div>
           </div>
           <div className=" h-full ">
-            {adminData ? (
+            {data?.admin === false ? (
+              <div className="text-center pt-10 underline text-3xl text-red-700">
+                Not authorized
+              </div>
+            ) : data?.admin === undefined ? (
+              <div className=" flex justify-center mt-8 ">
+                <div className="animate-spin flex justify-center items-center ml-1 w-[28px] h-[28px] rounded-full">
+                  <SvgLoading />
+                </div>
+              </div>
+            ) : adminData ? (
               table === 'users' ? (
-                <Users data={adminData.users} />
+                <Users data={adminData?.users} />
               ) : table === 'nfts' ? (
                 <Nfts data={adminData.nfts} />
               ) : (

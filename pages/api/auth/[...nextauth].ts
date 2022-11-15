@@ -79,6 +79,7 @@ export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   session: {
     strategy: 'jwt',
+    isAdmin: true,
   },
   pages: {
     signIn: '/login',
@@ -92,14 +93,21 @@ export const authOptions: NextAuthOptions = {
       //
       return session
     },
-  },
-  jwt: async (params) => {
-    // update token
-    if (params.user?.role) {
-      params.token.role = params.user.role
-    }
-    // return final_token
-    return params.token
+    jwt: async ({ token }) => {
+      // update token
+      const { admin } = await prisma.user.findUnique({
+        where: {
+          email: token.email,
+        },
+        select: {
+          admin: true,
+        },
+      })
+      token.admin = admin
+      // return final_token
+      // console.log('DESDE JWT:', token)
+      return token
+    },
   },
 }
 export default NextAuth(authOptions)
