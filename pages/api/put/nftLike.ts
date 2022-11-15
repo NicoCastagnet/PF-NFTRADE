@@ -53,19 +53,18 @@ export default async function postLike(
         if (isLiked) {
           const notas = await prisma.notify.findMany({
             where: {
-              nftId: nftId
-            }
+              nftId: nftId,
+            },
           })
           notas.map(async (el) => {
-            if(el.typeNotify === 'Liked' && el.userIdLiked === userId) {
+            if (el.typeNotify === 'Liked' && el.userIdLiked === userId) {
               await prisma.notify.delete({
                 where: {
-                  id: el.id
-                }
+                  id: el.id,
+                },
               })
             }
           })
-    
         }
 
         res.json('ok')

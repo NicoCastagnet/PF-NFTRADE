@@ -29,7 +29,6 @@ const UserDetail: NextPage<Props> = ({ user }) => {
   const { data: session } = useSession()
   const account = session?.user
 
-
   const [uploadError, setUploadError] = useState(false)
 
   interface UserDetails {

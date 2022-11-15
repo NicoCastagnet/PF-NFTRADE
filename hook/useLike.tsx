@@ -26,7 +26,7 @@ const useLiked = (likedBy, owner, name) => {
       userId: session?.user.id,
       isLiked: likedByMe,
       owner,
-      name
+      name,
     })
   }
 

@@ -31,7 +31,6 @@ const AdminDashBoard: NextPage = () => {
     getData()
   }, [])
 
-
   const [table, setTable] = useState('users')
 
   return (

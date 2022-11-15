@@ -69,7 +69,6 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nft.id, session?.user?.id])
 
-
   const [priceToEdit, setPriceToEdit] = useState(false)
   const [price, setPrice] = useState<string | number>(nft.price)
 

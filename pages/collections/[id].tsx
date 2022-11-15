@@ -39,7 +39,6 @@ const CollectionDetail: NextPage<Props> = ({ collection }) => {
     getAdmin()
   })
 
-
   const [loadingPublished, setLoadingPublished] = useState(false)
 
   const [published, setPublished] = useState(collection.published)
