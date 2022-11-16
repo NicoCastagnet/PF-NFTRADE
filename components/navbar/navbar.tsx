@@ -11,7 +11,6 @@ import useCoins from 'hook/useCoins'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
-import { useOpenMenu } from '../../hook/openCartMenu'
 import Hamburguesa from './hamburguesa'
 import Logo from './logo'
 import Notificaciones from './notify/notificaciones'
@@ -20,7 +19,7 @@ import UserMenuNavBar from './user'
 export default function NavBar() {
   const [menu, setMen] = useState(false)
   const { session, coins } = useCoins()
-  const { open, setOpen } = useOpenMenu()
+  const [open, setOpen] = useState(false)
 
   return (
     <nav className="navbar__nav bg-slate-900 dark:bg-[#202225] h-20 w-full flex flex-row text-center items-center justify-center fixed top-0 z-10 px-4">
