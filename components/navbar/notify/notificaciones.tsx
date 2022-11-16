@@ -14,7 +14,7 @@ import NotifyLiked from './notifyLiked'
 const Notificaciones = () => {
   const { data: session } = useSession()
   const URL = `/api/notificaciones?user=${session?.user.id}`
-  const { data } = useSWR(URL, fetcher, { refreshInterval: 1000 })
+  const { data } = useSWR(URL, fetcher)
 
   return (
     <section
@@ -51,7 +51,7 @@ const Notificaciones = () => {
           >
             {data?.notify.length ? (
               data?.notify.map((el) => (
-                <>
+                <div key={el.id}>
                   {el.typeNotify === 'comment' && (
                     <NotifyComment
                       key={el.id}
@@ -100,7 +100,7 @@ const Notificaciones = () => {
                       creatredAt={el.creatredAt}
                     />
                   )}
-                </>
+                </div>
               ))
             ) : (
               <div className="flex justify-center items-center w-full py-4 px-8">

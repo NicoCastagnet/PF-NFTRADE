@@ -264,7 +264,7 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                   </div>
                 ) : nft?.collectionId ? (
                   <Link href={`/collections/${nft?.collectionId}`}>
-                    <button className="text-xl bg-white hover:bg-gray-300 text-gray-600 dark:text-gray-400 dark:bg-[#303339] dark:hover:bg-[#393b41] hover:drop-shadow-lg transition-all w-full py-3 px-20 rounded-xl mr-2">
+                    <button className="text-xl bg-white hover:bg-gray-300 text-gray-600 dark:text-gray-400 dark:bg-[#303339] dark:hover:bg-[#393b41] hover:drop-shadow-lg transition-all w-full py-3  rounded-xl mr-2 h-14 mb-3">
                       Go to collection
                     </button>
                   </Link>
@@ -289,7 +289,7 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                 {session?.user.id !== nft?.owner.id &&
                   subState.published === true && (
                     <Link href={'#'}>
-                      <button className="text-xl w-[50%] text-white bg-blue-600 hover:bg-blue-500 hover:drop-shadow-lg transition-all py-4 px-2 mx-2 rounded-xl">
+                      <button className="text-xl w-[50%] text-white bg-blue-600 hover:bg-blue-500 hover:drop-shadow-lg transition-all py-4  ml-2 rounded-xl h-14 mb-3">
                         Buy now
                       </button>
                     </Link>
