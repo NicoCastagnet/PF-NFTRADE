@@ -14,7 +14,7 @@ const TopContainer = ({ nfts }: { nfts: NftsResponse }) => {
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [selected, setSelected] = useState(nfts[0])
 
-  const selectNewImage = ( nfts: NftsResponse, next = true) => {
+  const selectNewImage = (nfts: NftsResponse, next = true) => {
     const condition = next ? selectedIndex < nfts.length - 1 : selectedIndex > 0
     const nextIndex = next
       ? condition
@@ -28,7 +28,7 @@ const TopContainer = ({ nfts }: { nfts: NftsResponse }) => {
   }
 
   const previous = () => {
-    selectNewImage( nfts, false)
+    selectNewImage(nfts, false)
   }
 
   const next = () => {
