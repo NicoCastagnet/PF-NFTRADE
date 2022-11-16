@@ -37,6 +37,8 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
     putPrice,
   } = useDetail(nft, true)
 
+  console.log(subState)
+
   return (
     <div className="bg-gray-200 dark:bg-[#202225] flex flex-col items-center justify-around w-full min-h-screen transition-all">
       <NavBar />
@@ -87,20 +89,22 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                 <p className="text-gray-600 dark:text-gray-400 text-[0.8rem] sm:text-[1rem] ">
                   #{nft.id.toUpperCase()}
                 </p>
-                {session?.user.id === nft?.owner.id ||
-                  (subState.admin === true && (
-                    <SvgTrash
-                      onClick={() =>
-                        setSubState((state) => ({
-                          ...state,
-                          deleteWarning: true,
-                        }))
-                      }
-                      className={` ml-4 w-[25px] h-[25px] fill-slate-500 ${
-                        subState.admin === true && 'hover:fill-yellow-500'
-                      } hover:fill-red-800 cursor-pointer`}
-                    />
-                  ))}
+                {(session?.user.id === nft?.owner.id ||
+                  subState.admin === true) && (
+                  <SvgTrash
+                    onClick={() =>
+                      setSubState((state) => ({
+                        ...state,
+                        deleteWarning: true,
+                      }))
+                    }
+                    className={` ml-4 w-[25px] h-[25px] fill-slate-500 ${
+                      subState.admin === true
+                        ? 'hover:fill-yellow-500'
+                        : 'hover:fill-red-800'
+                    }  cursor-pointer`}
+                  />
+                )}
               </header>
               <div className=" w-[300px] h-[300px]  sm:w-[555px]  sm:h-[555px] border-2 border-gray-100 dark:border-[#303339]">
                 <Image
@@ -223,7 +227,7 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                   )}
                 </div>
               </div>
-              <div className="buttons flex justify-center items-center">
+              <div className="buttons flex justify-center mb-2 items-center">
                 {nft?.owner.id === session?.user?.id ? (
                   subState.loadingPublished ? (
                     <div className="animate-spin flex justify-center items-center w-full h-[82px] mt-2 rounded-full">
@@ -289,7 +293,9 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                 {session?.user.id !== nft?.owner.id &&
                   subState.published === true && (
                     <Link href={'#'}>
-                      <button className="text-xl w-[50%] text-white bg-blue-600 hover:bg-blue-500 hover:drop-shadow-lg transition-all py-4  ml-2 rounded-xl h-14 mb-3">
+
+                      <button className="text-xl w-[50%] text-white bg-blue-600 hover:bg-blue-500 hover:drop-shadow-lg transition-all py-3 px-2 mx-2 rounded-xl">
+
                         Buy now
                       </button>
                     </Link>
