@@ -22,7 +22,7 @@ export default async function handler(
 
   const coinsData = await prisma.notify.findMany({
     where: {
-      typeNotify: 'buy'
+      typeNotify: 'buy',
     },
     select: {
       ordenId: true,
@@ -31,7 +31,7 @@ export default async function handler(
       status: true,
       amount: true,
       createdAt: true,
-    }
+    },
   })
 
   const nftData = await prisma.notify.findMany({
