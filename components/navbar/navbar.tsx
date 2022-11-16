@@ -7,6 +7,7 @@ import SvgChevronDown from '@components/icons/svgChevronDown'
 import SvgCoin from '@components/icons/svgCoin'
 import SvgUser from '@components/icons/svgUser'
 import Search from '@components/search'
+import { useCart } from '@context/cart'
 import useCoins from 'hook/useCoins'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -20,6 +21,7 @@ export default function NavBar() {
   const [menu, setMen] = useState(false)
   const { session, coins } = useCoins()
   const [open, setOpen] = useState(false)
+  const { cart } = useCart()
 
   return (
     <nav className="navbar__nav bg-slate-900 dark:bg-[#202225] h-20 w-full flex flex-row text-center items-center justify-center fixed top-0 z-10 px-4">
@@ -66,12 +68,23 @@ export default function NavBar() {
                 </div>
               </div>
             )}
-            <SvgCart
-              className="m-3 cursor-pointer hover:text-blue-600 transition-all hover:animate-pulse"
-              width={'25'}
-              height={'25'}
-              onClick={() => setOpen(!open)}
-            />
+            <button onClick={() => setOpen(!open)} className="relative group">
+              {cart.length ? (
+                <>
+                  <span className="h-5 w-6 bg-red-500 rounded-full absolute top-[0.35rem] left-5 border-[3px] border-gray-900 z-10 text-sm text-center flex justify-center items-center pt-1 ">
+                    {cart.length}
+                  </span>
+                  <span className="animate-ping h-5 w-6 bg-red-500 rounded-full inline-flex absolute top-[0.35rem] left-5 z-10"></span>
+                </>
+              ) : (
+                ''
+              )}
+              <SvgCart
+                className="m-3 hover:text-blue-600 transition-all hover:animate-pulse"
+                width={'25'}
+                height={'25'}
+              />
+            </button>
             {session && <Notificaciones />}
             <button
               id="dropdownInformationButton"
