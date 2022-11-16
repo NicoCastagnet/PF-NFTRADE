@@ -1,20 +1,21 @@
 import Logo from '@assets/White.png'
 import SvgBox from '@components/icons/svgBox'
-import SvgChartPie from '@components/icons/svgChartPie'
+import SvgCart from '@components/icons/svgCart'
 import SvgHome from '@components/icons/svgHome'
 import SvgLogOut from '@components/icons/svgLogOut'
 import SvgSettings from '@components/icons/svgSettings'
 import SvgWarning from '@components/icons/svgWarning'
 import type { NextPage } from 'next'
-import { useSession } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
 const SideBar: NextPage = () => {
   const [admin, setAdmin] = useState(false)
-
   const { data: session } = useSession()
+  const router = useRouter()
 
   useEffect(() => {
     async function getAdmin() {
@@ -49,12 +50,6 @@ const SideBar: NextPage = () => {
               <span className="ml-3">Home</span>
             </li>
           </Link>
-          <Link href="#">
-            <li className="flex items-center p-2 text-base font-normal rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-300 dark:hover:bg-[#393b41] cursor-pointer transition-all">
-              <SvgChartPie className="w-6 h-6 transition duration-75" />
-              <span className="ml-3">Statistics</span>
-            </li>
-          </Link>
           <Link href="dashboard/mynfts">
             <li className="flex items-center p-2 text-base font-normal rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-300 dark:hover:bg-[#393b41] cursor-pointer transition-all">
               <SvgBox className="w-6 h-6 transition duration-75" />
@@ -67,8 +62,20 @@ const SideBar: NextPage = () => {
               <span className="ml-3">Settings</span>
             </li>
           </Link>
-          <Link href="#">
+          <Link href="/buy">
             <li className="flex items-center p-2 text-base font-normal rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-300 dark:hover:bg-[#393b41] cursor-pointer transition-all">
+              <SvgCart className="w-6 h-6 transition duration-75" />
+              <span className="ml-3">Buy coins</span>
+            </li>
+          </Link>
+          <Link href="#">
+            <li
+              className="flex items-center p-2 text-base font-normal rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-300 dark:hover:bg-[#393b41] cursor-pointer transition-all"
+              onClick={async () => {
+                await signOut()
+                router.push('/')
+              }}
+            >
               <SvgLogOut className="w-6 h-6 transition duration-75" />
               <span className="ml-3">Log out</span>
             </li>

@@ -1,29 +1,29 @@
 import SvgLoading from '@components/icons/svgLoading'
 import {
+  BarElement,
   CategoryScale,
   Chart as ChartJS,
   Filler,
   Legend,
   LinearScale,
-  LineElement,
   PointElement,
   Title,
   Tooltip,
 } from 'chart.js'
-import { Line } from 'react-chartjs-2'
+import { Bar } from 'react-chartjs-2'
 
 ChartJS.register(
   CategoryScale,
   LinearScale,
   PointElement,
-  LineElement,
+  BarElement,
   Title,
   Tooltip,
   Legend,
   Filler,
 )
 
-const BarChart = ({ userData }: { userData: any }) => {
+const BarChart2 = ({ userData }: { userData: any }) => {
   let dates = userData?.staticDashData.buyerDates
 
   dates = dates?.map((e: any) => {
@@ -38,11 +38,10 @@ const BarChart = ({ userData }: { userData: any }) => {
     datasets: [
       {
         label: 'NFT Price',
-        data: userData?.staticDashData.buyerCoins,
         tension: 0.3,
-        borderColor: 'rgba(70, 203, 255, 0.5)',
-        backgroundColor: 'rgba(0, 0, 0, 0.3)',
-        borderWidth: 2,
+        data: userData?.staticDashData.buyerCoins,
+        borderColor: 'lightblue',
+        backgroundColor: 'rgba(255, 0, 0, 0.3)',
         pointRadius: 6,
       },
     ],
@@ -68,29 +67,19 @@ const BarChart = ({ userData }: { userData: any }) => {
       y: {
         display: true,
         ticks: {
-          color: 'rgb(156 163 175 / 1)',
+          color: 'white',
         },
       },
       x: {
         display: true,
         ticks: {
-          color: 'rgb(156 163 175 / 1)',
+          color: 'white',
         },
       },
     },
     plugins: {
-      title: {
-        fontSize: 30,
-        text: "NFT's Purchases",
-        display: true,
-        font: { size: 20 },
-        color: 'rgb(156 163 175 / 1)',
-      },
       legend: {
-        labels: {
-          font: { size: 14 },
-          color: 'rgb(156 163 175 / 1)',
-        },
+        display: true,
       },
     },
   }
@@ -98,7 +87,7 @@ const BarChart = ({ userData }: { userData: any }) => {
   return (
     <div>
       {chartData ? (
-        <Line data={chartData} options={options} />
+        <Bar data={chartData} options={options} />
       ) : (
         <SvgLoading className="animate-spin h-6 w-6" />
       )}
@@ -106,4 +95,4 @@ const BarChart = ({ userData }: { userData: any }) => {
   )
 }
 
-export default BarChart
+export default BarChart2
