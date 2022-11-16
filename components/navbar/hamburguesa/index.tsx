@@ -89,23 +89,23 @@ const Hamburguesa = () => {
             </>
 
             {session && (
-                <>
-                  <li
-                    onClick={() => setOpenNotify(!openNotify)}
-                    className="flex flex-row justify-start items-center gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6"
-                  >
-                    <span>
-                      <SvgBell width={'28'} height={'28'} />
-                    </span>
-                    <span>{data?.total}</span>
-                    Notifications
-                  </li>
-                  <NotifyResponsive
-                    isOpen={openNotify}
-                    handleClose={setOpenNotify}
-                    data={data}
-                  />
-                </>
+              <>
+                <li
+                  onClick={() => setOpenNotify(!openNotify)}
+                  className="flex flex-row justify-start items-center gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6"
+                >
+                  <span>
+                    <SvgBell width={'28'} height={'28'} />
+                  </span>
+                  <span>{data?.total}</span>
+                  Notifications
+                </li>
+                <NotifyResponsive
+                  isOpen={openNotify}
+                  handleClose={setOpenNotify}
+                  data={data}
+                />
+              </>
             )}
             <Link href={'#'}>
               <a>
