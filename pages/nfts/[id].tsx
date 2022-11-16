@@ -230,7 +230,7 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                       <SvgLoading className="w-[40px] h-[40px]" />
                     </div>
                   ) : subState.published === false ? (
-                    <div className="flex w-full">
+                    <div className="flex w-full mb-2">
                       <button
                         onClick={() => handlePublished(true)}
                         className="text-xl bg-white hover:bg-gray-300 text-gray-600 dark:text-gray-400 dark:bg-[#303339] dark:hover:bg-[#393b41] hover:drop-shadow-lg transition-all w-full py-4 rounded-xl"

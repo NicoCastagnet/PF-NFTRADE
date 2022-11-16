@@ -4,14 +4,12 @@
 // import SvgCoin from '@components/icons/svgCoin'
 import SvgCross from '@components/icons/svgCross'
 import { Dialog, Transition } from '@headlessui/react'
-import useBuyNftPriceCoins from 'hook/useBuyNftPriceCoins'
 import { Fragment } from 'react'
+import styles from '../../../styles/form.module.css'
 import NotifyBuyCoins from './notifyBuyCoins'
 import NotifyBuyNft from './notifyBuyNft'
 import NotifyComment from './notifyComment'
 import NotifyLiked from './notifyLiked'
-import styles from '../../../styles/form.module.css'
-import { useCart } from '@context/cart'
 
 interface NotyfiResponsiveProps {
   isOpen: boolean
@@ -61,7 +59,7 @@ const NotifyResponsive: React.FC<NotyfiResponsiveProps> = ({
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                   >
-                    <div className="absolute top-0 left-14 -ml-8 flex pt-4 pr-2 sm:-ml-10 sm:pr-4 bg-gray-200 dark:bg-[#202225] z-50 w-full py-5">
+                    <div className="absolute top-0 left-14 -ml-14 pl-4 flex pt-4 pr-2 sm:-ml-10 sm:pr-4 bg-gray-200 dark:bg-[#202225] z-50 w-full py-5">
                       <button
                         type="button"
                         className="rounded-md text-black dark:text-gray-300 hover:text-red-500 dark:hover:text-red-500 transition-all focus:outline-none"
@@ -82,7 +80,7 @@ const NotifyResponsive: React.FC<NotyfiResponsiveProps> = ({
                       </div>
                     </div>
                   </Transition.Child>
-                  <div className="flex h-full flex-col overflow-y-scroll text-black bg-gray-200 dark:bg-[#202225] dark:text-white py-14 shadow-xl">
+                  <div className="flex h-full text-center flex-col overflow-y-scroll text-black bg-gray-200 dark:bg-[#202225] dark:text-white py-14 shadow-xl">
                     <div className="relative mt-6 flex-1 px-4 sm:px-6">
                       {/* NOTIFY LIST */}
                       {!data?.notify.length ? (

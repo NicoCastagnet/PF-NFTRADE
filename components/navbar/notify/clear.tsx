@@ -11,7 +11,7 @@ const ClearView = ({ id, setView }: { id: string; setView: any }) => {
 
   return (
     <div onClick={handleNotView}>
-      <SvgX className="fill-red-600 " height={24} width={24} />
+      <SvgX className="fill-red-600 mr-2" height={24} width={24} />
     </div>
   )
 }

@@ -54,7 +54,6 @@ export default async function handler(
 
   res.json({
     admin: db?.admin,
-    coinsData,
     nftData,
     staticDashData: {
       sellerCoins: sum,
