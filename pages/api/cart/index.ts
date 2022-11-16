@@ -95,14 +95,14 @@ export default async function handler(
             },
           })
 
-          // await prisma.buyNfts.create({
-          //   data: {
-          //     nftsId: nftComp.id,
-          //     compradorId: comprador.id,
-          //     vendedorId: vendedor.id,
-          //     coins: el.price,
-          //   },
-          // })
+          await prisma.buyNfts.create({
+            data: {
+              nftsId: nftComp.id,
+              compradorId: comprador.id,
+              vendedorId: vendedor.id,
+              coins: el.price,
+            },
+          })
 
           emailNft(req, res, comprador.id, el.id, 'comprador')
           emailNft(req, res, vendedor.id, el.id, 'vendedor')
