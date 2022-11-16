@@ -92,9 +92,7 @@ const NotifyResponsive: React.FC<NotyfiResponsiveProps> = ({
                           className={`overflow-auto divide-y divide-gray-800 dark:divide-gray-700  ${styles.scrollbar}`}
                         >
                           {data?.notify.map((el, index) => (
-                            <div
-                            key={el.id}
-                            >
+                            <div key={el.id}>
                               {el.typeNotify === 'comment' && (
                                 <NotifyComment
                                   key={index}

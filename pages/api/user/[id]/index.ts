@@ -9,11 +9,10 @@ export default async function handler(
   if (id === 'undefined') {
     return res.status(204).json({
       success: false,
-      status:204,
+      status: 204,
       message: 'user not logged',
     })
   } else {
-
     try {
       const user = await prisma.user.findUniqueOrThrow({
         where: { id: id as string },

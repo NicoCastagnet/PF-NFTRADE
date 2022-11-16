@@ -51,9 +51,7 @@ const Notificaciones = () => {
           >
             {data?.notify.length ? (
               data?.notify.map((el) => (
-                <div 
-                key={el.id}
-                >
+                <div key={el.id}>
                   {el.typeNotify === 'comment' && (
                     <NotifyComment
                       key={el.id}

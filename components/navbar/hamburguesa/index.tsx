@@ -66,8 +66,9 @@ const Hamburguesa = () => {
               <Link href={'/buy'}>
                 <a>
                   <li
-                  key={'1'}
-                  className="flex flex-row justify-satart items-center gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6">
+                    key={'1'}
+                    className="flex flex-row justify-satart items-center gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6"
+                  >
                     <span>
                       <SvgCoin width={'28'} height={'28'} />
                     </span>
@@ -78,7 +79,7 @@ const Hamburguesa = () => {
             )}
             <>
               <li
-              key={'2'}
+                key={'2'}
                 onClick={() => setOpen(!open)}
                 className="flex flex-row justify-start items-center gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6"
               >
@@ -94,7 +95,7 @@ const Hamburguesa = () => {
             {session && (
               <>
                 <li
-                key={'3'}
+                  key={'3'}
                   onClick={() => setOpenNotify(!openNotify)}
                   className="flex flex-row justify-start items-center gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6"
                 >
@@ -114,8 +115,9 @@ const Hamburguesa = () => {
             <Link href={'#'}>
               <a>
                 <li
-                key={'4'}
-                className="flex flex-row justify-start items-center pl-8 gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6">
+                  key={'4'}
+                  className="flex flex-row justify-start items-center pl-8 gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6"
+                >
                   <span className="pr-6">
                     <SearchIcon width={'28'} height={'28'} />{' '}
                   </span>
@@ -126,8 +128,9 @@ const Hamburguesa = () => {
             <Link href={'/marketplace'}>
               <a>
                 <li
-                key={'5'}
-                className="flex flex-row justify-start items-center pl-8 gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6">
+                  key={'5'}
+                  className="flex flex-row justify-start items-center pl-8 gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6"
+                >
                   <span className="pr-6">
                     <SvgMarket width={'28'} height={'28'} />{' '}
                   </span>
@@ -140,8 +143,9 @@ const Hamburguesa = () => {
             {!session && (
               <div className="w-full">
                 <li
-                key={'6'}
-                className="flex flex-row justify-start items-center pl-8 gap-4 py-2 w-full px-6">
+                  key={'6'}
+                  className="flex flex-row justify-start items-center pl-8 gap-4 py-2 w-full px-6"
+                >
                   <Link href={'/login'}>
                     <a>
                       <span className="flex w-full justify-center items-center bg-gray-500 hover:bg-gray-800 dark:bg-[#3b3d41] hover:dark:bg-[#3b3d41] py-2 rounded-xl">
@@ -152,8 +156,9 @@ const Hamburguesa = () => {
                   </Link>
                 </li>
                 <li
-                key={'7'}
-                className="flex flex-row justify-start items-center pl-8 gap-4 py-2 w-full px-6">
+                  key={'7'}
+                  className="flex flex-row justify-start items-center pl-8 gap-4 py-2 w-full px-6"
+                >
                   <Link href={'/register'}>
                     <a>
                       <span className="flex w-full justify-center items-center bg-gray-500 hover:bg-gray-800 dark:bg-[#3b3d41] hover:dark:bg-[#3b3d41] py-2 rounded-xl">
@@ -167,8 +172,9 @@ const Hamburguesa = () => {
             )}
             {session && (
               <li
-              key={'8'}
-              className="flex flex-row justify-start items-center pl-8 gap-4 py-2 w-full px-6">
+                key={'8'}
+                className="flex flex-row justify-start items-center pl-8 gap-4 py-2 w-full px-6"
+              >
                 <SvgLogOut width={'28'} height={'28'} />
                 <span
                   onClick={() => signOut()}
