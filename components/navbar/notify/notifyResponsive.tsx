@@ -1,28 +1,30 @@
-import SvgCoin from '@components/icons/svgCoin'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
+// import SvgCoin from '@components/icons/svgCoin'
 import SvgCross from '@components/icons/svgCross'
 import { Dialog, Transition } from '@headlessui/react'
-import fetcher from '@lib/fetcher'
 import useBuyNftPriceCoins from 'hook/useBuyNftPriceCoins'
-import Image from 'next/image'
 import { Fragment } from 'react'
-import useSWR from 'swr'
+import NotifyBuyCoins from './notifyBuyCoins'
+import NotifyBuyNft from './notifyBuyNft'
+import NotifyComment from './notifyComment'
+import NotifyLiked from './notifyLiked'
+import styles from '../../../styles/form.module.css'
+import { useCart } from '@context/cart'
+
 
 interface NotyfiResponsiveProps {
   isOpen: boolean
   handleClose: (isOpen: boolean) => void
-  session: { user: { id: string } }
+  data: any
 }
 
 const NotifyResponsive: React.FC<NotyfiResponsiveProps> = ({
   isOpen,
   handleClose,
-  session,
+  data,
 }) => {
-  const { totalPrice, cart, removeItem, clearCart, handleChange } =
-    useBuyNftPriceCoins(handleClose)
-  // const { data: session } = useSession()
-  const URL = `/api/notificaciones?user=${session?.user.id}`
-  const { data } = useSWR(URL, fetcher, { refreshInterval: 1000 })
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
@@ -77,73 +79,74 @@ const NotifyResponsive: React.FC<NotyfiResponsiveProps> = ({
                       </div>
                       <div className="flex justify-start items-center w-full">
                         <span className="flex justify-center items-center">
-                          {data?.total !== 0 ? data.total : ''}
+                          {data?.total !== 0 ? data?.total : ''}
                         </span>
                       </div>
                     </div>
                   </Transition.Child>
                   <div className="flex h-full flex-col overflow-y-scroll text-black bg-gray-200 dark:bg-[#202225] dark:text-white py-14 shadow-xl">
                     <div className="relative mt-6 flex-1 px-4 sm:px-6">
-                      {/* CART LIST */}
-                      {!cart.length ? (
-                        <div className="text-center text-black bg-white dark:bg-[#303339] dark:text-white p-5 text-lg font-semibold">
-                          There&apos;s nothing to see here!
+                      {/* NOTIFY LIST */}
+                      {!data?.notify.length ? (
+                        <div className="rounded-xl text-center text-black bg-white dark:bg-[#303339] dark:text-white p-5 text-lg font-semibold">
+                          no tenes Notificaciones por leer!
                         </div>
                       ) : (
-                        <div>
-                          <ul>
-                            {cart.map((item) => (
-                              <li
-                                key={item.id}
-                                className="flex items-center gap-4 h-auto my-3 border border-white dark:border-[#303339] rounded-md pr-2"
-                              >
-                                <Image
-                                  src={item.image}
-                                  alt="item-image"
-                                  width={100}
-                                  height={100}
-                                  className="object-cover rounded-tl-md rounded-bl-md"
+                        <div className={`overflow-auto divide-y divide-gray-800 dark:divide-gray-700  ${styles.scrollbar}`}>
+                          
+                            {data?.notify.map((el) => (
+                              <>
+                              {el.typeNotify === 'comment' && (
+                                <NotifyComment
+                                  key={el.id}
+                                  id={el.id}
+                                  nameNft={el.nameNft}
+                                  nftId={el.nftId}
+                                  userIdComment={el.userIdComment}
+                                  nameUserComment={el.nameUserComment}
+                                  comment={el.comment}
+                                  createdAt={el.createdAt}
                                 />
-                                <div className="flex w-full justify-between">
-                                  <div className="flex flex-col items-left text-black dark:text-white">
-                                    <span>{item.name}</span>
-                                    <span className="flex items-center gap-2">
-                                      <SvgCoin />
-                                      {item.price}
-                                    </span>
-                                  </div>
-                                  <button
-                                    className="text-red-600 hover:text-red-500 transition-all flex"
-                                    onClick={() => removeItem(item.id)}
-                                  >
-                                    <SvgCross className="w-5 h-5" />
-                                  </button>
-                                </div>
-                              </li>
+                              )}
+                              {el.typeNotify === 'Liked' && (
+                                <NotifyLiked
+                                  key={el.id}
+                                  id={el.id}
+                                  userIdLiked={el.userIdLiked}
+                                  nameUserLiked={el.nameUserLiked}
+                                  nftId={el.nftId}
+                                  nameNft={el.nameNft}
+                                  createdAt={el.createdAt}
+                                />
+                              )}
+                              {el.typeNotify === 'buyNft' && (
+                                <NotifyBuyNft
+                                  key={el.id}
+                                  id={el.id}
+                                  nftId={el.nftId}
+                                  nameNft={el.nameNft}
+                                  compradorId={el.compradorId}
+                                  nameComprador={el.nameComprador}
+                                  vendedorId={el.vendedorId}
+                                  nameVendedor={el.nameVendedor}
+                                  coins={el.coins}
+                                  createdAt={el.createdAt}
+                                />
+                              )}
+                              {el.typeNotify === 'buy' && (
+                                <NotifyBuyCoins
+                                  key={el.id}
+                                  id={el.id}
+                                  ordenId={el.ordenId}
+                                  coins={el.coins}
+                                  amount={el.amount}
+                                  status={el.status}
+                                  creatredAt={el.creatredAt}
+                                />
+                              )}
+                            </>
                             ))}
-                            <button
-                              className="bg-red-600 hover:bg-red-500 transition-all text-white text-lg font-semibold w-full h-10 my-5"
-                              onClick={clearCart}
-                            >
-                              Clear Cart
-                            </button>
-                            <hr className="my-4 mx-auto w-48 h-1 bg-white dark:bg-gray-600 rounded border-0 md:mb-8" />
-                          </ul>
-                          <div className="flex justify-between">
-                            <span className="text-black dark:text-white font-bold text-xl flex items-center gap-2 justify-between">
-                              Subtotal:
-                            </span>
-                            <span className="flex items-center gap-2 text-black dark:text-white font-bold text-xl">
-                              <SvgCoin className="w-6 h-6" />{' '}
-                              {totalPrice.toLocaleString('es-ES')}
-                            </span>
-                          </div>
-                          <button
-                            className="bg-white hover:bg-gray-300 text-black dark:text-white dark:bg-[#303339] dark:hover:bg-[#393b41] transition-all text-lg font-semibold w-full h-10 my-5"
-                            onClick={handleChange}
-                          >
-                            Go to checkout
-                          </button>
+                            
                         </div>
                       )}
                     </div>

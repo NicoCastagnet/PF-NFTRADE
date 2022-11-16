@@ -12,12 +12,21 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { VscSignIn } from 'react-icons/vsc'
 import NotifyResponsive from '../notify/notifyResponsive'
+import fetcher from '@lib/fetcher'
+import useSWR from 'swr'
+import { useCart } from '@context/cart'
+
+
 
 const Hamburguesa = () => {
+  const {cart} = useCart()
+
   const [hamburguer, setHamburguer] = useState(false)
   const { session, coins } = useCoins()
   const [open, setOpen] = useState(false)
   const [openNotify, setOpenNotify] = useState(false)
+  const URL = `/api/notificaciones?user=${session?.user.id}`
+  const { data } = useSWR(URL, fetcher, { refreshInterval: 1000 })
 
   return (
     <>
@@ -76,7 +85,7 @@ const Hamburguesa = () => {
                   <span>
                     <SvgCart width={'28'} height={'28'} />
                   </span>
-                  <span>0</span>
+                  <span>{cart?.length}</span>
                   Cart
                 </li>
                 <CartSide isOpen={open} handleClose={setOpen} />
@@ -92,13 +101,13 @@ const Hamburguesa = () => {
                     <span>
                       <SvgBell width={'28'} height={'28'} />
                     </span>
-                    <span>0</span>
+                    <span>{data?.total}</span>
                     Notifications
                   </li>
                   <NotifyResponsive
                     isOpen={openNotify}
                     handleClose={setOpenNotify}
-                    session={session}
+                    data={data}
                   />
                 </a>
               </Link>
