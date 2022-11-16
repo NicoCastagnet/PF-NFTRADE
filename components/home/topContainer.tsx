@@ -14,7 +14,7 @@ const TopContainer = ({ nfts }: { nfts: NftsResponse }) => {
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [selected, setSelected] = useState(nfts[0])
 
-  const selectNewImage = (index: number, nfts: NftsResponse, next = true) => {
+  const selectNewImage = ( nfts: NftsResponse, next = true) => {
     const condition = next ? selectedIndex < nfts.length - 1 : selectedIndex > 0
     const nextIndex = next
       ? condition
@@ -28,11 +28,11 @@ const TopContainer = ({ nfts }: { nfts: NftsResponse }) => {
   }
 
   const previous = () => {
-    selectNewImage(selectedIndex, nfts, false)
+    selectNewImage( nfts, false)
   }
 
   const next = () => {
-    selectNewImage(selectedIndex, nfts)
+    selectNewImage(nfts)
   }
   return (
     <section className="home__top flex flex-col items-center w-full m-14 max-md:m-0 max-md:mt-0 max-xl:px-12 max-sm:px-0 ease duration-500">
@@ -123,8 +123,9 @@ const TopContainer = ({ nfts }: { nfts: NftsResponse }) => {
                   className="rounded-t-xl object-cover group-hover:scale-110 transition-all duration-500"
                   src={e.image}
                   alt="ds"
-                  width={1000}
-                  height={1000}
+                  width={500}
+                  height={700}
+                  quality={20}
                   layout="intrinsic"
                 />
                 <div className="p-5">
