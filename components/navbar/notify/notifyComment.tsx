@@ -27,9 +27,10 @@ const NotifyComment = ({
     >
       <a>
         <div
+          key={id}
           className={`${
             view ? 'hidden' : ''
-          } flex flex-row justify-between items-start`}
+          } flex flex-row justify-between items-start mt-2`}
         >
           <div className="px-1 w-full flex flex-col justify-center items-center mb-2">
             <div className="text-gray-500 text-sm dark:text-gray-400">
@@ -42,7 +43,11 @@ const NotifyComment = ({
               </span>
             </div>
             <div className="flex justify-center ite w-full text-xs text-blue-600 dark:text-blue-500">
-              <ReactTimeAgo date={createdAt as Date} format={'twitter'} />
+              <ReactTimeAgo
+                date={Date.parse(createdAt)}
+                locale={'en-US'}
+                format={'twitter'}
+              />
             </div>
           </div>
           <div className=" px-[2px] flex justify-start items-start h-full">

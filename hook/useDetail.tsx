@@ -31,12 +31,13 @@ const useDetail = (nft: NftDetailResponse, view = false) => {
     if (nft.wishedBy.includes(session?.user?.id) && view) {
       setSubState((state) => ({ ...state, wishlisted: true }))
     }
-
-    axios
-      .get(
-        `${process.env.NEXT_PUBLIC_APP_URL}/api/user/${session?.user.id}/getIsAdmin/`,
-      )
-      .then((res) => setSubState((state) => ({ ...state, admin: res.data })))
+    if (session?.user.id) {
+      axios
+        .get(
+          `${process.env.NEXT_PUBLIC_APP_URL}/api/user/${session?.user.id}/getIsAdmin/`,
+        )
+        .then((res) => setSubState((state) => ({ ...state, admin: res.data })))
+    }
   }, [nft?.id, session?.user?.id])
 
   async function addToWished() {
