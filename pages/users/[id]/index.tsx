@@ -19,6 +19,7 @@ import { ChangeEvent, useEffect, useState } from 'react'
 import type { UserDetailResponse } from 'types/api-responses'
 import defaultAvatar from '/assets/avataricon.png'
 import imagePlaceholder from '/assets/image-placeholder.png'
+import getUserById from '@lib/api/users/getUserById'
 
 interface Props {
   user: UserDetailResponse

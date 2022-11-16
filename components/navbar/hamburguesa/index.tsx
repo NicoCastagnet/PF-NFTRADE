@@ -6,15 +6,15 @@ import SvgLogin from '@components/icons/svgLogin'
 import SvgLogOut from '@components/icons/svgLogOut'
 import SvgMarket from '@components/icons/svgMarket'
 import SearchIcon from '@components/icons/svgSearch'
+import { useCart } from '@context/cart'
+import fetcher from '@lib/fetcher'
 import useCoins from 'hook/useCoins'
 import { signOut } from 'next-auth/react'
 import Link from 'next/link'
 import { useState } from 'react'
 import { VscSignIn } from 'react-icons/vsc'
-import NotifyResponsive from '../notify/notifyResponsive'
-import fetcher from '@lib/fetcher'
 import useSWR from 'swr'
-import { useCart } from '@context/cart'
+import NotifyResponsive from '../notify/notifyResponsive'
 
 const Hamburguesa = () => {
   const { cart } = useCart()
@@ -63,7 +63,7 @@ const Hamburguesa = () => {
               </div>
             )}
             {session && (
-              <Link href={'#'}>
+              <Link href={'/buy'}>
                 <a>
                   <li className="flex flex-row justify-satart items-center gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6">
                     <span>
@@ -74,24 +74,22 @@ const Hamburguesa = () => {
                 </a>
               </Link>
             )}
-            <Link href={'#'}>
-              <a>
-                <li
-                  onClick={() => setOpen(!open)}
-                  className="flex flex-row justify-start items-center gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6"
-                >
-                  <span>
-                    <SvgCart width={'28'} height={'28'} />
-                  </span>
-                  <span>{cart?.length}</span>
-                  Cart
-                </li>
-                <CartSide isOpen={open} handleClose={setOpen} />
-              </a>
-            </Link>
+            <>
+              <li
+                onClick={() => setOpen(!open)}
+                className="flex flex-row justify-start items-center gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6"
+              >
+                <span>
+                  <SvgCart width={'28'} height={'28'} />
+                </span>
+                <span>{cart?.length}</span>
+                Cart
+              </li>
+              <CartSide isOpen={open} handleClose={setOpen} />
+            </>
+
             {session && (
-              <Link href={'#'}>
-                <a>
+                <>
                   <li
                     onClick={() => setOpenNotify(!openNotify)}
                     className="flex flex-row justify-start items-center gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6"
@@ -107,8 +105,7 @@ const Hamburguesa = () => {
                     handleClose={setOpenNotify}
                     data={data}
                   />
-                </a>
-              </Link>
+                </>
             )}
             <Link href={'#'}>
               <a>
