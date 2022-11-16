@@ -34,7 +34,7 @@ const AdminDashBoard: NextPage = () => {
   }, [])
 
   const [table, setTable] = useState('users')
-  if (data?.admin === false) {
+  if (data?.userData.admin === false) {
     router.push('/dashboard')
   }
 
@@ -75,11 +75,11 @@ const AdminDashBoard: NextPage = () => {
             </div>
           </div>
           <div className=" h-[93.1%] overflow-auto ">
-            {data?.admin === false ? (
+            {data?.userData.admin === false ? (
               <div className="text-center pt-10 underline text-3xl text-red-700">
                 Not authorized
               </div>
-            ) : data?.admin === undefined ? (
+            ) : data?.userData.admin === undefined ? (
               <div className=" flex justify-center mt-8 ">
                 <div className="animate-spin flex justify-center items-center ml-1 w-[28px] h-[28px] rounded-full">
                   <SvgLoading />
