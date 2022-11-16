@@ -9,10 +9,10 @@ const Buy = () => {
       </div>
       <div className="flex flex-col justify-between items-start h-full w-full">
         <div>
-        <p className="text-white font-semibold mt-3">Buy your NFT&apos;s</p>
-        <p className="text-gray-400 mt-2 mb-2">
-          Explore our marketplace to get the best NFT&apos;s from it.
-        </p>
+          <p className="text-white font-semibold mt-3">Buy your NFT&apos;s</p>
+          <p className="text-gray-400 mt-2 mb-2">
+            Explore our marketplace to get the best NFT&apos;s from it.
+          </p>
         </div>
         <Link href="/marketplace">
           <a>
