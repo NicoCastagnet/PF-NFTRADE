@@ -17,6 +17,7 @@ export default async function handler(
     },
     select: {
       admin: true,
+      coins: true,
     },
   })
 
@@ -57,14 +58,23 @@ export default async function handler(
   const filteredBuyerDates = filteredBuyer.map((e) => e.createdAt)
   const filteredBuyerCoins = filteredBuyer.map((e) => e.coins)
 
+  const userBuys = coinsData.filter((e) => e.userId === user)
+  const approved = userBuys.filter((e) => e.status === 'approved')
+  const rejected = userBuys.filter((e) => e.status === 'rejected')
+  const in_process = userBuys.filter((e) => e.status === 'in_process')
+
   res.json({
-    admin: db?.admin,
-    nftData,
+    userData: db,
     staticDashData: {
       sellerCoins: sum,
       buyerCoins: filteredBuyerCoins,
       sellerSales: filteredSeller.length,
       buyerDates: filteredBuyerDates,
+    },
+    userSells: {
+      approved: approved.length,
+      rejected: rejected.length,
+      in_process: in_process.length,
     },
   })
 }
