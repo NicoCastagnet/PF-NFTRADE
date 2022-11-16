@@ -59,7 +59,7 @@ const NotifyResponsive: React.FC<NotyfiResponsiveProps> = ({
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                   >
-                    <div className="absolute top-0 left-14 -ml-8 flex pt-4 pr-2 sm:-ml-10 sm:pr-4 bg-gray-200 dark:bg-[#202225] z-50 w-full py-5">
+                    <div className="absolute top-0 left-14 -ml-14 pl-4 flex pt-4 pr-2 sm:-ml-10 sm:pr-4 bg-gray-200 dark:bg-[#202225] z-50 w-full py-5">
                       <button
                         type="button"
                         className="rounded-md text-black dark:text-gray-300 hover:text-red-500 dark:hover:text-red-500 transition-all focus:outline-none"
