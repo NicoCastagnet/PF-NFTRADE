@@ -91,11 +91,13 @@ const NotifyResponsive: React.FC<NotyfiResponsiveProps> = ({
                         <div
                           className={`overflow-auto divide-y divide-gray-800 dark:divide-gray-700  ${styles.scrollbar}`}
                         >
-                          {data?.notify.map((el) => (
-                            <>
+                          {data?.notify.map((el, index) => (
+                            <div
+                            key={el.id}
+                            >
                               {el.typeNotify === 'comment' && (
                                 <NotifyComment
-                                  key={el.id}
+                                  key={index}
                                   id={el.id}
                                   nameNft={el.nameNft}
                                   nftId={el.nftId}
@@ -107,7 +109,7 @@ const NotifyResponsive: React.FC<NotyfiResponsiveProps> = ({
                               )}
                               {el.typeNotify === 'Liked' && (
                                 <NotifyLiked
-                                  key={el.id}
+                                  key={index}
                                   id={el.id}
                                   userIdLiked={el.userIdLiked}
                                   nameUserLiked={el.nameUserLiked}
@@ -118,7 +120,7 @@ const NotifyResponsive: React.FC<NotyfiResponsiveProps> = ({
                               )}
                               {el.typeNotify === 'buyNft' && (
                                 <NotifyBuyNft
-                                  key={el.id}
+                                  key={index}
                                   id={el.id}
                                   nftId={el.nftId}
                                   nameNft={el.nameNft}
@@ -132,7 +134,7 @@ const NotifyResponsive: React.FC<NotyfiResponsiveProps> = ({
                               )}
                               {el.typeNotify === 'buy' && (
                                 <NotifyBuyCoins
-                                  key={el.id}
+                                  key={index}
                                   id={el.id}
                                   ordenId={el.ordenId}
                                   coins={el.coins}
@@ -141,7 +143,7 @@ const NotifyResponsive: React.FC<NotyfiResponsiveProps> = ({
                                   creatredAt={el.creatredAt}
                                 />
                               )}
-                            </>
+                            </div>
                           ))}
                         </div>
                       )}
