@@ -10,12 +10,14 @@ import FacebookProvider from 'next-auth/providers/facebook'
 import GoogleProvider from 'next-auth/providers/google'
 import LinkedInProvider from 'next-auth/providers/linkedin'
 import TwitterProvider from 'next-auth/providers/twitter'
-
+import emailProvider from '../emails/emailProviders'
 interface cli {
   clientId: string
   clientSecret: string
 }
-
+// Este archivoooooooooo
+// profiiiiii
+// DALE SIIIII
 export const authOptions: NextAuthOptions = {
   // Adatpter Prisma
   adapter: PrismaAdapter(prisma),
@@ -93,20 +95,24 @@ export const authOptions: NextAuthOptions = {
       //
       return session
     },
-    jwt: async ({ token }) => {
+    jwt: async (params) => {
       // update token
+      console.log('TOKEN EN JWT SIN ESTAR EN LA DB: ', params?.isNewUser)
       const { admin } = await prisma.user.findUnique({
         where: {
-          email: token.email,
+          email: params.token.email,
         },
         select: {
           admin: true,
         },
       })
-      token.admin = admin
+      params.token.admin = admin
       // return final_token
       // console.log('DESDE JWT:', token)
-      return token
+      if (params.isNewUser === true) {
+        emailProvider(params.token.email, params.token.email)
+      }
+      return params.token
     },
   },
 }
