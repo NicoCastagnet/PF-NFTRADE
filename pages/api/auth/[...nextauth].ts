@@ -97,7 +97,6 @@ export const authOptions: NextAuthOptions = {
     },
     jwt: async (params) => {
       // update token
-      console.log('TOKEN EN JWT SIN ESTAR EN LA DB: ', params?.isNewUser)
       const { admin } = await prisma.user.findUnique({
         where: {
           email: params.token.email,
@@ -107,8 +106,6 @@ export const authOptions: NextAuthOptions = {
         },
       })
       params.token.admin = admin
-      // return final_token
-      // console.log('DESDE JWT:', token)
       if (params.isNewUser === true) {
         emailProvider(params.token.email, params.token.email)
       }

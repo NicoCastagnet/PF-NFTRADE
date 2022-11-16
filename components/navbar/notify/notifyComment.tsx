@@ -31,17 +31,15 @@ const NotifyComment = ({
             view ? 'hidden' : ''
           } flex flex-row justify-between items-start`}
         >
-          <div className="px-1 w-full flex flex-col justify-center items-center">
+          <div className="px-1 w-full flex flex-col justify-center items-center mb-2">
             <div className="text-gray-500 text-sm dark:text-gray-400">
-              El usuario
               <span className="font-semibold text-gray-900 dark:text-white">
-                {` ${nameUserComment}`}
+                {`${nameUserComment}`}
               </span>
-              &nbsp;{`te a dejado un comentario en el nft `}
+              &nbsp;{`left you a comment in the nft`}
               <span className="font-semibold text-gray-900 dark:text-white">
-                &nbsp;{`${nameNft}`}
+                &nbsp;{`${nameNft}.`}
               </span>
-              &nbsp;{` en tu pocesion`}
             </div>
             <div className="flex justify-center ite w-full text-xs text-blue-600 dark:text-blue-500">
               <ReactTimeAgo date={createdAt as Date} format={'twitter'} />

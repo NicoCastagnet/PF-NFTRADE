@@ -1,10 +1,6 @@
 import nodemailer from 'nodemailer'
 
 export default async function emailProvider(user: string, email: string) {
-  console.log(user, email)
-  console.log(
-    'email sended AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
-  )
   const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 465,
