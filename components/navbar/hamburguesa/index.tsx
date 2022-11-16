@@ -16,10 +16,8 @@ import fetcher from '@lib/fetcher'
 import useSWR from 'swr'
 import { useCart } from '@context/cart'
 
-
-
 const Hamburguesa = () => {
-  const {cart} = useCart()
+  const { cart } = useCart()
 
   const [hamburguer, setHamburguer] = useState(false)
   const { session, coins } = useCoins()

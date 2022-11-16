@@ -13,7 +13,6 @@ import NotifyLiked from './notifyLiked'
 import styles from '../../../styles/form.module.css'
 import { useCart } from '@context/cart'
 
-
 interface NotyfiResponsiveProps {
   isOpen: boolean
   handleClose: (isOpen: boolean) => void
@@ -25,7 +24,6 @@ const NotifyResponsive: React.FC<NotyfiResponsiveProps> = ({
   handleClose,
   data,
 }) => {
-
   return (
     <Transition.Root show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={handleClose}>
@@ -92,10 +90,11 @@ const NotifyResponsive: React.FC<NotyfiResponsiveProps> = ({
                           no tenes Notificaciones por leer!
                         </div>
                       ) : (
-                        <div className={`overflow-auto divide-y divide-gray-800 dark:divide-gray-700  ${styles.scrollbar}`}>
-                          
-                            {data?.notify.map((el) => (
-                              <>
+                        <div
+                          className={`overflow-auto divide-y divide-gray-800 dark:divide-gray-700  ${styles.scrollbar}`}
+                        >
+                          {data?.notify.map((el) => (
+                            <>
                               {el.typeNotify === 'comment' && (
                                 <NotifyComment
                                   key={el.id}
@@ -145,8 +144,7 @@ const NotifyResponsive: React.FC<NotyfiResponsiveProps> = ({
                                 />
                               )}
                             </>
-                            ))}
-                            
+                          ))}
                         </div>
                       )}
                     </div>
