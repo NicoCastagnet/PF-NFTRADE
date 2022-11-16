@@ -14,7 +14,7 @@ import NotifyLiked from './notifyLiked'
 const Notificaciones = () => {
   const { data: session } = useSession()
   const URL = `/api/notificaciones?user=${session?.user.id}`
-  const { data } = useSWR(URL, fetcher, { refreshInterval: 1000 })
+  const { data } = useSWR(URL, fetcher)
 
   return (
     <section
