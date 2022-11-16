@@ -51,7 +51,7 @@ const Notificaciones = () => {
           >
             {data?.notify.length ? (
               data?.notify.map((el) => (
-                <>
+                <div key={el.id}>
                   {el.typeNotify === 'comment' && (
                     <NotifyComment
                       key={el.id}
@@ -100,7 +100,7 @@ const Notificaciones = () => {
                       creatredAt={el.creatredAt}
                     />
                   )}
-                </>
+                </div>
               ))
             ) : (
               <div className="flex justify-center items-center w-full py-4 px-8">
