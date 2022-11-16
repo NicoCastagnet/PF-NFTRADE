@@ -54,7 +54,7 @@ export default async function payDescription(
               userId: payment.data.additional_info.items[0].id as string,
               coins: Number(totalCoin),
               status: payment.data.status as string,
-              amount: Number(totalAmount),
+              amount: Number(totalAmount).toFixed(2),
             },
           })
 
