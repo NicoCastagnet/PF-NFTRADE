@@ -17,8 +17,6 @@ export default async function getIsAdmin(
       },
     })
 
-    console.log(user)
-
     if (user?.admin === true) {
       res.status(200).send(true)
     } else {

@@ -44,6 +44,7 @@ const Marketplace: NextPage<HomeProps> = () => {
             nfts.map((el) => {
               return (
                 <Card
+                  nft={el}
                   key={el.id}
                   id={el.id}
                   carSize={carSize}

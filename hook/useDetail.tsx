@@ -62,7 +62,7 @@ const useDetail = (nft: NftDetailResponse, view = false) => {
       id: nft?.id,
       collectionId: nft?.collectionId,
     }),
-      router.push(`/`)
+      router.push(`/marketplace`)
   }
 
   async function handlePublished(boolean: boolean) {

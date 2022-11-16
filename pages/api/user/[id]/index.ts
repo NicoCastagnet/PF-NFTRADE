@@ -11,6 +11,9 @@ export default async function handler(
       where: { id: id as string },
       include: {
         nftsOwned: {
+          where: {
+            erased: false,
+          },
           include: {
             likedBy: true,
             viewedBy: true,
