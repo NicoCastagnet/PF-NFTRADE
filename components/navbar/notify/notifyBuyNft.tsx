@@ -32,18 +32,17 @@ const NotifyBuyNft = ({
             view ? 'hidden' : ''
           } flex flex-row justify-between items-start`}
         >
-          <div className="px-1 w-full flex flex-col justify-center items-center">
+          <div className="px-1 w-full flex flex-col justify-center items-center mb-2">
             <div className="text-gray-500 text-sm dark:text-gray-400">
-              el usuario
               <span className="font-semibold text-gray-900 dark:text-white">
-                {` ${nameComprador}`}
+                {`${nameComprador}`}
               </span>
-              &nbsp;{`te a comprado el nft `}
+              &nbsp;{`bought you the NFT`}
               <span className="font-semibold text-gray-900 dark:text-white">
                 &nbsp;{`${nameNft}`}
               </span>
-              &nbsp;{` que tenias a la venta por el monnto de `}
-              <span className="font-semibold text-gray-900 dark:text-white">{`${coins} Coins`}</span>
+              &nbsp;{`for a total of `}
+              <span className="font-semibold text-gray-900 dark:text-white">{`${coins} coins.`}</span>
             </div>
             <div className="flex justify-center ite w-full text-xs text-blue-600 dark:text-blue-500">
               <ReactTimeAgo date={createdAt as Date} format={'twitter'} />
