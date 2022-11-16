@@ -31,7 +31,6 @@ const getNftsCreated = async ({ id }: { id: string }): Promise<userNfts> => {
         },
       },
     })
-    console.log(user)
     return user
   } catch (e) {
     console.log(e)

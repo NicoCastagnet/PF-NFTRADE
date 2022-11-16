@@ -36,7 +36,6 @@ const getCollectionsOwned = async ({
         },
       },
     })
-    console.log(user)
     return user
   } catch (e) {
     console.log(e)
