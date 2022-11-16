@@ -1,3 +1,4 @@
+import CartSide from '@components/cart'
 import SvgBell from '@components/icons/svgBell'
 import SvgCart from '@components/icons/svgCart'
 import SvgCoin from '@components/icons/svgCoin'
@@ -5,14 +6,25 @@ import SvgLogin from '@components/icons/svgLogin'
 import SvgLogOut from '@components/icons/svgLogOut'
 import SvgMarket from '@components/icons/svgMarket'
 import SearchIcon from '@components/icons/svgSearch'
-import { signOut, useSession } from 'next-auth/react'
+import { useCart } from '@context/cart'
+import fetcher from '@lib/fetcher'
+import useCoins from 'hook/useCoins'
+import { signOut } from 'next-auth/react'
 import Link from 'next/link'
 import { useState } from 'react'
 import { VscSignIn } from 'react-icons/vsc'
+import useSWR from 'swr'
+import NotifyResponsive from '../notify/notifyResponsive'
 
 const Hamburguesa = () => {
+  const { cart } = useCart()
+
   const [hamburguer, setHamburguer] = useState(false)
-  const { data: session } = useSession()
+  const { session, coins } = useCoins()
+  const [open, setOpen] = useState(false)
+  const [openNotify, setOpenNotify] = useState(false)
+  const URL = `/api/notificaciones?user=${session?.user.id}`
+  const { data } = useSWR(URL, fetcher, { refreshInterval: 1000 })
 
   return (
     <>
@@ -51,44 +63,61 @@ const Hamburguesa = () => {
               </div>
             )}
             {session && (
-              <Link href={'#'}>
+              <Link href={'/buy'}>
                 <a>
-                  <li className="flex flex-row justify-satart items-center gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6">
+                  <li
+                    key={'1'}
+                    className="flex flex-row justify-satart items-center gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6"
+                  >
                     <span>
                       <SvgCoin width={'28'} height={'28'} />
                     </span>
-                    1.687,25 coins
+                    {coins && coins.toLocaleString('es-AR')} Coins
                   </li>
                 </a>
               </Link>
             )}
-            <Link href={'#'}>
-              <a>
-                <li className="flex flex-row justify-start items-center gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6">
-                  <span>
-                    <SvgCart width={'28'} height={'28'} />
-                  </span>
-                  <span>0</span>
-                  Cart
-                </li>
-              </a>
-            </Link>
+            <>
+              <li
+                key={'2'}
+                onClick={() => setOpen(!open)}
+                className="flex flex-row justify-start items-center gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6"
+              >
+                <span>
+                  <SvgCart width={'28'} height={'28'} />
+                </span>
+                <span>{cart?.length}</span>
+                Cart
+              </li>
+              <CartSide isOpen={open} handleClose={setOpen} />
+            </>
+
             {session && (
-              <Link href={'#'}>
-                <a>
-                  <li className="flex flex-row justify-start items-center gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6">
-                    <span>
-                      <SvgBell width={'28'} height={'28'} />
-                    </span>
-                    <span>0</span>
-                    Notifications
-                  </li>
-                </a>
-              </Link>
+              <>
+                <li
+                  key={'3'}
+                  onClick={() => setOpenNotify(!openNotify)}
+                  className="flex flex-row justify-start items-center gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6"
+                >
+                  <span>
+                    <SvgBell width={'28'} height={'28'} />
+                  </span>
+                  <span>{data?.total}</span>
+                  Notifications
+                </li>
+                <NotifyResponsive
+                  isOpen={openNotify}
+                  handleClose={setOpenNotify}
+                  data={data}
+                />
+              </>
             )}
             <Link href={'#'}>
               <a>
-                <li className="flex flex-row justify-start items-center pl-8 gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6">
+                <li
+                  key={'4'}
+                  className="flex flex-row justify-start items-center pl-8 gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6"
+                >
                   <span className="pr-6">
                     <SearchIcon width={'28'} height={'28'} />{' '}
                   </span>
@@ -98,7 +127,10 @@ const Hamburguesa = () => {
             </Link>
             <Link href={'/marketplace'}>
               <a>
-                <li className="flex flex-row justify-start items-center pl-8 gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6">
+                <li
+                  key={'5'}
+                  className="flex flex-row justify-start items-center pl-8 gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6"
+                >
                   <span className="pr-6">
                     <SvgMarket width={'28'} height={'28'} />{' '}
                   </span>
@@ -110,7 +142,10 @@ const Hamburguesa = () => {
           <ul className="absolute text-gray-300 bottom-24 text-2xl w-full flex flex-col items-start px-4">
             {!session && (
               <div className="w-full">
-                <li className="flex flex-row justify-start items-center pl-8 gap-4 py-2 w-full px-6">
+                <li
+                  key={'6'}
+                  className="flex flex-row justify-start items-center pl-8 gap-4 py-2 w-full px-6"
+                >
                   <Link href={'/login'}>
                     <a>
                       <span className="flex w-full justify-center items-center bg-gray-500 hover:bg-gray-800 dark:bg-[#3b3d41] hover:dark:bg-[#3b3d41] py-2 rounded-xl">
@@ -120,7 +155,10 @@ const Hamburguesa = () => {
                     </a>
                   </Link>
                 </li>
-                <li className="flex flex-row justify-start items-center pl-8 gap-4 py-2 w-full px-6">
+                <li
+                  key={'7'}
+                  className="flex flex-row justify-start items-center pl-8 gap-4 py-2 w-full px-6"
+                >
                   <Link href={'/register'}>
                     <a>
                       <span className="flex w-full justify-center items-center bg-gray-500 hover:bg-gray-800 dark:bg-[#3b3d41] hover:dark:bg-[#3b3d41] py-2 rounded-xl">
@@ -133,7 +171,10 @@ const Hamburguesa = () => {
               </div>
             )}
             {session && (
-              <li className="flex flex-row justify-start items-center pl-8 gap-4 py-2 w-full px-6">
+              <li
+                key={'8'}
+                className="flex flex-row justify-start items-center pl-8 gap-4 py-2 w-full px-6"
+              >
                 <SvgLogOut width={'28'} height={'28'} />
                 <span
                   onClick={() => signOut()}

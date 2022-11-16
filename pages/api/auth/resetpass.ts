@@ -13,8 +13,6 @@ export default async function handle(
   if (req.method === 'PUT') {
     if (req.body.email) {
       try {
-        console.log('entró al hasheo')
-        console.log(req.body.email)
         const flag = await prisma.user.findUnique({
           where: {
             email: req.body.email as string,
@@ -24,8 +22,6 @@ export default async function handle(
             passwordHash: true,
           },
         })
-        console.log(flag?.name)
-        console.log(flag?.passwordHash)
         if (flag.name && flag?.passwordHash !== null) {
           let generador = ''
           const characters =

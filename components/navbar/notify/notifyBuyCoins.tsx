@@ -18,24 +18,28 @@ const NotifyBuyCoins = ({ id, orderId, coins, amount, status, createdAt }) => {
     >
       <a>
         <div
+          key={id}
           className={`${
             view ? 'hidden' : ''
-          } flex flex-row justify-between items-start`}
+          } flex flex-row justify-between items-start mt-2`}
         >
-          <div className="px-1 w-full flex flex-col justify-center items-center">
+          <div className="px-1 w-full flex flex-col justify-center items-center mb-2">
             <div className="text-gray-500 text-sm dark:text-gray-400">
-              Has realizado una compra de
+              You bought
               <span className="font-semibold text-gray-900 dark:text-white">
-                {` ${coins} Coins `}
+                {` ${coins} coins `}
               </span>
-              &nbsp;{`por el monto de `}
+              &nbsp;{`for a total value of `}
               <span className="font-semibold text-gray-900 dark:text-white">
-                &nbsp;{`$${amount}`}
+                &nbsp;{`$${amount}.`}
               </span>
-              &nbsp;{`, que se han sumado en tu billetera`}
             </div>
             <div className="flex justify-center ite w-full text-xs text-blue-600 dark:text-blue-500">
-              <ReactTimeAgo date={createdAt as Date} format={'twitter'} />
+              <ReactTimeAgo
+                date={Date.parse(createdAt)}
+                locale={'en-US'}
+                format={'twitter'}
+              />
             </div>
           </div>
           <div className=" px-[2px] flex justify-start items-start h-full">

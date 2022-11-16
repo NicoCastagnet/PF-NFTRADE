@@ -54,7 +54,7 @@ export default async function payDescription(
               userId: payment.data.additional_info.items[0].id as string,
               coins: Number(totalCoin),
               status: payment.data.status as string,
-              amount: Number(totalAmount),
+              amount: Number(totalAmount).toFixed(2),
             },
           })
 
@@ -84,12 +84,10 @@ export default async function payDescription(
                 text: 'The coins were loaded succesfully.',
                 data: user,
               }
-              console.log('APROBADOOOOOOOOOOOOOOOOOO:', data.userId)
               sendMail(req, res, data.userId as string, 'buy Coins')
               res.status(205).json(msg)
             }
           } else {
-            console.log('RECHAZOOOOOOOOOO:', data.userId)
             sendMail(req, res, data.userId as string, 'buy Rejected')
           }
           res.status(200).send('recived')

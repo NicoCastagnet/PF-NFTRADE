@@ -35,7 +35,7 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
     deleteNft,
     handlePublished,
     putPrice,
-  } = useDetail(nft)
+  } = useDetail(nft, true)
 
   console.log(subState)
 
@@ -234,7 +234,7 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                       <SvgLoading className="w-[40px] h-[40px]" />
                     </div>
                   ) : subState.published === false ? (
-                    <div className="flex w-full">
+                    <div className="flex w-full mb-2">
                       <button
                         onClick={() => handlePublished(true)}
                         className="text-xl bg-white hover:bg-gray-300 text-gray-600 dark:text-gray-400 dark:bg-[#303339] dark:hover:bg-[#393b41] hover:drop-shadow-lg transition-all w-full py-4 rounded-xl"
@@ -268,7 +268,7 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                   </div>
                 ) : nft?.collectionId ? (
                   <Link href={`/collections/${nft?.collectionId}`}>
-                    <button className="text-xl bg-white hover:bg-gray-300 text-gray-600 dark:text-gray-400 dark:bg-[#303339] dark:hover:bg-[#393b41] hover:drop-shadow-lg transition-all w-full py-3 px-20 rounded-xl mr-2">
+                    <button className="text-xl bg-white hover:bg-gray-300 text-gray-600 dark:text-gray-400 dark:bg-[#303339] dark:hover:bg-[#393b41] hover:drop-shadow-lg transition-all w-full py-3  rounded-xl mr-2 h-14 mb-3">
                       Go to collection
                     </button>
                   </Link>
@@ -293,7 +293,9 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                 {session?.user.id !== nft?.owner.id &&
                   subState.published === true && (
                     <Link href={'#'}>
+
                       <button className="text-xl w-[50%] text-white bg-blue-600 hover:bg-blue-500 hover:drop-shadow-lg transition-all py-3 px-2 mx-2 rounded-xl">
+
                         Buy now
                       </button>
                     </Link>

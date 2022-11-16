@@ -17,7 +17,6 @@ export default async function updateNft(
           erased: boolean,
         },
       })
-      console.log(user)
       const msg = {
         text: 'The NFT was successfully updated.',
         data: user,

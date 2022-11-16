@@ -9,7 +9,6 @@ export default async function postCollection(
   if (req.method === 'POST') {
     const { name, image, description, discount, price, creatorId, nftsId } =
       req.body
-    console.log(req.body)
     if (!name || !discount || !creatorId) {
       res.status(400).send('Missing data.')
     } else {
@@ -30,9 +29,6 @@ export default async function postCollection(
           },
         },
       })
-
-      console.log(collection)
-
       res.status(201).json(collection)
     }
   }

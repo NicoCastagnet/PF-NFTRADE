@@ -22,7 +22,6 @@ export default async function postLike(
           message: 'nft actualizado',
           data: nft,
         }
-        console.log(nft)
         res.status(200).send(msg)
       }
 
@@ -35,7 +34,6 @@ export default async function postLike(
             id: { in: nftsId as string },
           },
         })
-        console.log(nfts)
         const msg = {
           message: 'nfts actualizados',
           data: nfts,

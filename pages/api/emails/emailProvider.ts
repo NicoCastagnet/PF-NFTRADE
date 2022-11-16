@@ -1,18 +1,6 @@
-import prisma from '@lib/db'
 import nodemailer from 'nodemailer'
 
-export default async function mailSend(email: string, pass: string) {
-  const mail = await prisma.user.findUniqueOrThrow({
-    where: {
-      email: email as string,
-    },
-    select: {
-      email: true,
-      name: true,
-      passwordHash: true,
-    },
-  })
-
+export default async function emailProvider(user: string, email: string) {
   const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 465,
@@ -24,10 +12,9 @@ export default async function mailSend(email: string, pass: string) {
   })
   const mailOptions = {
     from: 'NFTrade',
-    to: mail.email as string,
-    subject: 'Recuperación de contraseña',
-
-    text: `${mail.name} esta es tu nueva contraseña: ${pass}`,
+    to: email as string,
+    subject: 'BIENVENID@!',
+    text: `Hola! ${user}, te damos la bienvenida a nuestra página NFTrade! Esperamos que disfrutes el recorrido por ella. Un saludo de parte de todo el equipo!`,
   }
   transporter.sendMail(mailOptions, (Error, info) => {
     if (Error) {

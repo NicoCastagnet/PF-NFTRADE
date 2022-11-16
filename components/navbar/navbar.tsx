@@ -7,11 +7,11 @@ import SvgChevronDown from '@components/icons/svgChevronDown'
 import SvgCoin from '@components/icons/svgCoin'
 import SvgUser from '@components/icons/svgUser'
 import Search from '@components/search'
+import { useCart } from '@context/cart'
 import useCoins from 'hook/useCoins'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
-import { useOpenMenu } from '../../hook/openCartMenu'
 import Hamburguesa from './hamburguesa'
 import Logo from './logo'
 import Notificaciones from './notify/notificaciones'
@@ -20,7 +20,8 @@ import UserMenuNavBar from './user'
 export default function NavBar() {
   const [menu, setMen] = useState(false)
   const { session, coins } = useCoins()
-  const { open, setOpen } = useOpenMenu()
+  const [open, setOpen] = useState(false)
+  const { cart } = useCart()
 
   return (
     <nav className="navbar__nav bg-slate-900 dark:bg-[#202225] h-20 w-full flex flex-row text-center items-center justify-center fixed top-0 z-10 px-4">
@@ -63,16 +64,27 @@ export default function NavBar() {
                   height={'25'}
                 />
                 <div className="absolute bg-gray-700 dark:bg-[#303339] w-auto h-11 p-3 top-16 invisible group-hover:visible flex items-center justify-center rounded-lg text-white">
-                  {coins && coins.toLocaleString('es-AR')} Coins
+                  {coins && coins?.toFixed(2).toLocaleString('es-AR')} Coins
                 </div>
               </div>
             )}
-            <SvgCart
-              className="m-3 cursor-pointer hover:text-blue-600 transition-all hover:animate-pulse"
-              width={'25'}
-              height={'25'}
-              onClick={() => setOpen(!open)}
-            />
+            <button onClick={() => setOpen(!open)} className="relative group">
+              {cart.length ? (
+                <>
+                  <span className="h-5 w-6 bg-red-500 rounded-full absolute top-[0.35rem] left-5 border-[3px] border-gray-900 z-10 text-sm text-center flex justify-center items-center pt-1 ">
+                    {cart.length}
+                  </span>
+                  <span className="animate-ping h-5 w-6 bg-red-500 rounded-full inline-flex absolute top-[0.35rem] left-5 z-10"></span>
+                </>
+              ) : (
+                ''
+              )}
+              <SvgCart
+                className="m-3 hover:text-blue-600 transition-all hover:animate-pulse"
+                width={'25'}
+                height={'25'}
+              />
+            </button>
             {session && <Notificaciones />}
             <button
               id="dropdownInformationButton"

@@ -73,7 +73,7 @@ const UserMenuNavBar = ({ menu }: { menu: boolean }) => {
               }}
             >
               <Link href="#">
-                <a>Sign out</a>
+                <a>Log out</a>
               </Link>
             </div>
           </div>

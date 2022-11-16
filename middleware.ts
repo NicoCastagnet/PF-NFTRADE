@@ -8,10 +8,10 @@ export default withAuth(
   {
     callbacks: {
       authorized({ token }) {
-        return token !== null
+        return token?.email !== undefined
       },
     },
   },
 )
 
-export const config = { matcher: ['/buy', '/nfts/create '] }
+export const config = { matcher: ['/buy', '/nfts/create', '/dashboard'] }

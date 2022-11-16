@@ -20,7 +20,6 @@ export default async function updateNft(
           },
         },
       })
-      console.log(collection)
       const msg = {
         text: 'The NFT was successfully updated.',
         data: collection,

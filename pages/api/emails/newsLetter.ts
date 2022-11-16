@@ -8,7 +8,6 @@ export default async function mailSend(
   // id: string,
 ) {
   const { id } = req.body
-  console.log(id)
   const mail = await prisma.user.findUniqueOrThrow({
     where: {
       id: id.toString(),

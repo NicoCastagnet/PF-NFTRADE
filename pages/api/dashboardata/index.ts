@@ -11,11 +11,23 @@ export default async function handler(
 ) {
   const { user } = req.query
 
-  const coinsData = await prisma.buys.findMany({
+  const db = await prisma.user.findUnique({
+    where: {
+      id: user as string,
+    },
     select: {
-      buyId: true,
+      admin: true,
+      coins: true,
+    },
+  })
+
+  const coinsData = await prisma.notify.findMany({
+    where: {
+      typeNotify: 'buy',
+    },
+    select: {
+      ordenId: true,
       userId: true,
-      date: true,
       coins: true,
       status: true,
       amount: true,
@@ -23,9 +35,12 @@ export default async function handler(
     },
   })
 
-  const nftData = await prisma.buyNfts.findMany({
+  const nftData = await prisma.notify.findMany({
+    where: {
+      typeNotify: 'buyNft',
+    },
     select: {
-      nftsId: true,
+      nftId: true,
       compradorId: true,
       vendedorId: true,
       coins: true,
@@ -43,14 +58,23 @@ export default async function handler(
   const filteredBuyerDates = filteredBuyer.map((e) => e.createdAt)
   const filteredBuyerCoins = filteredBuyer.map((e) => e.coins)
 
+  const userBuys = coinsData.filter((e) => e.userId === user)
+  const approved = userBuys.filter((e) => e.status === 'approved')
+  const rejected = userBuys.filter((e) => e.status === 'rejected')
+  const in_process = userBuys.filter((e) => e.status === 'in_process')
+
   res.json({
-    coinsData,
-    nftData,
+    userData: db,
     staticDashData: {
       sellerCoins: sum,
       buyerCoins: filteredBuyerCoins,
       sellerSales: filteredSeller.length,
       buyerDates: filteredBuyerDates,
+    },
+    userSells: {
+      approved: approved.length,
+      rejected: rejected.length,
+      in_process: in_process.length,
     },
   })
 }
