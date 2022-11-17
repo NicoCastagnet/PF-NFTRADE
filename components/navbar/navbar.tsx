@@ -38,10 +38,10 @@ export default function NavBar() {
         <CartSide isOpen={open} handleClose={setOpen} />
         <div className="max-md:hidden flex justify-end items-center w-full">
           <div className="navbar__buttons flex items-center text-white">
-            <div className="flex max-xl:hidden ease duration-150 justify-between w-[165px]">
+            <div className="flex max-xl:hidden ease duration-150 justify-between">
               <Link href={'/collectionmarket'} shallow>
                 <a>
-                  <p className="relative group cursor-pointer mr-2">
+                  <p className="relative group cursor-pointer mr-4">
                     <span className="font-semibold">Collections</span>
                     <span className="absolute -bottom-0 left-0 w-0 h-1 bg-blue-600 transition-all group-hover:w-full"></span>
                   </p>
