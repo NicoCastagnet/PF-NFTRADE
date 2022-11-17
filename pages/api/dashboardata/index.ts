@@ -11,16 +11,17 @@ export default async function handler(
 ) {
   const { user } = req.query
 
-  const db = await prisma.user.findUnique({
-    where: {
-      id: user as string,
-    },
-    select: {
-      admin: true,
-      coins: true,
-    },
-  })
-
+  // if (user) {
+  //   const db = await prisma.user.findUnique({
+  //     where: {
+  //       id: user as string,
+  //     },
+  //     select: {
+  //       admin: true,
+  //       coins: true,
+  //     },
+  //   })
+  // }
   const coinsData = await prisma.notify.findMany({
     where: {
       typeNotify: 'buy',
@@ -116,7 +117,7 @@ export default async function handler(
 
   res.json({
     userNfts: userNFTS,
-    userData: db,
+    // userData: user ? db : null,
     staticDashData: {
       sellerCoins: sum,
       buyerCoins: filteredBuyerCoins,

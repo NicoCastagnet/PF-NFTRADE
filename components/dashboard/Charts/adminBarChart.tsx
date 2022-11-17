@@ -2,6 +2,7 @@
 // @ts-nocheck
 
 import SvgLoading from '@components/icons/svgLoading'
+import fetcher from '@lib/fetcher'
 import {
   CategoryScale,
   Chart as ChartJS,
@@ -14,6 +15,7 @@ import {
   Tooltip,
 } from 'chart.js'
 import { Line } from 'react-chartjs-2'
+import useSWR from 'swr'
 
 ChartJS.register(
   CategoryScale,
@@ -26,24 +28,29 @@ ChartJS.register(
   Filler,
 )
 
-const AdminBarChart = ({ userData }: { userData: any }) => {
-  let dates = userData?.staticDashData.buyerDates
+const AdminBarChart = () => {
+  const { data: totalSales } = useSWR(`/api/dashboardata`, fetcher)
 
-  dates = dates?.map((e: any) => {
-    const d = new Date(e)
-    return `${d.getDate()}/${
-      d.getMonth() + 1
-    }/${d.getFullYear()} - ${d.getHours()}:${d.getMinutes()}`
-  })
+  const dates = totalSales?.adminSellerDate.map((e) => e.createdAt)
+  const chartData2 = totalSales?.adminSellerDate.map((e) => e.coins)
 
   const chartData = {
     labels: dates,
     datasets: [
       {
         label: 'Total sales',
-        data: userData?.staticDashData.buyerCoins,
+        data: chartData2,
         tension: 0.3,
         borderColor: 'rgba(70, 203, 255, 0.5)',
+        backgroundColor: 'rgba(0, 0, 0, 0.3)',
+        borderWidth: 2,
+        pointRadius: 6,
+      },
+      {
+        label: 'Total spent coins',
+        data: [1000, 2000, 3000, 4000],
+        tension: 0.3,
+        borderColor: 'rgba(255, 255, 69, 0.5)',
         backgroundColor: 'rgba(0, 0, 0, 0.3)',
         borderWidth: 2,
         pointRadius: 6,
