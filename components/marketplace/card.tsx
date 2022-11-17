@@ -30,11 +30,11 @@ const Card = ({
       <div
         className={` ${
           carSize === 'bigger'
-            ? 'h-[32.5rem] w-[22rem] overflow-hidden'
+            ? 'sm:h-[32.5rem] sm:w-[22rem] w-[90%] overflow-hidden'
             : carSize === 'small'
-            ? 'h-[27.5rem] w-[18rem] overflow-hidden'
+            ? 'sm:h-[27.5rem] sm:w-[18rem] w-[90%] overflow-hidden '
             : ''
-        }  relative flex flex-col rounded-xl overflow-auto p-[1px] cursor-pointer group drop-shadow-lg`}
+        }  relative flex flex-col rounded-xl overflow-hidden p-[1px] cursor-pointer group drop-shadow-lg`}
       >
         {session?.user ? (
           <span
@@ -66,13 +66,13 @@ const Card = ({
             <div
               className={` ${
                 carSize === 'bigger'
-                  ? 'h-[32.5rem] w-[22rem] overflow-hidden'
+                  ? 'sm:h-[32.5rem] sm:w-[22rem] w-full overflow-hidden'
                   : carSize === 'small'
-                  ? 'h-[27.5rem] w-[18rem] overflow-hidden'
+                  ? 'sm:h-[27.5rem] sm:w-[18rem] w-full overflow-hidden'
                   : ''
               }  relative flex flex-col bg-white dark:bg-[#303339] rounded-xl overflow-auto p-[1px] cursor-pointer group`}
             >
-              <div className="rounded-xl border-spacing-2 h-[20rem]">
+              <div className="rounded-xl border-spacing-2 sm:h-[20rem]">
                 <Image
                   src={image}
                   height={carSize === 'small' ? 350 : 370}

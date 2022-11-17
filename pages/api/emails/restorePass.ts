@@ -19,15 +19,16 @@ export default async function mailSend(email: string, pass: string) {
     secure: true,
     auth: {
       user: 'nftrade2022@gmail.com',
-      pass: 'kgpcugakgejfmhhi',
+      pass: 'brrlzontwvkikdzr',
     },
   })
   const mailOptions = {
     from: 'NFTrade',
     to: mail.email as string,
-    subject: 'Recuperación de contraseña',
-
-    text: `${mail.name} esta es tu nueva contraseña: ${pass}`,
+    subject: 'Restore password',
+    html: `
+    <h1>Hi, ${mail.name}.This is your new password: ${pass}. Dont share it whit anyone! ;) </h1>
+    `,
   }
   transporter.sendMail(mailOptions, (Error, info) => {
     if (Error) {

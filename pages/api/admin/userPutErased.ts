@@ -22,6 +22,7 @@ export default async function updateNft(
         data: user,
       }
       res.status(205).json(msg)
+      console.log(user)
     }
   } catch (e: any) {
     console.log(e.message)

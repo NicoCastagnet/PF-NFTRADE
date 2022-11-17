@@ -6,6 +6,9 @@ export default async function emailNft(
   res: NextApiResponse,
   userId: string,
   nftId: string,
+  sellerOrBuyer: string,
+  price: string,
+  date: string,
   reason: string,
 ) {
   if (reason === 'comprador') {
@@ -14,6 +17,7 @@ export default async function emailNft(
       select: {
         name: true,
         ownerId: true,
+        image: true,
       },
     })
 
@@ -30,14 +34,22 @@ export default async function emailNft(
       secure: true,
       auth: {
         user: 'nftrade2022@gmail.com',
-        pass: 'kgpcugakgejfmhhi',
+        pass: 'brrlzontwvkikdzr',
       },
     })
     const mailOptions = {
       from: 'NFTrade',
       to: user?.email as string,
       subject: 'Compra de NFT',
-      text: `¡La compra ha sido realizada con éxito! Ahora tú eres el poseedor del nft ${info?.name} Esperamos que disfrutes tu recorrido por la app. Un saludo, NFTrade!`,
+      html: `
+      <p> ${date} </p>
+      <h1>THE NFT WAS SUCCESFULLY BUYED</h1>
+      <div style="background-color:#e5e7eb; width: 40%; text-align: center;"> 
+        <h3 style=>Congratulations! the buy to ${sellerOrBuyer} was concreted succesfully. Now you are the owner of ${info?.name}, for ${price} coins! </h3>
+        <img width="300px" height="300px" src=${info?.image}  alt="nft"/>
+      </div>
+      <h3>Thanks for the purchased, enjoy your journey in the application!</h3>
+      `,
     }
 
     transporter.sendMail(mailOptions, (Error, info) => {
@@ -62,13 +74,19 @@ export default async function emailNft(
         email: true,
       },
     })
+    const buyer = await prisma.user.findUnique({
+      where: { id: sellerOrBuyer },
+      select: {
+        name: true,
+      },
+    })
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 465,
       secure: true,
       auth: {
         user: 'nftrade2022@gmail.com',
-        pass: 'kgpcugakgejfmhhi',
+        pass: 'brrlzontwvkikdzr',
       },
     })
 
@@ -76,7 +94,15 @@ export default async function emailNft(
       from: 'NFTrade',
       to: user?.email as string,
       subject: 'Venta de NFT',
-      text: `¡La venta de ${info?.name} ha sido realizada con éxito! Esperamos que disfrutes tu recorrido por la app. Un saludo, NFTrade!`,
+      html: `
+      <p> ${date} </p>
+      <h1>THE NFT WAS SUCCESFULLY BUYED</h1>
+      <div style="background-color:#e5e7eb; width: 40%; text-align: center;"> 
+        <h3 style=>Congratulations! the sale to ${buyer?.name} was concreted succesfully. Now the owner of ${info?.name} is ${buyer?.name}, for the amount of ${price} coins! </h3>
+      </div>
+      <h2> The amount of coins will be added to your account soon! </h2>
+      <h3>Thanks for the purchased, enjoy your journey in the application!</h3>
+      `,
     }
 
     transporter.sendMail(mailOptions, (Error, info) => {
