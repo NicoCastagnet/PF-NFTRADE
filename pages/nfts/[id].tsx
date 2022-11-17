@@ -42,7 +42,7 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
   return (
     <div className="bg-gray-200 dark:bg-[#202225] flex flex-col items-center justify-around w-full min-h-screen transition-all">
       <NavBar />
-      <div className="flex flex-col justify-center items-center mt-[120px] bg-red-400 ">
+      <div className="flex flex-col justify-center items-center mt-[120px] ">
         <div
           className={`${
             subState.deleteWarning === true
