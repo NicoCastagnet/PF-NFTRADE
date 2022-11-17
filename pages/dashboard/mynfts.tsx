@@ -16,6 +16,8 @@ const MyNFTS: NextPage = () => {
   const { data: session } = useSession()
   const { data } = useSWR(`/api/user/${session?.user.id}`, fetcher)
 
+  console.log(data)
+
   return (
     <section className="dashboard__home flex bg-gray-200 dark:bg-[#202225] transition-all">
       <Head>
@@ -40,6 +42,7 @@ const MyNFTS: NextPage = () => {
                     price={e.price}
                     views={e.viewedBy}
                     likes={e.likedBy}
+                    collectionId={e.collectionId}
                   />
                 )
               })}
