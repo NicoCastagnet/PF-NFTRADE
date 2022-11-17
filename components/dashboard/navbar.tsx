@@ -10,7 +10,7 @@ interface Props {
 const NavBar: NextPage<Props> = ({ site }) => {
   return (
     <div className="dashboard__home-nav">
-      <nav className="flex px-5 py-5 bg-gray-200 text-gray-600 dark:text-gray-400 border-b border-b-gray-400 dark:border-b-gray-600 dark:bg-[#202225] transition-all">
+      <nav className="flex px-5 py-5 bg-gray-200 text-gray-600 dark:text-gray-400 border-b border-b-gray-400 dark:border-b-gray-600 dark:bg-[#202225] transition-all fixed z-10 w-full">
         <ol className="inline-flex items-center space-x-1 md:space-x-3">
           <li className="inline-flex items-center">
             <Link href="#">

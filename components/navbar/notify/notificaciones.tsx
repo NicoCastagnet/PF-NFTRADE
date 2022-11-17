@@ -105,9 +105,10 @@ const Notificaciones = () => {
             ) : (
               <div className="flex justify-center items-center w-full py-4 px-8">
                 <div className="text-gray-500 text-sm mb-1.5 dark:text-gray-400">
-                  &nbsp;{session?.user.name || session?.user.username}&nbsp;
+                  {session?.user.name || session?.user.username}
                   <span className="font-semibold text-gray-900 dark:text-white">
-                    &nbsp;{`you don't have any new notifications`}
+                    {' '}
+                    you don&apos;t have any new notifications
                   </span>
                 </div>
                 <div className="text-xs text-blue-600 dark:text-blue-500"></div>

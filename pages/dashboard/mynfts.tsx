@@ -21,7 +21,7 @@ const MyNFTS: NextPage = () => {
       <SideBar />
       <div className="dashboard__home-content w-screen">
         <NavBar site="My NFT's" />
-        <div className="flex justify-center flex-wrap items-center my-10">
+        <div className="flex justify-center flex-wrap items-center my-20">
           {data ? (
             <>
               {data?.nftsOwned.map((e: any) => {
