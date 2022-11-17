@@ -1,7 +1,10 @@
-import CreateCard from '@components/dashboard/createCard'
-import NavBar from '@components/dashboard/navbar'
-import Nfts from '@components/dashboard/nfts'
-import SideBar from '@components/dashboard/sidebar'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
+import CreateCard from '@components/dashboard/Components/createNftCard'
+import NavBar from '@components/dashboard/Components/navbar'
+import Nfts from '@components/dashboard/Components/nftsList'
+import SideBar from '@components/dashboard/Components/sidebar'
 import Loading from '@components/loading'
 import fetcher from '@lib/fetcher'
 import type { NextPage } from 'next'
@@ -12,6 +15,8 @@ import useSWR, { mutate } from 'swr'
 const MyNFTS: NextPage = () => {
   const { data: session } = useSession()
   const { data } = useSWR(`/api/user/${session?.user.id}`, fetcher)
+
+  console.log(data)
 
   return (
     <section className="dashboard__home flex bg-gray-200 dark:bg-[#202225] transition-all">
@@ -37,6 +42,7 @@ const MyNFTS: NextPage = () => {
                     price={e.price}
                     views={e.viewedBy}
                     likes={e.likedBy}
+                    collectionId={e.collectionId}
                   />
                 )
               })}

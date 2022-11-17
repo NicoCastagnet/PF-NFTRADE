@@ -76,7 +76,7 @@ const UserDetail: NextPage<Props> = ({ user }) => {
         file as File,
       )
 
-    const BUCKET_UPLOAD = process.env.NEXT_PUBLIC_BUCKET_UPLOAD as string
+    const BUCKET_UPLOAD = process.env.NEXT_PUBLIC_SUPABASE_UPLOAD as string
     if (!error) {
       setUserDetails({
         ...userDetails,

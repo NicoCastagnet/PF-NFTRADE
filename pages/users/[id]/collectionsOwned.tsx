@@ -45,7 +45,7 @@ const NftsCreated: NextPage<Props> = ({ user }) => {
                 collections.map((el) => (
                   <div
                     key={el.id}
-                    className={`w-[30%] mr-6 mb-6 max-w-[287px] h-[380px] min-w-[194px] overflow-hidden relative flex flex-col bg-slate-900 dark:bg-stone-900 border-[16px] rounded-xl p-[1px] border-slate-900 dark:border-stone-900 cursor-pointer group shadow-lg shadow-zinc-500`}
+                    className={`w-full lg:w-[30%] lg:mr-6 mb-2 lg:mb-6 max-w-[287px] h-[380px] min-w-[194px] overflow-hidden relative flex flex-col bg-slate-900 dark:bg-stone-900 border-[16px] rounded-xl p-[1px] border-slate-900 dark:border-stone-900 cursor-pointer group shadow-lg shadow-zinc-500`}
                   >
                     <Link href={`/collections/${el.id}`} key={el.id}>
                       {/* // h-[35rem] w-[22rem] */}

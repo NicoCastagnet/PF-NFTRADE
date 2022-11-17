@@ -44,7 +44,7 @@ const NftsOwned: NextPage<Props> = ({ user }) => {
                 nfts.map((el) => (
                   <div
                     key={el.id}
-                    className={` w-[30%] mr-10 max-w-[287px] h-[380px] overflow-hidden relative flex flex-col bg-gray-800 rounded-xl p-[1px] border-slate-900 cursor-pointer group  dark:bg-stone-900 dark:border-[1px]   dark:border-gray-400  group shadow-lg shadow-zinc-500`}
+                    className={` w-full lg:w-[30%] lg:mr-6 mb-2 lg:mb-6 max-w-[287px] h-[380px] overflow-hidden relative flex flex-col bg-gray-800 rounded-xl p-[1px] border-slate-900 cursor-pointer group  dark:bg-stone-900 dark:border-[1px]   dark:border-gray-400  group shadow-lg shadow-zinc-500`}
                   >
                     <Link href={`/nfts/${el.id}`} key={el.id}>
                       <a>

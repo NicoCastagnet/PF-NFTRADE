@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import SvgLoading from '@components/icons/svgLoading'
 import fetcher from '@lib/fetcher'
 import {
@@ -24,7 +27,10 @@ ChartJS.register(
 )
 
 const AdminPieChart = () => {
-  const { data: totalSales } = useSWR(`/api/dashboardata/admindata`, fetcher)
+  const { data: totalSales } = useSWR(
+    `/api/dashboardata/adminPanelData`,
+    fetcher,
+  )
 
   const chartData = {
     labels: ['Approved', 'Rejected', 'In process'],

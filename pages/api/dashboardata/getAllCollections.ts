@@ -9,14 +9,14 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<NftsResponse>,
 ) {
-  const nfts = await prisma.nft.findMany({
+  const collections = await prisma.collection.findMany({
     include: {
       owner: true,
-      wishedBy: true,
+      creator: true,
     },
   })
 
   res.json({
-    nfts,
+    collections,
   })
 }

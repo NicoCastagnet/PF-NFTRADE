@@ -3,14 +3,15 @@ import SvgNewTab from '@components/icons/svgNewTab'
 import fetcher from '@lib/fetcher'
 import Image from 'next/image'
 import useSWR from 'swr'
+import Avatar from '@assets/avataricon.png'
 
-const AdminTable = () => {
-  const { data } = useSWR(`/api/dashboardata/getAllNfts`, fetcher)
+const UsersDataTable = () => {
+  const { data } = useSWR(`/api/user`, fetcher)
   return (
     <div className="flex flex-col">
       <div className="overflow-x-auto">
         <div className="w-full inline-block align-middle">
-          <div className="overflow-hidden border border-[#303339] rounded-lg">
+          <div className="overflow-hidden border border-[#303339] rounded-b-lg">
             <table className="min-w-full divide-y divide-[#303339]">
               <thead className="bg-[#303339]">
                 <tr>
@@ -34,43 +35,37 @@ const AdminTable = () => {
                     scope="col"
                     className="px-6 py-3 text-xs font-bold text-left text-gray-400 uppercase"
                   >
-                    Owner
+                    Email
                   </th>
                   <th
                     scope="col"
                     className="px-6 py-3 text-xs font-bold text-center text-gray-400 uppercase"
                   >
-                    Price
+                    Coins
                   </th>
                   <th
                     scope="col"
                     className="px-6 py-3 text-xs font-bold text-center text-gray-400 uppercase"
                   >
-                    Erased
+                    Banned
                   </th>
                   <th
                     scope="col"
                     className="px-6 py-3 text-xs font-bold text-center text-gray-400 uppercase"
                   >
-                    Published
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-xs font-bold text-center text-gray-400 uppercase"
-                  >
-                    See nft
+                    See User
                   </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#303339]">
                 {data ? (
-                  data?.nfts.map((e: any) => (
+                  data?.map((e: any) => (
                     <>
-                      <tr>
+                      <tr key={e.id}>
                         <td className="px-6 pt-2">
                           <div className="border border-[#303339] rounded-full h-10 w-10">
                             <Image
-                              src={e.image}
+                              src={e.image ? e.image : Avatar}
                               alt={'img'}
                               width={40}
                               height={40}
@@ -85,36 +80,17 @@ const AdminTable = () => {
                           {e.name}
                         </td>
                         <td className="px-6 py-4 text-sm text-gray-400 whitespace-nowrap">
-                          {e.owner.name}
+                          {e.email}
                         </td>
                         <td className="px-6 py-4 text-sm text-gray-400 text-center whitespace-nowrap">
-                          {e.price}
+                          {parseInt(e.coins).toLocaleString('es-AR')}
                         </td>
-                        <td className="px-6 py-4 text-sm text-gray-400 text-center whitespace-nowrap">
-                          {e.erased ? (
-                            <span className="text-green-500 cursor-pointer">
-                              Yes
-                            </span>
-                          ) : (
-                            <span className="text-red-500 cursor-pointer">
-                              No
-                            </span>
-                          )}
-                        </td>
-                        <td className="px-6 py-4 text-sm text-gray-400 text-center whitespace-nowrap">
-                          {e.published ? (
-                            <span className="text-green-500 cursor-pointer">
-                              Yes
-                            </span>
-                          ) : (
-                            <span className="text-red-500 cursor-pointer">
-                              No
-                            </span>
-                          )}
+                        <td className="px-6 py-4 text-sm text-green-500 text-center whitespace-nowrap">
+                          Not banned
                         </td>
                         <td className="px-9 py-4 text-sm flex font-medium justify-center whitespace-nowrap">
                           <a
-                            href={`http://localhost:3000/nfts/${e.id}`}
+                            href={`http://localhost:3000/users/${e.id}`}
                             target="_blank"
                             rel="noreferrer"
                           >
@@ -140,4 +116,4 @@ const AdminTable = () => {
   )
 }
 
-export default AdminTable
+export default UsersDataTable

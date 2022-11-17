@@ -45,7 +45,7 @@ const NftsCreated: NextPage<Props> = ({ user }) => {
                 collections.map((el) => (
                   <div
                     key={el.id}
-                    className={`w-[30%] mr-6 mb-6 max-w-[287px] h-[380px] min-w-[194px] overflow-hidden relative flex flex-col bg-slate-900 dark:bg-stone-900 border-[16px] rounded-xl p-[1px] border-slate-900 dark:border-stone-900 cursor-pointer group shadow-lg shadow-zinc-500`}
+                    className={`w-full lg:w-[30%] lg:mr-6 mb-2 lg:mb-6 max-w-[287px] h-[380px] min-w-[194px] overflow-hidden relative flex flex-col bg-slate-900 dark:bg-stone-900 border-[16px] rounded-xl p-[1px] border-slate-900 dark:border-stone-900 cursor-pointer group shadow-lg shadow-zinc-500`}
                   >
                     <Link href={`/collections/${el.id}`} key={el.id}>
                       {/* // h-[35rem] w-[22rem] */}
@@ -91,7 +91,7 @@ const NftsCreated: NextPage<Props> = ({ user }) => {
                 ))}
               <Link href={`/nfts/create`}>
                 <div
-                  className={`w-[30%] max-w-[287px] min-w-[194px] h-[380px] overflow-hidden relative flex flex-col bg-gray-200  dark:border-[1px] rounded-[15px] p-9 dark:border-gray-400 cursor-pointer justify-center shadow-lg group shadow-zinc-500`}
+                  className={`lg:w-[30%] w-full lg:max-w-[287px] lg:min-w-[194px] h-[380px] overflow-hidden relative flex flex-col bg-gray-200  dark:border-[1px] rounded-[15px] p-9 dark:border-gray-400 cursor-pointer justify-center shadow-lg group shadow-zinc-500`}
                 >
                   <div
                     className={` group-hover:scale-[1.1] transition-all duration-500 rounded-[20px] shadow-inner shadow-zinc-600 bg-gray-300 w-full h-full flex justify-center items-center flex-col`}
