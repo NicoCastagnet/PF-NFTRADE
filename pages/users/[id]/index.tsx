@@ -18,8 +18,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ChangeEvent, useEffect, useState } from 'react'
 import type { UserDetailResponse } from 'types/api-responses'
-import defaultAvatar from '/assets/avataricon.png'
-import imagePlaceholder from '/assets/image-placeholder.png'
+import defaultAvatar from '@ssets/avataricon.png'
+import imagePlaceholder from '@ssets/image-placeholder.png'
 
 interface Props {
   user: UserDetailResponse

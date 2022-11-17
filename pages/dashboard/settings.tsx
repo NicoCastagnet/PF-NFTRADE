@@ -6,8 +6,8 @@ import { useSession } from 'next-auth/react'
 import Head from 'next/head'
 import Image from 'next/image'
 import useSWR from 'swr'
-import Default from '../../Assets/avataricon.png'
-import Cover from '../../Assets/Cover.webp'
+import Default from '@ssets/avataricon.png'
+import Cover from '@ssets/Cover.webp'
 
 const Settings: NextPage = () => {
   const { data: session } = useSession()

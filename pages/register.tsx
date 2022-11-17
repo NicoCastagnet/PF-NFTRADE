@@ -15,8 +15,8 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { toast, Toaster } from 'react-hot-toast'
 import { HiAtSymbol, HiFingerPrint, HiOutlineUser } from 'react-icons/hi'
-import darkImage from '../assets/logoDark.png'
-import lightImage from '../assets/logoLight.png'
+import darkImage from '@assets/logoDark.png'
+import lightImage from '@assets/logoLight.png'
 import styles from '../styles/form.module.css'
 
 const SignIn: NextPage = () => {

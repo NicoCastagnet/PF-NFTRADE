@@ -4,7 +4,7 @@ import type { NextPage } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
-import defaultAvatar from '/assets/avataricon.png'
+import defaultAvatar from '@assets/avataricon.png'
 
 interface Nfts {
   price: number

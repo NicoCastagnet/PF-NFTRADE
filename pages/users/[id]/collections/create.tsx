@@ -12,7 +12,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { ChangeEvent, useState } from 'react'
 import type { UserDetailResponse } from 'types/api-responses'
-import imagePlaceholder from '/assets/image-placeholder.png'
+import imagePlaceholder from '@assets/image-placeholder.png'
 
 interface Props {
   user: UserDetailResponse
