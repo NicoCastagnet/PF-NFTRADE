@@ -18,8 +18,12 @@ export default async function mailSend(
     const mailOptions = {
       from: 'NFTrade',
       to: email as string,
-      subject: 'BIENVENID@!',
-      text: `Hola! ${user}, te damos la bienvenida a nuestra página NFTrade! Esperamos que disfrutes el recorrido por ella. Un saludo de parte de todo el equipo!`,
+      subject: 'Welcome@!',
+      html: `
+      <h1>Hi! ${user} :D</h1> 
+      <h3>welcome to NFTrade! We hope you really like our service.</h3> 
+      <p>Don't forget to subscribe to our newsLetter to have constants news! ;)</p>
+      `,
     }
     transporter.sendMail(mailOptions, (Error, info) => {
       if (Error) {

@@ -2,15 +2,16 @@ import prisma from '@lib/db'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import nodemailer from 'nodemailer'
 
-export default async function mailSend(
+export default async function mailSendNews(
   req: NextApiRequest,
   res: NextApiResponse,
-  // id: string,
 ) {
-  const { id } = req.body
+  const { email } = req.query
+  console.log(email)
+
   const mail = await prisma.user.findUniqueOrThrow({
     where: {
-      id: id.toString(),
+      email: email?.toString(),
     },
     select: {
       email: true,
@@ -31,16 +32,13 @@ export default async function mailSend(
     from: 'NFTrade',
     to: mail.email as string,
     subject: 'Novedades',
-    text: `Hay nfts nuevos que han sido publicados en el marketplace, ven a echarles un vistazo!`,
+    text: `Thanks for subscribe to our NewsLetter!`,
   }
   transporter.sendMail(mailOptions, (Error, info) => {
     if (Error) {
       console.log(Error.message)
-      res.status(500).send(Error.message)
     } else {
       console.log('email send')
-      res.status(200).send('email send')
     }
   })
-  res.status(200).send('Mail enviado')
 }
