@@ -32,14 +32,15 @@ const AdminBarChart = () => {
   const { data: totalSales } = useSWR(`/api/dashboardata`, fetcher)
 
   const dates = totalSales?.adminSellerDate.map((e) => e.createdAt)
-  const chartData2 = totalSales?.adminSellerDate.map((e) => e.coins)
+  const spentCoins = totalSales?.adminSellerDate.map((e) => e.coins)
+  const totalSalesPDay = totalSales?.adminSellerDate.map((e) => e.total)
 
   const chartData = {
     labels: dates,
     datasets: [
       {
-        label: 'Total sales',
-        data: chartData2,
+        label: 'Total spent coins',
+        data: spentCoins,
         tension: 0.3,
         borderColor: 'rgba(70, 203, 255, 0.5)',
         backgroundColor: 'rgba(0, 0, 0, 0.3)',
@@ -47,8 +48,8 @@ const AdminBarChart = () => {
         pointRadius: 6,
       },
       {
-        label: 'Total spent coins',
-        data: [1000, 2000, 3000, 4000],
+        label: 'Total sales',
+        data: totalSalesPDay,
         tension: 0.3,
         borderColor: 'rgba(255, 255, 69, 0.5)',
         backgroundColor: 'rgba(0, 0, 0, 0.3)',

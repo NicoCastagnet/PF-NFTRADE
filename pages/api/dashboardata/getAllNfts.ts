@@ -12,6 +12,7 @@ export default async function handler(
   const nfts = await prisma.nft.findMany({
     include: {
       owner: true,
+      wishedBy: true,
     },
   })
 
