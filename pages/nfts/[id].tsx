@@ -79,7 +79,7 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
           </div>
         </div>
         <div
-          className={` w-[85%] sm:w-[80%] ${
+          className={` w-full ${
             subState.deleteWarning === true && 'blur-[10px] opacity-40'
           } `}
         >
@@ -131,7 +131,7 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                       </Link>
                     </span>
                   </p>
-                  <div className="flex items-center text-gray-600 dark:text-gray-400 font-semibold text-lg mr-4">
+                  <div className="flex flex-row items-center text-gray-600 dark:text-gray-400 font-semibold text-lg mr-4">
                     <SvgViews className="w-7 h-7 fill-gray-600 dark:fill-gray-400 mr-2" />
                     {nft?._count.viewedBy} views
                   </div>
