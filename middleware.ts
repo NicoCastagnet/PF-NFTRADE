@@ -14,4 +14,6 @@ export default withAuth(
   },
 )
 
-export const config = { matcher: ['/buy', '/nfts/create', '/dashboard'] }
+export const config = {
+  matcher: ['/buy', '/nfts/create', '/dashboard', '/dashboard/webdata'],
+}

@@ -1,14 +1,20 @@
-import AdminBarChart from '@components/charts/adminBarChart'
-import AdminPieChart from '@components/charts/adminPieChart'
-import AdminTable from '@components/dashboard/adminTable'
-import NavBar from '@components/dashboard/navbar'
-import SideBar from '@components/dashboard/sidebar'
-import UsersTable from '@components/dashboard/usersTable'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
+import AdminBarChart from '@components/dashboard/Charts/adminBarChart'
+import AdminPieChart from '@components/dashboard/Charts/adminPieChart'
+import NavBar from '@components/dashboard/Components/navbar'
+import SideBar from '@components/dashboard/Components/sidebar'
+import CollectionsTable from '@components/dashboard/Tables/collectionsDataTable'
+import NftsTable from '@components/dashboard/Tables/nftsDataTable'
+import UsersTable from '@components/dashboard/Tables/usersDataTable'
 import SvgLoading from '@components/icons/svgLoading'
+import Loading from '@components/loading'
 import fetcher from '@lib/fetcher'
 import type { NextPage } from 'next'
 import { useSession } from 'next-auth/react'
 import Head from 'next/head'
+import { useState } from 'react'
 import useSWR from 'swr'
 
 const DashBoardWebData: NextPage = () => {
@@ -16,9 +22,12 @@ const DashBoardWebData: NextPage = () => {
   const { data } = useSWR(`/api/dashboardata?user=${session?.user.id}`, fetcher)
   const { data: totalUsers } = useSWR(`/api/user`, fetcher)
   const { data: totalNfts } = useSWR(`/api/dashboardata/getAllNfts`, fetcher)
-  const { data: totalSales } = useSWR(`/api/dashboardata/admindata`, fetcher)
+  const { data: totalSales } = useSWR(
+    `/api/dashboardata/adminPanelData`,
+    fetcher,
+  )
 
-  console.log(data)
+  const [handleTables, setHandleTables] = useState(1)
 
   return (
     <section className="dashboard__home flex bg-gray-200 dark:bg-[#202225] transition-all">
@@ -79,18 +88,90 @@ const DashBoardWebData: NextPage = () => {
               <AdminPieChart userData={data} />
             </div>
           </div>
-          <div className="w-full flex flex-col mt-10">
-            <span className="text-center mb-8 text-2xl font-bold text-gray-400">
-              Total <span className="text-blue-600">NFT&apos;s</span>
-            </span>
-            <AdminTable />
-          </div>
-          <div className="w-full flex flex-col mt-10">
-            <span className="text-center mb-8 text-2xl font-bold text-gray-400">
-              Total <span className="text-blue-600">User&apos;s</span>
-            </span>
-            <UsersTable />
-          </div>
+          {handleTables === 1 ? (
+            <div className="w-full flex flex-col mt-10">
+              <span className="text-center mb-8 text-2xl font-bold text-gray-400">
+                Total <span className="text-blue-600">NFT&apos;s</span>
+              </span>
+              <div className="flex border-b border-b-[#202225]">
+                <button
+                  className="bg-white hover:bg-gray-300 text-black dark:text-gray-400 dark:bg-[#303339] dark:hover:bg-[#393b41] transition-all rounded-tl-xl w-full p-5"
+                  onClick={() => setHandleTables(1)}
+                >
+                  Nft&apos;s
+                </button>
+                <button
+                  className="bg-white hover:bg-gray-300 text-black dark:text-gray-400 dark:bg-[#303339] dark:hover:bg-[#393b41] transition-all w-full p-5"
+                  onClick={() => setHandleTables(2)}
+                >
+                  Users
+                </button>
+                <button
+                  className="bg-white hover:bg-gray-300 text-black dark:text-gray-400 dark:bg-[#303339] dark:hover:bg-[#393b41] transition-all rounded-tr-xl w-full p-5"
+                  onClick={() => setHandleTables(3)}
+                >
+                  Collections
+                </button>
+              </div>
+              <NftsTable />
+            </div>
+          ) : handleTables === 2 ? (
+            <div className="w-full flex flex-col mt-10">
+              <span className="text-center mb-8 text-2xl font-bold text-gray-400">
+                Total <span className="text-blue-600">Users</span>
+              </span>
+              <div className="flex border-b border-b-[#202225]">
+                <button
+                  className="bg-white hover:bg-gray-300 text-black dark:text-gray-400 dark:bg-[#303339] dark:hover:bg-[#393b41] transition-all rounded-tl-xl w-full p-5"
+                  onClick={() => setHandleTables(1)}
+                >
+                  Nft&apos;s
+                </button>
+                <button
+                  className="bg-white hover:bg-gray-300 text-black dark:text-gray-400 dark:bg-[#303339] dark:hover:bg-[#393b41] transition-all w-full p-5"
+                  onClick={() => setHandleTables(2)}
+                >
+                  Users
+                </button>
+                <button
+                  className="bg-white hover:bg-gray-300 text-black dark:text-gray-400 dark:bg-[#303339] dark:hover:bg-[#393b41] transition-all rounded-tr-xl w-full p-5"
+                  onClick={() => setHandleTables(3)}
+                >
+                  Collections
+                </button>
+              </div>
+              <UsersTable />
+            </div>
+          ) : handleTables === 3 ? (
+            <div className="w-full flex flex-col mt-10">
+              <span className="text-center mb-8 text-2xl font-bold text-gray-400">
+                Total <span className="text-blue-600">Collections</span>
+              </span>
+              <div className="flex border-b border-b-[#202225]">
+                <button
+                  className="bg-white hover:bg-gray-300 text-black dark:text-gray-400 dark:bg-[#303339] dark:hover:bg-[#393b41] transition-all rounded-tl-xl w-full p-5"
+                  onClick={() => setHandleTables(1)}
+                >
+                  Nft&apos;s
+                </button>
+                <button
+                  className="bg-white hover:bg-gray-300 text-black dark:text-gray-400 dark:bg-[#303339] dark:hover:bg-[#393b41] transition-all w-full p-5"
+                  onClick={() => setHandleTables(2)}
+                >
+                  Users
+                </button>
+                <button
+                  className="bg-white hover:bg-gray-300 text-black dark:text-gray-400 dark:bg-[#303339] dark:hover:bg-[#393b41] transition-all rounded-tr-xl w-full p-5"
+                  onClick={() => setHandleTables(3)}
+                >
+                  Collections
+                </button>
+              </div>
+              <CollectionsTable />
+            </div>
+          ) : (
+            <Loading />
+          )}
         </div>
       </div>
     </section>
