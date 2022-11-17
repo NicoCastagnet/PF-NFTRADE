@@ -1,6 +1,4 @@
-import nft_image from '@assets/nft-cost.jpg'
 import NavBar from '@components/navbar/navbar'
-import Image from 'next/image'
 
 const About = () => {
   return (
@@ -9,9 +7,9 @@ const About = () => {
       <div className="h-screen w-full flex flex-col justify-center items-center">
         <div className="container m-auto px-6 text-gray-600 md:px-12 xl:px-6">
           <div className="space-y-6 md:space-y-0 md:flex md:gap-6 lg:items-center lg:gap-12">
-            <div className="md:5/12 lg:w-5/12">
+            {/* <div className="md:5/12 lg:w-5/12">
               <Image src={nft_image} alt="alt" height={600} width={500} />
-            </div>
+            </div> */}
             <div className="md:7/12 lg:w-6/12">
               <h2 className="text-2xl text-gray-600 dark:text-white font-bold md:text-4xl">
                 <span className="text-blue-600 uppercase">Nftrade</span> is
