@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import NFT2 from '@assets/NFT_5.png'
 import Image from 'next/image'
 import Link from 'next/link'

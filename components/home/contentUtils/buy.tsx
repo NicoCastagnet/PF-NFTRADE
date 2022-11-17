@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import SvgBag from '@components/icons/svgBag'
 import Link from 'next/link'
 

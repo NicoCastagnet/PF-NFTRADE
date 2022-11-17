@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import Logo from '@assets/White.png'
 import SvgAdmin from '@components/icons/svgAdmin'
 import SvgBell from '@components/icons/svgBell'

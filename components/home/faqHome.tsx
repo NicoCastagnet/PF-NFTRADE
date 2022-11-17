@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import SvgChevronDown from '@components/icons/svgChevronDown'
 import SvgQuestionMark from '@components/icons/svgQuestionMark'
 import {
