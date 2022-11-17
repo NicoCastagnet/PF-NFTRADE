@@ -66,6 +66,33 @@ export default async function handler(
 
   const userNFTS = nftData.filter((e) => e.compradorId === user)
 
+
+  const filtered = filteredBuyer.map((e) => e.createdAt.toDateString())
+  const filteredBuyerDate = filteredBuyer.map((e) => ({
+    createdAt: e.createdAt,
+    coins: e.coins,
+  }))
+  
+  const filterDate = new Set([...filtered])
+  const arr = [...filterDate]
+  const grafic = []
+
+  arr.forEach((el1) => {
+    let newDate = {createdAt: el1, coins: 0}
+    filteredBuyerDate.forEach((el2) => {
+      if (el2.createdAt.toDateString() === el1) {
+        newDate = {
+          ...newDate,
+          coins: newDate.coins + el2.coins
+        }
+      }
+    })
+    grafic.push(newDate)
+  })
+
+  const fil = new Set([...grafic])
+  const arr2 = [...fil]
+
   res.json({
     userNfts: userNFTS,
     userData: db,
@@ -80,5 +107,6 @@ export default async function handler(
       rejected: rejected.length,
       in_process: in_process.length,
     },
+    adminSellerDate: arr2
   })
 }

@@ -1,4 +1,4 @@
-import BarChart from '@components/charts/barChart'
+import BarChart from '@components/charts/barchart'
 import PieChart from '@components/charts/pieChart'
 import NavBar from '@components/dashboard/navbar'
 import SideBar from '@components/dashboard/sidebar'
@@ -12,7 +12,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import useSWR from 'swr'
-import Cry from '../../Assets/cry.webp'
+import Cry from '../../assets/cry.webp'
 import styles from '../../styles/wavinghand.module.css'
 
 const DashBoard: NextPage = () => {
