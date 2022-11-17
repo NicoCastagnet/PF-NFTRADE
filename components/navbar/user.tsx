@@ -48,7 +48,6 @@ const UserMenuNavBar = ({ menu }: { menu: boolean }) => {
                   <a>Dashboard</a>
                 </Link>
               </li>
-
               <li className="block py-2 px-4 hover:bg-gray-600 hover:text-white dark:hover:bg-[#393b41] cursor-pointer">
                 <Link href="#">
                   <a>Settings</a>
