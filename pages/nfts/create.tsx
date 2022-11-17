@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import Footer from '@components/footer'
 import SvgCross from '@components/icons/svgCross'
 import NavBar from '@components/navbar/navbar'

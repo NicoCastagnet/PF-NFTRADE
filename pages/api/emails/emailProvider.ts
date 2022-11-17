@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import nodemailer from 'nodemailer'
 
 export default async function emailProvider(user: string, email: string) {

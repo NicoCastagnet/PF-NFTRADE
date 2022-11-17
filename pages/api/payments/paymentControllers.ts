@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import type { NextApiRequest, NextApiResponse } from 'next'
 import type serviceControllers from './serviceControllers'
 export default class PaymentController {

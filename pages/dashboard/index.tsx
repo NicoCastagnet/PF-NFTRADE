@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import BarChart from '@components/charts/barchart'
 import PieChart from '@components/charts/pieChart'
 import NavBar from '@components/dashboard/Components/navbar'
