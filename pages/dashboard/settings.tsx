@@ -1,5 +1,5 @@
-import NavBar from '@components/dashboard/navbar'
-import SideBar from '@components/dashboard/sidebar'
+import NavBar from '@components/dashboard/Components/navbar'
+import SideBar from '@components/dashboard/Components/sidebar'
 import fetcher from '@lib/fetcher'
 import type { NextPage } from 'next'
 import { useSession } from 'next-auth/react'

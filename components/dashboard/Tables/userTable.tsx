@@ -63,7 +63,7 @@ const UserTable = () => {
                 {data ? (
                   data?.nftsOwned.map((e: any) => (
                     <>
-                      <tr>
+                      <tr key={e.id}>
                         <td className="px-6 pt-2">
                           <Image
                             src={e.image}

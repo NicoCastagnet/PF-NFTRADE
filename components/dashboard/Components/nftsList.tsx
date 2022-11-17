@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import SvgLoading from '@components/icons/svgLoading'
 import SvgNewTab from '@components/icons/svgNewTab'
 import SvgTrash from '@components/icons/svgTrash'
@@ -7,15 +10,9 @@ import Image from 'next/image'
 import { useState } from 'react'
 import { toast, Toaster } from 'react-hot-toast'
 
-const Nfts = ({ id, image, name, price, views, likes, nft, mutate }) => {
-  const {
-    session,
-    subState,
-    setSubState,
-    addToWished,
-    handlePublished,
-    putPrice,
-  } = useDetail(nft)
+const Nfts = ({ id, image, name, views, likes, nft, mutate }) => {
+  const { session, subState, setSubState, handlePublished, putPrice } =
+    useDetail(nft)
 
   const [loading, setLoading] = useState(false)
 

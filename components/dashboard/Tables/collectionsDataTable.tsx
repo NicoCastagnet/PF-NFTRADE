@@ -3,15 +3,15 @@ import SvgNewTab from '@components/icons/svgNewTab'
 import fetcher from '@lib/fetcher'
 import Image from 'next/image'
 import useSWR from 'swr'
-import Avatar from '../../Assets/avataricon.png'
+import Avatar from '../../../Assets/image-placeholder.png'
 
-const UsersTable = () => {
-  const { data } = useSWR(`/api/user`, fetcher)
+const CollectionsDataTable = () => {
+  const { data } = useSWR(`/api/dashboardata/getAllCollections`, fetcher)
   return (
     <div className="flex flex-col">
       <div className="overflow-x-auto">
         <div className="w-full inline-block align-middle">
-          <div className="overflow-hidden border border-[#303339] rounded-lg">
+          <div className="overflow-hidden border border-[#303339] rounded-b-lg">
             <table className="min-w-full divide-y divide-[#303339]">
               <thead className="bg-[#303339]">
                 <tr>
@@ -35,33 +35,45 @@ const UsersTable = () => {
                     scope="col"
                     className="px-6 py-3 text-xs font-bold text-left text-gray-400 uppercase"
                   >
-                    Email
+                    Owner
                   </th>
                   <th
                     scope="col"
                     className="px-6 py-3 text-xs font-bold text-center text-gray-400 uppercase"
                   >
-                    Coins
+                    Price
                   </th>
                   <th
                     scope="col"
                     className="px-6 py-3 text-xs font-bold text-center text-gray-400 uppercase"
                   >
-                    Banned
+                    Discount
                   </th>
                   <th
                     scope="col"
                     className="px-6 py-3 text-xs font-bold text-center text-gray-400 uppercase"
                   >
-                    See User
+                    Erased
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-xs font-bold text-center text-gray-400 uppercase"
+                  >
+                    Published
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-xs font-bold text-center text-gray-400 uppercase"
+                  >
+                    See collection
                   </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#303339]">
                 {data ? (
-                  data?.map((e: any) => (
+                  data?.collections.map((e: any) => (
                     <>
-                      <tr>
+                      <tr key={e.id}>
                         <td className="px-6 pt-2">
                           <div className="border border-[#303339] rounded-full h-10 w-10">
                             <Image
@@ -80,17 +92,39 @@ const UsersTable = () => {
                           {e.name}
                         </td>
                         <td className="px-6 py-4 text-sm text-gray-400 whitespace-nowrap">
-                          {e.email}
+                          {e.owner.name}
                         </td>
                         <td className="px-6 py-4 text-sm text-gray-400 text-center whitespace-nowrap">
-                          {parseInt(e.coins).toLocaleString('es-AR')}
+                          {e.price ? e.price : 'Without price'}
                         </td>
                         <td className="px-6 py-4 text-sm text-gray-400 text-center whitespace-nowrap">
-                          Not banned
+                          {e.discount ? `${e.discount}%` : 'Without discount'}
+                        </td>
+                        <td className="px-6 py-4 text-sm text-gray-400 text-center whitespace-nowrap">
+                          {e.erased ? (
+                            <span className="text-green-500 cursor-pointer">
+                              Yes
+                            </span>
+                          ) : (
+                            <span className="text-red-500 cursor-pointer">
+                              No
+                            </span>
+                          )}
+                        </td>
+                        <td className="px-6 py-4 text-sm text-gray-400 text-center whitespace-nowrap">
+                          {e.published ? (
+                            <span className="text-green-500 cursor-pointer">
+                              Yes
+                            </span>
+                          ) : (
+                            <span className="text-red-500 cursor-pointer">
+                              No
+                            </span>
+                          )}
                         </td>
                         <td className="px-9 py-4 text-sm flex font-medium justify-center whitespace-nowrap">
                           <a
-                            href={`http://localhost:3000/users/${e.id}`}
+                            href={`http://localhost:3000/collections/${e.id}`}
                             target="_blank"
                             rel="noreferrer"
                           >
@@ -116,4 +150,4 @@ const UsersTable = () => {
   )
 }
 
-export default UsersTable
+export default CollectionsDataTable

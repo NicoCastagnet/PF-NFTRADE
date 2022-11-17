@@ -1,9 +1,8 @@
-import BarChart from '@components/charts/barChart'
+import BarChart from '@components/charts/barchart'
 import PieChart from '@components/charts/pieChart'
-import NavBar from '@components/dashboard/navbar'
-import SideBar from '@components/dashboard/sidebar'
-import UserTable from '@components/dashboard/userTable'
-import TableExample1 from '@components/dashboard/userTable'
+import NavBar from '@components/dashboard/Components/navbar'
+import SideBar from '@components/dashboard/Components/sidebar'
+import UserTable from '@components/dashboard/Tables/userTable'
 import SvgLoading from '@components/icons/svgLoading'
 import fetcher from '@lib/fetcher'
 import type { NextPage } from 'next'
@@ -99,7 +98,7 @@ const DashBoard: NextPage = () => {
             <span className="text-center mb-8 text-2xl font-bold text-gray-400">
               Your <span className="text-blue-600">NFT&apos;s</span>
             </span>
-            <UserTable/>
+            <UserTable />
           </div>
         </div>
       </div>

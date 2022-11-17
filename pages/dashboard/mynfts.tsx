@@ -1,7 +1,10 @@
-import CreateCard from '@components/dashboard/createCard'
-import NavBar from '@components/dashboard/navbar'
-import Nfts from '@components/dashboard/nfts'
-import SideBar from '@components/dashboard/sidebar'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
+import CreateCard from '@components/dashboard/Components/createNftCard'
+import NavBar from '@components/dashboard/Components/navbar'
+import Nfts from '@components/dashboard/Components/nftsList'
+import SideBar from '@components/dashboard/Components/sidebar'
 import Loading from '@components/loading'
 import fetcher from '@lib/fetcher'
 import type { NextPage } from 'next'
