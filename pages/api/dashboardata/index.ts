@@ -11,16 +11,17 @@ export default async function handler(
 ) {
   const { user } = req.query
 
-  const db = await prisma.user.findUnique({
-    where: {
-      id: user as string,
-    },
-    select: {
-      admin: true,
-      coins: true,
-    },
-  })
-
+  // if (user) {
+  //   const db = await prisma.user.findUnique({
+  //     where: {
+  //       id: user as string,
+  //     },
+  //     select: {
+  //       admin: true,
+  //       coins: true,
+  //     },
+  //   })
+  // }
   const coinsData = await prisma.notify.findMany({
     where: {
       typeNotify: 'buy',
@@ -77,12 +78,13 @@ export default async function handler(
   const totalGrafic = []
 
   totatlArr.forEach((el1) => {
-    let newDate = { createdAt: el1, coins: 0 }
+    let newDate = { createdAt: el1, coins: 0, total: 0 }
     totalBuyNft.forEach((el2) => {
       if (el2.createdAt.toDateString() === el1) {
         newDate = {
           ...newDate,
           coins: newDate.coins + parseInt(el2.coins),
+          total: newDate.total + 1,
         }
       }
     })
@@ -102,21 +104,26 @@ export default async function handler(
   const grafic = []
 
   arr.forEach((el1) => {
-    let newDate = { createdAt: el1, coins: 0 }
+    let newDate = { createdAt: el1, coins: 0, total: 0 }
     filteredBuyerDate.forEach((el2) => {
       if (el2.createdAt.toDateString() === el1) {
         newDate = {
           ...newDate,
           coins: newDate.coins + el2.coins,
+          total: newDate.total + 1,
         }
       }
     })
     grafic.push(newDate)
   })
+  console.log(
+    '🚀 ~ file: index.ts ~ line 92 ~ totatlArr.forEach ~ totalGrafic',
+    totalGrafic,
+  )
 
   res.json({
     userNfts: userNFTS,
-    userData: db,
+    // userData: user ? db : null,
     staticDashData: {
       sellerCoins: sum,
       buyerCoins: filteredBuyerCoins,
