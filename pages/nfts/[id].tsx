@@ -42,7 +42,7 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
   return (
     <div className="bg-gray-200 dark:bg-[#202225] flex flex-col items-center justify-around w-full min-h-screen transition-all">
       <NavBar />
-      <div className="flex flex-col justify-center items-center mt-[120px] ">
+      <div className="flex flex-col justify-center items-center mt-[120px] bg-red-400 ">
         <div
           className={`${
             subState.deleteWarning === true
@@ -293,9 +293,7 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                 {session?.user.id !== nft?.owner.id &&
                   subState.published === true && (
                     <Link href={'#'}>
-
                       <button className="text-xl w-[50%] text-white bg-blue-600 hover:bg-blue-500 hover:drop-shadow-lg transition-all py-3 px-2 mx-2 rounded-xl">
-
                         Buy now
                       </button>
                     </Link>

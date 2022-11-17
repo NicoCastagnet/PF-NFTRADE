@@ -66,7 +66,7 @@ const CreateCollection: NextPage<Props> = ({ user }) => {
         file as File,
       )
 
-    const BUCKET_UPLOAD = process.env.NEXT_PUBLIC_BUCKET_UPLOAD as string
+    const BUCKET_UPLOAD = process.env.NEXT_PUBLIC_SUPABASE_UPLOAD as string
     if (!error) {
       setCollection({
         ...collection,
@@ -240,7 +240,7 @@ const CreateCollection: NextPage<Props> = ({ user }) => {
         >
           <div className="mt-2">
             <p className="text-sm text-gray-600 dark:text-gray-200 transition-all outline-none focus:outline-none">
-              Your nft has been successfully created.
+              Your collection has been successfully created.
             </p>
           </div>
 
@@ -263,9 +263,9 @@ const CreateCollection: NextPage<Props> = ({ user }) => {
         </div>
 
         <div className="mt-[100px] flex items-center flex-col">
-          <div className="w-[80%]  mb-[60px] flex ">
-            <div className="flex flex-col p-2 w-[600px] mr-10 items-center justify-center bg-slate-50 dark:bg-[#303339] max-w-[420px] min-h-[500px]">
-              <div className="w-full h-full relative">
+          <div className="w-[80%]   mb-[60px] lg:flex-row flex-col items-center lg:items-start flex ">
+            <div className="flex flex-col p-2 w-full lg:w-[600px] h-[70vh] lg:mr-10 items-center justify-center bg-slate-50 dark:bg-[#303339] lg:max-w-[420px] lg:min-h-[500px]">
+              <div className=" lg:h-full h-full w-full relative">
                 {uploading ? (
                   <div className="ease-in-out duration-300 absolute inset-0 h-full bg-gradient-to-r from-sky-500 to-indigo-500 dark:from-gray-500 dark:to-slate-500 blur-lg animate-pulse" />
                 ) : collection.image ? (
@@ -304,7 +304,7 @@ const CreateCollection: NextPage<Props> = ({ user }) => {
                 />
               </div>
             </div>
-            <div className="w-[450px] mr-10">
+            <div className="lg:w-[450px] w-full lg:mr-10">
               <div className="mb-6 w-full  mr-10">
                 <div className="flex justify-between items-center">
                   <label
@@ -323,7 +323,7 @@ const CreateCollection: NextPage<Props> = ({ user }) => {
                   name="name"
                   value={collection.name}
                   onChange={(e) => handleChange(e)}
-                  className="block p-4 w-full text-gray-600 bg-white hover:bg-gray-300 focus:bg-gray-300 dark:bg-[#303339] dark:hover:bg-[#393b41] dark:focus:bg-[#393b41] dark:text-gray-200 transition-all outline-none focus:outline-none"
+                  className="block p-4 w-full text-gray-600 border-gray-400 border-[1px] bg-white hover:bg-gray-300 focus:bg-gray-300 dark:bg-[#303339] dark:hover:bg-[#393b41] dark:focus:bg-[#393b41] dark:text-gray-200 transition-all outline-none focus:outline-none"
                 />
               </div>
               <div className="w-full">
@@ -343,7 +343,7 @@ const CreateCollection: NextPage<Props> = ({ user }) => {
                   value={collection.description}
                   rows={10}
                   onChange={(e) => handleChange(e)}
-                  className="resize-none block w-full p-4 rounded-sm text-gray-600 bg-white hover:bg-gray-300 focus:bg-gray-300 dark:bg-[#303339] dark:hover:bg-[#393b41] dark:focus:bg-[#393b41] dark:text-gray-200 transition-all outline-none focus:outline-none"
+                  className=" border-gray-400 border-[1px] resize-none block w-full p-4 rounded-sm text-gray-600 bg-white hover:bg-gray-300 focus:bg-gray-300 dark:bg-[#303339] dark:hover:bg-[#393b41] dark:focus:bg-[#393b41] dark:text-gray-200 transition-all outline-none focus:outline-none"
                   placeholder="At least 10 characters. Max 140."
                   name="description"
                   // value={values.description}
@@ -365,7 +365,7 @@ const CreateCollection: NextPage<Props> = ({ user }) => {
                 </button>
               </div>
             </div>
-            <div className="flex flex-col mt-[10px] w-[300px]">
+            <div className="flex flex-col mt-[10px] lg:w-[300px] w-full ">
               <div>
                 <label
                   htmlFor="discount"
@@ -379,7 +379,7 @@ const CreateCollection: NextPage<Props> = ({ user }) => {
                   id="discount"
                   // value={values.categoriesNames}
                   onChange={(e) => handleChange(e)}
-                  className="block w-full p-4 rounded-sm text-gray-600 bg-white hover:bg-gray-300 focus:bg-gray-300 dark:bg-[#303339] dark:hover:bg-[#393b41] dark:focus:bg-[#393b41] dark:text-gray-200 transition-all outline-none focus:outline-none"
+                  className=" block border-gray-400 border-[1px] w-full p-4 rounded-sm text-gray-600 bg-white hover:bg-gray-300 focus:bg-gray-300 dark:bg-[#303339] dark:hover:bg-[#393b41] dark:focus:bg-[#393b41] dark:text-gray-200 transition-all outline-none focus:outline-none"
                 >
                   <option value="" disabled selected hidden>
                     Select a discount
@@ -400,7 +400,7 @@ const CreateCollection: NextPage<Props> = ({ user }) => {
                 </label>
                 <span
                   id="finalPrice"
-                  className="block w-full p-4 rounded-sm text-gray-600 bg-white hover:bg-gray-300  dark:bg-[#303339] dark:hover:bg-[#393b41] dark:focus:bg-[#393b41] dark:text-gray-200 transition-all outline-none focus:outline-none"
+                  className=" border-gray-400 border-[1px] block w-full p-4 rounded-sm text-gray-600 bg-white hover:bg-gray-300  dark:bg-[#303339] dark:hover:bg-[#393b41] dark:focus:bg-[#393b41] dark:text-gray-200 transition-all outline-none focus:outline-none"
                 >
                   {collection.price}
                 </span>
@@ -421,8 +421,8 @@ const CreateCollection: NextPage<Props> = ({ user }) => {
                 )}
               </div>
             </div>
-            <div className="flex justify-center">
-              <div className="flex min-h-[900px] p-8 border-[1px] border-gray-400 rounded-[15px] w-full flex-wrap">
+            <div className="flex justify-center items-center ">
+              <div className="flex min-h-[900px] p-4 justify-center items-center pt-5 lg:p-8 border-[1px] border-gray-400 rounded-[15px] w-full flex-wrap">
                 {nfts.length > 0 &&
                   nfts.map((el) => (
                     <div
@@ -430,7 +430,7 @@ const CreateCollection: NextPage<Props> = ({ user }) => {
                         el.collectionId ? null : handleNfts(el.id, el.price)
                       }}
                       key={el.id}
-                      className={` w-[30%] min-w-[284px] mr-10 max-w-[287px] h-[380px] overflow-hidden relative flex flex-col bg-gray-800 rounded-xl p-[1px] border-slate-900 cursor-pointer group  dark:bg-stone-900 dark:border-[1px]   dark:border-gray-400  group shadow-lg shadow-zinc-500`}
+                      className={` mb-6 lg:w-[30%] lg:min-w-[284px] lg:mr-10 lg:max-w-[287px] lg:h-[380px] overflow-hidden relative flex flex-col bg-gray-800 rounded-xl p-[1px] border-slate-900 cursor-pointer group  dark:bg-stone-900 dark:border-[1px]   dark:border-gray-400  group shadow-lg shadow-zinc-500`}
                     >
                       <div
                         className={`${

@@ -45,7 +45,7 @@ const TopContainer = ({ nfts }: { nfts: NftsResponse }) => {
           marketplace!
         </p>
       </div>
-      <div className="xl:hidden relative mt-14 max-lg:mt-2 h-[43rem] flex justify-center items-center w-full max-w-7xl max-md:bg-transparent max-lg:max-w-2xl rounded-2xl ease duration-500">
+      <div className="xl:hidden relative mt-14 max-lg:mt-2 h-[43rem] flex justify-center items-center w-[90%] lg:w-full max-w-7xl max-md:bg-transparent max-lg:max-w-2xl rounded-2xl ease duration-500">
         <div className="xl:hidden flex flex-row justify-center items-center gap-8 ease duration-500">
           <div className="init-card max-w-sm m-18 bg-gray-300 border-2 border-gray-400 dark:bg-[#303339] dark:border-zinc-600 dark:border-0 rounded-xl">
             <Image

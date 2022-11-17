@@ -91,10 +91,10 @@ const CollectionDetail: NextPage<Props> = ({ collection }) => {
   }
 
   return (
-    <div>
+    <div className="bg-gray-200 dark:bg-[#202225] flex flex-col items-center justify-around w-full min-h-screen transition-all">
       <NavBar />
-      <div className="mt-[120px] flex  justify-center ">
-        <div>
+      <div className=" mt-[120px] w-full">
+        <div className="w-full flex flex-col justify-center items-center">
           <div
             className={`${
               deleteWarning === true
@@ -127,14 +127,14 @@ const CollectionDetail: NextPage<Props> = ({ collection }) => {
             </div>
           </div>
           <div
-            className={` w-[80%] ${
+            className={` w-[85%]  sm:w-[80%] ${
               deleteWarning === true && 'blur-[10px] opacity-40'
             } `}
           >
-            <div className="flex justify-center ">
-              <div className="mr-10 ">
-                <header className="flex justify-between items-center px-5 w-[600px] h-[55px] rounded-t-md bg-gray-100 dark:bg-[#303339]">
-                  <p className="text-gray-600 dark:text-gray-400">
+            <div className="flex flex-col lg:flex-row items-center justify-center w-full mb-[50px] ">
+              <div className="lg:mr-10 ">
+                <header className="flex justify-between items-center px-5 sm:w-[505px] w-[300px] h-[55px] rounded-t-md bg-gray-100 dark:bg-[#303339]">
+                  <p className="text-gray-600 dark:text-gray-400 text-[0.8rem] sm:text-[1rem]">
                     #{collection.id.toUpperCase()}
                   </p>
                   {(session?.user.id === collection.owner.id ||
@@ -147,7 +147,7 @@ const CollectionDetail: NextPage<Props> = ({ collection }) => {
                     />
                   )}
                 </header>
-                <div className="w-[600px] h-[600px] border-2 border-gray-100 dark:border-[#303339]">
+                <div className="w-[300px] h-[300px]  sm:w-[505px]  sm:h-[505px] border-2 border-gray-100 dark:border-[#303339]">
                   <Image
                     src={collection.image}
                     alt={`img-${collection.name}`}
@@ -158,8 +158,8 @@ const CollectionDetail: NextPage<Props> = ({ collection }) => {
                   />
                 </div>
               </div>
-              <div>
-                <div className="arriba w-full">
+              <div className="flex flex-col justify-between text-gray-600 dark:text-white mt-5 sm:ml-5 sm:my-10 ">
+                <div className="arriba  w-full">
                   <h5 className="text-4xl font-bold">
                     {collection.name} #{collection.id.slice(0, 5).toUpperCase()}
                   </h5>
@@ -200,7 +200,7 @@ const CollectionDetail: NextPage<Props> = ({ collection }) => {
                       <div className="flex w-full ">
                         <button
                           onClick={() => handlePublished(true)}
-                          className="text-xl bg-white hover:bg-gray-300 text-gray-600 dark:text-gray-400 dark:bg-[#303339] dark:hover:bg-[#393b41] hover:drop-shadow-lg transition-all w-full min-h-[90px] py-3 px-20 rounded-xl mr-2"
+                          className="text-xl bg-white hover:bg-gray-300 text-gray-600 dark:text-gray-400 dark:bg-[#303339] dark:hover:bg-[#393b41] hover:drop-shadow-lg transition-all w-full min-h-[90px] py-3 px-20 rounded-xl"
                         >
                           Add to market
                         </button>
@@ -209,7 +209,7 @@ const CollectionDetail: NextPage<Props> = ({ collection }) => {
                       <div className="flex w-full ">
                         <button
                           onClick={() => handlePublished(false)}
-                          className="text-xl bg-white hover:bg-gray-300 text-gray-600 dark:text-gray-400 dark:bg-[#303339] dark:hover:bg-[#393b41] hover:drop-shadow-lg transition-all w-full min-h-[90px] py-3 px-20 rounded-xl mr-2"
+                          className="text-xl bg-white hover:bg-gray-300 text-gray-600 dark:text-gray-400 dark:bg-[#303339] dark:hover:bg-[#393b41] hover:drop-shadow-lg transition-all w-full min-h-[90px] py-3 px-20 rounded-xl"
                         >
                           Remove from market
                         </button>
@@ -224,7 +224,7 @@ const CollectionDetail: NextPage<Props> = ({ collection }) => {
                   ) : (
                     <div className="flex items-center py-6 w-full ">
                       <button
-                        className="text-xl bg-white hover:bg-gray-300 text-gray-600 dark:text-gray-400 dark:bg-[#303339] dark:hover:bg-[#393b41] hover:drop-shadow-lg transition-all w-[100%] min-h-[90px] py-3 px-20 rounded-xl mr-2"
+                        className="text-xl bg-white hover:bg-gray-300 text-gray-600 dark:text-gray-400 dark:bg-[#303339] dark:hover:bg-[#393b41] hover:drop-shadow-lg transition-all w-[100%] min-h-[90px] py-3 px-20 rounded-xl"
                         onClick={() => {
                           addItem(collection)
                           cart.find((e) => e.name === collection.name)
@@ -249,7 +249,7 @@ const CollectionDetail: NextPage<Props> = ({ collection }) => {
 
                   {/* //dev */}
                 </div>
-                <article className="abajo mt-6 w-full sm:w-[580px] min-h-[285px] lg:mt-0 rounded-t-xl border-2 border-gray-100 dark:border-[#303339]">
+                <article className="abajo mt-6 w-full sm:w-full min-h-[285px] lg:mt-0 rounded-t-xl border-2 border-gray-100 dark:border-[#303339]">
                   <header className="flex justify-between items-center text-xl font-semibold px-5 w-full h-[50px] rounded-t-md bg-gray-100 text-gray-600 dark:bg-[#303339] dark:text-gray-400">
                     Description
                   </header>
@@ -260,20 +260,20 @@ const CollectionDetail: NextPage<Props> = ({ collection }) => {
               </div>
             </div>
 
-            <div className=" flex flex-col justify-center items-center">
-              <div className=" flex w-[1220px] mt-[100px]">
+            <div className=" flex flex-col justify-center items-center  w-full">
+              <div className=" flex lg:w-[1000px] lg:mt-[100px]">
                 <h2 className=" text-[1.5rem]  font-[500] text-gray-300 mb-4 ">
                   This collection contains the following products:
                 </h2>
               </div>
 
-              <div className="flex justify-center mb-10 ">
-                <div className="flex min-h-[900px] p-8 border-[1px] border-gray-400 rounded-[15px] w-full min-w-[1220px] justify-center flex-wrap">
+              <div className="flex justify-center w-[100%] mb-10  ">
+                <div className="flex min-h-[900px] px-3 pb-0 pt-3  border-[1px] border-gray-400 rounded-[15px] w-full lg:min-w-[1000px] justify-center flex-wrap">
                   {collection.nfts.length > 0 &&
                     collection.nfts.map((el) => (
                       <div
                         key={el.id}
-                        className={` w-[30%] min-w-[284px] mr-10 max-w-[287px] h-[380px] overflow-hidden relative flex flex-col bg-gray-800 rounded-xl p-[1px] border-slate-900 cursor-pointer group  dark:bg-stone-900 dark:border-[1px]   dark:border-gray-400  group shadow-lg shadow-zinc-500`}
+                        className={` mb-3 w-full sm:min-w-[284px] sm:mr-4 max-w-[287px] h-[380px] overflow-hidden relative flex flex-col bg-gray-800 rounded-xl p-[1px] border-slate-900 cursor-pointer group  dark:bg-stone-900 dark:border-[1px]   dark:border-gray-400  group shadow-lg shadow-zinc-500`}
                       >
                         <Link href={`/nfts/${el.id}`}>
                           <div>

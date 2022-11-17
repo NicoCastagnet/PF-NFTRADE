@@ -35,7 +35,7 @@ const Marketplace: NextPage<HomeProps> = () => {
         setFilter={setFilter}
         setCardSize={setCardSize}
       />
-      <section className="market_list relative top-48">
+      <section className="market_list relative sm:top-48 top-32">
         <div className="market_list-container flex flex-wrap justify-center w-auto rounded-lg py-6 mb-48 gap-4 min-h-screen">
           {isLoading ? (
             <Loading />

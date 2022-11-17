@@ -6,6 +6,7 @@ import SvgLogin from '@components/icons/svgLogin'
 import SvgLogOut from '@components/icons/svgLogOut'
 import SvgMarket from '@components/icons/svgMarket'
 import SearchIcon from '@components/icons/svgSearch'
+import SvgUser from '@components/icons/svgUser'
 import { useCart } from '@context/cart'
 import fetcher from '@lib/fetcher'
 import useCoins from 'hook/useCoins'
@@ -91,6 +92,22 @@ const Hamburguesa = () => {
               </li>
               <CartSide isOpen={open} handleClose={setOpen} />
             </>
+
+            {session && (
+              <Link href={`/users/${session.user.id}`}>
+                <a>
+                  <li
+                    key={'5'}
+                    className="flex flex-row justify-start items-center gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6"
+                  >
+                    <span className="pr-6">
+                      <SvgUser width={'28'} height={'28'} />{' '}
+                    </span>
+                    Profile
+                  </li>
+                </a>
+              </Link>
+            )}
 
             {session && (
               <>
