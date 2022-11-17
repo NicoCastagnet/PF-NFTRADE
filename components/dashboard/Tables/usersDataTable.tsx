@@ -85,7 +85,7 @@ const UsersDataTable = () => {
                         <td className="px-6 py-4 text-sm text-gray-400 text-center whitespace-nowrap">
                           {parseInt(e.coins).toLocaleString('es-AR')}
                         </td>
-                        <td className="px-6 py-4 text-sm text-gray-400 text-center whitespace-nowrap">
+                        <td className="px-6 py-4 text-sm text-green-500 text-center whitespace-nowrap">
                           Not banned
                         </td>
                         <td className="px-9 py-4 text-sm flex font-medium justify-center whitespace-nowrap">
