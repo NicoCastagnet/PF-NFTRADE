@@ -68,6 +68,7 @@ export type NftDetailResponse = Prisma.NftGetPayload<{
     description: true
     price: true
     collectionId: true
+    erased: true
     likedBy: {
       select: {
         id: true

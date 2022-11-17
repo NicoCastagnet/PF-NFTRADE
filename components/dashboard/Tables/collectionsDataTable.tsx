@@ -95,7 +95,11 @@ const CollectionsDataTable = () => {
                           {e.owner.name}
                         </td>
                         <td className="px-6 py-4 text-sm text-gray-400 text-center whitespace-nowrap">
-                          {e.price ? e.price : 'Without price'}
+                          {e.price ? (
+                            e.price
+                          ) : (
+                            <span className="text-red-500">Without price</span>
+                          )}
                         </td>
                         <td className="px-6 py-4 text-sm text-gray-400 text-center whitespace-nowrap">
                           {e.discount ? `${e.discount}%` : 'Without discount'}
