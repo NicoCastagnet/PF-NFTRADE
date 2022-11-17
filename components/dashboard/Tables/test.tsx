@@ -4,7 +4,7 @@ import axios from 'axios'
 import Image from 'next/image'
 import { useState } from 'react'
 import { toast } from 'react-hot-toast'
-import useDetail from '../../../hook/useDetail'
+import useDetail from '@hook/useDetail'
 
 const Test = ({ e, mutate }) => {
   const { session, subState, setSubState, handlePublished, putPrice } =
