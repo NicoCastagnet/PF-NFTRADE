@@ -32,7 +32,7 @@ const CollectionCard = ({
             : ''
         }  relative flex flex-col rounded-xl overflow-hidden p-[1px] cursor-pointer group drop-shadow-lg`}
       >
-        <Link href={`/nfts/${id}`} key={id}>
+        <Link href={`/collections/${id}`} key={id}>
           <a>
             <div
               className={` ${
