@@ -75,7 +75,7 @@ export default async function handler(
   const filterDate = new Set([...filtered])
   const arr = [...filterDate]
   const grafic = []
-  
+
   arr.forEach((el1) => {
     let newDate = { createdAt: el1, coins: 0 }
     filteredBuyerDate.forEach((el2) => {
