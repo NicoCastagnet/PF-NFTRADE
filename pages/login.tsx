@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import SvgFacebook from '@components/icons/svgFacebook'
 import SvgGoogle from '@components/icons/svgGoogle'
 import SvgLinkedIn from '@components/icons/svgLinkedIn'

@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
 

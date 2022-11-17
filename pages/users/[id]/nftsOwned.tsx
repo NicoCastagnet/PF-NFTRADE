@@ -1,4 +1,8 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 /* eslint-disable jsx-a11y/alt-text */
+
 /* eslint-disable react/jsx-no-undef */
 import Footer from '@components/footer'
 import SvgCoin from '@components/icons/svgCoin'
