@@ -113,10 +113,6 @@ export default async function handler(
     })
     grafic.push(newDate)
   })
-  console.log(
-    '🚀 ~ file: index.ts ~ line 90 ~ totatlArr.forEach ~ totalGrafic',
-    totalGrafic,
-  )
 
   res.json({
     userNfts: userNFTS,
