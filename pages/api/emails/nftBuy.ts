@@ -34,7 +34,7 @@ export default async function emailNft(
       secure: true,
       auth: {
         user: 'nftrade2022@gmail.com',
-        pass: 'kgpcugakgejfmhhi',
+        pass: 'brrlzontwvkikdzr',
       },
     })
     const mailOptions = {
@@ -86,7 +86,7 @@ export default async function emailNft(
       secure: true,
       auth: {
         user: 'nftrade2022@gmail.com',
-        pass: 'kgpcugakgejfmhhi',
+        pass: 'brrlzontwvkikdzr',
       },
     })
 

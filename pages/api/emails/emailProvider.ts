@@ -7,7 +7,7 @@ export default async function emailProvider(user: string, email: string) {
     secure: true,
     auth: {
       user: 'nftrade2022@gmail.com',
-      pass: 'kgpcugakgejfmhhi',
+      pass: 'brrlzontwvkikdzr',
     },
   })
   const mailOptions = {

@@ -25,7 +25,7 @@ export default async function mailSendNews(
     secure: true,
     auth: {
       user: 'nftrade2022@gmail.com',
-      pass: 'kgpcugakgejfmhhi',
+      pass: 'brrlzontwvkikdzr',
     },
   })
   const mailOptions = {
