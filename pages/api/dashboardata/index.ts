@@ -75,7 +75,7 @@ export default async function handler(
   const filterDate = new Set([...filtered])
   const arr = [...filterDate]
   const grafic = []
-
+  
   arr.forEach((el1) => {
     let newDate = { createdAt: el1, coins: 0 }
     filteredBuyerDate.forEach((el2) => {
@@ -88,9 +88,6 @@ export default async function handler(
     })
     grafic.push(newDate)
   })
-
-  const fil = new Set([...grafic])
-  const arr2 = [...fil]
 
   res.json({
     userNfts: userNFTS,
@@ -106,6 +103,6 @@ export default async function handler(
       rejected: rejected.length,
       in_process: in_process.length,
     },
-    adminSellerDate: arr2,
+    adminSellerDate: grafic,
   })
 }
