@@ -10,6 +10,7 @@ import NavBar from '@components/navbar/navbar'
 import BlurImage from '@components/ui/blurImage'
 import CollectionCard from '@components/user/collectionCard'
 import NftCard from '@components/user/nftCard'
+import getUserById from '@lib/api/users/getUserById'
 import supabase from '@lib/supa'
 import type { NextPage } from 'next'
 import { useSession } from 'next-auth/react'
@@ -19,7 +20,6 @@ import { ChangeEvent, useEffect, useState } from 'react'
 import type { UserDetailResponse } from 'types/api-responses'
 import defaultAvatar from '/assets/avataricon.png'
 import imagePlaceholder from '/assets/image-placeholder.png'
-import getUserById from '@lib/api/users/getUserById'
 
 interface Props {
   user: UserDetailResponse
@@ -130,7 +130,7 @@ const UserDetail: NextPage<Props> = ({ user }) => {
                   <BlurImage
                     className="rounded-full"
                     loader={() => userDetails.profilePicture}
-                    src={userDetails.profilePicture || imagePlaceholder}
+                    src={imagePlaceholder}
                   />
                 ) : (
                   <BlurImage
@@ -403,7 +403,7 @@ const UserDetail: NextPage<Props> = ({ user }) => {
                 user.id === session?.user.id && (
                   <Link href={`/nfts/create`}>
                     <div
-                      className={`w-[30%] max-w-[277px] min-w-[194px] h-[300px] overflow-hidden relative flex flex-col bg-gray-200  dark:border-[1px] rounded-[15px] p-9 dark:border-gray-400 cursor-pointer justify-center group shadow-lg shadow-zinc-500`}
+                      className={`mr-6 mb-6 w-[30%] max-w-[277px] min-w-[194px] h-[300px] overflow-hidden relative flex flex-col bg-gray-200  dark:border-[1px] rounded-[15px] p-9 dark:border-gray-400 cursor-pointer justify-center group shadow-lg shadow-zinc-500`}
                     >
                       <div
                         className={`group-hover:scale-[1.1] transition-all duration-500 rounded-[20px] shadow-inner shadow-zinc-600 bg-gray-300 w-full h-full flex justify-center items-center flex-col`}
@@ -477,7 +477,7 @@ const UserDetail: NextPage<Props> = ({ user }) => {
                 user.id === session?.user.id && (
                   <Link href={`${user.id}/collections/create`}>
                     <div
-                      className={`w-[30%] max-w-[277px] min-w-[194px] h-[300px] overflow-hidden relative flex flex-col bg-gray-200  dark:border-[1px] rounded-[15px] p-9 dark:border-gray-400 cursor-pointer justify-center group shadow-lg shadow-zinc-500`}
+                      className={` mr-6 mb-6 w-[30%] max-w-[277px] min-w-[194px] h-[300px] overflow-hidden relative flex flex-col bg-gray-200  dark:border-[1px] rounded-[15px] p-9 dark:border-gray-400 cursor-pointer justify-center group shadow-lg shadow-zinc-500`}
                     >
                       <div
                         className={`group-hover:scale-[1.1] transition-all duration-500 rounded-[20px] shadow-inner shadow-zinc-600 bg-gray-300 w-full h-full flex justify-center items-center flex-col`}

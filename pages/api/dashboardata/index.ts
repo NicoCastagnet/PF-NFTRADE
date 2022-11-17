@@ -45,6 +45,7 @@ export default async function handler(
       vendedorId: true,
       coins: true,
       createdAt: true,
+      nameNft: true,
     },
   })
 
@@ -63,7 +64,10 @@ export default async function handler(
   const rejected = userBuys.filter((e) => e.status === 'rejected')
   const in_process = userBuys.filter((e) => e.status === 'in_process')
 
+  const userNFTS = nftData.filter((e) => e.compradorId === user)
+
   res.json({
+    userNfts: userNFTS,
     userData: db,
     staticDashData: {
       sellerCoins: sum,

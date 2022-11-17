@@ -213,9 +213,9 @@ const CreateProduct: NextPage<Props> = ({ fallbackData }) => {
             onSubmit={handleSubmit}
             className="flex flex-col justify-center items-center"
           >
-            <div className="flex justify-center mb-6 mt-[260px] lg:mt-[120px] w-full">
+            <div className="flex justify-center mb-6 mt-[100px] lg:mt-[120px] w-full">
               <div className="flex flex-col w-full justify-center items-center lg:max-w-[80%]">
-                <div className="mb-6 w-full">
+                <div className="mb-6 lg:w-full w-[80%]">
                   <label
                     htmlFor="large-input"
                     className="flex items-center gap-2 mb-2 text-sm font-medium dark:text-gray-400"
@@ -237,7 +237,7 @@ const CreateProduct: NextPage<Props> = ({ fallbackData }) => {
                   />
                 </div>
                 <div className="flex flex-col w-full justify-center items-center lg:flex-row lg:items-start">
-                  <div className="flex flex-col p-2 w-full h-full items-center justify-center bg-slate-50 dark:bg-[#303339] max-w-[420px] min-h-[500px]">
+                  <div className="flex flex-col p-2 lg:w-full lg:h-full w-[80%] sm:min-h-[600px] h-[60vh] max-h-[400px] items-center justify-center bg-slate-50 dark:bg-[#303339] lg:max-w-[420px] lg:min-h-[500px]">
                     <div className="w-full h-full relative">
                       {uploading ? (
                         <div className="ease-in-out duration-300 absolute inset-0 h-full bg-gradient-to-r from-sky-500 to-indigo-500 dark:from-gray-500 dark:to-slate-500 blur-lg animate-pulse" />
@@ -278,8 +278,8 @@ const CreateProduct: NextPage<Props> = ({ fallbackData }) => {
                       />
                     </div>
                   </div>
-                  <div className="flex flex-col items-center lg:items-end w-full ">
-                    <div className="mb-8 w-[80%]">
+                  <div className="flex flex-col items-center mt-8 lg:mt-0 lg:items-end lg:w-full w-[80%] ">
+                    <div className="mb-8 w-full lg:w-[80%]">
                       <label
                         htmlFor="price"
                         className="flex items-center gap-2 mb-2 text-sm font-medium text-gray-600 dark:text-gray-400"
@@ -299,7 +299,7 @@ const CreateProduct: NextPage<Props> = ({ fallbackData }) => {
                         onChange={handleChange}
                       />
                     </div>
-                    <div className="mb-8 w-[80%]">
+                    <div className="mb-8 w-full lg:w-[80%]">
                       <label
                         htmlFor="categories"
                         className="flex items-center gap-2 mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
@@ -347,7 +347,7 @@ const CreateProduct: NextPage<Props> = ({ fallbackData }) => {
                         ))}
                       </div>
                     </div>
-                    <div className="w-[80%]">
+                    <div className="lg:w-[80%] w-full">
                       <label
                         htmlFor="message"
                         className="flex items-center gap-2 mb-2 text-sm font-medium text-gray-600 dark:text-gray-400"
@@ -385,7 +385,7 @@ const CreateProduct: NextPage<Props> = ({ fallbackData }) => {
                 errors.image !== undefined ||
                 errors.description !== undefined
               }
-              className="w-auto h-auto px-[25rem] cursor-pointer py-5 m-5 dark:bg text-gray-600 bg-white hover:bg-gray-300 focus:bg-gray-300 dark:bg-[#303339] dark:hover:bg-[#393b41] dark:focus:bg-[#393b41] dark:text-gray-200 transition-all outline-none focus:outline-none disabled:cursor-not-allowed disabled:bg-gray-300 dark:disabled:bg-[#393b41]"
+              className="lg:w-auto w-[80%] h-auto lg:px-[25rem] cursor-pointer py-5 m-5 dark:bg text-gray-600 bg-white hover:bg-gray-300 focus:bg-gray-300 dark:bg-[#303339] dark:hover:bg-[#393b41] dark:focus:bg-[#393b41] dark:text-gray-200 transition-all outline-none focus:outline-none disabled:cursor-not-allowed disabled:bg-gray-300 dark:disabled:bg-[#393b41]"
             >
               Create it!
             </button>

@@ -37,7 +37,7 @@ const HeaderMarket: NextPage<Props> = ({
   return (
     <>
       <section className="market__header max-sm:p-0 bg-slate-900 dark:bg-[#202225] dark:border-b-gray-600 dark:border-b text-white py-1 px-20 w-full flex justify-between top-[5rem] z-[5] fixed items-center">
-        <div className="left flex max-sm:mx-8">
+        <div className="left flex">
           <FilterLateral
             isOpen={openFilter}
             handleClose={setOpenFilter}
