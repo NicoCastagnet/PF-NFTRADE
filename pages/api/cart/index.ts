@@ -94,9 +94,35 @@ export default async function handler(
               nameVendedor: vendedor.name,
             },
           })
-
-          emailNft(req, res, comprador.id, el.id, 'comprador')
-          emailNft(req, res, vendedor.id, el.id, 'vendedor')
+          const date = await prisma?.notify.findMany({
+            where: {
+              userId: vendedor?.id,
+            },
+            orderBy: {
+              createdAt: 'desc',
+            },
+          })
+          const datebuy = date?.shift()
+          emailNft(
+            req,
+            res,
+            comprador.id,
+            el.id,
+            vendedor?.name,
+            el.price,
+            datebuy?.createdAt,
+            'comprador',
+          )
+          emailNft(
+            req,
+            res,
+            vendedor.id,
+            el.id,
+            comprador.id,
+            el.price,
+            datebuy?.createdAt,
+            'vendedor',
+          )
         } catch (error) {
           console.error(error)
         }

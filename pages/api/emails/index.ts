@@ -31,8 +31,13 @@ export default async function mailSend(
     const mailOptions = {
       from: 'NFTrade',
       to: mail.email as string,
-      subject: 'Confirmación de compra',
-      text: `¡Tu compra ha sido realizada con éxito! Tus monedas ahora suman la cantidad de ${mail.coins}. Esperamos que disfrutes tu recorrido por la app. Un saludo, NFTrade!`,
+      subject: 'Buy confirmation',
+      html: `
+      <h1>Your buy for ${mail.coins} was accepted!</h1>
+      <div style="background-color:#e5e7eb; width: 40%; text-align: center;"> 
+        <h3 style=>Congratulations! we hope ou feel good in the tour of the aplication!</h3>
+      </div>
+      `,
     }
     transporter.sendMail(mailOptions, (Error, info) => {
       if (Error) {
@@ -55,8 +60,14 @@ export default async function mailSend(
     const mailOptions = {
       from: 'NFTrade',
       to: mail.email as string,
-      subject: 'Compra rechazada',
-      text: `Tu compra de ${mail.coins} ha sido rechazada, lamentamos el inconveniente. Por favor, vuelve a intentarlo!. Esperamos que disfrutes tu recorrido por la app. Un saludo, NFTrade!`,
+      subject: 'card rejected',
+      html: `
+      <h1>Your buy for ${mail.coins} was rejected</h1>
+      <div style="background-color:#e5e7eb; width: 40%; text-align: center;"> 
+        <h3 style=>In name of the business we really sorry for the inconvenience</h3>
+      </div>
+      <h3>if you think it was an error of our page, pease try again!</h3>
+      `,
     }
 
     transporter.sendMail(mailOptions, (Error, info) => {
