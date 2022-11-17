@@ -25,6 +25,7 @@ export default async function handler(
               likedBy: true,
               viewedBy: true,
               wishedBy: true,
+              creator: true,
             },
           },
         },

@@ -1,7 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-
-// import SvgCoin from '@components/icons/svgCoin'
 import SvgCross from '@components/icons/svgCross'
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
@@ -11,20 +7,20 @@ import NotifyBuyNft from './notifyBuyNft'
 import NotifyComment from './notifyComment'
 import NotifyLiked from './notifyLiked'
 
-interface NotyfiResponsiveProps {
+interface NotifyDashBoardProps {
   isOpen: boolean
   handleClose: (isOpen: boolean) => void
   data: any
 }
 
-const NotifyResponsive: React.FC<NotyfiResponsiveProps> = ({
+const NotifyDashBoard: React.FC<NotifyDashBoardProps> = ({
   isOpen,
   handleClose,
   data,
 }) => {
   return (
     <Transition.Root show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={handleClose}>
+      <Dialog as="div" className="relative z-[9999]" onClose={handleClose}>
         <Transition.Child
           as={Fragment}
           enter="ease-in-out duration-500"
@@ -39,15 +35,15 @@ const NotifyResponsive: React.FC<NotyfiResponsiveProps> = ({
 
         <div className="fixed inset-0 overflow-hidden">
           <div className="absolute inset-0 overflow-hidden">
-            <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+            <div className="pointer-events-none fixed inset-y-0 -left-10 flex max-w-full pl-10">
               <Transition.Child
                 as={Fragment}
                 enter="transform transition ease-in-out duration-500 sm:duration-700"
-                enterFrom="translate-x-full"
+                enterFrom="-translate-x-full"
                 enterTo="translate-x-0"
                 leave="transform transition ease-in-out duration-500 sm:duration-700"
                 leaveFrom="translate-x-0"
-                leaveTo="translate-x-full"
+                leaveTo="-translate-x-full"
               >
                 <Dialog.Panel className="pointer-events-auto relative w-screen max-w-md">
                   <Transition.Child
@@ -59,7 +55,12 @@ const NotifyResponsive: React.FC<NotyfiResponsiveProps> = ({
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                   >
-                    <div className="absolute top-0 left-14 -ml-14 pl-4 flex pt-4 pr-2 sm:-ml-10 sm:pr-4 bg-gray-200 dark:bg-[#202225] z-50 w-full py-5">
+                    <div className="absolute top-0 right-0 -ml-8 flex pt-4 pr-2 sm:-ml-10 sm:pr-4 z-50 py-5">
+                      <div className="px-3 sm:px-3">
+                        <Dialog.Title className="text-lg font-medium text-black dark:text-white">
+                          Notifications
+                        </Dialog.Title>
+                      </div>
                       <button
                         type="button"
                         className="rounded-md text-black dark:text-gray-300 hover:text-red-500 dark:hover:text-red-500 transition-all focus:outline-none"
@@ -68,19 +69,9 @@ const NotifyResponsive: React.FC<NotyfiResponsiveProps> = ({
                         <span className="sr-only">Close panel</span>
                         <SvgCross className="w-5 h-5" />
                       </button>
-                      <div className="px-3 sm:px-3">
-                        <Dialog.Title className="text-lg font-medium text-black dark:text-white">
-                          Notifications
-                        </Dialog.Title>
-                      </div>
-                      <div className="flex justify-start items-center w-full">
-                        <span className="flex justify-center items-center">
-                          {data?.total !== 0 ? data?.total : ''}
-                        </span>
-                      </div>
                     </div>
                   </Transition.Child>
-                  <div className="flex h-full text-center flex-col overflow-y-scroll text-black bg-gray-200 dark:bg-[#202225] dark:text-white py-14 shadow-xl">
+                  <div className="flex h-full flex-col text-black bg-gray-200 dark:bg-[#202225] dark:text-white py-14 shadow-xl">
                     <div className="relative mt-6 flex-1 px-4 sm:px-6">
                       {/* NOTIFY LIST */}
                       {!data?.notify.length ? (
@@ -157,4 +148,4 @@ const NotifyResponsive: React.FC<NotyfiResponsiveProps> = ({
   )
 }
 
-export default NotifyResponsive
+export default NotifyDashBoard
