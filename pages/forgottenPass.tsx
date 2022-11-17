@@ -7,7 +7,7 @@ import type { NextPage } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
-import pwdImage from '../Assets/White.png'
+import pwdImage from '../assets/White.png'
 
 const ForgottenPass: NextPage = () => {
   const [email, setEmail] = useState('')
