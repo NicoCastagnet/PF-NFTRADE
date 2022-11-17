@@ -36,7 +36,7 @@ const HeaderMarket: NextPage<Props> = ({
 
   return (
     <>
-      <section className="market__header bg-slate-900 dark:bg-[#202225] dark:border-b-gray-600 dark:border-b text-white py-1 px-20 w-full flex justify-between top-[5rem] fixed z-[5] items-center">
+      <section className="market__header max-sm:p-0 bg-slate-900 dark:bg-[#202225] dark:border-b-gray-600 dark:border-b text-white py-1 px-20 w-full flex justify-between top-[5rem] z-[5] fixed items-center">
         <div className="left flex">
           <FilterLateral
             isOpen={openFilter}
@@ -46,14 +46,14 @@ const HeaderMarket: NextPage<Props> = ({
           />
           <button
             type="button"
-            className="bg-gray-700 text-white hover:bg-gray-500 dark:bg-[#303339] dark:hover:drop-shadow-lg transition-all py-3 px-3 text-sm font-medium rounded-full"
+            className="max-sm:bg-transparent dark:max-sm:bg-transparent bg-gray-700 text-white hover:bg-gray-500 dark:bg-[#303339] dark:hover:drop-shadow-lg transition-all py-3 px-3 text-sm font-medium rounded-lg"
             onClick={() => setOpenFilter(!openFilter)}
           >
             <SvgList2 width="25" height="25" />
           </button>
           <button
             type="button"
-            className="bg-gray-700 text-white hover:bg-gray-500 dark:bg-[#303339] dark:hover:drop-shadow-lg transition-all group flex items-center py-3 px-3 ml-4 text-sm font-medium rounded-full"
+            className="max-sm:bg-transparent dark:max-sm:bg-transparent max-sm:m-0 max-md:w-40 bg-gray-700 text-white hover:bg-gray-500 dark:bg-[#303339] dark:hover:drop-shadow-lg transition-all group flex items-center py-3 px-3 ml-4 text-sm font-medium rounded-lg"
             onClick={() => {
               setOrder('')
               setFilter({ minPrice: '', maxPrice: '' })
@@ -62,22 +62,25 @@ const HeaderMarket: NextPage<Props> = ({
             <SvgReload
               width="25"
               height="25"
-              className="group-hover:animate-spin r-btn mr-2 hover:animate-spin"
+              className="group-hover:animate-spin r-btn mr-2 hover:animate-spin max-sm:m-0"
             />
-            Reload content
+            <span className="max-sm:hidden">Reload content</span>
           </button>
         </div>
-        <div className="right flex">
+        <div className="right flex max-sm:mx-8">
           <button
             id="dropdownButton"
-            className="bg-gray-700 text-white hover:bg-gray-500 dark:bg-[#303339] dark:hover:drop-shadow-lg transition-all font-medium rounded-lg text-xl px-14 py-3 m-3 text-left flex items-center"
+            className="max-sm:bg-transparent dark:max-sm:bg-transparent max-sm:text-base max-sm:p-0 max-sm:w-[89px] max-md:w-60 bg-gray-700 text-white hover:bg-gray-500 dark:bg-[#303339] dark:hover:drop-shadow-lg transition-all font-medium rounded-lg text-xl px-14 py-3 m-3 text-left flex items-center"
             type="button"
             onClick={openOrderMenu}
           >
-            Order by <SvgChevron className="ml-4 w-4 h-4" />
+            Order by <SvgChevron className="ml-4 w-4 h-4 max-sm:ml-2" />
           </button>
 
-          <div className="inline-flex rounded-md shadow-sm m-3" role="group">
+          <div
+            className="inline-flex rounded-md shadow-sm m-3 max-sm:mx-0 max-sm:hidden"
+            role="group"
+          >
             <button
               type="button"
               className="bg-gray-700 text-white hover:bg-gray-500 border-gray-500 dark:bg-[#303339] dark:border-[#43464c] dark:hover:drop-shadow-lg transition-all border py-2 px-4 text-sm font-medium rounded-l-lg"
@@ -95,7 +98,7 @@ const HeaderMarket: NextPage<Props> = ({
           </div>
 
           <div
-            className={`absolute before:absolute top-[5.5rem] right-64 z-10 w-44  rounded shadow bg-gray-700 ${
+            className={`max-sm:right-2 max-sm:top-[4.5rem] absolute before:absolute top-[5.5rem] right-64 z-10 w-44 rounded shadow-xl bg-gray-700 dark:bg-[#303339] ${
               orderMenu ? '' : 'hidden'
             } ${styles.orderByMenu}`}
           >
@@ -107,19 +110,19 @@ const HeaderMarket: NextPage<Props> = ({
             ></div>
             <ul className="py-2 text-lg text-gray-200">
               <li
-                className="block py-2 px-4 hover:bg-gray-600 hover:text-white cursor-pointer"
+                className="block py-2 px-4 hover:bg-gray-600 hover:text-white dark:hover:bg-[#393b41] cursor-pointer"
                 onClick={() => setOrder('createdAt_asc')}
               >
                 Oldest
               </li>
               <li
                 onClick={() => setOrder('createdAt_desc')}
-                className="block py-2 px-4 hover:bg-gray-600 hover:text-white cursor-pointer"
+                className="block py-2 px-4 hover:bg-gray-600 hover:text-white dark:hover:bg-[#393b41] cursor-pointer"
               >
                 Newest
               </li>
               <li
-                className="block py-2 px-4 hover:bg-gray-600 hover:text-white cursor-pointer"
+                className="block py-2 px-4 hover:bg-gray-600 hover:text-white dark:hover:bg-[#393b41] cursor-pointer"
                 onClick={() => {
                   setOrder('price_asc')
                 }}
@@ -127,7 +130,7 @@ const HeaderMarket: NextPage<Props> = ({
                 Min Price
               </li>
               <li
-                className="block py-2 px-4 hover:bg-gray-600 hover:text-white cursor-pointer"
+                className="block py-2 px-4 hover:bg-gray-600 hover:text-white dark:hover:bg-[#393b41] cursor-pointer"
                 onClick={() => {
                   setOrder('price_desc')
                 }}
@@ -135,7 +138,7 @@ const HeaderMarket: NextPage<Props> = ({
                 Max Price
               </li>
               <li
-                className="block py-2 px-4 hover:bg-gray-600 hover:text-white cursor-pointer"
+                className="block py-2 px-4 hover:bg-gray-600 hover:text-white dark:hover:bg-[#393b41] cursor-pointer"
                 onClick={() => {
                   setOrder('name_asc')
                 }}
@@ -143,7 +146,7 @@ const HeaderMarket: NextPage<Props> = ({
                 A-Z
               </li>
               <li
-                className="block py-2 px-4 hover:bg-gray-600 hover:text-white cursor-pointer"
+                className="block py-2 px-4 hover:bg-gray-600 hover:text-white dark:hover:bg-[#393b41] cursor-pointer"
                 onClick={() => {
                   setOrder('name_desc')
                 }}

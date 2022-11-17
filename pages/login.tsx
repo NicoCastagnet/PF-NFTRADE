@@ -6,6 +6,7 @@ import { useFormik } from 'formik'
 import { login_valid } from 'hook/validate'
 import type { NextPage } from 'next'
 import { signIn, useSession } from 'next-auth/react'
+import { useTheme } from 'next-themes'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -13,21 +14,20 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { toast, Toaster } from 'react-hot-toast'
 import { HiAtSymbol, HiFingerPrint } from 'react-icons/hi'
-import whiteLogo from '../assets/logo@1,25x.png'
-import regImage from '../assets/nft-cost.jpg'
+import darkImage from '../assets/logoDark.png'
+import lightImage from '../assets/logoLight.png'
 import useInfoProviders from '../hook/providers'
 import styles from '../styles/form.module.css'
 
 const LogIn: NextPage = () => {
+  const { theme } = useTheme()
   const [show, setShow] = useState(false)
   const router = useRouter()
   const { data: session, status } = useSession()
   const { providers } = useInfoProviders()
-  ////////////////////////////////////////////////
   useEffect(() => {
     if (session) router.push('/')
   }, [router, session, status])
-  /////////////////////////////////////
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -55,26 +55,39 @@ const LogIn: NextPage = () => {
     }
   }
 
-  ///////////////////////////////////////////////////////////////
   if (status === 'loading') {
-    return <h1>Loading...</h1>
+    return (
+      <div className="flex justify-center items-center w-full h-screen">
+        <span className={styles.loadding}></span>
+      </div>
+    )
   }
 
   return (
     <>
-      <div className="flex flex-col items-center justify-start w-full min-h-screen">
+      <div className="w-full min-h-screen flex flex-col items-center justify-center mx-auto md:h-screen lg:py-0 bg-gray-200 dark:bg-[#202225] transition-all">
         <Head>
           <title>NFTrade | Log in</title>
         </Head>
-
-        <div className="flex flex-row items-start pl-6 mt-4 w-full">
-          <Image src={whiteLogo} alt="white_logo" height={70} width={200} />
-        </div>
         <div className="flex flex-col sm:flex-row justify-center items-center w-full">
-          <div className="flex flex-col items-center justify-center w-full max-w-md mt-4">
+          <div className="flex flex-col items-center justify-center w-full max-w-md bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md dark:bg-[#202225] dark:border-gray-700 pb-5">
+            <div className="flex items-center cursor-pointer">
+              <Link href="/">
+                <a>
+                  <Image
+                    src={theme === 'light' ? lightImage : darkImage}
+                    alt="logo"
+                    height={150}
+                    width={260}
+                  />
+                </a>
+              </Link>
+            </div>
             <div className="flex flex-col items-center w-full">
-              <h1 className=" text-4xl font-semibold">Welcome back</h1>
-              <h3 className="reg-subtitle text-xl text-left text-gray-500">
+              <h1 className=" text-4xl font-semibold text-gray-600 dark:text-white">
+                Welcome back
+              </h1>
+              <h3 className="reg-subtitle text-xl text-left text-gray-600 dark:text-gray-400">
                 Please, enter your credentials to continue
               </h3>
               <form
@@ -89,7 +102,7 @@ const LogIn: NextPage = () => {
                   }`}
                 >
                   <input
-                    className={`bg-transparent focus:outline-none w-full ${styles.input_text}`}
+                    className={`bg-transparent focus:outline-none w-full text-gray-600 dark:text-gray-400 ${styles.input_text}`}
                     type="email"
                     placeholder={'Email'}
                     {...formik.getFieldProps('email')}
@@ -106,7 +119,7 @@ const LogIn: NextPage = () => {
                   }`}
                 >
                   <input
-                    className={`bg-transparent focus:outline-none w-full ${styles.input_text}`}
+                    className={`bg-transparent focus:outline-none w-full text-gray-600 dark:text-gray-400 ${styles.input_text}`}
                     type={`${show ? 'text' : 'password'}`}
                     placeholder={'Password'}
                     {...formik.getFieldProps('password')}
@@ -115,11 +128,15 @@ const LogIn: NextPage = () => {
                     className="icon flex items-center pl-2"
                     onClick={() => setShow(!show)}
                   >
-                    <HiFingerPrint size={28} />
+                    <HiFingerPrint
+                      size={28}
+                      className={`${show ? 'fill-[#6366f1]' : ''}`}
+                    />
                   </span>
                 </div>
+
                 <button
-                  className="bg-zinc-800 text-white rounded-full py-2 px-8 mt-2 text-lg w-3/5 hover:scale-105 transition-transform font-bold uppercase"
+                  className="bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-[#303339] dark:hover:bg-[#393b41] dark:text-white transition-all rounded-full py-2 text-lg w-4/5 hover:scale-105 font-bold uppercase"
                   type="submit"
                 >
                   Sign in
@@ -170,23 +187,21 @@ const LogIn: NextPage = () => {
                 </button>
               )}
             </div>
-            <p className="text-center text-sm mt-3 text-gray-400">
-              {"don't have an account yet?"}
-
+            <p className="text-center text-sm mt-3 text-gray-600 dark:text-gray-400">
+              don&apos;t have an account yet?{' '}
               <Link href={'/register'}>
-                <a className="text-blue-700"> register</a>
+                <a className="text-blue-700 dark:text-blue-500 hover:underline transition-all">
+                  register
+                </a>
               </Link>
             </p>
-          </div>
-          <div className="flex justify-center items-center collapse sm:visible">
-            <Image
-              src={regImage}
-              alt="signIn_image"
-              height={700}
-              width={500}
-              quality={30}
-              className="reg_image rounded-[2rem]"
-            />
+            <p className="text-center text-sm mt-3 text-gray-400">
+              <Link href={'/forgottenPass'}>
+                <a className="text-blue-700 dark:text-blue-500 hover:underline transition-all">
+                  I forgot my password
+                </a>
+              </Link>
+            </p>
           </div>
         </div>
       </div>

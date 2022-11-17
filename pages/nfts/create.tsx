@@ -1,4 +1,5 @@
 import Footer from '@components/footer'
+import SvgCross from '@components/icons/svgCross'
 import NavBar from '@components/navbar/navbar'
 import BlurImage from '@components/ui/blurImage'
 import Modal from '@components/ui/modal'
@@ -80,18 +81,16 @@ const CreateProduct: NextPage<Props> = ({ fallbackData }) => {
     }
   }
 
-  const [catError, setCatError] = useState<null | string>(
-    'Select at least one category',
-  )
+  const [catError, setCatError] = useState<null | string>('is required.')
   function categoriesHandler(
     e: ChangeEvent<HTMLSelectElement>,
     values: NftFormValues,
   ) {
     if (values.categoriesNames.length === 5) {
-      setCatError('You can add a max of 5 categories')
+      setCatError('You can add a max of 5 categories.')
     } else {
       if (values.categoriesNames.includes(e.target.value)) {
-        setCatError('This category is already set')
+        setCatError('This category is already set.')
         refreshStates()
       } else {
         values.categoriesNames.push(e.target.value)
@@ -115,7 +114,6 @@ const CreateProduct: NextPage<Props> = ({ fallbackData }) => {
   if (!session && status !== 'loading') {
     router.push('/login')
   }
-
   const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     setUploading(true)
     setUploadError(false)
@@ -127,11 +125,11 @@ const CreateProduct: NextPage<Props> = ({ fallbackData }) => {
     const { data, error } = await supabase.storage
       .from('nfts')
       .upload(
-        `public/${Date.now().toString().slice(0, 6)}-${file?.name}`,
+        `public/${Date.now().toString().slice(0, 8)}-${file?.name}`,
         file as File,
       )
 
-    const BUCKET_UPLOAD = process.env.NEXT_PUBLIC_BUCKET_UPLOAD as string
+    const BUCKET_UPLOAD = process.env.NEXT_PUBLIC_SUPABASE_UPLOAD as string
     if (!error) {
       setPreview(`${BUCKET_UPLOAD}/${data.path}`)
       setUploading(false)
@@ -143,7 +141,7 @@ const CreateProduct: NextPage<Props> = ({ fallbackData }) => {
   }
 
   return (
-    <div>
+    <div className="bg-gray-200 dark:bg-[#202225] transition-all">
       <NavBar />
       <Modal
         title={`Info`}
@@ -152,7 +150,7 @@ const CreateProduct: NextPage<Props> = ({ fallbackData }) => {
       >
         <>
           <div className="mt-2">
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-gray-600 bg-white dark:bg-[#303339] dark:text-gray-200 transition-all outline-none focus:outline-none">
               Your nft has been successfully created.
             </p>
           </div>
@@ -215,12 +213,12 @@ const CreateProduct: NextPage<Props> = ({ fallbackData }) => {
             onSubmit={handleSubmit}
             className="flex flex-col justify-center items-center"
           >
-            <div className="flex justify-center mb-6 mt-[260px] lg:mt-[120px] w-full">
+            <div className="flex justify-center mb-6 mt-[100px] lg:mt-[120px] w-full">
               <div className="flex flex-col w-full justify-center items-center lg:max-w-[80%]">
-                <div className="mb-6 w-[80%]">
+                <div className="mb-6 lg:w-full w-[80%]">
                   <label
                     htmlFor="large-input"
-                    className="flex items-center gap-2 mb-2 text-sm font-medium text-gray-900"
+                    className="flex items-center gap-2 mb-2 text-sm font-medium dark:text-gray-400"
                   >
                     <span className="text-[1.2rem]">Name*</span>
                     <span className="self-start text-red-400">
@@ -230,18 +228,24 @@ const CreateProduct: NextPage<Props> = ({ fallbackData }) => {
                   <input
                     type="text"
                     id="large-input"
-                    className="block p-4 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-md focus:ring-blue-500 focus:border-blue-500"
+                    className="block w-full p-4 rounded-sm text-gray-600 bg-white hover:bg-gray-300 focus:bg-gray-300 dark:bg-[#303339] dark:hover:bg-[#393b41] dark:focus:bg-[#393b41] dark:text-gray-200 transition-all outline-none focus:outline-none"
+                    placeholder="NFT Name."
                     name="name"
                     value={values.name}
                     onBlur={handleBlur}
                     onChange={handleChange}
                   />
                 </div>
-                <div className="flex flex-col w-full justify-center items-center lg:flex-row lg:w-[80%] lg:items-start">
-                  <div className="flex lg:py-6 flex-col mb-6 p-3 w-[80%] h-[58vh] items-center justify-center border-[1px] border-gray-300 bg-slate-50 rounded-[15px] lg:h-[50vh] lg:max-w-[420px] lg:min-h-[500px]">
+                <div className="flex flex-col w-full justify-center items-center lg:flex-row lg:items-start">
+                  <div className="flex flex-col p-2 lg:w-full lg:h-full w-[80%] sm:min-h-[600px] h-[60vh] max-h-[400px] items-center justify-center bg-slate-50 dark:bg-[#303339] lg:max-w-[420px] lg:min-h-[500px]">
                     <div className="w-full h-full relative">
                       {uploading ? (
-                        <div className="ease-in-out duration-300 absolute inset-0 rounded-lg h-full bg-gradient-to-r from-sky-500 to-indigo-500 blur-lg animate-pulse" />
+                        <div className="ease-in-out duration-300 absolute inset-0 h-full bg-gradient-to-r from-sky-500 to-indigo-500 dark:from-gray-500 dark:to-slate-500 blur-lg animate-pulse" />
+                      ) : preview ? (
+                        <BlurImage
+                          src={preview || imagePlaceholder}
+                          loader={() => preview}
+                        />
                       ) : (
                         <BlurImage src={preview || imagePlaceholder} />
                       )}
@@ -250,13 +254,13 @@ const CreateProduct: NextPage<Props> = ({ fallbackData }) => {
                       {errors.image && touched.image && errors.image}
                     </span>
                     <span className="self-start text-red-400">
-                      {uploadError && 'Fail to load file. Try again.'}
+                      {uploadError &&
+                        'Failed while loading the file. Try again.'}
                     </span>
-                    <hr className="w-[82%] h-[2px] bg-slate-300 mb-2 mt-1 lg:w-[90%] lg:mb-4 lg:mt-3 lg:max-w-[316px]" />
-                    <div className="h-[11vh] w-[80%] lg:h-[7vh] lg:w-[90%] lg:max-w-[316px]">
+                    <div className="h-auto w-full">
                       <label
                         htmlFor="fileInput"
-                        className=" hover:scale-[1.1] transition-all cursor-pointer bg-black text-gray-200 h-[100%] flex items-center justify-center rounded-[15px] lg:h-[70px]"
+                        className="cursor-pointer text-gray-600 bg-gray-200 hover:bg-gray-300 dark:bg-[#393b41] dark:hover:bg-[#2c2d30] dark:text-gray-400 h-auto py-4 mb-0 mt-10 flex items-center justify-center transition-all"
                       >
                         <span className="text-[1.2rem]">Select Image</span>
                       </label>
@@ -274,11 +278,11 @@ const CreateProduct: NextPage<Props> = ({ fallbackData }) => {
                       />
                     </div>
                   </div>
-                  <div className="flex flex-col items-center lg:items-end w-full ">
-                    <div className="mb-8 w-[80%]">
+                  <div className="flex flex-col items-center mt-8 lg:mt-0 lg:items-end lg:w-full w-[80%] ">
+                    <div className="mb-8 w-full lg:w-[80%]">
                       <label
                         htmlFor="price"
-                        className="flex items-center gap-2 mb-2 text-sm font-medium text-gray-900 "
+                        className="flex items-center gap-2 mb-2 text-sm font-medium text-gray-600 dark:text-gray-400"
                       >
                         <span className="text-[1.2rem]">Price*</span>
                         <span className="self-start text-red-400">
@@ -287,18 +291,18 @@ const CreateProduct: NextPage<Props> = ({ fallbackData }) => {
                       </label>
                       <input
                         type="number"
-                        className=" appearance-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-4 "
-                        placeholder="Price..."
+                        className="block w-full p-4 rounded-sm text-gray-600 bg-white hover:bg-gray-300 focus:bg-gray-300 dark:bg-[#303339] dark:hover:bg-[#393b41] dark:focus:bg-[#393b41] dark:text-gray-200 transition-all outline-none focus:outline-none"
+                        placeholder="Only numbers allowed."
                         name="price"
                         value={values.price}
                         onBlur={handleBlur}
                         onChange={handleChange}
                       />
                     </div>
-                    <div className="mb-8 w-[80%]">
+                    <div className="mb-8 w-full lg:w-[80%]">
                       <label
                         htmlFor="categories"
-                        className="flex items-center gap-2 mb-2 text-sm font-medium text-gray-900 "
+                        className="flex items-center gap-2 mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
                       >
                         <span className="text-[1.2rem]">Categories*</span>
                         {catError !== null && (
@@ -313,10 +317,10 @@ const CreateProduct: NextPage<Props> = ({ fallbackData }) => {
                         value={values.categoriesNames}
                         onChange={(e) => categoriesHandler(e, values)}
                         onBlur={handleBlur}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        className="block w-full p-4 rounded-sm text-gray-600 bg-white hover:bg-gray-300 focus:bg-gray-300 dark:bg-[#303339] dark:hover:bg-[#393b41] dark:focus:bg-[#393b41] dark:text-gray-200 transition-all outline-none focus:outline-none"
                       >
                         <option value="" disabled selected hidden>
-                          Select some categories
+                          Select a maximum of 5 categories.
                         </option>
                         {categories?.map((c) => (
                           <option key={c.id} value={c.name}>
@@ -327,24 +331,26 @@ const CreateProduct: NextPage<Props> = ({ fallbackData }) => {
                       <div className="flex flex-row w-full flex-wrap mt-2">
                         {values.categoriesNames?.map((c) => (
                           <div
-                            className="flex flex-row justify-center items-center bg-slate-200 rounded-[15px] p-[5px] mr-[5px] text-[0.85rem] border-gray-300 border-[2px]"
+                            className="flex flex-row justify-center items-center w-auto h-auto p-2 m-1 text-gray-600 bg-white hover:bg-gray-300 dark:bg-[#303339] dark:hover:bg-[#393b41] dark:text-gray-200 transition-all"
                             key={c}
                           >
                             <button
                               onClick={() => deleteCat(c, values)}
-                              className="mr-[4px] ml-[2px] font-[700] text-slate-800 hover:text-slate-600 "
+                              className="mr-1"
                             >
-                              X
+                              <SvgCross className="w-5 h-5 fill-gray-600 dark:fill-gray-400 hover:fill-red-600 dark:hover:fill-red-600 transition-all" />
                             </button>
-                            <span>#{c}</span>
+                            <span className="text-gray-600 dark:text-gray-400">
+                              #{c}
+                            </span>
                           </div>
                         ))}
                       </div>
                     </div>
-                    <div className="w-[80%]">
+                    <div className="lg:w-[80%] w-full">
                       <label
                         htmlFor="message"
-                        className="flex items-center gap-2 mb-2 text-sm font-medium text-gray-900 "
+                        className="flex items-center gap-2 mb-2 text-sm font-medium text-gray-600 dark:text-gray-400"
                       >
                         <span className="text-[1.2rem]">Description</span>
                         <span className="self-start text-red-400">
@@ -356,8 +362,8 @@ const CreateProduct: NextPage<Props> = ({ fallbackData }) => {
                       <textarea
                         id="message"
                         rows={10}
-                        className=" resize-none lg:h-[240px] text-[1rem] mb-4 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-                        placeholder="Description here..."
+                        className="resize-none block w-full p-4 rounded-sm text-gray-600 bg-white hover:bg-gray-300 focus:bg-gray-300 dark:bg-[#303339] dark:hover:bg-[#393b41] dark:focus:bg-[#393b41] dark:text-gray-200 transition-all outline-none focus:outline-none"
+                        placeholder="At least 10 characters. Max 140."
                         name="description"
                         value={values.description}
                         onChange={handleChange}
@@ -379,9 +385,9 @@ const CreateProduct: NextPage<Props> = ({ fallbackData }) => {
                 errors.image !== undefined ||
                 errors.description !== undefined
               }
-              className="w-[180px] h-[60px] rounded-[15px] border-[1px] border-gray-400 mb-10 hover:scale-[1.1] hover:bg-slate-900 text-[1.2rem] font-[600] hover:text-white transition-all disabled:bg-gray-500 disabled:transform-none disabled:transition-none disabled:text-white disabled:cursor-not-allowed"
+              className="lg:w-auto w-[80%] h-auto lg:px-[25rem] cursor-pointer py-5 m-5 dark:bg text-gray-600 bg-white hover:bg-gray-300 focus:bg-gray-300 dark:bg-[#303339] dark:hover:bg-[#393b41] dark:focus:bg-[#393b41] dark:text-gray-200 transition-all outline-none focus:outline-none disabled:cursor-not-allowed disabled:bg-gray-300 dark:disabled:bg-[#393b41]"
             >
-              Submit
+              Create it!
             </button>
           </form>
         )}

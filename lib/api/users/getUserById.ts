@@ -14,64 +14,85 @@ const getUserById = async ({
         id: true,
         name: true,
         email: true,
+        admin: true,
         emailVerified: true,
         passwordHash: true,
         image: true,
         coins: true,
         collectionsCreated: {
+          where: {
+            erased: false,
+          },
+          take: 3,
           select: {
             id: true,
             name: true,
             image: true,
             description: true,
-            disccount: true,
+            discount: true,
+            price: true,
           },
         },
         collectionsOwned: {
+          where: {
+            erased: false,
+          },
+          take: 3,
           select: {
             id: true,
             name: true,
             image: true,
             description: true,
-            disccount: true,
+            discount: true,
+            price: true,
           },
         },
         nftsCreated: {
-          take: 6,
-          select: { id: true, name: true, image: true, price: true },
-        },
-        nftsOwned: {
-          take: 6,
-          select: { id: true, name: true, image: true, price: true },
-        },
-        wishes: {
-          select: {
-            nft: { select: { id: true, name: true, image: true, price: true } },
+          where: {
+            erased: false,
           },
-        },
-        likes: {
+          take: 6,
           select: {
             id: true,
             name: true,
             image: true,
             price: true,
+            published: true,
           },
         },
-        comments: {
+        nftsOwned: {
+          where: {
+            erased: false,
+          },
+          take: 6,
           select: {
             id: true,
-            nft: { select: { id: true, name: true, image: true, price: true } },
-            isPublished: true,
-            content: true,
+            name: true,
+            image: true,
+            price: true,
+            published: true,
           },
         },
-        accounts: true,
-        sessions: true,
+        wishes: {
+          take: 6,
+          select: {
+            nft: {
+              select: {
+                id: true,
+                name: true,
+                image: true,
+                price: true,
+                published: true,
+                erased: true,
+              },
+            },
+          },
+        },
       },
     })
-    console.log(user)
     return user
   } catch (e) {
+    console.log(e)
     return null
   }
 }

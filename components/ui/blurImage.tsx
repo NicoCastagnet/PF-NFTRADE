@@ -22,10 +22,10 @@ const BlurImage: React.FC<ImageProps> = ({ src, ...props }) => {
       priority
       objectFit="cover"
       className={cn(
-        'duration-700 ease-in-out rounded-lg overflow-hidden',
+        'duration-700 ease-in-out rounded-md overflow-hidden',
         props.className as string,
         isLoading
-          ? 'bg-gradient-to-r from-sky-500 to-indigo-500 blur-lg animate-pulse'
+          ? 'bg-gradient-to-r from-sky-500 to-indigo-500 dark:from-gray-500 dark:to-slate-500 blur-lg animate-pulse'
           : 'grayscale-0 blur-0 scale-100',
       )}
       onLoadingComplete={() => setLoading(false)}

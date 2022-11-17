@@ -6,7 +6,6 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   const { id, name, email, image } = req.body
-  console.log(id, name, email, image)
   try {
     const newUser = await prisma.user.update({
       data: {
@@ -16,7 +15,6 @@ export default async function handler(
       },
       where: { id: id as string },
     })
-    console.log(newUser)
     res.status(200).json(newUser)
   } catch (e) {
     console.log(e)

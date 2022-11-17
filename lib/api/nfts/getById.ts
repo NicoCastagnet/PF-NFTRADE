@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import prisma from '@lib/db'
 import type { NftDetailResponse } from 'types/api-responses'
 
@@ -16,6 +19,7 @@ const getNftById = async ({
         description: true,
         price: true,
         published: true,
+        collectionId: true,
         comments: {
           select: {
             id: true,
@@ -40,8 +44,10 @@ const getNftById = async ({
             name: true,
           },
         },
+        wishedBy: { select: { userId: true } },
       },
     })
+    nft.wishedBy = nft.wishedBy.map((w) => w.userId)
     return nft
   } catch (e) {
     return null

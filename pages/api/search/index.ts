@@ -10,6 +10,7 @@ export default async function handler(
   const results = await prisma.nft.findMany({
     where: {
       name: { contains: q as string, mode: 'insensitive' },
+      erased: false,
     },
     select: {
       id: true,

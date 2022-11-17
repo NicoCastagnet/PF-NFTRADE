@@ -7,35 +7,21 @@ import SvgChevronDown from '@components/icons/svgChevronDown'
 import SvgCoin from '@components/icons/svgCoin'
 import SvgUser from '@components/icons/svgUser'
 import Search from '@components/search'
-import axios from 'axios'
-import { useSession } from 'next-auth/react'
+import { useCart } from '@context/cart'
+import useCoins from 'hook/useCoins'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
-import { useOpenMenu } from '../../hook/openCartMenu'
+import { useState } from 'react'
 import Hamburguesa from './hamburguesa'
 import Logo from './logo'
-import Notificaciones from './notificaciones'
+import Notificaciones from './notify/notificaciones'
 import UserMenuNavBar from './user'
 
 export default function NavBar() {
   const [menu, setMen] = useState(false)
-  const { data: session } = useSession()
-  const { open, setOpen } = useOpenMenu()
-  const [coins, setCoins] = useState('')
-
-  const userCoins = async () => {
-    const res = await axios.get(
-      `http://https://pf-nftrade.netlify.app/api/user/${session?.user.id}`,
-    )
-    setCoins(res.data.coins)
-  }
-
-  useEffect(() => {
-    session && userCoins()
-  }, [session, userCoins])
-
-  useSession()
+  const { session, coins } = useCoins()
+  const [open, setOpen] = useState(false)
+  const { cart } = useCart()
 
   return (
     <nav className="navbar__nav bg-slate-900 dark:bg-[#202225] h-20 w-full flex flex-row text-center items-center justify-center fixed top-0 z-10 px-4">
@@ -54,16 +40,20 @@ export default function NavBar() {
           <div className="navbar__buttons flex items-center text-white">
             <div className="flex max-xl:hidden ease duration-150 justify-between w-[165px]">
               <Link href={'#'} shallow>
-                <p className="relative group cursor-pointer">
-                  <span className="font-semibold">Explore</span>
-                  <span className="absolute -bottom-0 left-0 w-0 h-1 bg-blue-600 transition-all group-hover:w-full"></span>
-                </p>
+                <a>
+                  <p className="relative group cursor-pointer">
+                    <span className="font-semibold">Explore</span>
+                    <span className="absolute -bottom-0 left-0 w-0 h-1 bg-blue-600 transition-all group-hover:w-full"></span>
+                  </p>
+                </a>
               </Link>
               <Link href="/marketplace" shallow>
-                <p className="relative group cursor-pointer">
-                  <span className="font-semibold">Marketplace</span>
-                  <span className="absolute -bottom-0 left-0 w-0 h-1 bg-blue-600 transition-all group-hover:w-full"></span>
-                </p>
+                <a>
+                  <p className="relative group cursor-pointer">
+                    <span className="font-semibold">Marketplace</span>
+                    <span className="absolute -bottom-0 left-0 w-0 h-1 bg-blue-600 transition-all group-hover:w-full"></span>
+                  </p>
+                </a>
               </Link>
             </div>
             {session && (
@@ -74,16 +64,27 @@ export default function NavBar() {
                   height={'25'}
                 />
                 <div className="absolute bg-gray-700 dark:bg-[#303339] w-auto h-11 p-3 top-16 invisible group-hover:visible flex items-center justify-center rounded-lg text-white">
-                  {coins.toLocaleString('es-AR')} coins
+                  {coins && coins?.toFixed(2).toLocaleString('es-AR')} Coins
                 </div>
               </div>
             )}
-            <SvgCart
-              className="m-3 cursor-pointer hover:text-blue-600 transition-all hover:animate-pulse"
-              width={'25'}
-              height={'25'}
-              onClick={() => setOpen(!open)}
-            />
+            <button onClick={() => setOpen(!open)} className="relative group">
+              {cart.length ? (
+                <>
+                  <span className="h-5 w-6 bg-red-500 rounded-full absolute top-[0.35rem] left-5 border-[3px] border-gray-900 z-10 text-sm text-center flex justify-center items-center pt-1 ">
+                    {cart.length}
+                  </span>
+                  <span className="animate-ping h-5 w-6 bg-red-500 rounded-full inline-flex absolute top-[0.35rem] left-5 z-10"></span>
+                </>
+              ) : (
+                ''
+              )}
+              <SvgCart
+                className="m-3 hover:text-blue-600 transition-all hover:animate-pulse"
+                width={'25'}
+                height={'25'}
+              />
+            </button>
             {session && <Notificaciones />}
             <button
               id="dropdownInformationButton"

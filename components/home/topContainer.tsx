@@ -14,7 +14,7 @@ const TopContainer = ({ nfts }: { nfts: NftsResponse }) => {
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [selected, setSelected] = useState(nfts[0])
 
-  const selectNewImage = (index: number, nfts: NftsResponse, next = true) => {
+  const selectNewImage = (nfts: NftsResponse, next = true) => {
     const condition = next ? selectedIndex < nfts.length - 1 : selectedIndex > 0
     const nextIndex = next
       ? condition
@@ -28,11 +28,11 @@ const TopContainer = ({ nfts }: { nfts: NftsResponse }) => {
   }
 
   const previous = () => {
-    selectNewImage(selectedIndex, nfts, false)
+    selectNewImage(nfts, false)
   }
 
   const next = () => {
-    selectNewImage(selectedIndex, nfts)
+    selectNewImage(nfts)
   }
   return (
     <section className="home__top flex flex-col items-center w-full m-14 max-md:m-0 max-md:mt-0 max-xl:px-12 max-sm:px-0 ease duration-500">
@@ -45,7 +45,7 @@ const TopContainer = ({ nfts }: { nfts: NftsResponse }) => {
           marketplace!
         </p>
       </div>
-      <div className="xl:hidden relative mt-14 max-lg:mt-2 h-[43rem] flex justify-center items-center w-full max-w-7xl max-md:bg-transparent max-lg:max-w-2xl rounded-2xl ease duration-500">
+      <div className="xl:hidden relative mt-14 max-lg:mt-2 h-[43rem] flex justify-center items-center w-[90%] lg:w-full max-w-7xl max-md:bg-transparent max-lg:max-w-2xl rounded-2xl ease duration-500">
         <div className="xl:hidden flex flex-row justify-center items-center gap-8 ease duration-500">
           <div className="init-card max-w-sm m-18 bg-gray-300 border-2 border-gray-400 dark:bg-[#303339] dark:border-zinc-600 dark:border-0 rounded-xl">
             <Image
@@ -123,8 +123,9 @@ const TopContainer = ({ nfts }: { nfts: NftsResponse }) => {
                   className="rounded-t-xl object-cover group-hover:scale-110 transition-all duration-500"
                   src={e.image}
                   alt="ds"
-                  width={1000}
-                  height={1000}
+                  width={500}
+                  height={700}
+                  quality={20}
                   layout="intrinsic"
                 />
                 <div className="p-5">
@@ -148,10 +149,12 @@ const TopContainer = ({ nfts }: { nfts: NftsResponse }) => {
                   {e.description ? e.description : 'No description provided.'}
                 </p>
                 <Link href={`/nfts/${e.id}`}>
-                  <div className="cursor-pointer inline-flex my-5 ml-5 items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-all">
-                    See details
-                    <SvgArrow className="animate-pulse transition-all ml-2 -mr-1 w-4 h-4" />
-                  </div>
+                  <a>
+                    <div className="cursor-pointer inline-flex my-5 ml-5 items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-all">
+                      See details
+                      <SvgArrow className="animate-pulse transition-all ml-2 -mr-1 w-4 h-4" />
+                    </div>
+                  </a>
                 </Link>
               </div>
             )

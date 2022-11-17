@@ -18,6 +18,8 @@ export type NftsResponse = Prisma.NftGetPayload<{
         id: true
       }
     }
+    description: true
+
     published: true
     owner: {
       select: { name: true; id: true }
@@ -45,6 +47,7 @@ export type NftResponse = Prisma.NftGetPayload<{
         id: true
       }
     }
+    description: true
     published: true
     owner: {
       select: { name: true; id: true }
@@ -64,6 +67,8 @@ export type NftDetailResponse = Prisma.NftGetPayload<{
     image: true
     description: true
     price: true
+    collectionId: true
+    erased: true
     likedBy: {
       select: {
         id: true
@@ -89,6 +94,7 @@ export type NftDetailResponse = Prisma.NftGetPayload<{
         name: true
       }
     }
+    wishedBy: { select: { userId: true } }
   }
 }>
 
@@ -179,7 +185,8 @@ export type CollectionDetailResponse = Prisma.CollectionGetPayload<{
     name: true
     image: true
     description: true
-    disccount: true
+    discount: true
+    published: true
     owner: {
       select: { name: true; id: true }
     }
@@ -188,6 +195,7 @@ export type CollectionDetailResponse = Prisma.CollectionGetPayload<{
     }
     createdAt: true
     updatedAt: true
+    price: true
     nfts: {
       select: {
         id: true
@@ -228,6 +236,12 @@ export type CommentsResponse = Prisma.CommentGetPayload<{
         name: true
       }
     }
+    nft: {
+      select: {
+        id: true
+        name: true
+      }
+    }
   }
 }>[]
 
@@ -251,13 +265,15 @@ export type UserDetailResponse = Prisma.UserGetPayload<{
     emailVerified: true
     image: true
     coins: true
+    admin: true
     collectionsCreated: {
       select: {
         id: true
         name: true
         image: true
         description: true
-        disccount: true
+        discount: true
+        price: true
       }
     }
     collectionsOwned: {
@@ -266,36 +282,98 @@ export type UserDetailResponse = Prisma.UserGetPayload<{
         name: true
         image: true
         description: true
-        disccount: true
+        discount: true
+        price: true
       }
     }
     nftsCreated: {
       take: 6
-      select: { id: true; name: true; image: true; price: true }
-    }
-    nftsOwned: {
-      take: 6
-      select: { id: true; name: true; image: true; price: true }
-    }
-    wishes: {
-      select: {
-        nft: { select: { id: true; name: true; image: true; price: true } }
-      }
-    }
-    likes: {
       select: {
         id: true
         name: true
         image: true
         price: true
+        published: true
       }
     }
-    comments: {
+    nftsOwned: {
+      take: 6
       select: {
         id: true
-        nft: { select: { id: true; name: true; image: true; price: true } }
-        isPublished: true
-        content: true
+        name: true
+        image: true
+        price: true
+        published: true
+      }
+    }
+    wishes: {
+      select: {
+        nft: {
+          select: {
+            id: true
+            name: true
+            image: true
+            price: true
+            published: true
+          }
+        }
+      }
+    }
+  }
+}>
+
+export type UserBasicResponse = Prisma.UserGetPayload<{
+  select: {
+    id: true
+    name: true
+    email: true
+    image: true
+    admin: true
+  }
+}>
+
+export type DataToCreateCollection = Prisma.UserGetPayload<{
+  select: {
+    id: true
+    name: true
+    email: true
+    emailVerified: true
+    image: true
+    coins: true
+    nftsOwned: {
+      where: {
+        erased: false
+      }
+      select: {
+        id: true
+        name: true
+        image: true
+        price: true
+        published: true
+        collectionId: true
+      }
+    }
+  }
+}>
+
+export type WishesResponse = Prisma.UserGetPayload<{
+  select: {
+    id: true
+    name: true
+    image: true
+
+    wishes: {
+      select: {
+        nft: {
+          select: {
+            id: true
+            name: true
+            image: true
+            price: true
+            published: true
+            erased: true
+          }
+        }
       }
     }
   }

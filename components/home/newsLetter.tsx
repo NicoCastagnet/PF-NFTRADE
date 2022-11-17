@@ -1,8 +1,22 @@
 import Newsletter from '@assets/newsletter.png'
 import SvgMail from '@components/icons/svgMail'
+import axios from 'axios'
 import Image from 'next/image'
+import { useState } from 'react'
+// import mailSendNews from '../../pages/api/emails/newsLetter'
 
 const NewsLetter = () => {
+  const [mail, setmail] = useState('')
+
+  const handleOnChange = (e: any) => {
+    setmail(e.target.value)
+  }
+
+  const handleSubmit = async () => {
+    await axios.get(`http://localhost:3000/api/emails/newsLetter?email=${mail}`)
+    setmail('')
+  }
+
   return (
     <section className="home__newsletter flex items-center justify-center w-full ">
       <div className="flex flex-row justify-center items-center max-w-7xl m-14 max-lg:max-w-2xl max-sm:m-8">
@@ -32,8 +46,10 @@ const NewsLetter = () => {
                 className="block focus:outline-none bg-gray-100 dark:bg-[#303339] dark:border-none p-4 pl-10 pr-28 w-4/5 text-sm rounded-lg border max-md:w-full max-md:pr-[5.5rem]"
                 placeholder="Enter your e-mail"
                 required
+                onChange={(e) => handleOnChange(e)}
               />
               <button
+                onClick={() => handleSubmit()}
                 type="submit"
                 className="text-white absolute right-[21%] bottom-[8.5px] bg-blue-600 hover:bg-blue-700 font-medium rounded-lg text-sm px-4 py-2 max-md:right-[3%] transition-all"
               >
