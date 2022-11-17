@@ -27,12 +27,12 @@ const DashBoardWebData: NextPage = () => {
     `/api/dashboardata/adminPanelData`,
     fetcher,
   )
+  const { data: isAdmin } = useSWR(`/api/user/${session?.user.id}`, fetcher)
   const router = useRouter()
 
   const [handleTables, setHandleTables] = useState(1)
-  console.log(data?.userData.admin)
 
-  if (data?.userData.admin === false) {
+  if (isAdmin?.admin === false) {
     router.push('/dashboard')
   }
 
@@ -44,9 +44,9 @@ const DashBoardWebData: NextPage = () => {
       <SideBar />
       <div className="dashboard__home-content w-full flex-row">
         <NavBar site={'Website data'} />
-        {data?.userData.admin === undefined ? (
+        {isAdmin?.admin === undefined ? (
           <div>LOADER</div>
-        ) : data?.userData.admin === false ? (
+        ) : isAdmin?.admin === false ? (
           <div>You dont have permission to see this page</div>
         ) : (
           <div className="dashboard__home-content mx-[5%] my-16 flex flex-col items-center">
