@@ -99,7 +99,7 @@ const DashBoard: NextPage = () => {
             <span className="text-center mb-8 text-2xl font-bold text-gray-400">
               Your <span className="text-blue-600">NFT&apos;s</span>
             </span>
-            <UserTable/>
+            <UserTable />
           </div>
         </div>
       </div>
