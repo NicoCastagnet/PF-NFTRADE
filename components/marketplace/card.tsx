@@ -30,9 +30,9 @@ const Card = ({
       <div
         className={` ${
           carSize === 'bigger'
-            ? 'sm:h-[32.5rem] sm:w-[22rem] w-[90%] overflow-hidden'
+            ? 'sm:h-[32.5rem] sm:w-[22rem] w-[63%] overflow-hidden'
             : carSize === 'small'
-            ? 'sm:h-[27.5rem] sm:w-[18rem] w-[90%] overflow-hidden '
+            ? 'sm:h-[27.5rem] sm:w-[18rem] w-[63%] overflow-hidden '
             : ''
         }  relative flex flex-col rounded-xl overflow-hidden p-[1px] cursor-pointer group drop-shadow-lg`}
       >
