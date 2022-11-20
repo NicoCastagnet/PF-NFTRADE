@@ -105,7 +105,6 @@ const FilterSideBar: React.FC<FilterSideBarProps> = ({
                               max="9999"
                               placeholder="Min price"
                               name="minPrice"
-                              defaultValue={filterValues.minPrice}
                             />
                           </div>
                           <div className="flex flex-col w-full">
@@ -118,7 +117,6 @@ const FilterSideBar: React.FC<FilterSideBarProps> = ({
                               max="9999"
                               placeholder="Max price"
                               name="maxPrice"
-                              defaultValue={filterValues.maxPrice}
                             />
                           </div>
                         </div>

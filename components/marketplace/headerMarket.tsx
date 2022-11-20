@@ -56,7 +56,7 @@ const HeaderMarket: NextPage<Props> = ({
             className="max-sm:bg-transparent dark:max-sm:bg-transparent max-sm:m-0 max-md:w-40 bg-gray-700 text-white hover:bg-gray-500 dark:bg-[#303339] dark:hover:drop-shadow-lg transition-all group flex items-center py-3 px-3 ml-4 text-sm font-medium rounded-lg"
             onClick={() => {
               setOrder('')
-              setFilter({ minPrice: '', maxPrice: '' })
+              setFilter({ minPrice: '0', maxPrice: '99999' })
             }}
           >
             <SvgReload
