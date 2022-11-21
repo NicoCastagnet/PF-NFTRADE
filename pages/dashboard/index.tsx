@@ -20,6 +20,7 @@ import styles from '../../styles/wavinghand.module.css'
 const DashBoard: NextPage = () => {
   const { data: session } = useSession()
   const { data } = useSWR(`/api/dashboardata?user=${session?.user.id}`, fetcher)
+  const { data: userCoins } = useSWR(`/api/user/${session?.user.id}`, fetcher)
   return (
     <section className="dashboard__home flex bg-gray-200 dark:bg-[#202225] transition-all">
       <Head>
@@ -58,8 +59,8 @@ const DashBoard: NextPage = () => {
             </div>
             <div className="right flex flex-col bg-[#303339] text-gray-400 rounded-xl w-full p-5 ml-3 drop-shadow-md">
               <span className="text-xl font-bold text-blue-600 flex justify-center">
-                {data ? (
-                  parseInt(data?.userData?.coins).toLocaleString('es-AR')
+                {userCoins ? (
+                  parseInt(userCoins?.coins).toLocaleString('es-AR')
                 ) : (
                   <SvgLoading className="animate-spin h-6 w-6" />
                 )}
