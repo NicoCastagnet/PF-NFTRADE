@@ -42,11 +42,11 @@ export default async function mailSend(
       </div>
       `,
     }
-    transporter.sendMail(mailOptions, (Error, info) => {
-      if (Error) {
-        res.status(500).send(Error.message)
+    transporter.sendMail(mailOptions, (err, info) => {
+      if (err) {
+        res.status(500).send(err.message)
       } else {
-        res.status(200).send('email enviado')
+        res.status(200).send('Passed. Email sent.' + info)
       }
     })
   } else if (reason === 'buy Rejected') {
@@ -73,11 +73,11 @@ export default async function mailSend(
       `,
     }
 
-    transporter.sendMail(mailOptions, (Error, info) => {
-      if (Error) {
-        res.status(500).send(Error.message)
+    transporter.sendMail(mailOptions, (err, info) => {
+      if (err) {
+        console.error(err.message)
       } else {
-        res.status(200).send('email enviado')
+        console.info('Passed. Email sent.' + info)
       }
     })
   }

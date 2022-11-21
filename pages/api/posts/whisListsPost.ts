@@ -12,7 +12,7 @@ export default async function postWishlist(
   if (req.method === 'POST') {
     const { userId, nftId } = req.body
     if (!userId || !nftId) {
-      res.status(400).send('Missing data.')
+      res.status(400).send('Failed. Missing data.')
     } else {
       const list = await prisma.wishList.create({
         data: {
@@ -21,7 +21,7 @@ export default async function postWishlist(
         },
       })
       const msg = {
-        text: 'The whish list was created successfully.',
+        text: 'The whishlist was successfully created.',
         data: list,
       }
       res.status(201).json(msg)

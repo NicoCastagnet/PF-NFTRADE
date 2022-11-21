@@ -37,8 +37,7 @@ const getDataToCreateCollection = async ({
     })
     return user
   } catch (e) {
-    console.log(e)
-    return null
+    console.error(e)
   }
 }
 

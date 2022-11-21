@@ -2,9 +2,9 @@
 // @ts-nocheck
 
 import axios from 'axios'
-import type { NextApiRequest, NextApiResponse } from 'next'
+import type { NextApiRequest } from 'next'
 export default class PaymentService {
-  async createPayment(req: NextApiRequest, res: NextApiResponse) {
+  async createPayment(req: NextApiRequest) {
     const url = 'https://api.mercadopago.com/checkout/preferences'
     const { quantity, unit_price, idUser } = req.body
     const datos = [
@@ -19,8 +19,7 @@ export default class PaymentService {
       },
     ]
     const body = {
-      notification_url:
-        'https://f25f-190-7-10-181.sa.ngrok.io/api/notificaciones',
+      notification_url: `${process.env.NEXT_PUBLIC_APP_URL}/api/notificaciones`,
       payer_email: 'test_user_46945293@testuser.com ',
       items: datos,
       back_urls: {

@@ -22,7 +22,7 @@ export default async function postLike(
           },
         })
         const msg = {
-          message: 'nft actualizado',
+          message: 'Passed. NFT successffully updated.',
           data: nft,
         }
         res.status(200).send(msg)
@@ -38,13 +38,13 @@ export default async function postLike(
           },
         })
         const msg = {
-          message: 'nfts actualizados',
+          message: "Passed. NFT's successffully updated.",
           data: nfts,
         }
         res.status(200).send(msg)
       }
     }
   } catch (e) {
-    console.log(e)
+    console.error(e)
   }
 }

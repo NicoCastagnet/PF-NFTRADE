@@ -45,7 +45,7 @@ const getCollectionById = async ({
     })
     return collection
   } catch (e) {
-    return null
+    console.error(e)
   }
 }
 

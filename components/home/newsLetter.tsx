@@ -16,7 +16,9 @@ const NewsLetter = () => {
   }
 
   const handleSubmit = async () => {
-    await axios.get(`http://localhost:3000/api/emails/newsLetter?email=${mail}`)
+    await axios.get(
+      `${process.env.NEXT_PUBLIC_APP_URL}/api/emails/newsLetter?email=${mail}`,
+    )
     setmail('')
   }
 

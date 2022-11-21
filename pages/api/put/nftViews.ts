@@ -20,7 +20,7 @@ export default async function postView(
       })
 
       if (!user) {
-        res.status(400).send('el user no existe o es requerido')
+        res.status(400).send('Failed. User ID was not found.')
       } else {
         const nft = await prisma.nft.update({
           data: {
@@ -37,13 +37,13 @@ export default async function postView(
         })
 
         const msg = {
-          message: 'nft actualizado',
+          message: 'Passed. NFT successffully updated.',
           data: nft.viewedBy,
         }
         res.status(200).send(msg)
       }
     }
   } catch (e: any) {
-    console.log(e.message)
+    console.error(e.message)
   }
 }

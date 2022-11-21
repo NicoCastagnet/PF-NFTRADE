@@ -21,11 +21,11 @@ export default async function postComment(
       },
     })
     if (!user) {
-      res.status(404).send('User no encontrado')
+      res.status(404).send('Failed. User ID was not found.')
     } else if (!nft) {
-      res.status(404).send('Nft no encontrado')
+      res.status(404).send('Failed. NFT ID was not found.')
     } else {
-      const comment = await prisma.comment.create({
+      await prisma.comment.create({
         data: {
           content: content,
           nft: {
@@ -36,9 +36,9 @@ export default async function postComment(
           },
         },
       })
-      res.status(200).send('comentario creado!')
+      res.status(200).send('Passed. Comment successffully posted.')
     }
   } catch (e: any) {
-    console.log(e.message)
+    console.error(e.message)
   }
 }

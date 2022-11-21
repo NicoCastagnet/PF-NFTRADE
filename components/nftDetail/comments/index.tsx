@@ -44,7 +44,7 @@ const Comments: React.FC<{ nftId: string }> = ({ nftId }) => {
         setDisabled(false)
       })
       .catch((e) => {
-        console.log(e)
+        console.error(e)
         setDisabled(false)
       })
     toast.success('Comment deleted successfully!')
@@ -69,7 +69,7 @@ const Comments: React.FC<{ nftId: string }> = ({ nftId }) => {
           setDisabled(false)
         })
         .catch((e) => {
-          console.log(e)
+          console.error(e)
           setDisabled(false)
         })
       setComment('')

@@ -20,9 +20,6 @@ import styles from '../../styles/wavinghand.module.css'
 const DashBoard: NextPage = () => {
   const { data: session } = useSession()
   const { data } = useSWR(`/api/dashboardata?user=${session?.user.id}`, fetcher)
-
-  console.log(data)
-
   return (
     <section className="dashboard__home flex bg-gray-200 dark:bg-[#202225] transition-all">
       <Head>

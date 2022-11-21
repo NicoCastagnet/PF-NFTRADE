@@ -21,12 +21,12 @@ export default async function postLike(
         },
       })
       const msg = {
-        message: 'nft actualizado',
+        message: 'Passed. Collection successffully updated.',
         data: collection,
       }
       res.status(200).send(msg)
     }
   } catch (e) {
-    console.log(e)
+    console.error(e)
   }
 }

@@ -22,12 +22,12 @@ export default async function putPrice(
       })
 
       const msg = {
-        message: 'nft actualizado',
+        message: 'Passed. NFT successffully updated.',
         data: nft,
       }
       res.status(200).send(msg)
     }
   } catch (e) {
-    console.log(e)
+    console.error(e)
   }
 }

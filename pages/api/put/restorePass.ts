@@ -16,7 +16,7 @@ export default async function postComment(
       },
     })
     if (!user) {
-      res.status(404).send('User no encontrado')
+      res.status(404).send('Failed. User ID was not found.')
     } else {
       await prisma.user.update({
         data: {
@@ -26,9 +26,9 @@ export default async function postComment(
           id: id as string,
         },
       })
-      res.status(200).send('comentario eliminado')
+      res.status(200).send('Passed. Comment successffully updated.')
     }
   } catch (e: any) {
-    console.log(e.message)
+    console.error(e.message)
   }
 }

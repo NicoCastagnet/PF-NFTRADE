@@ -23,11 +23,11 @@ export default async function emailProvider(user: string, email: string) {
     <p>Don't forget to subscribe to our newsLetter to have constants news! ;)</p>
     `,
   }
-  transporter.sendMail(mailOptions, (Error, info) => {
-    if (Error) {
-      console.log(Error.message)
+  transporter.sendMail(mailOptions, (err, info) => {
+    if (err) {
+      console.error(err.message)
     } else {
-      console.log('email send')
+      console.info('Email was successfully sent.' + info)
     }
   })
 }

@@ -28,13 +28,13 @@ export default async function mailSend(
       <p>Don't forget to subscribe to our newsLetter to have constants news! ;)</p>
       `,
     }
-    transporter.sendMail(mailOptions, (Error, info) => {
-      if (Error) {
-        console.log(Error.message)
+    transporter.sendMail(mailOptions, (err, info) => {
+      if (err) {
+        console.error(err.message)
       } else {
-        console.log('email send')
+        console.info('Passed. Email sent.' + info)
       }
     })
-    res.status(200).send('recived')
+    res.status(200).send('Email recieved.')
   }
 }

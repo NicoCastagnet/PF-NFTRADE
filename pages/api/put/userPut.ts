@@ -22,7 +22,7 @@ export default async function updateUser(
       },
     })
     const msg = {
-      text: 'The user was successfully updated.',
+      text: 'Passed. User successffully updated.',
       data: user,
     }
     res.status(205).json(msg)

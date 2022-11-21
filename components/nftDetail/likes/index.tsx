@@ -49,7 +49,7 @@ const Likes: React.FC<{ nftId: string }> = ({ nftId }) => {
         setLoading(false)
       })
       .catch((e) => {
-        console.log(e)
+        console.error(e)
         setLoading(false)
       })
   }

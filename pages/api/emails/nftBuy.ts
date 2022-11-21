@@ -55,11 +55,11 @@ export default async function emailNft(
       `,
     }
 
-    transporter.sendMail(mailOptions, (Error, info) => {
-      if (Error) {
-        res.status(500).send(Error.message)
+    transporter.sendMail(mailOptions, (err, info) => {
+      if (err) {
+        console.error(err.message)
       } else {
-        res.status(200).send('email enviado')
+        console.info('Passed. Email sent.' + info)
       }
     })
   } else if (reason === 'vendedor') {
@@ -108,11 +108,11 @@ export default async function emailNft(
       `,
     }
 
-    transporter.sendMail(mailOptions, (Error, info) => {
-      if (Error) {
-        res.status(500).send(Error.message)
+    transporter.sendMail(mailOptions, (err, info) => {
+      if (err) {
+        console.error(err.message)
       } else {
-        res.status(200).send('email enviado')
+        console.info('Passed. Email sent.' + info)
       }
     })
   }

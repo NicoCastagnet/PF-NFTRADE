@@ -36,8 +36,7 @@ const getNftsOwned = async ({ id }: { id: string }): Promise<userNfts> => {
     })
     return user
   } catch (e) {
-    console.log(e)
-    return null
+    console.error(e)
   }
 }
 

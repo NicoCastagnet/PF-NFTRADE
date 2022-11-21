@@ -30,6 +30,6 @@ export default async function updateNft(
       res.status(205).json(msg)
     }
   } catch (e: any) {
-    console.log(e.message)
+    console.error(e.message)
   }
 }

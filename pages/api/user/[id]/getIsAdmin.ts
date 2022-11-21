@@ -26,7 +26,6 @@ export default async function getIsAdmin(
       res.status(201).send(false)
     }
   } catch (e) {
-    console.log(e)
-    return null
+    console.error(e)
   }
 }

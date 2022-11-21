@@ -16,7 +16,7 @@ export default async function postComment(
       },
     })
     if (!nft) {
-      res.status(404).send('User no encontrado')
+      res.status(404).send('Failed. NFT id was not found.')
     } else {
       await prisma.comment.update({
         data: {
@@ -26,9 +26,9 @@ export default async function postComment(
           id: commentId as string,
         },
       })
-      res.status(200).send('comentario eliminado')
+      res.status(200).send('Passed. Comment successfully deleted.')
     }
   } catch (e: any) {
-    console.log(e.message)
+    console.error(e.message)
   }
 }

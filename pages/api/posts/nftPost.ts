@@ -21,7 +21,7 @@ export default async function postNft(
         !description ||
         categoriesNames.length < 1
       ) {
-        res.status(400).send('Missing data')
+        res.status(400).send('Failed. Missing data')
       } else {
         let categoriesId: string[] | { id: string }[] =
           await prisma.category.findMany({
@@ -48,13 +48,13 @@ export default async function postNft(
           },
         })
         const msg = {
-          text: 'The NFT was created sucessfully.',
+          text: 'The NFT was sucessfully created.',
           data: nfts,
         }
         res.status(201).json(msg)
       }
     }
   } catch (error: any) {
-    console.log(error)
+    console.error(error)
   }
 }

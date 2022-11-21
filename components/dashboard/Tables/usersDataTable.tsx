@@ -93,7 +93,7 @@ const UsersDataTable = () => {
                         </td>
                         <td className="px-9 py-4 text-sm flex font-medium justify-center whitespace-nowrap">
                           <a
-                            href={`http://localhost:3000/users/${e.id}`}
+                            href={`${process.env.NEXT_PUBLIC_APP_URL}/users/${e.id}`}
                             target="_blank"
                             rel="noreferrer"
                           >

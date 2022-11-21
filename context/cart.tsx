@@ -19,13 +19,13 @@ interface CartContext {
 const CartContext = createContext<CartContext>({
   cart: [],
   clearCart: () => {
-    console.log('cleaning cart')
+    console.info('cleaning cart')
   },
   removeItem: (id: string) => {
-    console.log('removing item ' + id)
+    console.info('removing item ' + id)
   },
   addItem: (newItem: CartItem) => {
-    console.log('adding item ' + newItem.id)
+    console.info('adding item ' + newItem.id)
   },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   isInCart: (id: string) => undefined,

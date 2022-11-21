@@ -9,7 +9,7 @@ import { useState } from 'react'
 import useSWR, { mutate } from 'swr'
 import type { CommentsResponse } from 'types/api-responses'
 
-const COMMENTS_URL = 'https://pf-nftrade.netlify.app/api/comments/'
+const COMMENTS_URL = `${process.env.NEXT_PUBLIC_APP_URL}/api/comments/`
 
 const useComments = (nftId: string) => {
   const { data: comments, error } = useSWR<CommentsResponse>(
@@ -32,7 +32,7 @@ const Comments: React.FC<{ nftId: string }> = ({ nftId }) => {
 
   async function handleDelete(commentId: string) {
     setDisabled(true)
-    fetch('https://pf-nftrade.netlify.app/api/delete/comment', {
+    fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/delete/comment`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -46,7 +46,7 @@ const Comments: React.FC<{ nftId: string }> = ({ nftId }) => {
         setDisabled(false)
       })
       .catch((e) => {
-        console.log(e)
+        console.error(e)
         setDisabled(false)
       })
   }
@@ -54,7 +54,7 @@ const Comments: React.FC<{ nftId: string }> = ({ nftId }) => {
   async function submitComment() {
     if (comment.length > 0) {
       setDisabled(true)
-      fetch('https://pf-nftrade.netlify.app/api/comments/create', {
+      fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/comments/create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -70,7 +70,7 @@ const Comments: React.FC<{ nftId: string }> = ({ nftId }) => {
           setDisabled(false)
         })
         .catch((e) => {
-          console.log(e)
+          console.error(e)
           setDisabled(false)
         })
       setComment('')

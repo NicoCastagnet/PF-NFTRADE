@@ -15,9 +15,7 @@ interface cli {
   clientId: string
   clientSecret: string
 }
-// Este archivoooooooooo
-// profiiiiii
-// DALE SIIIII
+
 export const authOptions: NextAuthOptions = {
   // Adatpter Prisma
   adapter: PrismaAdapter(prisma),

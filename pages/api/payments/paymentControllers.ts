@@ -15,7 +15,7 @@ export default class PaymentController {
 
       return res.json({ payment: payment.init_point })
     } catch (error: any) {
-      console.log(error.message)
+      console.error(error.message)
 
       return res
         .status(500)

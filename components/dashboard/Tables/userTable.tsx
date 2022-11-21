@@ -97,7 +97,7 @@ const UserTable = () => {
                         </td>
                         <td className="px-9 py-4 text-sm flex font-medium justify-center whitespace-nowrap">
                           <a
-                            href={`http://localhost:3000/nfts/${e.id}`}
+                            href={`${process.env.NEXT_PUBLIC_APP_URL}/nfts/${e.id}`}
                             target="_blank"
                             rel="noreferrer"
                           >

@@ -26,12 +26,12 @@ export default async function updateNft(
         },
       })
       const msg = {
-        text: 'The NFT was successfully updated.',
+        text: 'Passed. NFT successffully updated.',
         data: nfts,
       }
       res.status(205).json(msg)
     }
   } catch (e: any) {
-    console.log(e.message)
+    console.error(e.message)
   }
 }

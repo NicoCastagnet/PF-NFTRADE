@@ -192,7 +192,7 @@ const CreateProduct: NextPage<Props> = ({ fallbackData }) => {
           }).then(async (res) => {
             if (!res.ok) {
               setCreatedId(null)
-              console.log('Failed while creating the nft.')
+              console.error('Failed while creating the nft.')
             }
             const { data } = await res.json()
             setOpenModal(true)

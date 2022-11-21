@@ -11,7 +11,9 @@ export default async function deleteComment(
   if (req.method === 'DELETE') {
     const { commentId } = req.body
     if (!commentId) {
-      return res.status(400).json({ message: 'commentId is required' })
+      return res
+        .status(400)
+        .json({ message: 'Failed. Comment ID is required.' })
     } else {
       await prisma.comment.delete({
         where: {
@@ -19,10 +21,10 @@ export default async function deleteComment(
         },
       })
       const msg = {
-        text: 'The comment was deleted successfully.',
+        text: 'The comment was successfully deleted.',
       }
       return res.status(205).json(msg)
     }
   }
-  return res.status(401).json({ message: 'method not allowed' })
+  return res.status(401).json({ message: 'Failed. Method not allowed.' })
 }

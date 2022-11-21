@@ -4,8 +4,6 @@ import prisma from '@lib/db'
 import { hash } from 'bcryptjs'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import mailSend from '../emails/restorePass'
-//
-//
 export default async function handle(
   req: NextApiRequest,
   res: NextApiResponse,
