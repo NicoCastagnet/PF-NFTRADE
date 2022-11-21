@@ -111,7 +111,7 @@ const Card = ({
                         carSize === 'small' ? 'text-base' : 'text-xl'
                       } text-gray-800 dark:text-white font-semibold  truncate ease duration-300`}
                     >
-                      {owner.name}
+                      {owner?.name}
                     </p>
                   </div>
                   <div className="flex flex-row justify-center items-center gap-2">

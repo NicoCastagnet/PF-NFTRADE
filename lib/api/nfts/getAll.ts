@@ -1,5 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { getOrderBy } from '@lib/api-utils'
+// import { getOrderBy } from '@lib/api-utils'
 import prisma from '@lib/db'
 import type { NftsResponse } from 'types/api-responses'
 
@@ -12,15 +12,15 @@ interface GetNftsProps {
 /* this endpoint is for testing purposes */
 export default async function getAllNfts({
   limit,
-  order,
+  // order,
   page,
 }: GetNftsProps = {}): Promise<NftsResponse> {
   const take = limit && !isNaN(+limit) && +limit > 1 ? +limit : undefined
-  const orderBy = getOrderBy(order as string)
+  // const orderBy = getOrderBy(order as string)
   const skip = page && limit ? (page - 1) * limit : undefined
 
   const nfts = await prisma.nft.findMany({
-    orderBy,
+    // orderBy,
     take,
     skip,
     where: {
@@ -32,6 +32,14 @@ export default async function getAllNfts({
       image: true,
       price: true,
       description: true,
+      comments: {
+        select: {
+          id: true,
+          content: true,
+          isPublished: true,
+          user: { select: { name: true } },
+        },
+      },
       published: true,
       likedBy: {
         select: {
@@ -42,7 +50,12 @@ export default async function getAllNfts({
         select: { name: true, id: true },
       },
       _count: { select: { likedBy: true, viewedBy: true } },
-      categories: true,
+      categories: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
     },
   })
   return nfts

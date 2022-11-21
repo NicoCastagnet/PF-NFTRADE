@@ -7,10 +7,10 @@ import { useState } from 'react'
 
 const useLiked = (likedBy) => {
   const { data: session } = useSession()
-  const [likedCount, setLikedCount] = useState(likedBy.length as number)
-  const li = likedBy.map((el) => el.id)
+  const [likedCount, setLikedCount] = useState(likedBy?.length as number)
+  const li = likedBy?.map((el) => el.id)
   const [likedByMe, setLikedByMe] = useState(
-    li.includes(session?.user.id) as boolean,
+    li?.includes(session?.user.id) as boolean,
   )
 
   const likeHandler = async (nftId) => {
