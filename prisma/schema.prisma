@@ -46,13 +46,20 @@ model User {
   accounts           Account[]
   collectionsCreated Collection[] @relation("UserCollectionsCreated")
   collectionsOwned   Collection[] @relation("UserCollectionsOwned")
+<<<<<<< HEAD
+=======
   comments           Comment[]
+>>>>>>> develop
   nftsCreated        Nft[]        @relation("UserNftsCreated")
   nftsOwned          Nft[]        @relation("UserNftsOwned")
   sessions           Session[]
   wishes             WishList[]
   likes              Nft[]        @relation("UserLikedNfts")
   views              Nft[]        @relation("UserViewedNfts")
+<<<<<<< HEAD
+  comments           Comment[]
+=======
+>>>>>>> develop
 }
 
 model VerificationToken {
@@ -79,11 +86,18 @@ model Nft {
   collection   Collection? @relation(fields: [collectionId], references: [id])
   creator      User        @relation("UserNftsCreated", fields: [creatorId], references: [id])
   owner        User        @relation("UserNftsOwned", fields: [ownerId], references: [id])
+<<<<<<< HEAD
+=======
   comments     Comment[]
+>>>>>>> develop
   wishedBy     WishList[]
   categories   Category[]  @relation("CategoriesOnNft")
   likedBy      User[]      @relation("UserLikedNfts")
   viewedBy     User[]      @relation("UserViewedNfts")
+<<<<<<< HEAD
+  comments     Comment[]
+=======
+>>>>>>> develop
 }
 
 model Category {
@@ -122,11 +136,29 @@ model WishList {
 
 model Comment {
   id          String   @id @default(cuid())
+<<<<<<< HEAD
+  nft         Nft      @relation(fields: [nftId], references: [id])
   nftId       String
+  user        User     @relation(fields: [userId], references: [id])
+=======
+  nftId       String
+>>>>>>> develop
   userId      String
   isPublished Boolean  @default(true)
   content     String
   createdAt   DateTime @default(now())
+<<<<<<< HEAD
+}
+model Buys {
+  buyId  String   @id
+  userId String
+  date   String
+  coins  Int
+  status String
+  amount Int
+  createdAt   DateTime @default(now())
+}
+=======
   nft         Nft      @relation(fields: [nftId], references: [id])
   user        User     @relation(fields: [userId], references: [id])
 }
@@ -177,3 +209,4 @@ model Notify {
   nameUserLiked   String?
   createdAt       DateTime @default(now())
 }
+>>>>>>> develop

@@ -7,10 +7,11 @@ import SvgTrash from '@components/icons/svgTrash'
 import axios from 'axios'
 import useDetail from 'hook/useDetail'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useState } from 'react'
 import { toast, Toaster } from 'react-hot-toast'
 
-const Nfts = ({ id, image, name, views, likes, nft, mutate }) => {
+const Nfts = ({ id, image, name, views, likes, nft, mutate, collectionId }) => {
   const { session, subState, setSubState, handlePublished, putPrice } =
     useDetail(nft)
 
@@ -72,6 +73,12 @@ const Nfts = ({ id, image, name, views, likes, nft, mutate }) => {
                   <SvgLoading className="w-5 h-5 animate-spin mr-2" />{' '}
                   Loading...
                 </div>
+              ) : collectionId ? (
+                <Link href={`/collections/${collectionId}`}>
+                  <button className="bg-white hover:bg-gray-300 text-black dark:text-white dark:bg-[#393b41] dark:hover:bg-[#4c4e53] transition-all text-lg font-semibold w-full h-10 my-1">
+                    Go to collection.
+                  </button>
+                </Link>
               ) : subState.published === false ? (
                 <button
                   className="bg-white hover:bg-gray-300 text-black dark:text-white dark:bg-[#393b41] dark:hover:bg-[#4c4e53] transition-all text-lg font-semibold w-full h-10 my-1"

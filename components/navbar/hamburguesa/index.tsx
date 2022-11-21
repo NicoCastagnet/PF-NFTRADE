@@ -5,7 +5,6 @@ import SvgCoin from '@components/icons/svgCoin'
 import SvgLogin from '@components/icons/svgLogin'
 import SvgLogOut from '@components/icons/svgLogOut'
 import SvgMarket from '@components/icons/svgMarket'
-import SearchIcon from '@components/icons/svgSearch'
 import SvgUser from '@components/icons/svgUser'
 import { useCart } from '@context/cart'
 import fetcher from '@lib/fetcher'
@@ -57,7 +56,7 @@ const Hamburguesa = () => {
             hamburguer ? 'opacity-100' : 'hidden translate-x-96 opacity-0'
           } fixed flex flex-col justify-between top-[5rem] left-0 w-full h-screen ease duration-75 bg-gray-700 dark:bg-[#303339]`}
         >
-          <ul className="text-gray-300 text-2xl w-full flex flex-col items-start px-4 my-5 gap-2">
+          <ul className="text-gray-300 text-2xl w-full flex flex-col items-start px-4 my-5 gap-2 overflow-auto max-h-[62%]">
             {session && (
               <div className="flex justify-center items-center w-full my-4 px-4 py-2 rounded-lg bg-slate-700 dark:bg-[#3b3d41] text-center">
                 {session?.user.name || session?.user.username}
@@ -129,29 +128,30 @@ const Hamburguesa = () => {
                 />
               </>
             )}
-            <Link href={'#'}>
-              <a>
-                <li
-                  key={'4'}
-                  className="flex flex-row justify-start items-center pl-8 gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6"
-                >
-                  <span className="pr-6">
-                    <SearchIcon width={'28'} height={'28'} />{' '}
-                  </span>
-                  Explore
-                </li>
-              </a>
-            </Link>
+
             <Link href={'/marketplace'}>
               <a>
                 <li
                   key={'5'}
-                  className="flex flex-row justify-start items-center pl-8 gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6"
+                  className="flex flex-row justify-start items-center pl-[26px] gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6"
                 >
                   <span className="pr-6">
                     <SvgMarket width={'28'} height={'28'} />{' '}
                   </span>
                   Marketplace
+                </li>
+              </a>
+            </Link>
+            <Link href={'/collectionmarket'}>
+              <a>
+                <li
+                  key={'4'}
+                  className="flex flex-row justify-start items-center pl-[26px] gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6"
+                >
+                  <span className="pr-6">
+                    <SvgMarket width={'28'} height={'28'} />{' '}
+                  </span>
+                  Collections
                 </li>
               </a>
             </Link>

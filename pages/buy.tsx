@@ -47,8 +47,8 @@ const BuyPage: NextPage = () => {
               marketplace!
             </p>
           </div>
-          <div className="flex flex-nowrap justify-center">
-            <div className="bg-white dark:bg-[#303339] rounded-xl py-10 px-8 w-1/3 mx-3 mb-5 drop-shadow-md">
+          <div className="flex md:flex-nowrap flex-wrap justify-center">
+            <div className="bg-white dark:bg-[#303339] rounded-xl py-10 px-8 min-w-[232px] w-1/3 mx-3 mb-5 drop-shadow-md">
               <span className="font-semibold text-lg block mb-4 text-blue-500">
                 Base package
               </span>
@@ -70,7 +70,7 @@ const BuyPage: NextPage = () => {
                 Go to checkout
               </button>
             </div>
-            <div className="bg-white dark:bg-[#303339] rounded-xl py-10 px-8 w-1/3 mx-3 mb-5 drop-shadow-md">
+            <div className="bg-white dark:bg-[#303339] min-w-[232px] rounded-xl py-10 px-8 w-1/3 mx-3 mb-5 drop-shadow-md">
               <span className="font-semibold text-lg block mb-4 text-blue-500">
                 Advanced package
               </span>
@@ -93,7 +93,7 @@ const BuyPage: NextPage = () => {
               </button>
             </div>
             <form
-              className="bg-white dark:bg-[#303339] rounded-xl py-10 px-8 w-1/3 mx-3 mb-5 drop-shadow-md"
+              className="bg-white dark:bg-[#303339] min-w-[232px] rounded-xl py-10 px-8 w-1/3 mx-3 mb-5 drop-shadow-md"
               onSubmit={(e) => {
                 e.preventDefault()
                 paymentFunction(customValue != 0 ? customValue : 1, 3)

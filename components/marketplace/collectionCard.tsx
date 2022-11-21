@@ -2,16 +2,14 @@
 // @ts-nocheck
 
 import SvgCoin from '@components/icons/svgCoin'
-import SvgHeart from '@components/icons/svgHeart'
 import { useCart } from '@context/cart'
 import styles from '@styles/form.module.css'
-import useLiked from 'hook/useLike'
 import Image from 'next/image'
 import Link from 'next/link'
 import { toast, Toaster } from 'react-hot-toast'
 import { RiVipCrownFill } from 'react-icons/ri'
 
-const Card = ({
+const CollectionCard = ({
   nft,
   id,
   carSize,
@@ -20,10 +18,8 @@ const Card = ({
   owner,
   price,
   image,
-  likedBy,
 }) => {
   const { cart, addItem } = useCart()
-  const { session, likedCount, likeHandler } = useLiked(likedBy)
 
   return (
     <>
@@ -36,32 +32,7 @@ const Card = ({
             : ''
         }  relative flex flex-col rounded-xl overflow-hidden p-[1px] cursor-pointer group drop-shadow-lg`}
       >
-        {session?.user ? (
-          <span
-            onClick={() => likeHandler(id)}
-            className="flex flex-row justify-center items-center gap-2 font-semibold text-white bg-slate-500 hover:bg-slate-600 transition-all rounded-full px-2 absolute top-2 right-2 z-[1]"
-          >
-            <span className="pl-1">{likedCount}</span>
-            <span>
-              <SvgHeart
-                className={`${
-                  likedCount && 'text-red-600 fill-red-600 animate-pulse'
-                } w-6 h-7 text-white`}
-              />
-            </span>
-          </span>
-        ) : (
-          <>
-            <span className="cursor-not-allowed flex flex-row justify-center items-center gap-2 font-semibold text-white bg-slate-500 rounded-full px-2 absolute top-2 right-2 z-[1]">
-              <span className="pl-1">{likedCount}</span>
-              <span>
-                <SvgHeart className={`w-6 h-7 text-white`} />
-              </span>
-            </span>
-          </>
-        )}
-
-        <Link href={`/nfts/${id}`} key={id}>
+        <Link href={`/collections/${id}`} key={id}>
           <a>
             <div
               className={` ${
@@ -148,4 +119,4 @@ const Card = ({
   )
 }
 
-export default Card
+export default CollectionCard

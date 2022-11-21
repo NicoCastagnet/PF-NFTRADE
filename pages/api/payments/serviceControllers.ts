@@ -23,7 +23,7 @@ export default class PaymentService {
       back_urls: {
         failure: '/failure',
         pending: '/pending',
-        success: '/localhost:3000',
+        success: '/https://pf-nftrade.netlify.app',
       },
     }
 

@@ -21,10 +21,7 @@ const SideBar: NextPage = () => {
   const router = useRouter()
   const URL = `/api/notificaciones?user=${session?.user.id}`
   const { data } = useSWR(URL, fetcher, { refreshInterval: 1000 })
-  const { data: adminData } = useSWR(
-    `/api/dashboardata?user=${session?.user.id}`,
-    fetcher,
-  )
+  const { data: adminData } = useSWR(`/api/user/${session?.user.id}`, fetcher)
 
   return (
     <div className="dashboard__home-sidebar z-40 h-auto w-64 px-4 overflow-y-auto bg-gray-200 text-gray-600 dark:text-gray-400 border-r border-r-gray-400 dark:border-r-gray-600 dark:bg-[#202225] transition-all">
@@ -81,7 +78,7 @@ const SideBar: NextPage = () => {
               </li>
             </a>
           </Link>
-          {adminData?.userData?.admin && (
+          {adminData?.admin && (
             <Link href="/dashboard/webdata">
               <a>
                 <li className="flex items-center p-2 mt-2 text-base font-normal rounded-lg hover:text-orange-400 dark:hover:text-orange-400 text-gray-600 dark:text-gray-400 hover:bg-gray-300 dark:hover:bg-[#393b41] cursor-pointer transition-all">
