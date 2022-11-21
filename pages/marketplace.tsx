@@ -30,10 +30,10 @@ const Marketplace: NextPage<HomeProps> = ({ fallbackData }) => {
     filter,
     fallbackData,
     externalRef,
-    )
-    const [carSize, setCardSize] = useState('bigger')
-    
-    console.log("🚀 ~ file: marketplace.tsx ~ line 29 ~ nfts", nfts)
+  )
+  const [carSize, setCardSize] = useState('bigger')
+
+  console.log('🚀 ~ file: marketplace.tsx ~ line 29 ~ nfts', nfts)
   return (
     <div className="bg-gray-200 dark:bg-[#202225]">
       <Head>

@@ -18,7 +18,7 @@ const useNftInfiniteScroll = (
   const [isNearScreen, setShow] = useState(false)
   const [page, setPage] = useState({
     index: 1,
-    limit: 6
+    limit: 6,
   })
 
   const getKey = (previousPageData: NftsResponse) => {
@@ -41,7 +41,7 @@ const useNftInfiniteScroll = (
 
   const handleDebounceNextPage = useCallback(
     debounce(() => {
-      setPage(state => ({...state, limit: state.limit + 6}))
+      setPage((state) => ({ ...state, limit: state.limit + 6 }))
       // setSize(size + 1);
     }, 200),
     [],
