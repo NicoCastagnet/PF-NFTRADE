@@ -30,11 +30,11 @@ export default async function mailSend(email: string, pass: string) {
     <h1>Hi, ${mail.name}.This is your new password: ${pass}. Dont share it whit anyone! ;) </h1>
     `,
   }
-  transporter.sendMail(mailOptions, (Error, info) => {
-    if (Error) {
-      console.log(Error.message)
+  transporter.sendMail(mailOptions, (err, info) => {
+    if (err) {
+      console.error(err.message)
     } else {
-      console.log('email send')
+      console.info('Passed. Email sent.' + info)
     }
   })
 }

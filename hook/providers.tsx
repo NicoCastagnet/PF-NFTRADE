@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import type { BuiltInProviderType } from 'next-auth/providers'
 import type { ClientSafeProvider, LiteralUnion } from 'next-auth/react'
 import { getProviders } from 'next-auth/react'

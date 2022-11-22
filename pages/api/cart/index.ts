@@ -25,7 +25,9 @@ export default async function handler(
           })
 
           if (comp?.coins < el.price) {
-            return res.status(404).json({ msg: 'not coins' })
+            return res.status(404).json({
+              msg: 'User do not have sufficient coins to conclude the purchase.',
+            })
           }
 
           await prisma.nft.update({
@@ -128,7 +130,7 @@ export default async function handler(
         }
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 }

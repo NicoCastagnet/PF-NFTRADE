@@ -95,7 +95,7 @@ export default async function payDescription(
         res.status(200).send('recived')
       }
     } catch (error: any) {
-      console.log(error.message)
+      console.error(error.message)
     }
   } else if (req.method === 'GET') {
     const { user } = req.query

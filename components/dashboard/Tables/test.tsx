@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import SvgLoading from '@components/icons/svgLoading'
 import SvgNewTab from '@components/icons/svgNewTab'
 import axios from 'axios'
@@ -92,7 +95,7 @@ const Test = ({ e, mutate }) => {
       )}
       <td className="px-9 py-4 text-sm flex font-medium justify-center whitespace-nowrap">
         <a
-          href={`http://localhost:3000/nfts/${e.id}`}
+          href={`${process.env.NEXT_PUBLIC_APP_URL}/nfts/${e.id}`}
           target="_blank"
           rel="noreferrer"
         >

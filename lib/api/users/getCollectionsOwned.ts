@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import prisma from '@lib/db'
 /* this endpoint is for testing purposes */
 
@@ -38,8 +41,7 @@ const getCollectionsOwned = async ({
     })
     return user
   } catch (e) {
-    console.log(e)
-    return null
+    console.error(e)
   }
 }
 

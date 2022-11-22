@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import Footer from '@components/footer'
 import AboutHome from '@components/home/aboutHome'
 import UtilsContainer from '@components/home/contentUtils/utilsContainer'

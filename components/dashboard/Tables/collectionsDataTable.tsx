@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import SvgLoading from '@components/icons/svgLoading'
 import SvgNewTab from '@components/icons/svgNewTab'
 import fetcher from '@lib/fetcher'
@@ -128,7 +131,7 @@ const CollectionsDataTable = () => {
                         </td>
                         <td className="px-9 py-4 text-sm flex font-medium justify-center whitespace-nowrap">
                           <a
-                            href={`http://localhost:3000/collections/${e.id}`}
+                            href={`${process.env.NEXT_PUBLIC_APP_URL}collections/${e.id}`}
                             target="_blank"
                             rel="noreferrer"
                           >

@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import prisma from '@lib/db'
 import type { NextApiRequest, NextApiResponse } from 'next'
 /* this endpoint is for testing purposes */
@@ -18,12 +21,12 @@ export default async function postLike(
         },
       })
       const msg = {
-        message: 'nft actualizado',
+        message: 'Passed. Collection successffully updated.',
         data: collection,
       }
       res.status(200).send(msg)
     }
   } catch (e) {
-    console.log(e)
+    console.error(e)
   }
 }

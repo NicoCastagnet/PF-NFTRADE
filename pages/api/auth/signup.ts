@@ -1,9 +1,10 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import prisma from '@lib/db'
 import axios from 'axios'
 import { hash } from 'bcryptjs'
 import type { NextApiRequest, NextApiResponse } from 'next'
-//
-//
 export default async function handle(
   req: NextApiRequest,
   res: NextApiResponse,
@@ -11,7 +12,7 @@ export default async function handle(
   // only post method is accepted
   if (req.method === 'POST') {
     if (!req.body) {
-      return res.status(404).json({ error: "Don't have from data...!" })
+      return res.status(404).json({ error: 'Missing information.' })
     }
     const {
       username,
@@ -24,11 +25,10 @@ export default async function handle(
         email,
       },
     })
-    // if (!checkExist) {
-    //   return res.status(401).json({ msg: 'That account does not exists.' })
-    // }
     if (checkExist) {
-      return res.status(422).json({ msg: 'The user was created before.' })
+      return res
+        .status(422)
+        .json({ msg: 'The account was already created before.' })
     } else {
       const passwordhash = await hash(password, 5)
       await prisma?.user.create({

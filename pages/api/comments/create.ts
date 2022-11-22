@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import prisma from '@lib/db'
 import type { NextApiRequest, NextApiResponse } from 'next'
 /* this endpoint is for testing purposes */
@@ -9,9 +12,10 @@ export default async function postComment(
     try {
       const { nftId, userId, content } = req.body
       if (!userId || !nftId || !content)
-        return res
-          .status(400)
-          .json({ message: 'Please provide userId, nftId, and content body' })
+        return res.status(400).json({
+          message:
+            'Missing data. Please, provide a user id, NFT id, and comment content.',
+        })
       const user = await prisma.user.findUnique({
         where: {
           id: userId as string,
@@ -32,9 +36,9 @@ export default async function postComment(
         },
       })
       if (!user) {
-        res.status(404).json({ message: 'User id is not valid' })
+        res.status(404).json({ message: 'Failed. User id is not valid.' })
       } else if (!nft) {
-        res.status(404).json({ message: 'Nft id is not valid' })
+        res.status(404).json({ message: 'Failed. NFT id is not valid.' })
       } else {
         const comment = await prisma.comment.create({
           data: {
@@ -56,12 +60,16 @@ export default async function postComment(
           },
         })
 
-        res.status(200).json({ message: 'Comment created', data: comment })
+        res
+          .status(200)
+          .json({ message: 'Passed. Comment created:', data: comment })
       }
     } catch (e) {
-      res.status(400).json({ message: 'Something went wrong' })
+      res.status(400).json({
+        message: 'Failed: Something went wrong while posting the comment.',
+      })
     }
   } else {
-    return res.status(400).json({ message: 'Method not allowed' })
+    return res.status(400).json({ message: 'Failed. Method not allowed.' })
   }
 }

@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import Newsletter from '@assets/newsletter.png'
 import SvgMail from '@components/icons/svgMail'
 import axios from 'axios'
@@ -13,7 +16,9 @@ const NewsLetter = () => {
   }
 
   const handleSubmit = async () => {
-    await axios.get(`http://localhost:3000/api/emails/newsLetter?email=${mail}`)
+    await axios.get(
+      `${process.env.NEXT_PUBLIC_APP_URL}/api/emails/newsLetter?email=${mail}`,
+    )
     setmail('')
   }
 

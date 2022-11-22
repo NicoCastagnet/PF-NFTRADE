@@ -37,8 +37,6 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
     putPrice,
   } = useDetail(nft, true)
 
-  console.log(subState)
-
   return (
     <div className="bg-gray-200 dark:bg-[#202225] flex flex-col items-center justify-around w-full min-h-screen transition-all">
       <NavBar />

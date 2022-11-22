@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import prisma from '@lib/db'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
@@ -17,12 +20,12 @@ export default async function handler(
     })
     res.status(200).json(newUser)
   } catch (e) {
-    console.log(e)
+    console.error(e)
     const apiMessage = (e as Error).message
     return res.status(404).json({
       success: false,
       status: 404,
-      message: `Couldn't find user with id ${id}`,
+      message: `Failed. Couldn't find an user with id ${id}`,
       apiMessage,
     })
   }

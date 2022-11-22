@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import Footer from '@components/footer'
 import SvgCross from '@components/icons/svgCross'
 import NavBar from '@components/navbar/navbar'
@@ -189,7 +192,7 @@ const CreateProduct: NextPage<Props> = ({ fallbackData }) => {
           }).then(async (res) => {
             if (!res.ok) {
               setCreatedId(null)
-              console.log('Failed while creating the nft.')
+              console.error('Failed while creating the nft.')
             }
             const { data } = await res.json()
             setOpenModal(true)

@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import prisma from '@lib/db'
 import type { NextApiRequest, NextApiResponse } from 'next'
 /* this endpoint is for testing purposes */
@@ -9,7 +12,7 @@ export default async function updateCategory(
     const { id } = req.query
     const { name, image } = req.body
     if (!name) {
-      res.status(400).send("Missing 'name' property.")
+      res.status(400).send('Failed. Missing name property.')
     } else {
       const cat = await prisma.category.update({
         where: {

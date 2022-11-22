@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import CartSideBar from '@components/cart'
 import Search from '@components/search'
 import { getAllNfts } from '@lib/api'

@@ -10,18 +10,6 @@ export default async function handler(
   res: NextApiResponse<NftsResponse>,
 ) {
   const { user } = req.query
-
-  // if (user) {
-  //   const db = await prisma.user.findUnique({
-  //     where: {
-  //       id: user as string,
-  //     },
-  //     select: {
-  //       admin: true,
-  //       coins: true,
-  //     },
-  //   })
-  // }
   const coinsData = await prisma.notify.findMany({
     where: {
       typeNotify: 'buy',
@@ -67,7 +55,6 @@ export default async function handler(
 
   const userNFTS = nftData.filter((e) => e.compradorId === user)
 
-  ///////////////////////////////////////////////////////////////
   const totalDate = nftData.map((e) => e.createdAt.toDateString())
   const totalBuyNft = nftData.map((e) => ({
     createdAt: e.createdAt,
@@ -90,8 +77,6 @@ export default async function handler(
     })
     totalGrafic.push(newDate)
   })
-
-  ////////////////////////////////////////////////////////////////
 
   const filtered = filteredBuyer.map((e) => e.createdAt.toDateString())
   const filteredBuyerDate = filteredBuyer.map((e) => ({
@@ -116,14 +101,9 @@ export default async function handler(
     })
     grafic.push(newDate)
   })
-  console.log(
-    '🚀 ~ file: index.ts ~ line 92 ~ totatlArr.forEach ~ totalGrafic',
-    totalGrafic,
-  )
 
   res.json({
     userNfts: userNFTS,
-    // userData: user ? db : null,
     staticDashData: {
       sellerCoins: sum,
       buyerCoins: filteredBuyerCoins,

@@ -4,8 +4,6 @@ import prisma from '@lib/db'
 import { hash } from 'bcryptjs'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import mailSend from '../emails/restorePass'
-//
-//
 export default async function handle(
   req: NextApiRequest,
   res: NextApiResponse,
@@ -30,7 +28,6 @@ export default async function handle(
             const aleatorio = Math.floor(Math.random() * characters.length)
             generador += characters.charAt(aleatorio)
           }
-          //// STRING A ENVIAR POR EMAIL ""PASSWORD"" ////
           const newPass = `Mdg84${generador}*`
           mailSend(req.body.email, newPass)
           const passHash = await hash(newPass, 5)

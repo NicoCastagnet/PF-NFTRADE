@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import prisma from '@lib/db'
 import type { CollectionDetailResponse } from 'types/api-responses'
 
@@ -42,7 +45,7 @@ const getCollectionById = async ({
     })
     return collection
   } catch (e) {
-    return null
+    console.error(e)
   }
 }
 

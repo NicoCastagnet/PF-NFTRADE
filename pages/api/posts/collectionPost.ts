@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import prisma from '@lib/db'
 import type { NextApiRequest, NextApiResponse } from 'next'
@@ -10,7 +13,7 @@ export default async function postCollection(
     const { name, image, description, discount, price, creatorId, nftsId } =
       req.body
     if (!name || !discount || !creatorId) {
-      res.status(400).send('Missing data.')
+      res.status(400).send('Failed. Missing data.')
     } else {
       const img: string = image
       const collection = await prisma.collection.create({

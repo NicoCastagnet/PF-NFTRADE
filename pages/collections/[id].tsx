@@ -60,7 +60,7 @@ const CollectionDetail: NextPage<Props> = ({ collection }) => {
         nftsId: nftsId,
         published: boolean,
       }),
-    }).then((r) => console.log(r))
+    }).then((r) => console.info(r))
     await fetch('/api/put/publishedCollection', {
       method: 'PUT',
       headers: {
@@ -70,7 +70,7 @@ const CollectionDetail: NextPage<Props> = ({ collection }) => {
         collectionId: collection.id,
         published: boolean,
       }),
-    }).then((r) => console.log(r))
+    }).then((r) => console.info(r))
     setLoadingPublished(false)
   }
 

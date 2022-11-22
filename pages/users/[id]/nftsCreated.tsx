@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react/jsx-no-undef */
 import Footer from '@components/footer'
@@ -48,7 +51,6 @@ const NftsCreated: NextPage<Props> = ({ user }) => {
                     className={` mb-2 w-full lg:w-[30%] lg:mr-6 lg:mb-6 max-w-[287px] h-[380px] overflow-hidden relative flex flex-col bg-gray-800 rounded-xl p-[1px] border-slate-900 cursor-pointer group  dark:bg-stone-900 dark:border-[1px]   dark:border-gray-400  group shadow-lg shadow-zinc-500`}
                   >
                     <Link href={`/nfts/${el.id}`} key={el.id}>
-                      {/* // h-[35rem] w-[22rem] */}
                       <div>
                         <div className="rounded-xl border-spacing-2 ">
                           <Image

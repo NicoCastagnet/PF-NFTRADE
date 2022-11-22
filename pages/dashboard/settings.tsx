@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import NavBar from '@components/dashboard/Components/navbar'
 import SideBar from '@components/dashboard/Components/sidebar'
 import fetcher from '@lib/fetcher'

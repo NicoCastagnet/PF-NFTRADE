@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import prisma from '@lib/db'
 import type { NextApiRequest, NextApiResponse } from 'next'
 /* this endpoint is for testing purposes */
@@ -31,12 +34,12 @@ export default async function putWish(
       }
 
       const msg = {
-        message: 'nft actualizado',
+        message: 'Passed. NFT successffully updated.',
         data: wishList,
       }
       res.status(200).send(msg)
     }
   } catch (e) {
-    console.log(e)
+    console.error(e)
   }
 }

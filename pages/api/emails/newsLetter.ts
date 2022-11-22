@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import prisma from '@lib/db'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import nodemailer from 'nodemailer'
@@ -7,8 +10,6 @@ export default async function mailSendNews(
   res: NextApiResponse,
 ) {
   const { email } = req.query
-  console.log(email)
-
   const mail = await prisma.user.findUniqueOrThrow({
     where: {
       email: email?.toString(),
@@ -34,11 +35,11 @@ export default async function mailSendNews(
     subject: 'Novedades',
     text: `Thanks for subscribe to our NewsLetter!`,
   }
-  transporter.sendMail(mailOptions, (Error, info) => {
-    if (Error) {
-      console.log(Error.message)
+  transporter.sendMail(mailOptions, (err, info) => {
+    if (err) {
+      console.error(err.message)
     } else {
-      console.log('email send')
+      console.info('Passed. Email sent.' + info)
     }
   })
 }

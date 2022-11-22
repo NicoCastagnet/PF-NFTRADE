@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import CartSide from '@components/cart'
 import SvgBell from '@components/icons/svgBell'
 import SvgCart from '@components/icons/svgCart'
@@ -5,6 +8,7 @@ import SvgCoin from '@components/icons/svgCoin'
 import SvgLogin from '@components/icons/svgLogin'
 import SvgLogOut from '@components/icons/svgLogOut'
 import SvgMarket from '@components/icons/svgMarket'
+import SearchIcon from '@components/icons/svgSearch'
 import SvgUser from '@components/icons/svgUser'
 import { useCart } from '@context/cart'
 import fetcher from '@lib/fetcher'
@@ -128,7 +132,19 @@ const Hamburguesa = () => {
                 />
               </>
             )}
-
+            <Link href={'#'}>
+              <a>
+                <li
+                  key={'4'}
+                  className="flex flex-row justify-start items-center pl-8 gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6"
+                >
+                  <span className="pr-6">
+                    <SearchIcon width={'28'} height={'28'} />{' '}
+                  </span>
+                  Explore
+                </li>
+              </a>
+            </Link>
             <Link href={'/marketplace'}>
               <a>
                 <li

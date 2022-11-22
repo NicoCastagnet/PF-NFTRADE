@@ -43,7 +43,7 @@ const Nfts = ({ id, image, name, views, likes, nft, mutate, collectionId }) => {
             onClick={() => handleDelete()}
           />
           <a
-            href={`http://localhost:3000/nfts/${id}`}
+            href={`${process.env.NEXT_PUBLIC_APP_URL}/nfts/${id}`}
             target="_blank"
             rel="noreferrer"
           >

@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import prisma from '@lib/db'
 import type { NextApiRequest, NextApiResponse } from 'next'
 /* this endpoint is for testing purposes */
@@ -8,7 +11,7 @@ export default async function deleteCategory(
   if (req.method === 'DELETE') {
     const { id } = req.query
     if (!id) {
-      res.status(400).send('Id was not provided.')
+      res.status(400).send('Failed. Category ID was not provided.')
     } else {
       await prisma.category.delete({
         where: {
@@ -16,7 +19,7 @@ export default async function deleteCategory(
         },
       })
       const msg = {
-        text: 'The category was deleted successfully.',
+        text: 'The category was successfully deleted.',
       }
       res.status(205).json(msg)
     }

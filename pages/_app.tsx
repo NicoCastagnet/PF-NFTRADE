@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import { ThemeProvider } from 'next-themes'
 import type { AppProps } from 'next/app'
 import Router from 'next/router'

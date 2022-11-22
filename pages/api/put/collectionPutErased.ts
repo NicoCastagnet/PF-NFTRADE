@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import prisma from '@lib/db'
 import type { NextApiRequest, NextApiResponse } from 'next'
 /* this endpoint is for testing purposes */
@@ -27,6 +30,6 @@ export default async function updateNft(
       res.status(205).json(msg)
     }
   } catch (e: any) {
-    console.log(e.message)
+    console.error(e.message)
   }
 }

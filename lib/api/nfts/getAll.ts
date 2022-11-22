@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { getOrderBy } from '@lib/api-utils'
 import prisma from '@lib/db'

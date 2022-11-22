@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import prisma from '@lib/db'
 import type { DataToCreateCollection } from 'types/api-responses'
 /* this endpoint is for testing purposes */
@@ -34,8 +37,7 @@ const getDataToCreateCollection = async ({
     })
     return user
   } catch (e) {
-    console.log(e)
-    return null
+    console.error(e)
   }
 }
 

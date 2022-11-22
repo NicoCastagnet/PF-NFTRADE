@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import type { NextApiRequest, NextApiResponse } from 'next'
 import type serviceControllers from './serviceControllers'
 export default class PaymentController {
@@ -12,7 +15,7 @@ export default class PaymentController {
 
       return res.json({ payment: payment.init_point })
     } catch (error: any) {
-      console.log(error.message)
+      console.error(error.message)
 
       return res
         .status(500)
