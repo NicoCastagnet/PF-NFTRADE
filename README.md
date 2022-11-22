@@ -1,3 +1,7 @@
+Diseño y desarrollo de un mercado en línea de NFTs, el cual incluye: Login (Auth de terceros y creación de perfiles de usuario), Pasarela de pagos, Búsquedas, Filtrados por rangos de precios, Ordenamientos (Por precio o nombre), Graficos en base al historial de transacciones, Subida de imágenes con Supabase, Notificaciones, Envío de mails, Borrado lógico, Uso del local storage, Reviews, Dashboard y Admin-Dashboard.
+Desarrollo de la app usando Next.js tanto para el Front como el Back, utilizando TypeScript, React y Express. Base de datos en Prisma y Sequelize. Maquetado del css con Tailwind.
+
+
 ## Getting Started
 
 First, run the development server:
