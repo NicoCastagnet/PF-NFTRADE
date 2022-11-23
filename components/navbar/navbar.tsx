@@ -1,5 +1,3 @@
-  
-
 import CartSide from '@components/cart'
 import SvgCart from '@components/icons/svgCart'
 import SvgChevronDown from '@components/icons/svgChevronDown'

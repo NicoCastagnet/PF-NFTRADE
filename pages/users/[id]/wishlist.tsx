@@ -1,5 +1,3 @@
-  
-
 import Footer from '@components/footer'
 import SvgCoin from '@components/icons/svgCoin'
 import NavBar from '@components/navbar/navbar'
@@ -30,7 +28,7 @@ const NftsOwned: NextPage<Props> = ({ user }) => {
           <Image
             width={175}
             height={175}
-            alt='image user'
+            alt="image user"
             className=" bg-white rounded-full object-cover h-[175px] w-[175px]"
             src={account?.image || defaultAvatar}
           />

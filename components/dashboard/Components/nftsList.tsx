@@ -1,5 +1,3 @@
-  
-
 import SvgLoading from '@components/icons/svgLoading'
 import SvgNewTab from '@components/icons/svgNewTab'
 import SvgTrash from '@components/icons/svgTrash'
@@ -11,8 +9,27 @@ import { useState } from 'react'
 import { toast, Toaster } from 'react-hot-toast'
 import { mutate } from 'swr'
 
-
-const Nfts = ({ id, image, name, views, likes, nft, collectionId, published, price }: {id: string, image: string, name: string, views: [], likes: [], nft: any, collectionId: string, published: boolean, price: number}) => {
+const Nfts = ({
+  id,
+  image,
+  name,
+  views,
+  likes,
+  nft,
+  collectionId,
+  published,
+  price,
+}: {
+  id: string
+  image: string
+  name: string
+  views: []
+  likes: []
+  nft: any
+  collectionId: string
+  published: boolean
+  price: number
+}) => {
   const { session, subState, setSubState, handlePublished, putPrice } =
     useDetail(nft)
 

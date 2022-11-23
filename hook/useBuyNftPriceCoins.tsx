@@ -1,5 +1,3 @@
-  
-
 import { useCart } from '@context/cart'
 import axios from 'axios'
 import { useSession } from 'next-auth/react'

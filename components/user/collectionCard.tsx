@@ -1,5 +1,3 @@
-  
-
 import SvgCoin from '@components/icons/svgCoin'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -13,7 +11,7 @@ interface Collection {
   description: string
 }
 
-const CollectionCard = ({ collection }: {collection: Collection}) => {
+const CollectionCard = ({ collection }: { collection: Collection }) => {
   return (
     <div
       key={collection.id}

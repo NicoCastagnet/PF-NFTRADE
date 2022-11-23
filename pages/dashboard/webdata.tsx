@@ -1,5 +1,3 @@
-  
-
 import AdminBarChart from '@components/dashboard/Charts/adminBarChart'
 import AdminPieChart from '@components/dashboard/Charts/adminPieChart'
 import NavBar from '@components/dashboard/Components/navbar'

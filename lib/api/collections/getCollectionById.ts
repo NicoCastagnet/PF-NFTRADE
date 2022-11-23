@@ -1,11 +1,7 @@
 import prisma from '@lib/db'
 // import type { CollectionDetailResponse } from 'types/api-responses'
 
-const getCollectionById = async ({
-  id,
-}: {
-  id: string
-}) => {
+const getCollectionById = async ({ id }: { id: string }) => {
   try {
     const collection: any = await prisma.collection.findUniqueOrThrow({
       where: { id: id as string },

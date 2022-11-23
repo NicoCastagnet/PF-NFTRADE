@@ -1,5 +1,3 @@
-  
-
 import SvgHeart from '@components/icons/svgHeart'
 import SvgLoading from '@components/icons/svgLoading'
 import fetcher from '@lib/fetcher'

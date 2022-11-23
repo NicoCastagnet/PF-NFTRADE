@@ -1,5 +1,3 @@
-  
-
 import SvgList from '@components/icons/svgList'
 import Link from 'next/link'
 

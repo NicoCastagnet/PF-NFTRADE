@@ -2,9 +2,9 @@
 // @ts-nocheck
 
 import {
-    AutocompleteState,
-    BaseItem,
-    createAutocomplete
+  AutocompleteState,
+  BaseItem,
+  createAutocomplete,
 } from '@algolia/autocomplete-core'
 import SearchIcon from '@components/icons/svgSearch'
 import { useMemo, useRef, useState } from 'react'

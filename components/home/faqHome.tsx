@@ -1,11 +1,9 @@
-  
-
 import SvgChevronDown from '@components/icons/svgChevronDown'
 import SvgQuestionMark from '@components/icons/svgQuestionMark'
 import {
-    Accordion,
-    AccordionBody,
-    AccordionHeader
+  Accordion,
+  AccordionBody,
+  AccordionHeader,
 } from '@material-tailwind/react'
 import { Fragment, useState } from 'react'
 

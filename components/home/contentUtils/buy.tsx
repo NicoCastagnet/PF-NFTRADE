@@ -1,5 +1,3 @@
-  
-
 import SvgBag from '@components/icons/svgBag'
 import Link from 'next/link'
 

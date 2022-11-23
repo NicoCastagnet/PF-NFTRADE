@@ -1,5 +1,3 @@
-  
-
 import prisma from '@lib/db'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
@@ -46,7 +44,7 @@ export default async function handler(
         wishedBy: { select: { userId: true } },
       },
     })
-    nft.wishedBy = nft.wishedBy.map(({userId}: {userId: string}) => userId)
+    nft.wishedBy = nft.wishedBy.map(({ userId }: { userId: string }) => userId)
     return res.json(nft)
   } catch (e) {
     const apiMessage = (e as Error).message

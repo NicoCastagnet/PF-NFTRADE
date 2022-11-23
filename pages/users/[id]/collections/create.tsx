@@ -1,5 +1,3 @@
-  
-
 import Footer from '@components/footer'
 import SvgCheck from '@components/icons/svgCheck'
 import SvgCoin from '@components/icons/svgCoin'

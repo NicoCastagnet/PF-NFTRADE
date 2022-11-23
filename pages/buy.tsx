@@ -1,5 +1,3 @@
-  
-
 import Footer from '@components/footer'
 import SvgCoin from '@components/icons/svgCoin'
 import axios from 'axios'

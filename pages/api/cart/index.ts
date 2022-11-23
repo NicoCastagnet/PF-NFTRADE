@@ -59,7 +59,7 @@ export default async function handler(
             },
           })
 
-          const vendedor:any = await prisma.user.findUnique({
+          const vendedor: any = await prisma.user.findUnique({
             where: {
               id: el.owner.id as string,
             },

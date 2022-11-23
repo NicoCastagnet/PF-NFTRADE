@@ -1,5 +1,3 @@
-  
-
 import NavBar from '@components/navbar/navbar'
 import Link from 'next/link'
 

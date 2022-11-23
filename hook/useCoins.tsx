@@ -1,5 +1,3 @@
-  
-
 import fetcher from '@lib/fetcher'
 import { useSession } from 'next-auth/react'
 import useSWR from 'swr'

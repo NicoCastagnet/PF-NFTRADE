@@ -1,5 +1,3 @@
-  
-
 import Footer from '@components/footer'
 import SvgCoin from '@components/icons/svgCoin'
 import SvgPlus from '@components/icons/svgPlus'
@@ -32,7 +30,7 @@ const NftsCreated: NextPage<Props> = ({ user }) => {
             src={account || defaultAvatar}
             width={175}
             height={175}
-            alt='image avatar'
+            alt="image avatar"
             className=" bg-white rounded-full object-cover h-[175px] w-[175px]"
           />
         </div>

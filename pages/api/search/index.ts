@@ -1,5 +1,3 @@
-  
-
 import prisma from '@lib/db'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import type { SearchResponse } from 'types/api-responses'

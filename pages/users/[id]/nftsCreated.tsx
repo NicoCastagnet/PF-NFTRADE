@@ -1,5 +1,3 @@
-  
-
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react/jsx-no-undef */
 import Footer from '@components/footer'

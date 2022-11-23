@@ -1,4 +1,3 @@
-  
 // react-hooks/rules-of-hooks
 
 import axios from 'axios'
@@ -11,7 +10,7 @@ import pwdImage from '@assets/White.png'
 const ForgottenPass: NextPage = () => {
   const [email, setEmail] = useState('')
 
-  const handleSubmit = async (e:any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault()
     await axios.put(`${process.env.NEXT_PUBLIC_APP_URL}/api/auth/resetpass`, {
       email: email,
@@ -39,9 +38,7 @@ const ForgottenPass: NextPage = () => {
             onSubmit={handleSubmit}
           >
             <div>
-              <label
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
+              <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                 Your email
               </label>
               <input

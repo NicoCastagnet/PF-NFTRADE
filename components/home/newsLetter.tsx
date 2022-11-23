@@ -1,5 +1,3 @@
-  
-
 import Newsletter from '@assets/newsletter.png'
 import SvgMail from '@components/icons/svgMail'
 import axios from 'axios'

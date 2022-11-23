@@ -1,5 +1,3 @@
-  
-
 import { useCart } from '@context/cart'
 import { useEffect, useState } from 'react'
 

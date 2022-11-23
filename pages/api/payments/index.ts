@@ -1,5 +1,3 @@
-  
-
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 import PaymentController from './paymentControllers'

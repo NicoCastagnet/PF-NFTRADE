@@ -1,5 +1,3 @@
-  
-
 import Footer from '@components/footer'
 import SvgCross from '@components/icons/svgCross'
 import NavBar from '@components/navbar/navbar'

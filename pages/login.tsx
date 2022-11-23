@@ -1,5 +1,3 @@
-  
-
 import SvgFacebook from '@components/icons/svgFacebook'
 import SvgGoogle from '@components/icons/svgGoogle'
 import SvgLinkedIn from '@components/icons/svgLinkedIn'

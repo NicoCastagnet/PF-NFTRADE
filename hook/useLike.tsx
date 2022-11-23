@@ -1,17 +1,13 @@
-  
-
 import axios from 'axios'
 import { useSession } from 'next-auth/react'
 import { useState } from 'react'
 
-const useLiked = (likedBy = [{id: ''}]) => {
+const useLiked = (likedBy = [{ id: '' }]) => {
   const { data: session } = useSession()
   const userId: any = session?.user.id
   const [likedCount, setLikedCount] = useState(likedBy.length as number)
   const li = likedBy.map((el) => el.id)
-  const [likedByMe, setLikedByMe] = useState(
-    li.includes(userId) as boolean,
-  )
+  const [likedByMe, setLikedByMe] = useState(li.includes(userId) as boolean)
 
   const likeHandler = async (nftId = '') => {
     if (!likedByMe) {

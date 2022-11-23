@@ -1,5 +1,3 @@
-  
-
 import SvgLoading from '@components/icons/svgLoading'
 import fetcher from '@lib/fetcher'
 import useSWR, { mutate } from 'swr'

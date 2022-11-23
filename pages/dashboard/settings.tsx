@@ -1,5 +1,3 @@
-  
-
 import NavBar from '@components/dashboard/Components/navbar'
 import SideBar from '@components/dashboard/Components/sidebar'
 import fetcher from '@lib/fetcher'

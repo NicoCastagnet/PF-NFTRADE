@@ -1,5 +1,3 @@
-  
-
 import SvgLoading from '@components/icons/svgLoading'
 import SvgNewTab from '@components/icons/svgNewTab'
 import axios from 'axios'

@@ -1,5 +1,3 @@
-  
-
 import Buy from '@components/home/contentUtils/buy'
 import Create from '@components/home/contentUtils/create'
 import List from '@components/home/contentUtils/list'

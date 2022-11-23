@@ -1,5 +1,3 @@
-  
-
 import prisma from '@lib/db'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import type { LikesResponse } from 'types/api-responses'

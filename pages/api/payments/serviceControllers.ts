@@ -1,5 +1,3 @@
-  
-
 import axios from 'axios'
 import type { NextApiRequest } from 'next'
 export default class PaymentService {

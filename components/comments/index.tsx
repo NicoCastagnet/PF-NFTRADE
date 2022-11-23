@@ -1,5 +1,3 @@
-  
-
 import SvgLoading from '@components/icons/svgLoading'
 import SvgTrash from '@components/icons/svgTrash'
 import fetcher from '@lib/fetcher'

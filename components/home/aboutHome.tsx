@@ -1,5 +1,3 @@
-  
-
 import NFT2 from '@assets/NFT_5.png'
 import Image from 'next/image'
 import Link from 'next/link'

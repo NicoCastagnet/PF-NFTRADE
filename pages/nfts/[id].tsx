@@ -1,5 +1,3 @@
-  
-
 import Footer from '@components/footer'
 import SvgCheck from '@components/icons/svgCheck'
 import SvgLoading from '@components/icons/svgLoading'
@@ -166,7 +164,7 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                       <input
                         type="number"
                         value={subState.price}
-                        onChange={({target}) =>
+                        onChange={({ target }) =>
                           setSubState((state: any) => ({
                             ...state,
                             price: target.value,

@@ -1,5 +1,3 @@
-  
-
 import CartSideBar from '@components/cart'
 import Search from '@components/search'
 import { getAllNfts } from '@lib/api'
