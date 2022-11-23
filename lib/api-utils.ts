@@ -1,6 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-
 const getOrderBy = (order: string | undefined) => {
   const posibleFields = ['price', 'name', 'likes', 'views', 'createdAt']
   const posibleOrders = ['asc', 'desc']

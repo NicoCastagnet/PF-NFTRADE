@@ -1,7 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
+  
 import { getOrderBy, getWhere } from '@lib/api-utils'
 import prisma from '@lib/db'
 import type { NextApiRequest, NextApiResponse } from 'next'

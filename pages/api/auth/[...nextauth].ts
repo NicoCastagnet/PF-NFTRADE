@@ -15,9 +15,7 @@ interface cli {
   clientId: string
   clientSecret: string
 }
-// Este archivoooooooooo
-// profiiiiii
-// DALE SIIIII
+
 export const authOptions: NextAuthOptions = {
   // Adatpter Prisma
   adapter: PrismaAdapter(prisma),
@@ -28,34 +26,40 @@ export const authOptions: NextAuthOptions = {
       id: 'credentials',
       name: 'Credentials',
 
-      authorize: async (credentials) => {
+      authorize: async ({
+        credentials,
+      }: {
+        credentials: { email: string; password: string }
+      }) => {
         // check user existance
         const result = await prisma.user.findUnique({
           where: {
             email: credentials?.email,
           },
+          select: {
+            email: true,
+            passwordHash: true,
+          },
         })
         if (!result) {
           throw new Error('No user was found with that email. Please sign up.')
-        }
-        // compare()
-        const checkPassword = await compare(
-          credentials?.password,
-          result.passwordHash,
-        )
+        } else {
+          const passHash: any = result.passwordHash
+          const checkPassword = compare(credentials?.password, passHash)
 
-        if (!checkPassword) {
-          throw new Error('The password does not match.')
-        }
+          if (!checkPassword) {
+            throw new Error('The password does not match.')
+          }
 
-        // incorrect password
-        if (!checkPassword || result.email !== credentials?.email) {
-          throw new Error('Username or password does not match.')
+          // incorrect password
+          if (!checkPassword || result.email !== credentials?.email) {
+            throw new Error('Username or password does not match.')
+          }
+          return result
         }
-        return result
       },
-      credentials: undefined,
-    }),
+      // credentials: undefined,
+    } as any),
     // Google Provider
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
@@ -99,7 +103,7 @@ export const authOptions: NextAuthOptions = {
       // update token
       const { admin } = await prisma.user.findUnique({
         where: {
-          email: params.token.email,
+          email: params?.token.email,
         },
         select: {
           admin: true,

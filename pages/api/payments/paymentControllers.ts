@@ -1,6 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-
 import type { NextApiRequest, NextApiResponse } from 'next'
 import type serviceControllers from './serviceControllers'
 export default class PaymentController {
@@ -11,7 +8,7 @@ export default class PaymentController {
 
   async getPaymentLink(req: NextApiRequest, res: NextApiResponse) {
     try {
-      const payment = await this.subscriptionService.createPayment(req, res)
+      const payment = await this.subscriptionService.createPayment(req)
 
       return res.json({ payment: payment.init_point })
     } catch (error: any) {

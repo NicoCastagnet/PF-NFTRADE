@@ -1,6 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-
 import SvgCross from '@components/icons/svgCross'
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
@@ -85,11 +82,11 @@ const NotifyDashBoard: React.FC<NotifyDashBoardProps> = ({
                         <div
                           className={`overflow-auto divide-y divide-gray-800 dark:divide-gray-700  ${styles.scrollbar}`}
                         >
-                          {data?.notify.map((el, index) => (
+                          {data?.notify.map((el: any) => (
                             <div key={el.id}>
                               {el.typeNotify === 'comment' && (
                                 <NotifyComment
-                                  key={index}
+                                  key={el.id}
                                   id={el.id}
                                   nameNft={el.nameNft}
                                   nftId={el.nftId}
@@ -101,7 +98,7 @@ const NotifyDashBoard: React.FC<NotifyDashBoardProps> = ({
                               )}
                               {el.typeNotify === 'Liked' && (
                                 <NotifyLiked
-                                  key={index}
+                                  key={el.id}
                                   id={el.id}
                                   userIdLiked={el.userIdLiked}
                                   nameUserLiked={el.nameUserLiked}
@@ -112,7 +109,7 @@ const NotifyDashBoard: React.FC<NotifyDashBoardProps> = ({
                               )}
                               {el.typeNotify === 'buyNft' && (
                                 <NotifyBuyNft
-                                  key={index}
+                                  key={el.id}
                                   id={el.id}
                                   nftId={el.nftId}
                                   nameNft={el.nameNft}
@@ -126,13 +123,13 @@ const NotifyDashBoard: React.FC<NotifyDashBoardProps> = ({
                               )}
                               {el.typeNotify === 'buy' && (
                                 <NotifyBuyCoins
-                                  key={index}
+                                  key={el.id}
                                   id={el.id}
                                   ordenId={el.ordenId}
                                   coins={el.coins}
                                   amount={el.amount}
                                   status={el.status}
-                                  creatredAt={el.creatredAt}
+                                  createdAt={el.createdAt}
                                 />
                               )}
                             </div>

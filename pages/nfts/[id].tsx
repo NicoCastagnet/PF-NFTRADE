@@ -1,5 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
+  
 
 import Footer from '@components/footer'
 import SvgCheck from '@components/icons/svgCheck'
@@ -167,13 +166,13 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                       <input
                         type="number"
                         value={subState.price}
-                        onChange={(e) =>
-                          setSubState((state) => ({
+                        onChange={({target}) =>
+                          setSubState((state: any) => ({
                             ...state,
-                            price: e.target.value,
+                            price: target.value,
                           }))
                         }
-                        placeholder={subState.price}
+                        placeholder={subState.price.toString()}
                         className="w-[80px] h-[30px] bg-gray-200 border-b-gray-400 dark:bg-[#202225] border-b-[1px] text-[1.1rem] focus:outline-none outline-none block p-1"
                       />
                       <div className="flex justify-center items-center">
@@ -326,7 +325,7 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const { data } = await axios.get(
-    `${process.env.NEXT_PUBLIC_APP_URL}/api/nfts/${params.id}`,
+    `${process.env.NEXT_PUBLIC_APP_URL}/api/nfts/${params?.id}`,
   )
   if (!data) {
     return {

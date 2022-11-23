@@ -1,8 +1,5 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
+  
 
-/* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable react/jsx-no-undef */
 import Footer from '@components/footer'
 import SvgCoin from '@components/icons/svgCoin'
 import SvgPlus from '@components/icons/svgPlus'
@@ -13,7 +10,7 @@ import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import type { UserDetailResponse } from 'types/api-responses'
-import defaultAvatar from '/assets/avataricon.png'
+import defaultAvatar from '@assets/avataricon.png'
 
 interface Props {
   user: UserDetailResponse
@@ -21,7 +18,7 @@ interface Props {
 
 const NftsCreated: NextPage<Props> = ({ user }) => {
   const { data: session } = useSession()
-  const account = session?.user
+  const account = session?.user.image
 
   const collections = user.collectionsCreated
 
@@ -32,10 +29,11 @@ const NftsCreated: NextPage<Props> = ({ user }) => {
         <div className="h-[350px] bg-slate-900"></div>
         <div className=" h-[185px] w-[185px] absolute top-[225px] left-[60px] rounded-full  border-[8px] border-white ">
           <Image
+            src={account || defaultAvatar}
             width={175}
             height={175}
+            alt='image avatar'
             className=" bg-white rounded-full object-cover h-[175px] w-[175px]"
-            src={account?.image || defaultAvatar}
           />
         </div>
         <div className="mt-[100px] mb-[60px] items-center flex flex-col w-full ">
@@ -45,7 +43,7 @@ const NftsCreated: NextPage<Props> = ({ user }) => {
           <div className="flex justify-center w-full">
             <div className="flex min-h-[900px] p-8 border-[1px] border-gray-400 rounded-[15px] w-[93%] flex-wrap">
               {collections.length > 0 &&
-                collections.map((el) => (
+                collections.map((el: any) => (
                   <div
                     key={el.id}
                     className={`w-full lg:w-[30%] lg:mr-6 mb-2 lg:mb-6 max-w-[287px] h-[380px] min-w-[194px] overflow-hidden relative flex flex-col bg-slate-900 dark:bg-stone-900 border-[16px] rounded-xl p-[1px] border-slate-900 dark:border-stone-900 cursor-pointer group shadow-lg shadow-zinc-500`}

@@ -16,19 +16,19 @@ export default async function handler(
   const skip =
     page && limit ? Math.max(+page - 1, 1) * Math.max(+limit, 1) : undefined
 
-  console.log(minPrice)
-  console.log(maxPrice)
+  const { lte, gte } = where.price
 
-  const collections = await prisma.collection.findMany({
+  const collections: any = await prisma.collection.findMany({
     take,
     orderBy,
     skip,
     where: {
       price: {
-        lte: parseInt(maxPrice),
-        gte: parseInt(minPrice),
+        lte: lte,
+        gte: gte,
       },
       published: true,
+      erased: true,
     },
     select: {
       id: true,

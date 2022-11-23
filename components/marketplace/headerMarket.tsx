@@ -1,34 +1,21 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-
 import SvgChevron from '@components/icons/svgChevronDown'
 import SvgGrid2 from '@components/icons/svgGrid2'
 import SvgGrid3 from '@components/icons/svgGrid3'
 import SvgList2 from '@components/icons/svgList2'
 import SvgReload from '@components/icons/svgReload'
-import type { NextPage } from 'next'
 import { useState } from 'react'
 import { useOpenFilterMenu } from '../../hook/openFilterMenu'
 import styles from '../../styles/form.module.css'
 import FilterLateral from './filterLateral'
 
-export interface FilterProps {
-  minPrice: string
-  maxPrice: string
-}
-
-interface Props {
-  setOrder: (order: string) => void
-  setFilter: ({ minPrice, maxPrice }: FilterProps) => void
-  filterValues: FilterProps
-  setCardSize: React.Dispatch<React.SetStateAction<string>>
-}
-
-const HeaderMarket: NextPage<Props> = ({
+const HeaderMarket = ({
   setOrder,
   setFilter,
-  filterValues,
   setCardSize,
+}: {
+  setOrder: any
+  setFilter: any
+  setCardSize: any
 }) => {
   const { openFilter, setOpenFilter } = useOpenFilterMenu()
   const [orderMenu, setOrderMenu] = useState(false)
@@ -44,7 +31,7 @@ const HeaderMarket: NextPage<Props> = ({
           <FilterLateral
             isOpen={openFilter}
             handleClose={setOpenFilter}
-            filterValues={filterValues}
+            // filterValues={filterValues}
             setFilter={setFilter}
           />
           <button

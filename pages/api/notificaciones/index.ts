@@ -1,6 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-
 import prisma from '@lib/db'
 import axios from 'axios'
 import type { NextApiRequest, NextApiResponse } from 'next'
@@ -54,7 +51,7 @@ export default async function payDescription(
               userId: payment.data.additional_info.items[0].id as string,
               coins: Number(totalCoin),
               status: payment.data.status as string,
-              amount: Number(totalAmount).toFixed(2),
+              amount: totalAmount.toFixed(2),
             },
           })
 
@@ -98,11 +95,10 @@ export default async function payDescription(
       console.error(error.message)
     }
   } else if (req.method === 'GET') {
-    const { user } = req.query
-
+    const userId: any = req.query.user
     const notificacones = await prisma.notify.findMany({
       where: {
-        userId: user.toString(),
+        userId,
       },
     })
     const notViewNotify = notificacones.filter((el) => el.view === false)
@@ -117,11 +113,11 @@ export default async function payDescription(
       total: notViewNotify.length,
     })
   } else if (req.method === 'PUT') {
-    const { id } = req.query
+    const id: any = req.query.id
 
     await prisma.notify.update({
       where: {
-        id: id,
+        id,
       },
       data: {
         view: true,

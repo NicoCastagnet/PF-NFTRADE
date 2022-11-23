@@ -1,5 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
+  
 // react-hooks/rules-of-hooks
 
 import axios from 'axios'
@@ -7,12 +6,12 @@ import type { NextPage } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
-import pwdImage from '../Assets/White.png'
+import pwdImage from '@assets/White.png'
 
 const ForgottenPass: NextPage = () => {
   const [email, setEmail] = useState('')
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e:any) => {
     e.preventDefault()
     await axios.put(`${process.env.NEXT_PUBLIC_APP_URL}/api/auth/resetpass`, {
       email: email,
@@ -41,7 +40,6 @@ const ForgottenPass: NextPage = () => {
           >
             <div>
               <label
-                for="email"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
                 Your email
@@ -52,7 +50,6 @@ const ForgottenPass: NextPage = () => {
                 id="email"
                 className="transition-all bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-[#303339] dark:hover:bg-[#393b41] dark:border-gray-600 dark:focus:bg-[#393b41] dark:placeholder-gray-400 dark:text-white outline-none"
                 placeholder="name@company.com"
-                required=""
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>

@@ -1,6 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-
 import Footer from '@components/footer'
 import AboutHome from '@components/home/aboutHome'
 import UtilsContainer from '@components/home/contentUtils/utilsContainer'
@@ -43,7 +40,7 @@ const HomePage: NextPage<HomeProps> = ({ nfts }) => {
 export const getServerSideProps: GetServerSideProps = async () => {
   const nfts = await getAllNfts({ limit: 3, order: 'likes_desc' })
   return {
-    props: { nfts },
+    props: { nfts } as { nfts: NftsResponse },
   }
 }
 

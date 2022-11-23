@@ -4,15 +4,15 @@
 import SvgLoading from '@components/icons/svgLoading'
 import fetcher from '@lib/fetcher'
 import {
-  CategoryScale,
-  Chart as ChartJS,
-  Filler,
-  Legend,
-  LinearScale,
-  LineElement,
-  PointElement,
-  Title,
-  Tooltip,
+    CategoryScale,
+    Chart as ChartJS,
+    Filler,
+    Legend,
+    LinearScale,
+    LineElement,
+    PointElement,
+    Title,
+    Tooltip
 } from 'chart.js'
 import { Line } from 'react-chartjs-2'
 import useSWR from 'swr'
@@ -28,12 +28,12 @@ ChartJS.register(
   Filler,
 )
 
-const AdminBarChart = () => {
+const AdminBarChart = ({userData}) => {
   const { data: totalSales } = useSWR(`/api/dashboardata`, fetcher)
 
-  const dates = totalSales?.adminSellerDate.map((e) => e.createdAt)
-  const spentCoins = totalSales?.adminSellerDate.map((e) => e.coins)
-  const totalSalesPDay = totalSales?.adminSellerDate.map((e) => e.total)
+  const dates = totalSales?.adminSellerDate.map((e: any) => e.createdAt)
+  const spentCoins = totalSales?.adminSellerDate.map((e: {coins: number, total: number}) => e.coins)
+  const totalSalesPDay = totalSales?.adminSellerDate.map((e: {total: number, coins: number}) => e.total)
 
   const chartData = {
     labels: dates,

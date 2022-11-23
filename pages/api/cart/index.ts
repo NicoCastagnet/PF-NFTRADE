@@ -1,8 +1,6 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-
 import type { NextApiRequest, NextApiResponse } from 'next'
 import emailNft from '../emails/nftBuy'
+import prisma from '@lib/db'
 
 export default async function handler(
   req: NextApiRequest,
@@ -11,9 +9,9 @@ export default async function handler(
   const { nfts, comprador } = req.body
   if (req.method === 'POST') {
     try {
-      nfts.forEach(async (el) => {
+      nfts.forEach(async (el: any) => {
         try {
-          const comp = await prisma.user.findUnique({
+          const comp: any = await prisma.user.findUnique({
             where: {
               id: comprador.id as string,
             },
@@ -61,7 +59,7 @@ export default async function handler(
             },
           })
 
-          const vendedor = await prisma.user.findUnique({
+          const vendedor:any = await prisma.user.findUnique({
             where: {
               id: el.owner.id as string,
             },
@@ -104,7 +102,7 @@ export default async function handler(
               createdAt: 'desc',
             },
           })
-          const datebuy = date?.shift()
+          const datebuy: any = date?.shift()
           emailNft(
             req,
             res,

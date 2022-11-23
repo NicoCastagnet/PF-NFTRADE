@@ -1,5 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
+  
 
 import SvgList from '@components/icons/svgList'
 import Link from 'next/link'

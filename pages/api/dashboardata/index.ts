@@ -1,13 +1,9 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-
 import prisma from '@lib/db'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import type { NftsResponse } from 'types/api-responses'
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<NftsResponse>,
+  res: NextApiResponse,
 ) {
   const { user } = req.query
   const coinsData = await prisma.notify.findMany({
@@ -40,7 +36,7 @@ export default async function handler(
 
   const filteredSeller = nftData.filter((e) => e.vendedorId === user)
   const filteredSellerCoins = filteredSeller.map((e) => e.coins)
-  const sum = filteredSellerCoins.reduce((acc, val) => {
+  const sum = filteredSellerCoins.reduce((acc: any, val: any) => {
     return acc + val
   }, 0)
 
@@ -60,13 +56,13 @@ export default async function handler(
     createdAt: e.createdAt,
     coins: e.coins,
   }))
-  const totalFilterDate = new Set([...totalDate])
+  const totalFilterDate: any = new Set([...totalDate])
   const totatlArr = [...totalFilterDate]
-  const totalGrafic = []
+  const totalGrafic: any = []
 
-  totatlArr.forEach((el1) => {
+  totatlArr.forEach((el1: any) => {
     let newDate = { createdAt: el1, coins: 0, total: 0 }
-    totalBuyNft.forEach((el2) => {
+    totalBuyNft.forEach((el2: any) => {
       if (el2.createdAt.toDateString() === el1) {
         newDate = {
           ...newDate,
@@ -84,13 +80,13 @@ export default async function handler(
     coins: e.coins,
   }))
 
-  const filterDate = new Set([...filtered])
+  const filterDate: any = new Set([...filtered])
   const arr = [...filterDate]
-  const grafic = []
+  const grafic: any = []
 
-  arr.forEach((el1) => {
+  arr.forEach((el1: any) => {
     let newDate = { createdAt: el1, coins: 0, total: 0 }
-    filteredBuyerDate.forEach((el2) => {
+    filteredBuyerDate.forEach((el2: any) => {
       if (el2.createdAt.toDateString() === el1) {
         newDate = {
           ...newDate,

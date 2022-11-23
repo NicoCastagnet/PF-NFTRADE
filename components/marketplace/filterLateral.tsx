@@ -1,22 +1,22 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-
 import SvgCross from '@components/icons/svgCross'
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
-import type { FilterProps } from './headerMarket'
 
 interface FilterSideBarProps {
   isOpen: boolean
   handleClose: (isOpen: boolean) => void
-  filterValues: FilterProps
-  setFilter: ({ minPrice, maxPrice }: FilterProps) => void
+  setFilter: ({
+    minPrice,
+    maxPrice,
+  }: {
+    minPrice: number | string
+    maxPrice: number | string
+  }) => void
 }
 
 const FilterSideBar: React.FC<FilterSideBarProps> = ({
   isOpen,
   handleClose,
-  filterValues,
   setFilter,
 }) => {
   const handleFilter = (e: React.SyntheticEvent) => {

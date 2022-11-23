@@ -1,5 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
+  
 
 import BarChart from '@components/charts/barchart'
 import PieChart from '@components/charts/pieChart'
@@ -14,7 +13,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import useSWR from 'swr'
-import Cry from '../../assets/cry.webp'
+import Cry from '@assets/cry.webp'
 import styles from '../../styles/wavinghand.module.css'
 
 const DashBoard: NextPage = () => {

@@ -1,24 +1,19 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
+  
 
 import SvgCoin from '@components/icons/svgCoin'
 import Image from 'next/image'
 import Link from 'next/link'
 
-interface Props {
-  collection: Collection
-}
-
 interface Collection {
   id: string
   name: string
-  image: string | null
+  image: string
   price: number
   discount: number
   description: string
 }
 
-const CollectionCard = ({ collection }: Props) => {
+const CollectionCard = ({ collection }: {collection: Collection}) => {
   return (
     <div
       key={collection.id}

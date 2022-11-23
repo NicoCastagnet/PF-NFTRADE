@@ -1,5 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
+  
 
 import AdminBarChart from '@components/dashboard/Charts/adminBarChart'
 import AdminPieChart from '@components/dashboard/Charts/adminPieChart'

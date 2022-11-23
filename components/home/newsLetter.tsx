@@ -1,5 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
+  
 
 import Newsletter from '@assets/newsletter.png'
 import SvgMail from '@components/icons/svgMail'

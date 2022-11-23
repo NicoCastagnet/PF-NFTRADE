@@ -1,5 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
+  
 
 import fetcher from '@lib/fetcher'
 import { useSession } from 'next-auth/react'

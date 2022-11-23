@@ -1,12 +1,11 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
+  
 
 import { useFormik } from 'formik'
 import {
-  handleBlurEmail,
-  handleBlurPassword,
-  handleBlurUserName,
-  registerValidate,
+    handleBlurEmail,
+    handleBlurPassword,
+    handleBlurUserName,
+    registerValidate
 } from 'hook/validate'
 import type { NextPage } from 'next'
 import { useSession } from 'next-auth/react'
@@ -18,8 +17,8 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { toast, Toaster } from 'react-hot-toast'
 import { HiAtSymbol, HiFingerPrint, HiOutlineUser } from 'react-icons/hi'
-import darkImage from '../assets/logoDark.png'
-import lightImage from '../assets/logoLight.png'
+import darkImage from '@assets/logoDark.png'
+import lightImage from '@assets/logoLight.png'
 import styles from '../styles/form.module.css'
 
 const SignIn: NextPage = () => {

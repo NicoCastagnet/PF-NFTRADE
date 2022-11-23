@@ -1,8 +1,5 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
+  
 
-/* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable react/jsx-no-undef */
 import Footer from '@components/footer'
 import SvgCoin from '@components/icons/svgCoin'
 import NavBar from '@components/navbar/navbar'
@@ -12,7 +9,7 @@ import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import type { UserDetailResponse } from 'types/api-responses'
-import defaultAvatar from '/assets/avataricon.png'
+import defaultAvatar from '@assets/avataricon.png'
 
 interface Props {
   user: UserDetailResponse
@@ -33,6 +30,7 @@ const NftsOwned: NextPage<Props> = ({ user }) => {
           <Image
             width={175}
             height={175}
+            alt='image user'
             className=" bg-white rounded-full object-cover h-[175px] w-[175px]"
             src={account?.image || defaultAvatar}
           />
@@ -45,7 +43,7 @@ const NftsOwned: NextPage<Props> = ({ user }) => {
             <div className="flex min-h-[900px] p-8 border-[1px] border-gray-400 rounded-[15px] w-[93%] flex-wrap">
               {nfts.length > 0 &&
                 nfts
-                  .filter((nft) => nft.nft.erased === false)
+                  .filter((el: any) => el.nft.erased === false)
                   .map((el) => (
                     <div
                       key={el.nft.id}

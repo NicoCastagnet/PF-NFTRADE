@@ -1,5 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
+  
 
 import SvgCoin from '@components/icons/svgCoin'
 import SvgCross from '@components/icons/svgCross'

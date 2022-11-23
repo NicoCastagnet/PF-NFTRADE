@@ -1,5 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
+  
 
 import Footer from '@components/footer'
 import SvgCheck from '@components/icons/svgCheck'
@@ -13,7 +12,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { ChangeEvent, useState } from 'react'
 import type { UserDetailResponse } from 'types/api-responses'
-import imagePlaceholder from '/assets/image-placeholder.png'
+import imagePlaceholder from '@assets/image-placeholder.png'
 
 interface Props {
   user: UserDetailResponse
@@ -135,7 +134,7 @@ const CreateCollection: NextPage<Props> = ({ user }) => {
   const [loading, setLoading] = useState(false)
 
   function validate(collection: Collection) {
-    const error = {}
+    const error: any = {}
 
     if (!collection.name) {
       error.name = 'Name missing'
@@ -356,10 +355,10 @@ const CreateCollection: NextPage<Props> = ({ user }) => {
                   onClick={submitCollection}
                   className="w-full h-[60px] bg-blue-600 rounded-[10px] mt-10 text-[1.4rem] font-[600] hover:scale-[1.04] transition-all disabled:bg-gray-500 disabled:cursor-not-allowed disabled:hover:scale-[1]"
                   disabled={
-                    error.name ||
-                    error.description ||
-                    error.image ||
-                    error.nftsId
+                    !!error.name ||
+                    !!error.description ||
+                    !!error.image ||
+                    !!error.nftsId
                   }
                 >
                   Submit
@@ -425,7 +424,7 @@ const CreateCollection: NextPage<Props> = ({ user }) => {
             <div className="flex justify-center items-center ">
               <div className="flex min-h-[900px] p-4 justify-center items-center pt-5 lg:p-8 border-[1px] border-gray-400 rounded-[15px] w-full flex-wrap">
                 {nfts.length > 0 &&
-                  nfts.map((el) => (
+                  nfts.map((el: any) => (
                     <div
                       onClick={() => {
                         el.collectionId ? null : handleNfts(el.id, el.price)

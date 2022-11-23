@@ -1,6 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-
 import Link from 'next/link'
 import { useState } from 'react'
 import ReactTimeAgo from 'react-time-ago'
@@ -9,12 +6,19 @@ import ClearView from './clear'
 const NotifyComment = ({
   id,
   nameUserComment,
-  nameNft,
   nftId,
+  nameNft,
+  userIdComment,
   comment,
   createdAt,
-  mutate,
-  url,
+}: {
+  id: string
+  nameUserComment: string
+  nftId: string
+  nameNft: string
+  userIdComment: string
+  comment: string
+  createdAt: any
 }) => {
   const [view, setView] = useState(false)
 

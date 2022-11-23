@@ -1,5 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
+  
 
 import Footer from '@components/footer'
 import SvgCross from '@components/icons/svgCross'
@@ -16,7 +15,7 @@ import { ChangeEvent, useState } from 'react'
 import useSWR from 'swr'
 import type { NftDetailResponse } from 'types/api-responses'
 import * as Yup from 'yup'
-import imagePlaceholder from '/assets/image-placeholder.png'
+import imagePlaceholder from '@assets/image-placeholder.png'
 
 interface NftFormValues {
   name: string

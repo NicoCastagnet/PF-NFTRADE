@@ -1,12 +1,9 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-
 import SvgLoading from '@components/icons/svgLoading'
 import SvgNewTab from '@components/icons/svgNewTab'
 import fetcher from '@lib/fetcher'
 import Image from 'next/image'
 import useSWR from 'swr'
-import Avatar from '../../../Assets/avataricon.png'
+import Avatar from '@assets/avataricon.png'
 
 const UsersDataTable = () => {
   const { data } = useSWR(`/api/user`, fetcher)

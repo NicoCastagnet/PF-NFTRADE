@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import prisma from '@lib/db'
 import { hash } from 'bcryptjs'
 import type { NextApiRequest, NextApiResponse } from 'next'
@@ -11,7 +9,7 @@ export default async function handle(
   if (req.method === 'PUT') {
     if (req.body.email) {
       try {
-        const flag = await prisma.user.findUnique({
+        const flag: any = await prisma.user.findUnique({
           where: {
             email: req.body.email as string,
           },
@@ -20,7 +18,7 @@ export default async function handle(
             passwordHash: true,
           },
         })
-        if (flag.name && flag?.passwordHash !== null) {
+        if (flag.name && flag.passwordHash !== null) {
           let generador = ''
           const characters =
             '0123456789abcdfghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.?,;-_!*%&$/(){}|@><'

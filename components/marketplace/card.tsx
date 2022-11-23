@@ -1,6 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-
 import SvgCoin from '@components/icons/svgCoin'
 import SvgHeart from '@components/icons/svgHeart'
 import { useCart } from '@context/cart'
@@ -21,6 +18,16 @@ const Card = ({
   price,
   image,
   likedBy,
+}: {
+  nft: any
+  id: string
+  carSize: any
+  name: string
+  description: string
+  owner: any
+  price: number
+  image: string
+  likedBy: any
 }) => {
   const { cart, addItem } = useCart()
   const { session, likedCount, likeHandler } = useLiked(likedBy)

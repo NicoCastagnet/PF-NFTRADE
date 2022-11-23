@@ -1,6 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-
 import prisma from '@lib/db'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
@@ -17,7 +14,7 @@ export default async function handler(
         name: true,
         image: true,
         description: true,
-        disccount: true,
+        discount: true,
         owner: {
           select: { name: true },
         },

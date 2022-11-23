@@ -1,11 +1,8 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-
 import fetcher from '@lib/fetcher'
 import useSWR from 'swr'
 import type { NftsResponse } from 'types/api-responses'
 
-const useNfts = (order = '', { minPrice, maxPrice }) => {
+const useNfts = (order = '', { minPrice = 0, maxPrice = 9999 }) => {
   const URL = '/api/nfts'
 
   const { data: nfts, error } = useSWR<NftsResponse>(

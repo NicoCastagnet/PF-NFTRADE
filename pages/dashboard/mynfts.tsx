@@ -1,6 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-
 import CreateCard from '@components/dashboard/Components/createNftCard'
 import NavBar from '@components/dashboard/Components/navbar'
 import Nfts from '@components/dashboard/Components/nftsList'
@@ -10,7 +7,7 @@ import fetcher from '@lib/fetcher'
 import type { NextPage } from 'next'
 import { useSession } from 'next-auth/react'
 import Head from 'next/head'
-import useSWR, { mutate } from 'swr'
+import useSWR from 'swr'
 
 const MyNFTS: NextPage = () => {
   const { data: session } = useSession()
@@ -30,13 +27,13 @@ const MyNFTS: NextPage = () => {
               {data?.nftsOwned.map((e: any) => {
                 return (
                   <Nfts
-                    mutate={mutate}
                     key={e.id}
                     nft={e}
                     id={e.id}
                     image={e.image}
                     name={e.name}
                     published={e.published}
+                    collectionId={e.collectionId}
                     price={e.price}
                     views={e.viewedBy}
                     likes={e.likedBy}

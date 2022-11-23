@@ -1,5 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
+  
 
 import NavBar from '@components/navbar/navbar'
 import Link from 'next/link'

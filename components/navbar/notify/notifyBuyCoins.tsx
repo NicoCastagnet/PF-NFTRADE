@@ -1,12 +1,23 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-
 import Link from 'next/link'
 import { useState } from 'react'
 import ReactTimeAgo from 'react-time-ago'
 import ClearView from './clear'
 
-const NotifyBuyCoins = ({ id, orderId, coins, amount, status, createdAt }) => {
+const NotifyBuyCoins = ({
+  id,
+  ordenId,
+  coins,
+  amount,
+  status,
+  createdAt,
+}: {
+  id: string
+  ordenId: string
+  coins: number
+  amount: number
+  status: string
+  createdAt: any
+}) => {
   const [view, setView] = useState(false)
 
   return (

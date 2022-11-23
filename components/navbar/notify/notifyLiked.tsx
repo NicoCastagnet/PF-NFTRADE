@@ -1,6 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-
 import Link from 'next/link'
 import { useState } from 'react'
 import ReactTimeAgo from 'react-time-ago'
@@ -13,6 +10,13 @@ const NotifyLiked = ({
   nftId,
   nameNft,
   createdAt,
+}: {
+  id: string
+  userIdLiked: string
+  nameUserLiked: string
+  nftId: string
+  nameNft: string
+  createdAt: any
 }) => {
   const [view, setView] = useState(false)
   return (

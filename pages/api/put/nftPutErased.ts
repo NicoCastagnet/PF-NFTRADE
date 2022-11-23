@@ -1,5 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
+  
 
 import prisma from '@lib/db'
 import type { NextApiRequest, NextApiResponse } from 'next'
@@ -21,7 +20,7 @@ export default async function updateNft(
             erased: true,
           },
         })
-        const oldCollection = await prisma.collection.findUniqueOrThrow({
+        const oldCollection: any = await prisma.collection.findUniqueOrThrow({
           where: {
             id: collectionId as string,
           },

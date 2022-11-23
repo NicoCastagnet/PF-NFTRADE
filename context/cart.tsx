@@ -1,5 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
+  
 
 import { createContext, useContext, useEffect, useState } from 'react'
 import type { NftResponse } from 'types/api-responses'

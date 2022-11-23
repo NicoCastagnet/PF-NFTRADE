@@ -4,14 +4,14 @@
 import SvgLoading from '@components/icons/svgLoading'
 import fetcher from '@lib/fetcher'
 import {
-  ArcElement,
-  Chart as ChartJS,
-  Filler,
-  Legend,
-  LinearScale,
-  PointElement,
-  Title,
-  Tooltip,
+    ArcElement,
+    Chart as ChartJS,
+    Filler,
+    Legend,
+    LinearScale,
+    PointElement,
+    Title,
+    Tooltip
 } from 'chart.js'
 import { Pie } from 'react-chartjs-2'
 import useSWR from 'swr'
@@ -26,7 +26,7 @@ ChartJS.register(
   Filler,
 )
 
-const AdminPieChart = () => {
+const AdminPieChart = ({userData}) => {
   const { data: totalSales } = useSWR(
     `/api/dashboardata/adminPanelData`,
     fetcher,

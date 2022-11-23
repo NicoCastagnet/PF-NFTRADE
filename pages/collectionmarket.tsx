@@ -7,18 +7,13 @@ import useCollections from 'hook/useCollections'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useState } from 'react'
-import type { NftsResponse } from 'types/api-responses'
 
-interface HomeProps {
-  fallbackData: NftsResponse
-}
-
-const CollectionMarket: NextPage<HomeProps> = () => {
+const CollectionMarket: NextPage = () => {
   const [order, setOrder] = useState('')
   const [filter, setFilter] = useState({
     minPrice: 0,
-    maxPrice: 99999,
-  })
+    maxPrice: 9999,
+  } as { minPrice: number | string; maxPrice: number | string })
 
   const { collections, isLoading } = useCollections(order, filter)
   const [carSize, setCardSize] = useState('bigger')
@@ -33,7 +28,6 @@ const CollectionMarket: NextPage<HomeProps> = () => {
       <NavBar />
       <HeaderMarket
         setOrder={setOrder}
-        filterValues={filter}
         setFilter={setFilter}
         setCardSize={setCardSize}
       />
@@ -43,7 +37,7 @@ const CollectionMarket: NextPage<HomeProps> = () => {
             <Loading />
           ) : (
             collections &&
-            collections.map((el) => {
+            collections?.map((el: any) => {
               return (
                 <CollectionCard
                   nft={el}
@@ -55,7 +49,7 @@ const CollectionMarket: NextPage<HomeProps> = () => {
                   price={el.price}
                   image={el.image}
                   description={el.description}
-                  likedBy={[]}
+                  // likedBy={[]}
                 />
               )
             })

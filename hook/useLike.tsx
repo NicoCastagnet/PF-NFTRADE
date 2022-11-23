@@ -1,19 +1,19 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
+  
 
 import axios from 'axios'
 import { useSession } from 'next-auth/react'
 import { useState } from 'react'
 
-const useLiked = (likedBy) => {
+const useLiked = (likedBy = [{id: ''}]) => {
   const { data: session } = useSession()
+  const userId: any = session?.user.id
   const [likedCount, setLikedCount] = useState(likedBy.length as number)
   const li = likedBy.map((el) => el.id)
   const [likedByMe, setLikedByMe] = useState(
-    li.includes(session?.user.id) as boolean,
+    li.includes(userId) as boolean,
   )
 
-  const likeHandler = async (nftId) => {
+  const likeHandler = async (nftId = '') => {
     if (!likedByMe) {
       setLikedCount((state) => state + 1)
       setLikedByMe((state) => !state)
@@ -23,7 +23,7 @@ const useLiked = (likedBy) => {
     }
     await axios.put('/api/put/nftLike', {
       nftId,
-      userId: session?.user.id,
+      userId,
       isLiked: likedByMe,
     })
   }

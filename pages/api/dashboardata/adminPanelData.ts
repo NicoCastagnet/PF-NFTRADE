@@ -1,15 +1,11 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-
 import prisma from '@lib/db'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import type { NftsResponse } from 'types/api-responses'
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<NftsResponse>,
+  res: NextApiResponse,
 ) {
-  const coinsData = await prisma.notify.findMany({
+  const coinsData: any = await prisma.notify.findMany({
     where: {
       typeNotify: 'buy',
     },
@@ -23,7 +19,7 @@ export default async function handler(
     },
   })
 
-  const nftData = await prisma.notify.findMany({
+  const nftData: any = await prisma.notify.findMany({
     where: {
       typeNotify: 'buyNft',
     },
@@ -37,13 +33,19 @@ export default async function handler(
     },
   })
 
-  const approved = coinsData.filter((e) => e.status === 'approved')
-  const rejected = coinsData.filter((e) => e.status === 'rejected')
-  const in_process = coinsData.filter((e) => e.status === 'in_process')
+  const approved = coinsData.filter(
+    ({ status }: { status: string }) => status === 'approved',
+  )
+  const rejected = coinsData.filter(
+    ({ status }: { status: string }) => status === 'rejected',
+  )
+  const in_process = coinsData.filter(
+    ({ status }: { status: string }) => status === 'in_process',
+  )
 
   res.json({
-    coinsData,
-    nftData,
+    nftData: nftData,
+    coinsData: coinsData,
     transactions: {
       approved: approved.length,
       rejected: rejected.length,

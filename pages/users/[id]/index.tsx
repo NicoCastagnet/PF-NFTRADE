@@ -1,8 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-
-/* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable @next/next/no-img-element */
 import Footer from '@components/footer'
 import SvgPencil from '@components/icons/svgPencil'
 import SvgPlus from '@components/icons/svgPlus'
@@ -12,14 +7,14 @@ import CollectionCard from '@components/user/collectionCard'
 import NftCard from '@components/user/nftCard'
 import getUserById from '@lib/api/users/getUserById'
 import supabase from '@lib/supa'
-import type { NextPage } from 'next'
+import type { GetServerSideProps, NextPage } from 'next'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ChangeEvent, useEffect, useState } from 'react'
 import type { UserDetailResponse } from 'types/api-responses'
-import defaultAvatar from '/assets/avataricon.png'
-import imagePlaceholder from '/assets/image-placeholder.png'
+import defaultAvatar from '@assets/avataricon.png'
+import imagePlaceholder from '@assets/image-placeholder.png'
 
 interface Props {
   user: UserDetailResponse
@@ -31,26 +26,18 @@ const UserDetail: NextPage<Props> = ({ user }) => {
 
   const [uploadError, setUploadError] = useState(false)
 
-  interface UserDetails {
-    profilePicture: string
-    name: string | null | undefined
-    email: string
-    // password: string | null
-  }
-
-  const [userDetails, setUserDetails] = useState<UserDetails>({
+  const [userDetails, setUserDetails] = useState({
     profilePicture: user.image,
     name: user.name,
     email: user.email,
-    // password: user.passwordHash,
-  })
+  } as { profilePicture: string; name: string; email: string })
 
   useEffect(() => {
     setUserDetails({
       profilePicture: user.image,
       name: user.name,
       email: user.email,
-    })
+    } as { profilePicture: string; name: string; email: string })
   }, [user.email, user.image, user.name])
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
@@ -221,7 +208,10 @@ const UserDetail: NextPage<Props> = ({ user }) => {
                       <button
                         onClick={() => {
                           setChangeName(false)
-                          setUserDetails({ ...userDetails, name: user.name })
+                          setUserDetails((state: any) => ({
+                            ...state,
+                            name: user.name,
+                          }))
                         }}
                         className=" bg-red-500 h-[40px] w-[90px] rounded-[10px] drop-shadow-lg hover:scale-[1.05] transition-all "
                       >
@@ -292,10 +282,10 @@ const UserDetail: NextPage<Props> = ({ user }) => {
                       <button
                         onClick={() => {
                           setChangeEmail(false)
-                          setUserDetails({
-                            ...userDetails,
+                          setUserDetails((state: any) => ({
+                            ...state,
                             email: user.email,
-                          })
+                          }))
                         }}
                         className=" bg-red-500 h-[40px] w-[90px] rounded-[10px] drop-shadow-lg hover:scale-[1.05] transition-all "
                       >
@@ -332,6 +322,7 @@ const UserDetail: NextPage<Props> = ({ user }) => {
             <Image
               width={175}
               height={175}
+              alt="image avatar user"
               className=" bg-white rounded-full object-cover h-[175px] w-[175px]"
               src={userDetails.profilePicture || defaultAvatar}
             />
@@ -440,7 +431,7 @@ const UserDetail: NextPage<Props> = ({ user }) => {
             </h3>
             <div className="flex w-full my-3 h-[330px] justify-center lg:justify-start  flex-wrap overflow-auto">
               {user.collectionsOwned.length > 0 ? (
-                user.collectionsOwned.map((el) => (
+                user.collectionsOwned.map((el: any) => (
                   <CollectionCard key={el.id} collection={el} />
                 ))
               ) : (
@@ -465,7 +456,7 @@ const UserDetail: NextPage<Props> = ({ user }) => {
             </h3>
             <div className="flex w-full my-3 h-[330px] justify-center lg:justify-start  flex-wrap overflow-auto">
               {user.collectionsOwned.length > 0
-                ? user.collectionsOwned.map((el) => (
+                ? user.collectionsOwned.map((el: any) => (
                     <CollectionCard key={el.id} collection={el} />
                   ))
                 : user.id !== session?.user.id && (
@@ -516,7 +507,9 @@ const UserDetail: NextPage<Props> = ({ user }) => {
               className={`flex w-full max-h-[700px] my-3 min-h-[325px] flex-wrap overflow-auto`}
             >
               {user.wishes.length > 0 &&
-                user.wishes.map((el) => <NftCard key={el.id} nft={el.nft} />)}
+                user.wishes.map(({ nft }) => (
+                  <NftCard key={nft.id} nft={nft} />
+                ))}
             </div>
             <Link href={`${user.id}/wishlist`}>
               <button
@@ -535,7 +528,7 @@ const UserDetail: NextPage<Props> = ({ user }) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const data = await getUserById({ id: params?.id as string })
+  const data: any = await getUserById({ id: params?.id as string })
   if (!data) {
     return {
       notFound: true,

@@ -16,8 +16,8 @@ interface HomeProps {
 const Marketplace: NextPage<HomeProps> = () => {
   const [order, setOrder] = useState('')
   const [filter, setFilter] = useState({
-    minPrice: '',
-    maxPrice: '',
+    minPrice: 0,
+    maxPrice: 9999,
   })
 
   const { nfts, isLoading } = useNfts(order, filter)
@@ -31,7 +31,6 @@ const Marketplace: NextPage<HomeProps> = () => {
       <NavBar />
       <HeaderMarket
         setOrder={setOrder}
-        filterValues={filter}
         setFilter={setFilter}
         setCardSize={setCardSize}
       />

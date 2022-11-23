@@ -1,6 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-
 import { faker } from '@faker-js/faker'
 import type { Prisma } from '@prisma/client'
 

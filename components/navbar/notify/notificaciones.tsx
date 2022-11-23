@@ -1,6 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-
 import SvgBell from '@components/icons/svgBell'
 import fetcher from '@lib/fetcher'
 import { useSession } from 'next-auth/react'
@@ -10,6 +7,33 @@ import NotifyBuyCoins from './notifyBuyCoins'
 import NotifyBuyNft from './notifyBuyNft'
 import NotifyComment from './notifyComment'
 import NotifyLiked from './notifyLiked'
+
+interface noty {
+  id: string
+  userId: string
+  typeNotify: string
+  ordenId: string
+  nameUser: string
+  nftId: string
+  nameNft: string
+  creatorNft: string
+  compradorId: string
+  nameComprador: string
+  vendedorId: string
+  nameVendedor: string
+  coins: number
+  amount: number
+  status: string
+  userIdComment: string
+  nameUserComment: string
+  comment: string
+  owner: string
+  ownerId: string
+  view: boolean
+  userIdLiked: string
+  nameUserLiked: string
+  createdAt: any
+}
 
 const Notificaciones = () => {
   const { data: session } = useSession()
@@ -50,14 +74,14 @@ const Notificaciones = () => {
             className={`divide-y divide-gray-800 dark:divide-gray-700 max-h-[30rem] overflow-auto ${styles.scrollbar}`}
           >
             {data?.notify.length ? (
-              data?.notify.map((el) => (
+              data?.notify.map((el: noty) => (
                 <div key={el.id}>
                   {el.typeNotify === 'comment' && (
                     <NotifyComment
                       key={el.id}
                       id={el.id}
-                      nameNft={el.nameNft}
                       nftId={el.nftId}
+                      nameNft={el.nameNft}
                       userIdComment={el.userIdComment}
                       nameUserComment={el.nameUserComment}
                       comment={el.comment}
@@ -97,7 +121,7 @@ const Notificaciones = () => {
                       coins={el.coins}
                       amount={el.amount}
                       status={el.status}
-                      creatredAt={el.creatredAt}
+                      createdAt={el.createdAt}
                     />
                   )}
                 </div>

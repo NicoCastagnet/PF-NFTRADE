@@ -1,16 +1,13 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-
 import prisma from '@lib/db'
-import type { CollectionDetailResponse } from 'types/api-responses'
+// import type { CollectionDetailResponse } from 'types/api-responses'
 
 const getCollectionById = async ({
   id,
 }: {
   id: string
-}): Promise<CollectionDetailResponse | null> => {
+}) => {
   try {
-    const collection = await prisma.collection.findUniqueOrThrow({
+    const collection: any = await prisma.collection.findUniqueOrThrow({
       where: { id: id as string },
       select: {
         id: true,

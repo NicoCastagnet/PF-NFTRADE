@@ -1,6 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-
 import prisma from '@lib/db'
 import type { NextApiRequest, NextApiResponse } from 'next'
 /* this endpoint is for testing purposes */
@@ -10,7 +7,7 @@ export default async function updateCollection(
 ) {
   if (req.method === 'PUT') {
     const { id } = req.query
-    const { name, image, description, disccount, ownerId } = req.body
+    const { name, image, description, discount, ownerId } = req.body
     if (!name) {
       res.status(400).send('Failed. Missing name property.')
     } else {
@@ -22,7 +19,7 @@ export default async function updateCollection(
           name,
           image,
           description: description,
-          disccount,
+          discount,
           ownerId,
         },
       })

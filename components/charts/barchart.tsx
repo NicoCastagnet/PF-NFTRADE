@@ -5,6 +5,7 @@ import SvgLoading from '@components/icons/svgLoading'
 import {
   CategoryScale,
   Chart as ChartJS,
+  ChartOptions,
   Filler,
   Legend,
   LinearScale,
@@ -51,7 +52,7 @@ const BarChart = ({ userData }: { userData: any }) => {
     ],
   }
 
-  const options = {
+  const options: ChartOptions = {
     fill: true,
     animations: {
       y: {

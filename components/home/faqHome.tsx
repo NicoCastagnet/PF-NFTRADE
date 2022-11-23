@@ -1,12 +1,11 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
+  
 
 import SvgChevronDown from '@components/icons/svgChevronDown'
 import SvgQuestionMark from '@components/icons/svgQuestionMark'
 import {
-  Accordion,
-  AccordionBody,
-  AccordionHeader,
+    Accordion,
+    AccordionBody,
+    AccordionHeader
 } from '@material-tailwind/react'
 import { Fragment, useState } from 'react'
 

@@ -1,5 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
+  
 
 import prisma from '@lib/db'
 import type { NextApiRequest, NextApiResponse } from 'next'
@@ -10,7 +9,7 @@ export default async function handler(
 ) {
   const { id } = req.query
   try {
-    const nft = await prisma.nft.findUniqueOrThrow({
+    const nft: any = await prisma.nft.findUniqueOrThrow({
       where: { id: id as string },
       select: {
         id: true,
@@ -47,7 +46,7 @@ export default async function handler(
         wishedBy: { select: { userId: true } },
       },
     })
-    nft.wishedBy = nft.wishedBy.map((w) => w.userId)
+    nft.wishedBy = nft.wishedBy.map(({userId}: {userId: string}) => userId)
     return res.json(nft)
   } catch (e) {
     const apiMessage = (e as Error).message

@@ -1,5 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
+  
 
 import SvgLoading from '@components/icons/svgLoading'
 import SvgNewTab from '@components/icons/svgNewTab'

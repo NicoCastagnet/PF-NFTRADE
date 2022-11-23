@@ -1,7 +1,6 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
+  
 
-import { toast } from 'react-hot-toast'
+import { toast } from 'react-hot-toast';
 
 export const login_valid = (values: { email: string; password: string }) => {
   const errs = {} as { email: string; password: string }

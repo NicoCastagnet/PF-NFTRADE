@@ -1,20 +1,16 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-
 import SvgArrow from '@components/icons/svgArrow'
 import SvgChevronDown from '@components/icons/svgChevronDown'
 import SvgHeart from '@components/icons/svgHeart'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
-import type { NftsResponse } from 'types/api-responses'
 import styles from '../../styles/form.module.css'
 
-const TopContainer = ({ nfts }: { nfts: NftsResponse }) => {
+const TopContainer = ({ nfts }: { nfts: any }) => {
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [selected, setSelected] = useState(nfts[0])
 
-  const selectNewImage = (nfts: NftsResponse, next = true) => {
+  const selectNewImage = (nfts: any, next = true) => {
     const condition = next ? selectedIndex < nfts.length - 1 : selectedIndex > 0
     const nextIndex = next
       ? condition
@@ -113,7 +109,7 @@ const TopContainer = ({ nfts }: { nfts: NftsResponse }) => {
       </div>
       <div className="home__top-container bg-slate-900 dark:bg-[#303339] max-xl:hidden xl:py-16 xl:px-8 lg:p-5 relative flex flex-row items-center justify-center gap-4 w-auto rounded-lg mb-16">
         {nfts &&
-          nfts.map((e) => {
+          nfts.map((e: any) => {
             return (
               <div
                 key={e.id}

@@ -1,6 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-
 import SvgCoin from '@components/icons/svgCoin'
 import { useCart } from '@context/cart'
 import styles from '@styles/form.module.css'
@@ -18,6 +15,15 @@ const CollectionCard = ({
   owner,
   price,
   image,
+}: {
+  nft: any
+  id: string
+  carSize: any
+  name: string
+  description: string
+  owner: any
+  price: number
+  image: string
 }) => {
   const { cart, addItem } = useCart()
 

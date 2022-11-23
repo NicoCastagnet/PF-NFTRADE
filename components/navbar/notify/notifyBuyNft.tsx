@@ -1,6 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-
 import Link from 'next/link'
 import { useState } from 'react'
 import ReactTimeAgo from 'react-time-ago'
@@ -16,6 +13,16 @@ const NotifyBuyNft = ({
   nameVendedor,
   coins,
   createdAt,
+}: {
+  id: string
+  nftId: string
+  nameNft: string
+  compradorId: string
+  nameComprador: string
+  vendedorId: string
+  nameVendedor: string
+  coins: number
+  createdAt: any
 }) => {
   const [view, setView] = useState(false)
 

@@ -1,6 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-
 import Footer from '@components/footer'
 import SvgCoin from '@components/icons/svgCoin'
 import SvgLoading from '@components/icons/svgLoading'
@@ -16,10 +13,10 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { RiVipCrownFill } from 'react-icons/ri'
-import type { CollectionDetailResponse } from 'types/api-responses'
 
 interface Props {
-  collection: CollectionDetailResponse
+  // collection: CollectionDetailResponse,
+  collection: any
 }
 
 const CollectionDetail: NextPage<Props> = ({ collection }) => {
@@ -47,7 +44,7 @@ const CollectionDetail: NextPage<Props> = ({ collection }) => {
   const [published, setPublished] = useState(collection.published)
 
   async function handlePublished(boolean: boolean) {
-    const nftsId = collection.nfts.map((nft) => nft.id)
+    const nftsId = collection.nfts.map(({ id }: { id: string }) => id)
     setLoadingPublished(true)
     setPublished(boolean)
 
@@ -78,7 +75,7 @@ const CollectionDetail: NextPage<Props> = ({ collection }) => {
   const [deleteLoading, setDeleteLoading] = useState(false)
   async function deleteNft() {
     setDeleteLoading(true)
-    const nftsId = collection.nfts.map((nft) => nft.id)
+    const nftsId = collection.nfts.map(({ id }: { id: string }) => id)
     await fetch('/api/put/collectionPutErased', {
       method: 'PUT',
       headers: {
@@ -273,7 +270,7 @@ const CollectionDetail: NextPage<Props> = ({ collection }) => {
               <div className="flex justify-center w-[100%] mb-10  ">
                 <div className="flex min-h-[900px] px-3 pb-0 pt-3  border-[1px] border-gray-400 rounded-[15px] w-full lg:min-w-[1000px] justify-center flex-wrap">
                   {collection.nfts.length > 0 &&
-                    collection.nfts.map((el) => (
+                    collection.nfts.map((el: any) => (
                       <div
                         key={el.id}
                         className={` mb-3 w-full sm:min-w-[284px] sm:mr-4 max-w-[287px] h-[380px] overflow-hidden relative flex flex-col bg-gray-800 rounded-xl p-[1px] border-slate-900 cursor-pointer group  dark:bg-stone-900 dark:border-[1px]   dark:border-gray-400  group shadow-lg shadow-zinc-500`}

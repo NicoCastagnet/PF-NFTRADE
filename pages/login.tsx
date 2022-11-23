@@ -1,5 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
+  
 
 import SvgFacebook from '@components/icons/svgFacebook'
 import SvgGoogle from '@components/icons/svgGoogle'
@@ -17,8 +16,8 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { toast, Toaster } from 'react-hot-toast'
 import { HiAtSymbol, HiFingerPrint } from 'react-icons/hi'
-import darkImage from '../assets/logoDark.png'
-import lightImage from '../assets/logoLight.png'
+import darkImage from '@assets/logoDark.png'
+import lightImage from '@assets/logoLight.png'
 import useInfoProviders from '../hook/providers'
 import styles from '../styles/form.module.css'
 
