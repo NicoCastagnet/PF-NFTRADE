@@ -18,7 +18,6 @@ export default class PaymentService {
     const body = {
       notification_url:
         'https://f25f-190-7-10-181.sa.ngrok.io/api/notificaciones',
-      payer_email: 'test_user_46945293@testuser.com ',
       items: datos,
       back_urls: {
         failure: '/failure',
