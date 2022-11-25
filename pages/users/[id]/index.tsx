@@ -27,7 +27,6 @@ interface Props {
 
 const UserDetail: NextPage<Props> = ({ user }) => {
   const { data: session } = useSession()
-  const account = session?.user
 
   const [uploadError, setUploadError] = useState(false)
 
@@ -329,7 +328,7 @@ const UserDetail: NextPage<Props> = ({ user }) => {
       >
         <div>
           <div className="h-[350px] bg-slate-900 dark:bg-[#161616]" />
-          {account?.id === user.id ? (
+          {session?.user.id === user.id ? (
             <div
               className=" h-[185px] w-[185px] absolute top-[225px] left-[60px] cursor-pointer"
               onClick={() => setSelectPhoto(true)}
@@ -360,7 +359,7 @@ const UserDetail: NextPage<Props> = ({ user }) => {
             </h2>
             <div>
               <span className="italic text-[1rem] text-gray-400">
-                {account.id}
+                {session?.user.id}
               </span>
               {user.emailVerified !== null && <span>verified</span>}
             </div>
