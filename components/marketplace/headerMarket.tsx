@@ -70,7 +70,7 @@ const HeaderMarket: NextPage<Props> = ({
             <span className="max-sm:hidden">Reload content</span>
           </button>
         </div>
-        <div className="right flex max-sm:mx-8">
+        <div className="right flex">
           <button
             id="dropdownButton"
             className="max-sm:bg-transparent dark:max-sm:bg-transparent max-sm:text-base max-sm:p-0 max-sm:w-[89px] max-md:w-60 bg-gray-700 text-white hover:bg-gray-500 dark:bg-[#303339] dark:hover:drop-shadow-lg transition-all font-medium rounded-lg text-xl px-14 py-3 m-3 text-left flex items-center"
@@ -101,31 +101,31 @@ const HeaderMarket: NextPage<Props> = ({
           </div>
 
           <div
-            className={`max-sm:right-2 max-sm:top-[4.5rem] absolute before:absolute top-[5.5rem] right-64 z-10 w-44 rounded shadow-xl bg-gray-700 dark:bg-[#303339] ${
+            className={`max-sm:right-2 max-sm:top-[4.5rem] absolute before:absolute top-[5.5rem] right-64 z-10 w-44 rounded shadow-xl bg-gray-700 dark:bg-[#303339] max-sm:w-28 ${
               orderMenu ? '' : 'hidden'
-            } ${styles.orderByMenu}`}
+            } ${styles.orderByMenuSmall}`}
           >
             <div
               onClick={openOrderMenu}
-              className={` w-full h-screen -z-10 fixed top-0 left-0  ${
+              className={` w-full h-screen -z-10 fixed top-0 left-0 ${
                 orderMenu ? '' : 'hidden'
               }`}
             ></div>
-            <ul className="py-2 text-lg text-gray-200">
+            <ul className="py-2 text-lg text-gray-200 max-sm:text-base max-sm:w-28">
               <li
-                className="block py-2 px-4 hover:bg-gray-600 hover:text-white dark:hover:bg-[#393b41] cursor-pointer"
+                className="block py-2 px-4 hover:bg-gray-600 hover:text-white dark:hover:bg-[#393b41] cursor-pointer max-sm:py-1"
                 onClick={() => setOrder('createdAt_asc')}
               >
                 Oldest
               </li>
               <li
                 onClick={() => setOrder('createdAt_desc')}
-                className="block py-2 px-4 hover:bg-gray-600 hover:text-white dark:hover:bg-[#393b41] cursor-pointer"
+                className="block py-2 px-4 hover:bg-gray-600 hover:text-white dark:hover:bg-[#393b41] cursor-pointer max-sm:py-1"
               >
                 Newest
               </li>
               <li
-                className="block py-2 px-4 hover:bg-gray-600 hover:text-white dark:hover:bg-[#393b41] cursor-pointer"
+                className="block py-2 px-4 hover:bg-gray-600 hover:text-white dark:hover:bg-[#393b41] cursor-pointer max-sm:py-1"
                 onClick={() => {
                   setOrder('price_asc')
                 }}
@@ -133,7 +133,7 @@ const HeaderMarket: NextPage<Props> = ({
                 Min Price
               </li>
               <li
-                className="block py-2 px-4 hover:bg-gray-600 hover:text-white dark:hover:bg-[#393b41] cursor-pointer"
+                className="block py-2 px-4 hover:bg-gray-600 hover:text-white dark:hover:bg-[#393b41] cursor-pointer max-sm:py-1"
                 onClick={() => {
                   setOrder('price_desc')
                 }}
@@ -141,7 +141,7 @@ const HeaderMarket: NextPage<Props> = ({
                 Max Price
               </li>
               <li
-                className="block py-2 px-4 hover:bg-gray-600 hover:text-white dark:hover:bg-[#393b41] cursor-pointer"
+                className="block py-2 px-4 hover:bg-gray-600 hover:text-white dark:hover:bg-[#393b41] cursor-pointer max-sm:py-1"
                 onClick={() => {
                   setOrder('name_asc')
                 }}
@@ -149,7 +149,7 @@ const HeaderMarket: NextPage<Props> = ({
                 A-Z
               </li>
               <li
-                className="block py-2 px-4 hover:bg-gray-600 hover:text-white dark:hover:bg-[#393b41] cursor-pointer"
+                className="block py-2 px-4 hover:bg-gray-600 hover:text-white dark:hover:bg-[#393b41] cursor-pointer max-sm:py-1"
                 onClick={() => {
                   setOrder('name_desc')
                 }}

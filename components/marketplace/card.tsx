@@ -88,7 +88,7 @@ const Card = ({
                     <h5
                       className={`${
                         carSize === 'small' ? 'text-xl' : 'text-2xl'
-                      } text-gray-800 dark:text-white font-bold truncate ease duration-300`}
+                      } text-gray-800 dark:text-white font-bold truncate ease duration-300 max-sm:text-lg`}
                     >
                       {name}
                     </h5>
@@ -96,7 +96,7 @@ const Card = ({
                   <div
                     className={`${styles.description} ${
                       carSize === 'small' ? 'text-sm' : ''
-                    } ease duration-300 text-gray-800 dark:text-white w-full my-3`}
+                    } ease duration-300 text-gray-800 dark:text-white w-full my-3 max-sm:text-sm`}
                   >
                     {description ? description : 'No description provided.'}
                   </div>
@@ -109,20 +109,22 @@ const Card = ({
                     <p
                       className={`${
                         carSize === 'small' ? 'text-base' : 'text-xl'
-                      } text-gray-800 dark:text-white font-semibold  truncate ease duration-300`}
+                      } text-gray-800 dark:text-white font-semibold  truncate ease duration-300 max-sm:text-base`}
                     >
                       {owner.name}
                     </p>
                   </div>
-                  <div className="flex flex-row justify-center items-center gap-2">
+                  <div className="flex flex-row justify-center items-center gap-2 max-sm:ml-2">
                     <span>
                       <SvgCoin
                         height={20}
                         width={20}
-                        className={'fill-gray-800 dark:fill-white'}
+                        className={
+                          'fill-gray-800 dark:fill-white max-sm:w-4 max-sm:h-4'
+                        }
                       />
                     </span>
-                    <span className="text-gray-800 dark:text-white font-semibold text-xl">
+                    <span className="text-gray-800 dark:text-white font-semibold text-xl max-sm:text-base">
                       {price}
                     </span>
                   </div>

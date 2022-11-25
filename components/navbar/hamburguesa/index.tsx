@@ -2,13 +2,13 @@
 // @ts-nocheck
 
 import CartSide from '@components/cart'
+import SvgAdmin from '@components/icons/svgAdmin'
 import SvgBell from '@components/icons/svgBell'
 import SvgCart from '@components/icons/svgCart'
 import SvgCoin from '@components/icons/svgCoin'
 import SvgLogin from '@components/icons/svgLogin'
 import SvgLogOut from '@components/icons/svgLogOut'
 import SvgMarket from '@components/icons/svgMarket'
-import SearchIcon from '@components/icons/svgSearch'
 import SvgUser from '@components/icons/svgUser'
 import { useCart } from '@context/cart'
 import fetcher from '@lib/fetcher'
@@ -97,22 +97,6 @@ const Hamburguesa = () => {
             </>
 
             {session && (
-              <Link href={`/users/${session.user.id}`}>
-                <a>
-                  <li
-                    key={'5'}
-                    className="flex flex-row justify-start items-center gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6"
-                  >
-                    <span className="pr-6">
-                      <SvgUser width={'28'} height={'28'} />{' '}
-                    </span>
-                    Profile
-                  </li>
-                </a>
-              </Link>
-            )}
-
-            {session && (
               <>
                 <li
                   key={'3'}
@@ -132,16 +116,31 @@ const Hamburguesa = () => {
                 />
               </>
             )}
-            <Link href={'#'}>
+            {session && (
+              <Link href={`/users/${session.user.id}`}>
+                <a>
+                  <li
+                    key={'5'}
+                    className="flex flex-row justify-start items-center gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6"
+                  >
+                    <span className="pr-6">
+                      <SvgUser width={'28'} height={'28'} />{' '}
+                    </span>
+                    Profile
+                  </li>
+                </a>
+              </Link>
+            )}
+            <Link href={'/dashboard'}>
               <a>
                 <li
                   key={'4'}
-                  className="flex flex-row justify-start items-center pl-8 gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6"
+                  className="flex flex-row justify-start items-center gap-4 hover:bg-gray-500 hover:dark:bg-[#3b3d41] rounded-xl py-2 w-full px-6"
                 >
                   <span className="pr-6">
-                    <SearchIcon width={'28'} height={'28'} />{' '}
+                    <SvgAdmin width={'28'} height={'28'} />{' '}
                   </span>
-                  Explore
+                  Dashboard
                 </li>
               </a>
             </Link>

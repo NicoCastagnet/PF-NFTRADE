@@ -92,7 +92,6 @@ const UserDetail: NextPage<Props> = ({ user }) => {
   const [changeName, setChangeName] = useState(false)
   const [changeEmail, setChangeEmail] = useState(false)
   const [saved, setSaved] = useState(false)
-  // const [changePassword, setChangePassword] = useState(false)
 
   async function saveChanges() {
     await fetch('/api/user/putUser', {
@@ -109,8 +108,6 @@ const UserDetail: NextPage<Props> = ({ user }) => {
     })
     setSaved(true)
   }
-
-  // const passwordhash = hash(password, 5)
 
   return (
     <div>
@@ -325,44 +322,57 @@ const UserDetail: NextPage<Props> = ({ user }) => {
           </div>
         </div>
       )}
-      <div className={` ${selectPhoto === true && 'blur-[5px] opacity-60 '} `}>
+      <div
+        className={` ${
+          selectPhoto === true && 'blur-[5px] opacity-60'
+        } bg-gray-200 dark:bg-[#202225] transition-all`}
+      >
         <div>
-          <div className="h-[350px] bg-slate-900"></div>
-          <div className=" h-[185px] w-[185px] absolute top-[225px] left-[60px] rounded-full  border-[8px] border-white ">
-            <Image
-              width={175}
-              height={175}
-              className=" bg-white rounded-full object-cover h-[175px] w-[175px]"
-              src={userDetails.profilePicture || defaultAvatar}
-            />
-          </div>
-          {account?.id === user.id && (
+          <div className="h-[350px] bg-slate-900 dark:bg-[#161616]" />
+          {account?.id === user.id ? (
             <div
-              className=" h-[45px] w-[45px] absolute hover:fill-slate-400 hover:scale-[1.1] top-[300px] left-[250px] fill-slate-200 cursor-pointer "
+              className=" h-[185px] w-[185px] absolute top-[225px] left-[60px] cursor-pointer"
               onClick={() => setSelectPhoto(true)}
             >
-              <SvgPencil />
+              <Image
+                width={175}
+                height={175}
+                quality={100}
+                className=" bg-white rounded-xl object-cover h-[175px] w-[175px]"
+                src={userDetails.profilePicture || defaultAvatar}
+              />
+            </div>
+          ) : (
+            <div className=" h-[185px] w-[185px] absolute top-[225px] left-[60px] rounded-full">
+              <Image
+                width={175}
+                height={175}
+                quality={100}
+                className=" bg-white rounded-xl object-cover h-[175px] w-[175px]"
+                src={userDetails.profilePicture || defaultAvatar}
+              />
             </div>
           )}
 
           <div className="mt-[60px] px-[50px]">
-            <h2 className=" text-[1.8rem] font-[700]">{userDetails.name}</h2>
+            <h2 className=" text-[1.8rem] font-[700] dark:text-gray-300">
+              {userDetails.name}
+            </h2>
             <div>
-              <span className="italic text-[1rem] text-gray-600">
-                {' '}
-                {userDetails.email}{' '}
+              <span className="italic text-[1rem] text-gray-400">
+                {account.id}
               </span>
               {user.emailVerified !== null && <span>verified</span>}
             </div>
           </div>
         </div>
         <div className="lg:px-[50px] px-[10px] mt-[20px] flex flex-wrap ">
-          <div className=" border-[1px] border-gray-400 w-full lg:w-[48%]  rounded-[15px] px-[20px]  lg:mr-8 mb-4">
-            <h3 className="text-[1.5rem] font-[600] text-gray-900 mt-2 dark:text-gray-200">
+          <div className=" border-[1px] w-full lg:w-[48%] rounded-[15px] px-[20px] mr-10 mb-4 border-gray-100 dark:border-[#303339]">
+            <h3 className="text-[1.5rem] font-[600] text-gray-900 mt-2 dark:text-gray-300">
               Owned
             </h3>
             <div
-              className={`flex w-full h-[700px] justify-center lg:justify-start my-3 flex-wrap overflow-auto `}
+              className={`flex w-full h-[700px] justify-center lg:justify-start my-3 flex-wrap overflow-auto`}
             >
               {user.nftsOwned.length > 0 ? (
                 user.nftsOwned.map((el) => <NftCard key={el.id} nft={el} />)
@@ -384,8 +394,8 @@ const UserDetail: NextPage<Props> = ({ user }) => {
               </a>
             </Link>
           </div>
-          <div className=" border-[1px] border-gray-400  w-full lg:w-[48%] min-h-[455px] rounded-[15px] px-[20px]  mb-4">
-            <h3 className="text-[1.5rem] font-[600] dark:text-gray-200 text-gray-900 mt-2">
+          <div className=" border-[1px] w-full lg:w-[48%] rounded-[15px] px-[20px] mb-4 border-gray-100 dark:border-[#303339]">
+            <h3 className="text-[1.5rem] font-[600] text-gray-900 mt-2 dark:text-gray-300">
               Created
             </h3>
             <div

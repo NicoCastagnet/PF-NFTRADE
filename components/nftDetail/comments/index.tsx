@@ -83,7 +83,9 @@ const Comments: React.FC<{ nftId: string }> = ({ nftId }) => {
     <div className="flex flex-col h-full w-full justify-center mb-10">
       <article className="w-full border-2 border-gray-100 dark:border-[#303339] rounded-t-xl">
         <header className="flex justify-between items-center text-xl font-semibold px-5 w-full h-[50px] rounded-t-md bg-gray-100 dark:bg-[#303339]">
-          <span className="text-gray-600 dark:text-gray-400">Comments</span>
+          <span className="text-gray-600 dark:text-gray-400 max-sm:text-base">
+            Comments
+          </span>
           {disabled ? (
             <div className="text-base text-white animate-spin">
               <SvgLoading />
@@ -139,7 +141,7 @@ const Comments: React.FC<{ nftId: string }> = ({ nftId }) => {
               <textarea
                 id="message"
                 rows={4}
-                className="resize-none block p-2.5 w-full text-[1rem] text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-[#303339] outline-none"
+                className="resize-none block p-2.5 w-full text-[1rem] text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-[#303339] outline-none max-sm:text-sm"
                 placeholder="Type your opinion here."
                 maxLength={400}
                 name="comment"
@@ -149,7 +151,7 @@ const Comments: React.FC<{ nftId: string }> = ({ nftId }) => {
               <button
                 onClick={submitComment}
                 disabled={disabled}
-                className="text-xl bg-gray-100 hover:bg-gray-300 text-gray-600 dark:text-gray-400 dark:bg-[#303339] dark:hover:bg-[#393b41] hover:drop-shadow-lg transition-all w-full py-3 px-20 border-t border-gray-200"
+                className="text-xl bg-gray-100 hover:bg-gray-300 text-gray-600 dark:text-gray-400 dark:bg-[#303339] dark:hover:bg-[#393b41] hover:drop-shadow-lg transition-all w-full py-3 px-20 border-t border-gray-200 max-sm:text-base"
               >
                 Comment
               </button>

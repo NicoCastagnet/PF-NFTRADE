@@ -27,11 +27,12 @@ const NotifyBuyCoins = ({ id, orderId, coins, amount, status, createdAt }) => {
             <div className="text-gray-500 text-sm dark:text-gray-400">
               You bought
               <span className="font-semibold text-gray-900 dark:text-white">
-                {` ${coins} coins `}
+                {' '}
+                {Number(coins)} coins
               </span>
               &nbsp;{`for a total value of `}
               <span className="font-semibold text-gray-900 dark:text-white">
-                &nbsp;{`$${amount}.`}
+                {Number(amount).toLocaleString('es-AR')} pesos.
               </span>
             </div>
             <div className="flex justify-center ite w-full text-xs text-blue-600 dark:text-blue-500">

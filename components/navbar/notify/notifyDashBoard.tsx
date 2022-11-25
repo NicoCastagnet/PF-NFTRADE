@@ -132,7 +132,7 @@ const NotifyDashBoard: React.FC<NotifyDashBoardProps> = ({
                                   coins={el.coins}
                                   amount={el.amount}
                                   status={el.status}
-                                  creatredAt={el.creatredAt}
+                                  createdAt={el.createdAt}
                                 />
                               )}
                             </div>

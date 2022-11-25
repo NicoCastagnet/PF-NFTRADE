@@ -22,7 +22,7 @@ const MyNFTS: NextPage = () => {
         <title>NFTrade | My NFT&apos;s</title>
       </Head>
       <SideBar />
-      <div className="dashboard__home-content w-screen">
+      <div className="dashboard__home-content w-screen h-full">
         <NavBar site="My NFT's" />
         <div className="flex justify-center flex-wrap items-center my-20">
           {data ? (

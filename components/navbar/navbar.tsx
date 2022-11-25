@@ -64,7 +64,7 @@ export default function NavBar() {
                   height={'25'}
                 />
                 <div className="absolute bg-gray-700 dark:bg-[#303339] w-auto h-11 p-3 top-16 invisible group-hover:visible flex items-center justify-center rounded-lg text-white">
-                  {coins && coins?.toFixed(2).toLocaleString('es-AR')} Coins
+                  {coins && coins?.toLocaleString('es-AR')} Coins
                 </div>
               </div>
             )}

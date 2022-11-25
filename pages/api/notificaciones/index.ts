@@ -43,7 +43,7 @@ export default async function payDescription(
               date: payment.data.charges_details[0].date_created as string,
               coins: Number(totalCoin),
               status: payment.data.status as string,
-              amount: Number(totalAmount),
+              amount: Number(totalAmount * totalCoin),
             },
           })
 
@@ -54,7 +54,7 @@ export default async function payDescription(
               userId: payment.data.additional_info.items[0].id as string,
               coins: Number(totalCoin),
               status: payment.data.status as string,
-              amount: Number(totalAmount).toFixed(2),
+              amount: Number(totalAmount * totalCoin),
             },
           })
 
@@ -102,7 +102,7 @@ export default async function payDescription(
 
     const notificacones = await prisma.notify.findMany({
       where: {
-        userId: user.toString(),
+        userId: user,
       },
     })
     const notViewNotify = notificacones.filter((el) => el.view === false)

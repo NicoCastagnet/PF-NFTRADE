@@ -63,17 +63,19 @@ const Likes: React.FC<{ nftId: string }> = ({ nftId }) => {
           </div>
         ) : (
           <button
-            className={`flex items-center gap-2 transition-all
+            className={`flex items-center gap-2 transition-all max-sm:gap-1
               ${isLoading ? 'opacity-0' : 'opacity-100'}
               ${isLiked ? 'text-red-500' : 'text-gray-600 dark:text-gray-400'}`}
             onClick={handleLike}
           >
             <SvgHeart
-              className={`w-[28px] h-[28px] stroke-[2] ${
+              className={`w-[28px] h-[28px] max-sm:w-6 max-sm:h-6" ${
                 isLiked ? 'stroke-red-500 fill-red-500 animate-pulse' : ''
               }`}
             />
-            <span className="text-[1.4rem]">{likes?._count.likedBy}</span>
+            <span className="text-[1.4rem] max-sm:text-base">
+              {likes?._count.likedBy}
+            </span>
           </button>
         )}
       </div>

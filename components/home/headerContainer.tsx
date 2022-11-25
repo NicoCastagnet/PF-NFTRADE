@@ -2,12 +2,21 @@
 // @ts-nocheck
 
 import NFT from '@assets/chain.png'
+import SvgLoading from '@components/icons/svgLoading'
+import fetcher from '@lib/fetcher'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
+import useSWR from 'swr'
 
 const HeaderContainer = () => {
   const { data: session } = useSession()
+  const { data: totalUsers } = useSWR(`/api/user`, fetcher)
+  const { data: totalNfts } = useSWR(`/api/dashboardata/getAllNfts`, fetcher)
+  const { data: totalCollections } = useSWR(
+    `/api/dashboardata/getAllCollections`,
+    fetcher,
+  )
   return (
     <section className="bg-slate-900 dark:bg-[#202225] w-full flex justify-center items-center">
       <div className=" text-white w-full flex justify-between items-center px-14 max-sm:px-6 pt-28 max-sm:pt-24 max-w-7xl py-5 ">
@@ -56,16 +65,28 @@ const HeaderContainer = () => {
           {/* ------------------------------------------------------ */}
 
           <div className="flex text-center justify-between w-full max-w-[21rem] mt-8 pl-5">
-            <div className="users flex flex-col font-bold text-2xl ">
-              40K
+            <div className="users flex flex-col font-bold text-2xl items-center text-center justify-center">
+              {totalUsers ? (
+                totalUsers?.length
+              ) : (
+                <SvgLoading className="animate-spin h-6 w-6" />
+              )}
               <span className="mt-1 font-normal text-sm">Users</span>
             </div>
-            <div className="NFTS flex flex-col font-bold text-2xl">
-              150
+            <div className="NFTS flex flex-col font-bold text-2xl items-center text-center justify-center">
+              {totalNfts ? (
+                totalNfts?.nfts?.length
+              ) : (
+                <SvgLoading className="animate-spin h-6 w-6" />
+              )}
               <span className="mt-1 font-normal text-sm">Nfts</span>
             </div>
-            <div className="collections flex flex-col font-bold text-2xl">
-              50
+            <div className="collections flex flex-col font-bold text-2xl items-center text-center justify-center">
+              {totalCollections ? (
+                totalCollections?.collections?.length
+              ) : (
+                <SvgLoading className="animate-spin h-6 w-6" />
+              )}
               <span className="mt-1 font-normal text-sm">Collections</span>
             </div>
           </div>

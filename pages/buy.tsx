@@ -34,14 +34,16 @@ const BuyPage: NextPage = () => {
       </Head>
       <section className="flex flex-col justify-center items-center p-10 bg-gray-200 dark:bg-[#202225] text-gray-600 dark:text-gray-400 transition-all">
         <div className="container">
-          <Link href="/">
-            <a>
-              <button className="bg-white dark:bg-[#303339] w-32 h-auto text-center py-5 rounded-md text-gray-600 dark:text-gray-400 font-semibold drop-shadow-sm">
-                Return home
-              </button>
-            </a>
-          </Link>
-          <div className="text-center mx-auto mb-[60px] max-w-[510px]">
+          <div className="max-sm:flex max-sm:items-center max-sm:justify-center">
+            <Link href="/">
+              <a>
+                <button className="bg-white dark:bg-[#303339] w-32 h-auto text-center py-5 rounded-md text-gray-600 dark:text-gray-400 font-semibold drop-shadow-sm max-sm:flex max-sm:justify-center">
+                  Return home
+                </button>
+              </a>
+            </Link>
+          </div>
+          <div className="text-center mx-auto mb-[60px] max-w-[510px] max-sm:mb-6">
             <h2 className="font-bold text-[40px] text-blue-600 mb-4">
               Pricing table
             </h2>
@@ -51,19 +53,22 @@ const BuyPage: NextPage = () => {
             </p>
           </div>
           <div className="flex md:flex-nowrap flex-wrap justify-center">
-            <div className="bg-white dark:bg-[#303339] rounded-xl py-10 px-8 min-w-[232px] w-1/3 mx-3 mb-5 drop-shadow-md">
-              <span className="font-semibold text-lg block mb-4 text-blue-500">
+            <div className="bg-white dark:bg-[#303339] rounded-xl py-10 px-8 min-w-[300px] w-1/3 mx-3 mb-5 drop-shadow-md">
+              <span className="font-semibold text-3xl block mb-4 text-blue-500 max-sm:text-xl max-sm:mb-2">
                 Base package
               </span>
-              <h2 className="font-bold mb-5 text-[42px]">
+              <h2 className="font-bold mb-5 text-[42px] max-sm:text-xl max-sm:mb-2">
                 $1.000
                 <span className="text-base font-medium">/ ARS</span>
               </h2>
-              <p className="text-base pb-8 mb-8 border-b border-[#F2F2F2] dark:border-gray-600 flex flex-col">
-                Perfect for starting at the NFT&apos;s world.
-                <div className="flex items-center mt-5">
+              <p className="text-base pb-8 mb-8 border-b border-[#F2F2F2] dark:border-gray-600 flex flex-col max-sm:text-base max-sm:mb-5 max-sm:pb-5">
+                The perfect plan for starting at the NFT&apos;s world.
+                <div className="flex items-center mt-5 max-sm:mt-4">
                   <SvgCoin />
-                  <p className="mx-2">500 coins included.</p>
+                  <p className="mx-1">
+                    {' '}
+                    <span className="font-bold">500</span> coins included.
+                  </p>
                 </div>
               </p>
               <button
@@ -73,19 +78,22 @@ const BuyPage: NextPage = () => {
                 Go to checkout
               </button>
             </div>
-            <div className="bg-white dark:bg-[#303339] min-w-[232px] rounded-xl py-10 px-8 w-1/3 mx-3 mb-5 drop-shadow-md">
-              <span className="font-semibold text-lg block mb-4 text-blue-500">
+            <div className="bg-white dark:bg-[#303339] rounded-xl py-10 px-8 min-w-[300px] w-1/3 mx-3 mb-5 drop-shadow-md">
+              <span className="font-semibold text-3xl block mb-4 text-blue-500 max-sm:text-xl max-sm:mb-2">
                 Advanced package
               </span>
-              <h2 className="font-bold mb-5 text-[42px]">
+              <h2 className="font-bold mb-5 text-[42px] max-sm:text-xl max-sm:mb-2">
                 $4.050
                 <span className="text-base font-medium">/ ARS</span>
               </h2>
-              <p className="text-base pb-8 mb-8 border-b border-[#F2F2F2] dark:border-gray-600 flex flex-col">
-                Perfect for big projects.
-                <div className="flex items-center mt-5">
+              <p className="text-base pb-8 mb-8 border-b border-[#F2F2F2] dark:border-gray-600 flex flex-col max-sm:text-base max-sm:mb-5 max-sm:pb-5">
+                The perfect plan to create an empire of NFT&apos;s.
+                <div className="flex items-center mt-5 max-sm:mt-4">
                   <SvgCoin />
-                  <p className="mx-2">1500 coins included.</p>
+                  <p className="mx-1">
+                    {' '}
+                    <span className="font-bold">1500</span> coins included.
+                  </p>
                 </div>
               </p>
               <button
@@ -96,20 +104,23 @@ const BuyPage: NextPage = () => {
               </button>
             </div>
             <form
-              className="bg-white dark:bg-[#303339] min-w-[232px] rounded-xl py-10 px-8 w-1/3 mx-3 mb-5 drop-shadow-md"
+              className="bg-white dark:bg-[#303339] min-w-[300px] rounded-xl py-10 px-8 w-1/3 mx-3 mb-5 drop-shadow-md"
               onSubmit={(e) => {
                 e.preventDefault()
                 paymentFunction(customValue != 0 ? customValue : 1, 3)
               }}
             >
-              <span className="font-semibold text-lg block mb-4 text-blue-500">
+              <span className="font-semibold text-3xl block mb-4 text-blue-500 max-sm:text-xl max-sm:mb-2">
                 Custom package
               </span>
-              <h2 className="font-bold mb-5 text-[42px] truncate">
+              <h2 className="font-bold mb-5 text-[42px] max-sm:text-xl max-sm:mb-2 truncate">
                 ${customValue ? (customValue * 3).toLocaleString('es-AR') : 3}
-                <span className="text-base font-medium">/ ARS</span>
+                <span className="text-base font-medium max-sm:text-lg">
+                  {' '}
+                  /ARS
+                </span>
               </h2>
-              <p className="text-base pb-8 mb-8 border-b border-[#F2F2F2] dark:border-gray-600 flex flex-col">
+              <p className="text-base pb-8 mb-8 border-b border-[#F2F2F2] dark:border-gray-600 flex flex-col max-sm:text-base max-sm:mb-5 max-sm:pb-5">
                 Set the quantity of coins that you want for your account!
                 <div className="flex items-center mt-5">
                   <SvgCoin />

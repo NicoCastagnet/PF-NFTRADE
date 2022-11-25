@@ -40,7 +40,7 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
   return (
     <div className="bg-gray-200 dark:bg-[#202225] flex flex-col items-center justify-around w-full min-h-screen transition-all">
       <NavBar />
-      <div className="flex flex-col justify-center items-center mt-[120px] ">
+      <div className="flex flex-col justify-center items-center mt-[120px] mx-20">
         <div
           className={`${
             subState.deleteWarning === true
@@ -82,7 +82,7 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
           } `}
         >
           <div className="flex flex-col lg:flex-row items-center justify-center w-full mb-[50px]">
-            <div className=" lg:mr-10 ">
+            <div className=" lg:mr-10">
               <header className="flex justify-between items-center px-5 sm:w-[555px] w-[300px] h-[55px] rounded-t-md bg-gray-100 dark:bg-[#303339]">
                 <p className="text-gray-600 dark:text-gray-400 text-[0.8rem] sm:text-[1rem] ">
                   #{nft.id.toUpperCase()}
@@ -96,7 +96,7 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                         deleteWarning: true,
                       }))
                     }
-                    className={` ml-4 w-[25px] h-[25px] fill-slate-500 ${
+                    className={` ml-4 w-[25px] h-[25px] fill-slate-500 max-sm:w-5 max-sm:h-5 ${
                       subState.admin === true
                         ? 'hover:fill-yellow-500'
                         : 'hover:fill-red-800'
@@ -117,11 +117,11 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
             </div>
             <div className="flex flex-col justify-between text-gray-600 dark:text-white mt-5 sm:ml-5 sm:my-10">
               <div className="arriba w-full">
-                <h5 className="text-4xl font-bold">
+                <h5 className="text-4xl font-bold max-sm:text-lg">
                   {nft?.name} #{nft?.id.slice(0, 5).toUpperCase()}
                 </h5>
-                <div className="w-auto flex sm:items-center sm:justify-start my-6 flex-col sm:flex-row">
-                  <p className="text-xl text-gray-600 dark:text-gray-400 font-semibold mr-4">
+                <div className="w-auto flex sm:items-center sm:justify-start my-6 flex-col sm:flex-row max-sm:my-2">
+                  <p className="text-xl text-gray-600 dark:text-gray-400 font-semibold mr-4 max-sm:text-lg">
                     Property of{' '}
                     <span className="text-blue-500 hover:underline hover:text-blue-600 cursor-pointer">
                       <Link href={`/users/${nft?.owner.id}`}>
@@ -129,11 +129,11 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                       </Link>
                     </span>
                   </p>
-                  <div className="flex flex-row items-center text-gray-600 dark:text-gray-400 font-semibold text-lg mr-4">
-                    <SvgViews className="w-7 h-7 fill-gray-600 dark:fill-gray-400 mr-2" />
+                  <div className="flex flex-row items-center text-gray-600 dark:text-gray-400 font-semibold text-lg mr-4 max-sm:text-base max-sm:my-2">
+                    <SvgViews className="w-7 h-7 fill-gray-600 dark:fill-gray-400 mr-2 max-sm:w-5 max-sm:h-5" />
                     {nft?._count.viewedBy} views
                   </div>
-                  <div className="flex items-center text-gray-600 dark:text-gray-400 font-semibold text-lg mr-4">
+                  <div className="flex items-center text-gray-600 dark:text-gray-400 font-semibold text-lg mr-4 max-sm:text-base">
                     <Likes nftId={nft.id} />
                     <p className="ml-2">likes</p>
                   </div>
@@ -142,17 +142,17 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                   <div className="flex flex-row items-center mb-5">
                     {subState.loadingWish ? (
                       <div className="animate-spin flex justify-center items-center ml-1 w-[40px] h-[40px] rounded-full">
-                        <SvgLoading />
+                        <SvgLoading className="max-sm:w-5 max-sm:h-5" />
                       </div>
                     ) : (
-                      <div className="flex items-center text-gray-600 dark:text-gray-400 font-semibold text-lg">
+                      <div className="flex items-center text-gray-600 dark:text-gray-400 font-semibold text-lg max-sm:text-base">
                         <button
                           onClick={addToWished}
                           className={`fill-slate-200 ${
                             subState.wishlisted === true && ' fill-green-600 '
                           } hover:fill-slate-300 flex justify-center items-center`}
                         >
-                          <SvgPlus className="w-8 h-8 bg-zinc-700 p-1 rounded-full mr-2" />
+                          <SvgPlus className="w-8 h-8 bg-zinc-700 p-1 rounded-full mr-2 max-sm:w-6 max-sm:h-6" />
                           {subState.wishlisted === true
                             ? 'Remove from wishlist'
                             : 'Add to wishlist'}
@@ -200,17 +200,17 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                       </div>
                     </div>
                   ) : (
-                    <div className="flex items-center justify-center">
+                    <div className="flex items-center justify-center max-sm:text-lg">
                       <span>
                         Product price{' '}
-                        <span className="text-xl font-bold">
+                        <span className="text-xl font-bold max-sm:text-lg">
                           {subState.price}
                         </span>{' '}
                         coins.
                       </span>
                       {session?.user?.id === nft?.owner.id && (
                         <SvgPencil
-                          className="ml-3 fill-slate-300 hover:fill-slate-400 cursor-pointer"
+                          className="ml-3 fill-slate-300 hover:fill-slate-400 cursor-pointer max-sm:w-4 max-sm:h-4"
                           height={20}
                           width={20}
                           onClick={() =>
@@ -232,48 +232,50 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                       <SvgLoading className="w-[40px] h-[40px]" />
                     </div>
                   ) : subState.published === false ? (
-                    <div className="flex w-full mb-2">
+                    <div className="flex w-full mb-2 max-sm:py-4">
                       <button
                         onClick={() => handlePublished(true)}
-                        className="text-xl bg-white hover:bg-gray-300 text-gray-600 dark:text-gray-400 dark:bg-[#303339] dark:hover:bg-[#393b41] hover:drop-shadow-lg transition-all w-full py-4 rounded-xl"
+                        className="w-full text-xl bg-white hover:bg-gray-300 text-gray-600 dark:text-gray-400 dark:bg-[#303339] dark:hover:bg-[#393b41] hover:drop-shadow-lg transition-all py-4 rounded-xl mr-2 max-sm:py-3 max-sm:text-lg"
                       >
                         Add to market
                       </button>
                     </div>
                   ) : nft?.collectionId ? (
-                    <div className="flex w-full">
-                      <p className="text-[1.2rem] flex justify-center items-center text-gray-600 bg-white dark:text-gray-400 dark:bg-[#303339] italic p-4 rounded-xl w-full">
+                    <div className="flex w-full max-sm:py-4 ">
+                      <p className="w-full text-center italic text-xl bg-white text-gray-600 dark:text-gray-400 dark:bg-[#303339] transition-all py-4 rounded-xl mr-2 max-sm:py-3 max-sm:text-base max-sm:px-2">
                         This NFT belongs to a collection, if you want to add or
                         remove it from the market particullary, please delete
                         the collection.
                       </p>
                     </div>
                   ) : (
-                    <div className="flex w-full">
+                    <div className="flex w-full max-sm:py-4">
                       <button
                         onClick={() => handlePublished(false)}
-                        className="text-xl bg-white hover:bg-gray-300 text-gray-600 dark:text-gray-400 dark:bg-[#303339] dark:hover:bg-[#393b41] hover:drop-shadow-lg transition-all w-full py-4 rounded-xl"
+                        className="w-full text-xl bg-white hover:bg-gray-300 text-gray-600 dark:text-gray-400 dark:bg-[#303339] dark:hover:bg-[#393b41] hover:drop-shadow-lg transition-all py-4 rounded-xl mr-2 max-sm:py-3 max-sm:text-lg"
                       >
                         Remove from market
                       </button>
                     </div>
                   )
                 ) : subState.published === false ? (
-                  <div className="flex w-full ">
-                    <p className="text-[1.2rem] flex justify-center items-center text-gray-600 bg-white dark:text-gray-400 dark:bg-[#303339] italic p-4 rounded-xl w-full">
+                  <div className="flex w-full max-sm:py-4 ">
+                    <p className="w-full text-center italic text-xl bg-white text-gray-600 dark:text-gray-400 dark:bg-[#303339] transition-all py-4 rounded-xl mr-2 max-sm:py-3 max-sm:text-lg">
                       This product is not for sale at this time
                     </p>
                   </div>
                 ) : nft?.collectionId ? (
                   <Link href={`/collections/${nft?.collectionId}`}>
-                    <button className="text-xl bg-white hover:bg-gray-300 text-gray-600 dark:text-gray-400 dark:bg-[#303339] dark:hover:bg-[#393b41] hover:drop-shadow-lg transition-all w-full py-3  rounded-xl mr-2 h-14 mb-3">
-                      Go to collection
-                    </button>
+                    <div className="flex items-center py-6 w-full ">
+                      <button className="w-full text-xl bg-white hover:bg-gray-300 text-gray-600 dark:text-gray-400 dark:bg-[#303339] dark:hover:bg-[#393b41] hover:drop-shadow-lg transition-all py-4 rounded-xl mr-2 max-sm:py-3 max-sm:text-lg">
+                        Go to collection
+                      </button>
+                    </div>
                   </Link>
                 ) : (
                   <div className="flex items-center py-6 w-full ">
                     <button
-                      className="text-xl bg-white hover:bg-gray-300 text-gray-600 dark:text-gray-400 dark:bg-[#303339] dark:hover:bg-[#393b41] hover:drop-shadow-lg transition-all w-[100%] py-4 rounded-xl mr-2"
+                      className="w-full text-xl bg-white hover:bg-gray-300 text-gray-600 dark:text-gray-400 dark:bg-[#303339] dark:hover:bg-[#393b41] hover:drop-shadow-lg transition-all py-4 rounded-xl mr-2 max-sm:py-3 max-sm:text-lg"
                       onClick={() => {
                         addItem(nft)
                         cart.find((e) => e.name === nft?.name)
@@ -291,20 +293,18 @@ const NftDetail: NextPage<NftDetailProps> = ({ nft }) => {
                 {session?.user.id !== nft?.owner.id &&
                   subState.published === true && (
                     <Link href={'#'}>
-                      <button className="text-xl w-[50%] text-white bg-blue-600 hover:bg-blue-500 hover:drop-shadow-lg transition-all py-3 px-2 mx-2 rounded-xl">
+                      <button className="w-full text-xl bg-blue-600 hover:bg-blue-700 text-white dark:text-white dark:bg-blue-600 dark:hover:bg-blue-700 hover:drop-shadow-lg transition-all py-4 rounded-xl mr-2 max-sm:py-3 max-sm:text-lg">
                         Buy now
                       </button>
                     </Link>
                   )}
-
-                {/* //dev */}
               </div>
               <article className="abajo w-full min-h-[285px] rounded-t-xl border-2 border-gray-100 dark:border-[#303339]">
-                <header className="flex justify-between items-center text-xl font-semibold px-5 w-full h-[50px] rounded-t-md bg-gray-100 text-gray-600 dark:bg-[#303339] dark:text-gray-400">
+                <header className="flex justify-between items-center text-xl font-semibold px-5 w-full h-[50px] rounded-t-md bg-gray-100 text-gray-600 dark:bg-[#303339] dark:text-gray-400 max-sm:text-base">
                   Description
                 </header>
                 {nft?.description ? (
-                  <p className="text-[1.2rem] p-5 text-gray-600 dark:text-gray-400">
+                  <p className="text-[1.2rem] p-5 text-gray-600 dark:text-gray-400 max-sm:text-base">
                     {nft?.description}
                   </p>
                 ) : (
