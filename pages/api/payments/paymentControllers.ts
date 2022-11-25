@@ -12,7 +12,6 @@ export default class PaymentController {
   async getPaymentLink(req: NextApiRequest, res: NextApiResponse) {
     try {
       const payment = await this.subscriptionService.createPayment(req, res)
-
       return res.json({ payment: payment.init_point })
     } catch (error: any) {
       console.error(error.message)
