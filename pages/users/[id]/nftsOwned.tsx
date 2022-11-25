@@ -1,6 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 
+import defaultAvatar from '@assets/avataricon.png'
 import Footer from '@components/footer'
 import SvgCoin from '@components/icons/svgCoin'
 import NavBar from '@components/navbar/navbar'
@@ -10,7 +11,6 @@ import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import type { UserDetailResponse } from 'types/api-responses'
-import defaultAvatar from '/assets/avataricon.png'
 
 interface Props {
   user: UserDetailResponse

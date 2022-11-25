@@ -1,6 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 
+import imagePlaceholder from '@assets/image-placeholder.png'
 import Footer from '@components/footer'
 import SvgCheck from '@components/icons/svgCheck'
 import SvgCoin from '@components/icons/svgCoin'
@@ -13,7 +14,6 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { ChangeEvent, useState } from 'react'
 import type { UserDetailResponse } from 'types/api-responses'
-import imagePlaceholder from '/assets/image-placeholder.png'
 
 interface Props {
   user: UserDetailResponse

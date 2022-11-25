@@ -3,6 +3,8 @@
 
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
+import defaultAvatar from '@assets/avataricon.png'
+import imagePlaceholder from '@assets/image-placeholder.png'
 import Footer from '@components/footer'
 import SvgPencil from '@components/icons/svgPencil'
 import SvgPlus from '@components/icons/svgPlus'
@@ -18,8 +20,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ChangeEvent, useEffect, useState } from 'react'
 import type { UserDetailResponse } from 'types/api-responses'
-import defaultAvatar from '/assets/avataricon.png'
-import imagePlaceholder from '/assets/image-placeholder.png'
 
 interface Props {
   user: UserDetailResponse

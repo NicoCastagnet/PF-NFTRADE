@@ -1,12 +1,12 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 
+import Avatar from '@assets/image-placeholder.png'
 import SvgLoading from '@components/icons/svgLoading'
 import SvgNewTab from '@components/icons/svgNewTab'
 import fetcher from '@lib/fetcher'
 import Image from 'next/image'
 import useSWR from 'swr'
-import Avatar from '../../../Assets/image-placeholder.png'
 
 const CollectionsDataTable = () => {
   const { data } = useSWR(`/api/dashboardata/getAllCollections`, fetcher)
