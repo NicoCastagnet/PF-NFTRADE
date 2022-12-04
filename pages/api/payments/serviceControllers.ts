@@ -19,7 +19,8 @@ export default class PaymentService {
       },
     ]
     const body = {
-      notification_url: `${process.env.NEXT_PUBLIC_APP_URL}/api/notificaciones`,
+      notification_url:
+        'https://c842-190-245-83-198.sa.ngrok.io/api/notificaciones',
       payer_email: 'test_user_46945293@testuser.com ',
       items: datos,
       back_urls: {
