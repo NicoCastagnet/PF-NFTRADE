@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import prisma from '@lib/db'
 import type { NextApiRequest, NextApiResponse } from 'next'
 /* this endpoint is for testing purposes */
@@ -8,14 +11,13 @@ export default async function unpostLike(
   try {
     if (req.method === 'PUT') {
       const { userId, nftId } = req.query
-      console.log(userId, nftId)
       const user = await prisma.user.findUnique({
         where: {
           id: userId as string,
         },
       })
       if (!user) {
-        res.status(400).send('el user no existe o es requerido')
+        res.status(400).send('Failed. User ID was not found.')
       } else {
         const nft = await prisma.nft.update({
           data: {
@@ -28,13 +30,13 @@ export default async function unpostLike(
           },
         })
         const msg = {
-          message: 'nft actualizado',
+          message: 'Passed. NFT successffully updated.',
           data: nft,
         }
         res.status(200).send(msg)
       }
     }
   } catch (e: any) {
-    console.log(e.message)
+    console.error(e.message)
   }
 }

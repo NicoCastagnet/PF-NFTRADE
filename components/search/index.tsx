@@ -29,7 +29,7 @@ export default function Search() {
             getItems: ({ query }) => {
               if (query) {
                 return fetch(
-                  `http://localhost:3000/api/search?q=${query}`,
+                  `${process.env.NEXT_PUBLIC_APP_URL}/api/search?q=${query}`,
                 ).then((res) => res.json())
               }
               return []
@@ -71,18 +71,18 @@ export default function Search() {
       ></div>
       <div className="flex relative w-full">
         <div className="relative w-full">
-          <span className="absolute inset-y-0 lg:left-[2%] left-[87%] flex items-center text-slate-400">
+          <span className="absolute inset-y-0 lg:left-[2%] left-[87%] flex items-center text-slate-400 dark:text-gray-400">
             <SearchIcon className="w-6 h-6" />
           </span>
           <input
             ref={inputRef}
-            className=" h-10  max-sm:h-8 w-full rounded-md px-3 lg:pl-10 text-white hover:bg-slate-700 ease duration-150 focus:outline-none focus:bg-slate-700"
+            className=" h-10 max-sm:h-8 max-sm:pr-10 w-full rounded-md px-3 lg:pl-10 text-white dark:bg-[#303339] dark:hover:bg-[#393b41] dark:focus:bg-[#393b41] dark:text-gray-400 hover:bg-gray-700 focus:bg-slate-700 transition-all outline-none focus:outline-none"
             {...inputProps}
           />
         </div>
         {autocompleteState.isOpen && (
           <div
-            className={`absolute mt-16  top-0 left-0 border border-slate-600 bg-slate-700 overflow-auto rounded-lg shadow-lg z-[999] w-full max-h-[28rem] ${styles.scrollbar}`}
+            className={`absolute mt-16 top-0 left-0 border border-slate-600 bg-slate-700 dark:bg-[#303339] dark:border-[#393b41] overflow-auto rounded-lg shadow-lg z-[999] w-full max-h-[28rem] ${styles.scrollbar}`}
             ref={panelRef}
             {...autocomplete.getPanelProps({})}
           >

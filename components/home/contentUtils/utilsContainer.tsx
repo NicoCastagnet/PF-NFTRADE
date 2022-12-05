@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import Buy from '@components/home/contentUtils/buy'
 import Create from '@components/home/contentUtils/create'
 import List from '@components/home/contentUtils/list'
@@ -23,7 +26,7 @@ const UtilsContainer = () => {
         Create, buy & sell your{' '}
         <span className="text-blue-600 font-extrabold">NFT&apos;s</span>
       </p>
-      <div className="relative mt-14 max-md:m-0 h-96 flex justify-center items-center w-full max-w-7xl bg-slate-900 max-md:rounded-none max-lg:max-w-2xl rounded-2xl ease duration-500">
+      <div className="bg-slate-900 dark:bg-[#303339] relative mt-14 max-md:m-0 h-96 flex justify-center items-center w-full max-w-7xl max-md:rounded-none max-lg:max-w-2xl rounded-2xl ease duration-500">
         <div className="lg:hidden flex flex-row justify-center items-center gap-8 ease duration-500">
           {selected === 0 && <Buy />}
           {selected === 1 && <Create />}
@@ -57,4 +60,3 @@ const UtilsContainer = () => {
 }
 
 export default UtilsContainer
-// /home/lucas/Documentos/Henry/PF-extras/PF-NFTRADE/assets/nft-img.png

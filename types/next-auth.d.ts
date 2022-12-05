@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import { DefaultSession } from 'next-auth'
 
 declare module 'next-auth' {
@@ -14,6 +17,7 @@ declare module 'next-auth' {
       username: string
       password: string
       name: string
+      admin: boolean
     } & DefaultSession['user']
   }
 }

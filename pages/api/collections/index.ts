@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import prisma from '@lib/db'
 import type { NextApiRequest, NextApiResponse } from 'next'
@@ -14,7 +17,7 @@ export default async function handler(
       name: true,
       image: true,
       owner: {
-        select: { name: true },
+        select: { id: true, name: true },
       },
       _count: {
         select: {

@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import type { Prisma } from '@prisma/client'
 
 // Generic error response
@@ -18,14 +21,21 @@ export type NftsResponse = Prisma.NftGetPayload<{
         id: true
       }
     }
+    description: true
+
     published: true
     owner: {
-      select: { name: true }
+      select: { name: true; id: true }
     }
     _count: {
       select: { likedBy: true; viewedBy: true }
     }
-    categories: true
+    categories: {
+      select: {
+        id: true
+        name: true
+      }
+    }
   }
 }>[]
 
@@ -40,9 +50,10 @@ export type NftResponse = Prisma.NftGetPayload<{
         id: true
       }
     }
+    description: true
     published: true
     owner: {
-      select: { name: true }
+      select: { name: true; id: true }
     }
     _count: {
       select: { likedBy: true; viewedBy: true }
@@ -59,19 +70,34 @@ export type NftDetailResponse = Prisma.NftGetPayload<{
     image: true
     description: true
     price: true
+    collectionId: true
+    erased: true
     likedBy: {
       select: {
         id: true
       }
     }
-    categories: true
-    comments: true
+    comments: {
+      select: {
+        id: true
+        user: true
+        content: true
+        isPublished: true
+      }
+    }
     published: true
-    owner: { select: { name: true } }
+    owner: { select: { name: true; id: true } }
     creator: { select: { name: true } }
     _count: {
       select: { likedBy: true; viewedBy: true }
     }
+    categories: {
+      select: {
+        id: true
+        name: true
+      }
+    }
+    wishedBy: { select: { userId: true } }
   }
 }>
 
@@ -99,7 +125,7 @@ export type CategoryDetailResponse = Prisma.CategoryGetPayload<{
         name: true
         image: true
         owner: {
-          select: { name: true }
+          select: { name: true; id: true }
         }
         _count: {
           select: { likedBy: true; viewedBy: true }
@@ -123,6 +149,7 @@ export type HomeFeedResponse = Prisma.CategoryGetPayload<{
         id: true
         name: true
         image: true
+        ownerId: true
         price: true
         owner: {
           select: {
@@ -146,7 +173,7 @@ export type CollectionsResponse = Prisma.CollectionGetPayload<{
     name: true
     image: true
     owner: {
-      select: { name: true }
+      select: { name: true; id: true }
     }
     _count: {
       select: { nfts: true }
@@ -161,23 +188,26 @@ export type CollectionDetailResponse = Prisma.CollectionGetPayload<{
     name: true
     image: true
     description: true
-    disccount: true
+    discount: true
+    published: true
     owner: {
-      select: { name: true }
+      select: { name: true; id: true }
     }
     creator: {
       select: { name: true }
     }
     createdAt: true
     updatedAt: true
+    price: true
     nfts: {
       select: {
         id: true
         name: true
+        ownerId: true
         image: true
         price: true
         owner: {
-          select: { name: true }
+          select: { name: true; id: true }
         }
         _count: {
           select: { likedBy: true; viewedBy: true }
@@ -196,3 +226,158 @@ export type SearchResponse = Prisma.NftGetPayload<{
     price: true
   }
 }>[]
+
+export type CommentsResponse = Prisma.CommentGetPayload<{
+  select: {
+    id: true
+    content: true
+    createdAt: true
+    isPublished: true
+    user: {
+      select: {
+        id: true
+        name: true
+      }
+    }
+    nft: {
+      select: {
+        id: true
+        name: true
+      }
+    }
+  }
+}>[]
+
+export type LikesResponse = Prisma.NftGetPayload<{
+  select: {
+    likedBy: { select: { id: true } }
+    _count: {
+      select: {
+        likedBy: true
+      }
+    }
+  }
+}>
+
+export type UserDetailResponse = Prisma.UserGetPayload<{
+  select: {
+    id: true
+    name: true
+    email: true
+    passwordHash: true
+    emailVerified: true
+    image: true
+    coins: true
+    admin: true
+    collectionsCreated: {
+      select: {
+        id: true
+        name: true
+        image: true
+        description: true
+        discount: true
+        price: true
+      }
+    }
+    collectionsOwned: {
+      select: {
+        id: true
+        name: true
+        image: true
+        description: true
+        discount: true
+        price: true
+      }
+    }
+    nftsCreated: {
+      take: 6
+      select: {
+        id: true
+        name: true
+        image: true
+        price: true
+        published: true
+      }
+    }
+    nftsOwned: {
+      take: 6
+      select: {
+        id: true
+        name: true
+        image: true
+        price: true
+        published: true
+      }
+    }
+    wishes: {
+      select: {
+        nft: {
+          select: {
+            id: true
+            name: true
+            image: true
+            price: true
+            published: true
+          }
+        }
+      }
+    }
+  }
+}>
+
+export type UserBasicResponse = Prisma.UserGetPayload<{
+  select: {
+    id: true
+    name: true
+    email: true
+    image: true
+    admin: true
+  }
+}>
+
+export type DataToCreateCollection = Prisma.UserGetPayload<{
+  select: {
+    id: true
+    name: true
+    email: true
+    emailVerified: true
+    image: true
+    coins: true
+    nftsOwned: {
+      where: {
+        erased: false
+      }
+      select: {
+        id: true
+        name: true
+        image: true
+        price: true
+        published: true
+        collectionId: true
+      }
+    }
+  }
+}>
+
+export type WishesResponse = Prisma.UserGetPayload<{
+  select: {
+    id: true
+    name: true
+    image: true
+
+    wishes: {
+      select: {
+        nft: {
+          select: {
+            id: true
+            name: true
+            image: true
+            price: true
+            published: true
+            erased: true
+          }
+        }
+      }
+    }
+  }
+}>

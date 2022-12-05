@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import { toast } from 'react-hot-toast'
 
 export const login_valid = (values: { email: string; password: string }) => {
@@ -130,20 +133,3 @@ export const handleBlurPassword = ({
     })
   }
 }
-
-// export const handleBlurCPassword = ({
-//   target: { value },
-// }: {
-//   target: { value: string }
-// }) => {
-//   // validate confirm password
-//   if (!value) {
-//     toast.error('need to confirm password', { duration: 1500 })
-//   } else if (cpassword !== password) {
-//     toast.error('Password Not Match...!')
-//   } else if (cpassword.includes(' ')) {
-//     errs.cpassword = 'Invalid Confirm Password'
-//   }
-// }
-// export const handleSubmit = (e) => {
-// }

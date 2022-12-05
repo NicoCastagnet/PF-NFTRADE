@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import prisma from '../../lib/db'
 import {
   createCategories,
@@ -45,7 +48,7 @@ async function seed() {
       ),
     })
   } catch (e) {
-    console.log(e)
+    console.error(e)
     process.exit(1)
   } finally {
     await prisma.$disconnect()

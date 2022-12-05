@@ -10,12 +10,14 @@ import FacebookProvider from 'next-auth/providers/facebook'
 import GoogleProvider from 'next-auth/providers/google'
 import LinkedInProvider from 'next-auth/providers/linkedin'
 import TwitterProvider from 'next-auth/providers/twitter'
-
+import emailProvider from '../emails/emailProvider'
 interface cli {
   clientId: string
   clientSecret: string
 }
-
+// Este archivoooooooooo
+// profiiiiii
+// DALE SIIIII
 export const authOptions: NextAuthOptions = {
   // Adatpter Prisma
   adapter: PrismaAdapter(prisma),
@@ -73,15 +75,16 @@ export const authOptions: NextAuthOptions = {
     TwitterProvider({
       clientId: process.env.TWITTER_CLIENT_ID,
       clientSecret: process.env.TWITTER_CLIENT_SECRET,
-      version: '2.0',
+//       version: '2.0',
     } as cli),
   ],
   secret: process.env.NEXTAUTH_SECRET,
   session: {
     strategy: 'jwt',
+    isAdmin: true,
   },
   pages: {
-    signIn: '/register',
+    signIn: '/login',
     // signOut:
   },
   callbacks: {
@@ -91,6 +94,22 @@ export const authOptions: NextAuthOptions = {
       }
       //
       return session
+    },
+    jwt: async (params) => {
+      // update token
+      const { admin } = await prisma.user.findUnique({
+        where: {
+          email: params.token.email,
+        },
+        select: {
+          admin: true,
+        },
+      })
+      params.token.admin = admin
+      if (params.isNewUser === true) {
+        emailProvider(params.token.email, params.token.email)
+      }
+      return params.token
     },
   },
 }

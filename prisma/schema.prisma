@@ -41,16 +41,18 @@ model User {
   image              String?
   passwordHash       String?
   coins              Float?       @default(0)
+  erased             Boolean?     @default(false)
+  admin              Boolean?     @default(false)
   accounts           Account[]
   collectionsCreated Collection[] @relation("UserCollectionsCreated")
   collectionsOwned   Collection[] @relation("UserCollectionsOwned")
+  comments           Comment[]
   nftsCreated        Nft[]        @relation("UserNftsCreated")
   nftsOwned          Nft[]        @relation("UserNftsOwned")
   sessions           Session[]
   wishes             WishList[]
   likes              Nft[]        @relation("UserLikedNfts")
   views              Nft[]        @relation("UserViewedNfts")
-  comments           Comment[]
 }
 
 model VerificationToken {
@@ -73,14 +75,15 @@ model Nft {
   createdAt    DateTime    @default(now())
   updatedAt    DateTime    @updatedAt
   collectionId String?
+  erased       Boolean?    @default(false)
   collection   Collection? @relation(fields: [collectionId], references: [id])
   creator      User        @relation("UserNftsCreated", fields: [creatorId], references: [id])
   owner        User        @relation("UserNftsOwned", fields: [ownerId], references: [id])
+  comments     Comment[]
   wishedBy     WishList[]
   categories   Category[]  @relation("CategoriesOnNft")
   likedBy      User[]      @relation("UserLikedNfts")
   viewedBy     User[]      @relation("UserViewedNfts")
-  comments     Comment[]
 }
 
 model Category {
@@ -95,11 +98,14 @@ model Collection {
   name        String
   image       String?
   description String?
-  disccount   Float
+  discount    Float
   creatorId   String
   ownerId     String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  price       Float?
+  erased      Boolean? @default(false)
+  published   Boolean? @default(false)
   creator     User     @relation("UserCollectionsCreated", fields: [creatorId], references: [id])
   owner       User     @relation("UserCollectionsOwned", fields: [ownerId], references: [id])
   nfts        Nft[]
@@ -116,11 +122,58 @@ model WishList {
 
 model Comment {
   id          String   @id @default(cuid())
-  nft         Nft      @relation(fields: [nftId], references: [id])
   nftId       String
-  user        User     @relation(fields: [userId], references: [id])
   userId      String
   isPublished Boolean  @default(true)
   content     String
   createdAt   DateTime @default(now())
+  nft         Nft      @relation(fields: [nftId], references: [id])
+  user        User     @relation(fields: [userId], references: [id])
+}
+
+model Buys {
+  buyId     String   @id
+  userId    String
+  date      String
+  coins     Int
+  status    String
+  amount    Float    @db.Real
+  createdAt DateTime @default(now())
+}
+
+model BuyNfts {
+  nftsId        String   @id
+  compradorId   String
+  vendedorId    String
+  coins         Float
+  createdAt     DateTime @default(now())
+  nameComprador String?
+  nameVendedor  String?
+}
+
+model Notify {
+  id              String   @id @default(cuid())
+  userId          String
+  typeNotify      String
+  ordenId         String?
+  nameUser        String?
+  nftId           String?
+  nameNft         String?
+  creatorNft      String?
+  compradorId     String?
+  nameComprador   String?
+  vendedorId      String?
+  nameVendedor    String?
+  coins           Float?
+  amount          Float?
+  status          String?
+  userIdComment   String?
+  nameUserComment String?
+  comment         String?
+  owner           String?
+  ownerId         String?
+  view            Boolean  @default(false)
+  userIdLiked     String?
+  nameUserLiked   String?
+  createdAt       DateTime @default(now())
 }

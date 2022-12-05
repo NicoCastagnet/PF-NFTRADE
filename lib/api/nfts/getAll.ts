@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { getOrderBy } from '@lib/api-utils'
 import prisma from '@lib/db'
@@ -23,14 +26,23 @@ export default async function getAllNfts({
     orderBy,
     take,
     skip,
+    where: {
+      erased: false,
+    },
     select: {
       id: true,
       name: true,
       image: true,
       price: true,
+      description: true,
       published: true,
+      likedBy: {
+        select: {
+          id: true,
+        },
+      },
       owner: {
-        select: { name: true },
+        select: { name: true, id: true },
       },
       _count: { select: { likedBy: true, viewedBy: true } },
       categories: true,

@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import SvgChevron from '@components/icons/svgChevronDown'
 import SvgGrid2 from '@components/icons/svgGrid2'
 import SvgGrid3 from '@components/icons/svgGrid3'
@@ -9,206 +12,146 @@ import { useOpenFilterMenu } from '../../hook/openFilterMenu'
 import styles from '../../styles/form.module.css'
 import FilterLateral from './filterLateral'
 
-interface Size {
-  margin: string
-  width: string
-  height: string
-  title: string
-  titleH: string
-  ownerAndPrice: string
-  tagsH: string
-  positionR: string
+export interface FilterProps {
+  minPrice: string
+  maxPrice: string
 }
 
 interface Props {
-  setNftSize: React.Dispatch<React.SetStateAction<Size>>
-  setOrder: React.Dispatch<React.SetStateAction<string>>
-  setFilter: React.Dispatch<React.SetStateAction<(string | number)[]>>
+  setOrder: (order: string) => void
+  setFilter: ({ minPrice, maxPrice }: FilterProps) => void
+  filterValues: FilterProps
+  setCardSize: React.Dispatch<React.SetStateAction<string>>
 }
 
-const HeaderMarket: NextPage<Props> = ({ setNftSize, setOrder, setFilter }) => {
+const HeaderMarket: NextPage<Props> = ({
+  setOrder,
+  setFilter,
+  filterValues,
+  setCardSize,
+}) => {
   const { openFilter, setOpenFilter } = useOpenFilterMenu()
-  const [sideBar, setSideBar] = useState(false)
   const [orderMenu, setOrderMenu] = useState(false)
-  const [cont, setCont] = useState(0)
-  const openSideBar = () => {
-    setSideBar(!sideBar)
-  }
-
-  const searchPriceAbove = () => {
-    const value = document.getElementById('priceSearch').value
-    if (value === '') {
-      alert('digite un valor minimo para el filtrado')
-    } else {
-      setOrder('filter1')
-      setFilter(['above', value, 100])
-    }
-  }
-
-  const searchPriceBelow = () => {
-    const value = document.getElementById('priceSearch').value
-    if (value === '') {
-      alert('digite un valor maximo para el filtrado')
-    } else {
-      setOrder('filter2')
-      setFilter(['below', value, 100])
-    }
-  }
-  const searchPriceBetween = () => {
-    const value1 = document.getElementById('priceSearch1').value
-    const value2 = document.getElementById('priceSearch2').value
-    if (value1 === '') {
-      alert('digite un valor minimo para la busqueda')
-    } else if (value2 === '') {
-      alert('digite un valor maximo para la busqueda')
-    } else {
-      setCont(cont + 1)
-      setOrder(cont.toString())
-      setFilter(['between', value1, value2])
-    }
-  }
 
   const openOrderMenu = () => {
     setOrderMenu(!orderMenu)
   }
 
-  const bigger: Size = {
-    margin: 'm-10',
-    width: 'w-[350px]',
-    height: 'h-[565px]',
-    title: 'text-2xl',
-    titleH: 'min-h-[64px]',
-    ownerAndPrice: 'text-xl',
-    tagsH: 'min-h-[48px]',
-    positionR: 'right-[13%]',
-  }
-
-  const smaller: Size = {
-    margin: 'm-4',
-    width: 'w-[280px]',
-    height: 'h-[475px]',
-    title: 'text-[1.4rem]',
-    titleH: 'max-h-[64px]',
-    ownerAndPrice: 'text-[1.1rem]',
-    tagsH: 'min-h-[48px]',
-    positionR: 'right-[9%]',
-  }
-
   return (
     <>
-      <section className="market__header bg-slate-900 text-white py-1 px-20 w-full flex justify-between top-[5rem] fixed z-[5] items-center">
+      <section className="market__header max-sm:p-0 bg-slate-900 dark:bg-[#202225] dark:border-b-gray-600 dark:border-b text-white py-1 px-20 w-full flex justify-between top-[5rem] z-[5] fixed items-center">
         <div className="left flex">
-          <FilterLateral isOpen={openFilter} handleClose={setOpenFilter} />
+          <FilterLateral
+            isOpen={openFilter}
+            handleClose={setOpenFilter}
+            filterValues={filterValues}
+            setFilter={setFilter}
+          />
           <button
             type="button"
-            className="py-3 px-3 text-sm font-medium rounded-full border focus:z-10 focus:ring-2 bg-gray-700 border-gray-600 text-white hover:text-white hover:bg-gray-600 focus:ring-blue-500 focus:text-white"
+            className="max-sm:bg-transparent dark:max-sm:bg-transparent bg-gray-700 text-white hover:bg-gray-500 dark:bg-[#303339] dark:hover:drop-shadow-lg transition-all py-3 px-3 text-sm font-medium rounded-lg"
             onClick={() => setOpenFilter(!openFilter)}
           >
             <SvgList2 width="25" height="25" />
           </button>
           <button
             type="button"
-            className="group flex items-center py-3 px-3 ml-4 text-sm font-medium rounded-full border focus:z-10 focus:ring-2 bg-gray-700 border-gray-600 text-white hover:text-white hover:bg-gray-600 focus:ring-blue-500 focus:text-white"
+            className="max-sm:bg-transparent dark:max-sm:bg-transparent max-sm:m-0 max-md:w-40 bg-gray-700 text-white hover:bg-gray-500 dark:bg-[#303339] dark:hover:drop-shadow-lg transition-all group flex items-center py-3 px-3 ml-4 text-sm font-medium rounded-lg"
             onClick={() => {
-              setFilter(['none', -1, -1])
-              setOrder('all')
+              setOrder('')
+              setFilter({ minPrice: '0', maxPrice: '99999' })
             }}
           >
             <SvgReload
               width="25"
               height="25"
-              className="group-hover:animate-spin r-btn mr-2 hover:animate-spin"
+              className="group-hover:animate-spin r-btn mr-2 hover:animate-spin max-sm:m-0"
             />
-            Reload content
+            <span className="max-sm:hidden">Reload content</span>
           </button>
         </div>
         <div className="right flex">
           <button
             id="dropdownButton"
-            className="text-white focus:outline-none font-medium rounded-lg text-xl px-14 py-3 m-3 text-left flex items-center focus:z-10 focus:ring-2 bg-gray-700 border-gray-600 hover:text-white hover:bg-gray-600 focus:ring-blue-500 focus:text-white"
+            className="max-sm:bg-transparent dark:max-sm:bg-transparent max-sm:text-base max-sm:p-0 max-sm:w-[89px] max-md:w-60 bg-gray-700 text-white hover:bg-gray-500 dark:bg-[#303339] dark:hover:drop-shadow-lg transition-all font-medium rounded-lg text-xl px-14 py-3 m-3 text-left flex items-center"
             type="button"
             onClick={openOrderMenu}
           >
-            Order by <SvgChevron className="ml-4 w-4 h-4" />
+            Order by <SvgChevron className="ml-4 w-4 h-4 max-sm:ml-2" />
           </button>
 
-          <div className="inline-flex rounded-md shadow-sm m-3" role="group">
+          <div
+            className="inline-flex rounded-md shadow-sm m-3 max-sm:mx-0 max-sm:hidden"
+            role="group"
+          >
             <button
               type="button"
-              className="py-2 px-4 text-sm font-medium rounded-l-lg border focus:z-10 focus:ring-2 bg-gray-700 border-gray-600 text-white hover:text-white hover:bg-gray-600 focus:ring-blue-500 focus:text-white"
-              onClick={() => setNftSize(smaller)}
+              className="bg-gray-700 text-white hover:bg-gray-500 border-gray-500 dark:bg-[#303339] dark:border-[#43464c] dark:hover:drop-shadow-lg transition-all border py-2 px-4 text-sm font-medium rounded-l-lg"
+              onClick={() => setCardSize('small')}
             >
               <SvgGrid3 width="25" height="25" />
             </button>
             <button
               type="button"
-              className="py-2 px-4 text-sm font-medium rounded-r-md border focus:z-10 focus:ring-2 bg-gray-700 border-gray-600 text-white hover:text-white hover:bg-gray-600 focus:ring-blue-500 focus:text-white"
-              onClick={() => setNftSize(bigger)}
+              className="bg-gray-700 text-white hover:bg-gray-500 border-gray-500 dark:bg-[#303339] dark:border-[#43464c] dark:hover:drop-shadow-lg transition-all border py-2 px-4 text-sm font-medium rounded-r-md"
+              onClick={() => setCardSize('bigger')}
             >
               <SvgGrid2 width="25" height="25" />
             </button>
           </div>
 
           <div
-            className={`absolute before:absolute top-[5.5rem] right-64 z-10 w-44  rounded shadow bg-gray-700 ${
+            className={`max-sm:right-2 max-sm:top-[4.5rem] absolute before:absolute top-[5.5rem] right-64 z-10 w-44 rounded shadow-xl bg-gray-700 dark:bg-[#303339] max-sm:w-28 ${
               orderMenu ? '' : 'hidden'
-            } ${styles.orderByMenu}`}
+            } ${styles.orderByMenuSmall}`}
           >
             <div
               onClick={openOrderMenu}
-              className={` w-full h-screen -z-10 fixed top-0 left-0  ${
+              className={` w-full h-screen -z-10 fixed top-0 left-0 ${
                 orderMenu ? '' : 'hidden'
               }`}
             ></div>
-            <ul className="py-2 text-lg text-gray-200">
-              <li>
-                <a
-                  href="#"
-                  className="block py-2 px-4 hover:bg-gray-600 hover:text-white"
-                >
-                  Oldest
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="block py-2 px-4 hover:bg-gray-600 hover:text-white"
-                >
-                  Newest
-                </a>
+            <ul className="py-2 text-lg text-gray-200 max-sm:text-base max-sm:w-28">
+              <li
+                className="block py-2 px-4 hover:bg-gray-600 hover:text-white dark:hover:bg-[#393b41] cursor-pointer max-sm:py-1"
+                onClick={() => setOrder('createdAt_asc')}
+              >
+                Oldest
               </li>
               <li
-                className="block py-2 px-4 hover:bg-gray-600 hover:text-white cursor-pointer"
+                onClick={() => setOrder('createdAt_desc')}
+                className="block py-2 px-4 hover:bg-gray-600 hover:text-white dark:hover:bg-[#393b41] cursor-pointer max-sm:py-1"
+              >
+                Newest
+              </li>
+              <li
+                className="block py-2 px-4 hover:bg-gray-600 hover:text-white dark:hover:bg-[#393b41] cursor-pointer max-sm:py-1"
                 onClick={() => {
-                  setFilter(['none', -1, -1])
-                  setOrder('min')
+                  setOrder('price_asc')
                 }}
               >
                 Min Price
               </li>
               <li
-                className="block py-2 px-4 hover:bg-gray-600 hover:text-white cursor-pointer"
+                className="block py-2 px-4 hover:bg-gray-600 hover:text-white dark:hover:bg-[#393b41] cursor-pointer max-sm:py-1"
                 onClick={() => {
-                  setFilter(['none', -1, -1])
-                  setOrder('max')
+                  setOrder('price_desc')
                 }}
               >
                 Max Price
               </li>
               <li
-                className="block py-2 px-4 hover:bg-gray-600 hover:text-white cursor-pointer"
+                className="block py-2 px-4 hover:bg-gray-600 hover:text-white dark:hover:bg-[#393b41] cursor-pointer max-sm:py-1"
                 onClick={() => {
-                  setFilter(['none', -1, -1])
-                  setOrder('AZ')
+                  setOrder('name_asc')
                 }}
               >
                 A-Z
               </li>
               <li
-                className="block py-2 px-4 hover:bg-gray-600 hover:text-white cursor-pointer"
+                className="block py-2 px-4 hover:bg-gray-600 hover:text-white dark:hover:bg-[#393b41] cursor-pointer max-sm:py-1"
                 onClick={() => {
-                  setFilter(['none', -1, -1])
-                  setOrder('ZA')
+                  setOrder('name_desc')
                 }}
               >
                 Z-A

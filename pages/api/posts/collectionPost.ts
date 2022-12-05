@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import prisma from '@lib/db'
 import type { NextApiRequest, NextApiResponse } from 'next'
@@ -7,9 +10,10 @@ export default async function postCollection(
   res: NextApiResponse,
 ) {
   if (req.method === 'POST') {
-    const { name, image, description, disccount, creatorId } = req.body
-    if (!name || !disccount || !creatorId) {
-      res.status(400).send('Missing data.')
+    const { name, image, description, discount, price, creatorId, nftsId } =
+      req.body
+    if (!name || !discount || !creatorId) {
+      res.status(400).send('Failed. Missing data.')
     } else {
       const img: string = image
       const collection = await prisma.collection.create({
@@ -19,16 +23,16 @@ export default async function postCollection(
             ? img
             : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCB9tB3P7DWxNB466mjV8mRanhrj2snehAvbDqSXunYg&s',
           description,
-          disccount,
+          price,
+          discount,
           creatorId,
           ownerId: creatorId,
+          nfts: {
+            connect: nftsId.map((nftId: string) => ({ id: nftId })),
+          },
         },
       })
-      const msg = {
-        text: 'The collection was successfully deleted.',
-        data: collection,
-      }
-      res.status(201).json(msg)
+      res.status(201).json(collection)
     }
   }
 }
