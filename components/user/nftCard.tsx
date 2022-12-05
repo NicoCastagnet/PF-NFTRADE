@@ -17,7 +17,7 @@ const NftCard = ({ nft }: Props) => {
   return (
     <div
       key={nft.id}
-      className={`w-[30%] m-2 relative flex flex-col bg-white dark:bg-[#303339] rounded-xl overflow-auto p-[1px] cursor-pointer group`}
+      className={`w-[30%] mr-6 mb-6 max-w-[277px] min-w-[194px] h-[300px] overflow-hidden relative flex flex-col h- bg-white dark:bg-[#303339] rounded-xl p-[1px] cursor-pointer group`}
     >
       <Link href={`/nfts/${nft.id}`} key={nft.id}>
         <div>
@@ -49,9 +49,9 @@ const NftCard = ({ nft }: Props) => {
                 </span>
               </div>
             </div>
-            <button className="w-full text-xl bg-white hover:bg-gray-300 text-gray-600 dark:text-gray-400 dark:bg-[#2b2c2e] dark:hover:bg-[#393b41] transition-all py-3 rounded-xl mr-2 max-sm:py-3 max-sm:text-lg">
+            {/* <button className="w-full text-xl bg-white hover:bg-gray-300 text-gray-600 dark:text-gray-400 dark:bg-[#2b2c2e] dark:hover:bg-[#393b41] transition-all py-3 rounded-xl mr-2 max-sm:py-3 max-sm:text-lg">
               See details
-            </button>
+            </button> */}
           </div>
         </div>
       </Link>
