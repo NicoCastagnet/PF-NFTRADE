@@ -110,42 +110,6 @@ export default async function postLike(
             likedBy: true,
           },
         })
-<<<<<<< HEAD
-        const arr = nft?.likedBy.map((acc) => acc.id)
-        console.log(nft?.likedBy)
-        if (arr?.includes(userId)) {
-          const newArr = nft?.likedBy.filter((acc) => acc.id !== userId)
-          const nftt = await prisma.nft.update({
-            data: {
-              likedBy: {
-                set: newArr,
-              },
-            },
-            where: {
-              id: nftId as string,
-            },
-            include: {
-              likedBy: true,
-            },
-          })
-          console.log(nftt)
-        } else {
-          const nftt = await prisma.nft.update({
-            data: {
-              likedBy: {
-                connect: { id: user.id },
-              },
-            },
-            where: {
-              id: nftId as string,
-            },
-            include: {
-              likedBy: true,
-            },
-          })
-          console.log(nftt)
-        }
-=======
         await prisma.notify.create({
           data: {
             typeNotify: 'Liked',
@@ -157,7 +121,6 @@ export default async function postLike(
             nameUserLiked: user.name,
           },
         })
->>>>>>> 399c7e80508c8e8f7849ada64f50cb46a4aad573
         const msg = {
           message: 'Passed. NFT successffully updated.',
           data: nft,
@@ -166,10 +129,6 @@ export default async function postLike(
       }
     }
   } catch (e) {
-<<<<<<< HEAD
-    console.log(e)
-=======
     console.error(e)
->>>>>>> 399c7e80508c8e8f7849ada64f50cb46a4aad573
   }
 }
