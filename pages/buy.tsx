@@ -49,8 +49,43 @@ const BuyPage: NextPage = () => {
             </h2>
             <p className="text-base">
               Buy your first package of coins and start exploring our amazing
-              marketplace!
+              marketplace!{' '}
+              <span className=" text-gray-500 ">
+                (To buy, you must use a{' '}
+                <a
+                  href="https://www.mercadopago.com.ar/developers/es/docs/subscriptions/integration-test/create-test-user"
+                  target="_blank"
+                  className=" text-blue-500 hover:text-blue-400 "
+                  rel="noreferrer"
+                >
+                  {' '}
+                  {'Mercado Pago'} test account
+                </a>
+                . <br />
+                See more about{' '}
+                <a
+                  href="https://www.mercadopago.com.ar/developers/es/docs/subscriptions/integration-test/create-test-user"
+                  target="_blank"
+                  className=" text-blue-500 hover:text-blue-400 "
+                  rel="noreferrer"
+                >
+                  {' '}
+                  test accounts{' '}
+                </a>{' '}
+                and{' '}
+                <a
+                  href="https://www.mercadopago.com.ar/developers/es/docs/checkout-api/integration-test/test-cards"
+                  target="_blank"
+                  className=" text-blue-500 hover:text-blue-400 "
+                  rel="noreferrer"
+                >
+                  {' '}
+                  test cards.{' '}
+                </a>
+                )
+              </span>
             </p>
+            <p className=" text-[1rem] "></p>
           </div>
           <div className="flex md:flex-nowrap flex-wrap justify-center">
             <div className="bg-white dark:bg-[#303339] rounded-xl py-10 px-8 min-w-[300px] w-1/3 mx-3 mb-5 drop-shadow-md">

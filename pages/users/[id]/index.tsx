@@ -27,7 +27,6 @@ interface Props {
 
 const UserDetail: NextPage<Props> = ({ user }) => {
   const { data: session } = useSession()
-  const account = session?.user
 
   const [uploadError, setUploadError] = useState(false)
 
@@ -329,7 +328,7 @@ const UserDetail: NextPage<Props> = ({ user }) => {
       >
         <div>
           <div className="h-[350px] bg-slate-900 dark:bg-[#161616]" />
-          {account?.id === user.id ? (
+          {session?.user.id === user.id ? (
             <div
               className=" h-[185px] w-[185px] absolute top-[225px] left-[60px] cursor-pointer"
               onClick={() => setSelectPhoto(true)}
@@ -360,7 +359,7 @@ const UserDetail: NextPage<Props> = ({ user }) => {
             </h2>
             <div>
               <span className="italic text-[1rem] text-gray-400">
-                {account.id}
+                {session?.user.id}
               </span>
               {user.emailVerified !== null && <span>verified</span>}
             </div>
@@ -517,8 +516,8 @@ const UserDetail: NextPage<Props> = ({ user }) => {
             </Link>
           </div>
         </div>
-        <div className="lg:px-[50px] px-[10px] flex flex-wrap mt-[20px]">
-          <div className=" border-[1px] justify-center lg:justify-start border-gray-400 w-full lg:w-[97.8%] min-h-[455px] rounded-[15px] px-[20px]  mb-4">
+        <div className="lg:px-[50px] px-[10px] flex flex-wrap mt-[20px] justify-center">
+          <div className=" border-[1px] justify-center lg:justify-start border-gray-400 w-full lg:w-[48%] min-h-[455px] rounded-[15px] px-[20px]  mb-4">
             <h3 className="text-[1.5rem] font-[600] text-gray-900 mt-2 dark:text-gray-200">
               Wishlist
             </h3>

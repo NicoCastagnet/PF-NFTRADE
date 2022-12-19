@@ -18,7 +18,6 @@ interface Props {
 
 const NftsOwned: NextPage<Props> = ({ user }) => {
   const { data: session } = useSession()
-  const account = session?.user
 
   const nfts = user.nftsOwned
 
@@ -32,7 +31,7 @@ const NftsOwned: NextPage<Props> = ({ user }) => {
             width={175}
             height={175}
             className=" bg-white rounded-full object-cover h-[175px] w-[175px]"
-            src={account?.image || defaultAvatar}
+            src={session?.user?.image || defaultAvatar}
             alt={session?.user.name}
           />
         </div>

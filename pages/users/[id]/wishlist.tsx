@@ -20,7 +20,6 @@ interface Props {
 
 const NftsOwned: NextPage<Props> = ({ user }) => {
   const { data: session } = useSession()
-  const account = session?.user
 
   const nfts = user.wishes
 
@@ -35,12 +34,12 @@ const NftsOwned: NextPage<Props> = ({ user }) => {
             height={175}
             quality={100}
             className="rounded-full object-cover bg-gray-200"
-            src={account?.image || defaultAvatar}
+            src={session?.user?.image || defaultAvatar}
           />
         </div>
         <div className="items-center flex flex-col w-full my-14">
           <h3 className=" text-[2rem] font-bold mb-10">
-            {account.name} |{' '}
+            {session?.user.name} |{' '}
             <span className="text-blue-600 font-bold">Wishlist</span>
           </h3>
           <div className="flex justify-center w-full">

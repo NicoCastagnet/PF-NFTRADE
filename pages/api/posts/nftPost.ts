@@ -47,6 +47,7 @@ export default async function postNft(
             published: true,
           },
         })
+        console.log(nfts)
         const msg = {
           text: 'The NFT was sucessfully created.',
           data: nfts,
@@ -55,6 +56,6 @@ export default async function postNft(
       }
     }
   } catch (error: any) {
-    console.error(error)
+    console.log(error)
   }
 }
